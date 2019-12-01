@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { toggleTheme } from 'actions';
+
 import {
   withStyles,
   WithStyles,
@@ -61,4 +64,8 @@ const Header: React.FC<Props> = ({ classes }) => {
   );
 };
 
-export default withStyles(styles)(Header);
+function mapStateToProps(state) {
+  return { theme: state.theme.mode };
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(Header));

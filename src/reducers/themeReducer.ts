@@ -1,25 +1,30 @@
 import { combineReducers } from 'redux';
-import { createReducer } from 'typesafe-actions';
+import { createReducer, ActionType } from 'typesafe-actions';
 
-import { TOGGLE_THEME } from './constants';
+import { TOGGLE_THEME } from 'actions/constants';
+import * as themeActions from 'actions';
+import { ThemeMode } from './constants';
 
-export type ThemeState = Readonly<{
-  mode: 'light' | 'dark';
-}>;
-
-const initialState: ThemeState = {
-  mode: 'light',
+export type ThemeState = {
+  mode: ThemeMode;
 };
 
-const toggle = createReducer(initialState.mode).handleType(
-  TOGGLE_THEME,
-  (state, action) =>
-    state.map(item =>
-      item.id === action.payload
-        ? { ...item, completed: !item.completed }
-        : item
-    )
-);
+export type ThemeAction = ActionType<typeof themeActions>;
+
+const initialState: ThemeState = {
+  mode: ThemeMode.Light,
+};
+
+const toggle = createReducer<ThemeState, ThemeAction>(
+  initialState
+).handleAction(TOGGLE_THEME, (state, _) => {
+  let mode = ThemeMode.Light;
+
+  if (state.mode === ThemeMode.Light) {
+    mode = ThemeMode.Dark;
+  }
+  return { ...state, mode };
+});
 
 export default combineReducers({
   toggle,

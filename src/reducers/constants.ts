@@ -1,1 +1,4 @@
-export const TOGGLE_THEME = 'toggle_theme';
+export enum ThemeMode {
+  Light = 'light',
+  Dark = 'dark',
+}
