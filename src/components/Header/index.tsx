@@ -14,9 +14,19 @@ import {
 import styles from './styles';
 import logo from 'logo.png';
 
-interface Props extends WithStyles<typeof styles> {}
+// Types
+import { RootState } from 'types';
 
-const Header: React.FC<Props> = ({ classes }) => {
+// Selectors
+import { selectThemeMode } from './selectors';
+
+interface OwnProps extends WithStyles<typeof styles> {}
+
+type Props = OwnProps &
+  ReturnType<typeof mapStateToProps> &
+  typeof mapDispatchToProps;
+
+const Header: React.FC<Props> = ({ classes, theme, toggleTheme }) => {
   return (
     <div className={classes.headerContainer}>
       <Container maxWidth="xl">
@@ -47,6 +57,15 @@ const Header: React.FC<Props> = ({ classes }) => {
           <Grid item>
             <Grid container spacing={1} alignItems="center">
               <Grid item>
+                <Button
+                  variant="outlined"
+                  color="inherit"
+                  onClick={() => toggleTheme()}
+                >
+                  Theme: {theme}
+                </Button>
+              </Grid>
+              <Grid item>
                 <Button variant="outlined" color="inherit">
                   Sign up
                 </Button>
@@ -64,8 +83,13 @@ const Header: React.FC<Props> = ({ classes }) => {
   );
 };
 
-function mapStateToProps(state) {
-  return { theme: state.theme.mode };
-}
+const mapStateToProps = (state: RootState) => {
+  return { theme: selectThemeMode(state) };
+};
 
-export default connect(mapStateToProps)(withStyles(styles)(Header));
+const mapDispatchToProps = { toggleTheme };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(Header));

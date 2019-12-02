@@ -15,7 +15,7 @@ const initialState: ThemeState = {
   mode: ThemeMode.Light,
 };
 
-const toggle = createReducer<ThemeState, ThemeAction>(
+export default createReducer<ThemeState, ThemeAction>(
   initialState
 ).handleAction(TOGGLE_THEME, (state, _) => {
   let mode = ThemeMode.Light;
@@ -24,8 +24,4 @@ const toggle = createReducer<ThemeState, ThemeAction>(
     mode = ThemeMode.Dark;
   }
   return { ...state, mode };
-});
-
-export default combineReducers({
-  toggle,
 });
