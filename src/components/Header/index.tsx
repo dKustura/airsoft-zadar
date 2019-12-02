@@ -9,8 +9,11 @@ import {
   Grid,
   Link,
   Container,
-  Typography,
+  IconButton,
 } from '@material-ui/core';
+import SunIcon from '@material-ui/icons/Brightness7';
+import MoonIcon from '@material-ui/icons/Brightness2';
+
 import styles from './styles';
 import logo from 'logo.png';
 
@@ -19,6 +22,7 @@ import { RootState } from 'types';
 
 // Selectors
 import { selectThemeMode } from './selectors';
+import { ThemeMode } from 'reducers/constants';
 
 interface OwnProps extends WithStyles<typeof styles> {}
 
@@ -57,13 +61,13 @@ const Header: React.FC<Props> = ({ classes, theme, toggleTheme }) => {
           <Grid item>
             <Grid container spacing={1} alignItems="center">
               <Grid item>
-                <Button
-                  variant="outlined"
+                <IconButton
+                  aria-label="toggle theme"
                   color="inherit"
                   onClick={() => toggleTheme()}
                 >
-                  Theme: {theme}
-                </Button>
+                  {theme === ThemeMode.Light ? <MoonIcon /> : <SunIcon />}
+                </IconButton>
               </Grid>
               <Grid item>
                 <Button variant="outlined" color="inherit">
