@@ -12,7 +12,7 @@ export type ThemeState = {
 export type ThemeAction = ActionType<typeof themeActions>;
 
 const initialState: ThemeState = {
-  mode: ThemeMode.Light,
+  mode: ThemeMode.Dark,
 };
 
 export default createReducer<ThemeState, ThemeAction>(

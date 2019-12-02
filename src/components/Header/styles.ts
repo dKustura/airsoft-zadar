@@ -3,8 +3,8 @@ import { createStyles, Theme } from '@material-ui/core';
 export default (theme: Theme) =>
   createStyles({
     headerContainer: {
-      paddingTop: 10,
-      paddingBottom: 10,
-      backgroundColor: theme.palette.primary.dark,
+      paddingTop: 5,
+      paddingBottom: 5,
+      backgroundColor: theme.palette.primary.main,
     },
   });
