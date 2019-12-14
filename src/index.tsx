@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 import { HashRouter } from 'react-router-dom';
-import Firebase, { FirebaseContext } from 'components/Firebase';
+import Firebase, { FirebaseProvider } from 'components/Firebase';
 
 const ROOT_COMPONENT = 'root';
 const firebase = new Firebase();
@@ -15,9 +15,9 @@ const firebase = new Firebase();
 ReactDOM.render(
   <Provider store={store}>
     <HashRouter>
-      <FirebaseContext.Provider value={firebase}>
+      <FirebaseProvider value={firebase}>
         <App />
-      </FirebaseContext.Provider>
+      </FirebaseProvider>
     </HashRouter>
   </Provider>,
   document.getElementById(ROOT_COMPONENT)

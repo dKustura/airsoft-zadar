@@ -1,7 +1,7 @@
 import React from 'react';
 import Firebase from './firebase';
 
-const FirebaseContext = React.createContext<Firebase | null>(null);
+const { Provider, Consumer } = React.createContext<Firebase | null>(null);
 
 export type WithFirebase = {
   readonly firebase: Firebase;
@@ -10,9 +10,9 @@ export type WithFirebase = {
 export const withFirebase = <Props extends object>(
   Component: React.ComponentType<Props>
 ) => (props: Props) => (
-  <FirebaseContext.Consumer>
+  <Consumer>
     {firebase => <Component {...props} firebase={firebase} />}
-  </FirebaseContext.Consumer>
+  </Consumer>
 );
 
-export default FirebaseContext;
+export { Provider, Consumer };
