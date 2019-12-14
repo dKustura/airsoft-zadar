@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { toggleTheme } from 'actions';
 
+// Components
 import {
   withStyles,
   WithStyles,
@@ -15,14 +16,17 @@ import SunIcon from '@material-ui/icons/Brightness7';
 import MoonIcon from '@material-ui/icons/Brightness2';
 
 import styles from './styles';
-import logo from 'logo.png';
+// import logo from 'logo.png';
 
-// Types
-import { RootState } from 'types';
+// Helpers
+import { ThemeMode } from 'reducers/constants';
+import { ButtonLink } from 'helpers';
 
 // Selectors
 import { selectThemeMode } from './selectors';
-import { ThemeMode } from 'reducers/constants';
+
+// Types
+import { RootState } from 'types';
 
 interface OwnProps extends WithStyles<typeof styles> {}
 
@@ -64,18 +68,25 @@ const Header: React.FC<Props> = ({ classes, theme, toggleTheme }) => {
                 <IconButton
                   aria-label="toggle theme"
                   color="inherit"
+                  title="Toggle theme"
                   onClick={() => toggleTheme()}
                 >
                   {theme === ThemeMode.Light ? <MoonIcon /> : <SunIcon />}
                 </IconButton>
               </Grid>
               <Grid item>
-                <Button variant="outlined" color="inherit">
+                <Button
+                  aria-label="sign up"
+                  variant="outlined"
+                  color="inherit"
+                  component={ButtonLink}
+                  to="/signUp"
+                >
                   Sign up
                 </Button>
               </Grid>
               <Grid item>
-                <Button variant="outlined" color="inherit">
+                <Button aria-label="sign in" variant="outlined" color="inherit">
                   LogIn
                 </Button>
               </Grid>

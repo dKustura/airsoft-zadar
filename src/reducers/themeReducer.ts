@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux';
 import { createReducer, ActionType } from 'typesafe-actions';
 
 import { TOGGLE_THEME } from 'actions/constants';
