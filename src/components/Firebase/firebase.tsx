@@ -56,7 +56,7 @@ class Firebase {
       process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT &&
       this.auth.currentUser
     ) {
-      return this.auth.currentUser.sendEmailVerification({
+      this.auth.currentUser.sendEmailVerification({
         url: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT,
       });
     }
@@ -64,7 +64,7 @@ class Firebase {
 
   doPasswordUpdate = (password: string) => {
     if (this.auth.currentUser) {
-      return this.auth.currentUser.updatePassword(password);
+      this.auth.currentUser.updatePassword(password);
     }
   };
 

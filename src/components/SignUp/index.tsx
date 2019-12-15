@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { compose } from 'redux';
 import { Formik, Form } from 'formik';
+import { withRouter, RouteComponentProps } from 'react-router';
+import { withFirebase } from 'components/Firebase';
+import { withSnackbar, WithSnackbarProps } from 'notistack';
 
 // Components
 import {
-  withStyles,
-  WithStyles,
   Container,
   Avatar,
   Typography,
@@ -12,22 +14,36 @@ import {
   TextField,
   Button,
   Link,
+  CircularProgress,
 } from '@material-ui/core';
-import { withFirebase } from 'components/Firebase';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 // Styling
+import { withStyles, WithStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
 // Helpers
 import { INITIAL_SIGNUP_FORM_VALUES } from './constants';
+import { successNotification, errorNotification } from 'helpers/snackbar';
 
 // Types
 import { WithFirebase } from 'components/Firebase/context';
+import { FirebaseError } from 'firebase';
 
-interface Props extends WithStyles<typeof styles>, WithFirebase {}
+interface Props
+  extends WithStyles<typeof styles>,
+    WithFirebase,
+    RouteComponentProps,
+    WithSnackbarProps {}
 
-const SignUp: React.FC<Props> = ({ classes, firebase }: Props) => {
+const SignUp: React.FC<Props> = ({
+  classes,
+  firebase,
+  history,
+  enqueueSnackbar,
+}: Props) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   return (
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
@@ -40,15 +56,24 @@ const SignUp: React.FC<Props> = ({ classes, firebase }: Props) => {
         <Formik
           initialValues={INITIAL_SIGNUP_FORM_VALUES}
           onSubmit={(values, actions) => {
-            console.log({ values, actions });
+            setIsLoading(true);
+
             firebase
               .doCreateUserWithEmailAndPassword(values.email, values.password)
               .then(credentials => {
                 console.log('credentials', credentials);
-                actions.setSubmitting(false);
+                enqueueSnackbar(
+                  'You signed up successfully!',
+                  successNotification
+                );
+                history.push('/');
               })
-              .catch(error => {
-                console.log('error', error);
+              .catch((error: FirebaseError) => {
+                enqueueSnackbar(error.message, errorNotification);
+              })
+              .finally(() => {
+                setIsLoading(false);
+                actions.setSubmitting(false);
               });
           }}
           render={({ values, handleChange, handleBlur, errors, touched }) => (
@@ -120,7 +145,11 @@ const SignUp: React.FC<Props> = ({ classes, firebase }: Props) => {
                 className={classes.submit}
                 fullWidth
               >
-                Sign Up
+                {isLoading ? (
+                  <CircularProgress color="secondary" size={24} thickness={6} />
+                ) : (
+                  'Sign Up'
+                )}
               </Button>
               <Grid container justify="flex-end">
                 <Grid item>
@@ -137,4 +166,8 @@ const SignUp: React.FC<Props> = ({ classes, firebase }: Props) => {
   );
 };
 
-export default withFirebase(withStyles(styles)(SignUp));
+export default compose<any>(
+  withFirebase,
+  withRouter,
+  withSnackbar
+)(withStyles(styles)(SignUp));
