@@ -19,4 +19,32 @@ export default (theme: Theme) =>
     submit: {
       margin: theme.spacing(3, 0, 2),
     },
+    social: {
+      width: '100%',
+      position: 'relative',
+      overflow: 'hidden',
+      textAlign: 'center',
+    },
+    socialSpan: {
+      display: 'inline-block',
+      verticalAlign: 'baseline',
+      padding: '0 20px',
+
+      '&::before, &::after': {
+        content: "''",
+        display: 'block',
+        width: '500px',
+        position: 'absolute',
+        top: '0.8em',
+        borderTop: `1px solid ${theme.palette.text.primary}`,
+      },
+
+      '&::before': {
+        right: '80%',
+      },
+
+      '&::after': {
+        left: '80%',
+      },
+    },
   });

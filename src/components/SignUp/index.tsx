@@ -15,8 +15,11 @@ import {
   Button,
   Link,
   CircularProgress,
+  IconButton,
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import TwitterIcon from '@material-ui/icons/Twitter';
 
 // Styling
 import { withStyles, WithStyles } from '@material-ui/core/styles';
@@ -51,7 +54,7 @@ const SignUp: React.FC<Props> = ({
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Create Account
         </Typography>
         <Formik
           initialValues={INITIAL_SIGNUP_FORM_VALUES}
@@ -151,9 +154,29 @@ const SignUp: React.FC<Props> = ({
                   'Sign Up'
                 )}
               </Button>
-              <Grid container justify="flex-end">
+              <Grid container>
+                <Grid item className={classes.social}>
+                  <Typography component="span" className={classes.socialSpan}>
+                    or sign up with social media
+                  </Typography>
+                </Grid>
+              </Grid>
+              <Grid container justify="center">
                 <Grid item>
-                  <Link href="/" variant="body2">
+                  <IconButton>
+                    <FacebookIcon fontSize="large" />
+                  </IconButton>
+                </Grid>
+                <Grid item>
+                  <IconButton>
+                    <TwitterIcon fontSize="large" />
+                  </IconButton>
+                </Grid>
+              </Grid>
+
+              <Grid container justify="center">
+                <Grid item>
+                  <Link href="/" variant="body1">
                     Already have an account? Sign in
                   </Link>
                 </Grid>
