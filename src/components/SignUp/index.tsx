@@ -28,6 +28,7 @@ import styles from './styles';
 // Helpers
 import { INITIAL_SIGNUP_FORM_VALUES } from './constants';
 import { successNotification, errorNotification } from 'helpers/snackbar';
+import { MaterialRouterLink } from 'helpers';
 
 // Types
 import { WithFirebase } from 'components/Firebase/context';
@@ -176,7 +177,7 @@ const SignUp: React.FC<Props> = ({
 
               <Grid container justify="center">
                 <Grid item>
-                  <Link href="/" variant="body1">
+                  <Link component={MaterialRouterLink} to="/" variant="body1">
                     Already have an account? Sign in
                   </Link>
                 </Grid>

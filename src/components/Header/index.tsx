@@ -20,7 +20,7 @@ import styles from './styles';
 
 // Helpers
 import { ThemeMode } from 'reducers/constants';
-import { ButtonLink } from 'helpers';
+import { MaterialRouterLink } from 'helpers';
 
 // Selectors
 import { selectThemeMode } from './selectors';
@@ -45,17 +45,32 @@ const Header: React.FC<Props> = ({ classes, theme, toggleTheme }) => {
                 <img src={logo} alt="logo" />
               </Grid> */}
               <Grid item>
-                <Link component="button" variant="h6" color="inherit">
+                <Link
+                  component={MaterialRouterLink}
+                  variant="h6"
+                  color="inherit"
+                  to="/"
+                >
                   Home
                 </Link>
               </Grid>
               <Grid item>
-                <Link component="button" variant="h6" color="inherit">
+                <Link
+                  component={MaterialRouterLink}
+                  variant="h6"
+                  color="inherit"
+                  to="/blog"
+                >
                   Blog
                 </Link>
               </Grid>
               <Grid item>
-                <Link component="button" variant="h6" color="inherit">
+                <Link
+                  component={MaterialRouterLink}
+                  variant="h6"
+                  color="inherit"
+                  to="/about"
+                >
                   About
                 </Link>
               </Grid>
@@ -79,7 +94,7 @@ const Header: React.FC<Props> = ({ classes, theme, toggleTheme }) => {
                   aria-label="sign up"
                   variant="outlined"
                   color="inherit"
-                  component={ButtonLink}
+                  component={MaterialRouterLink}
                   to="/signUp"
                 >
                   Sign up

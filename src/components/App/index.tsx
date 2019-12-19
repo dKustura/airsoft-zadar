@@ -11,6 +11,8 @@ import { Helmet } from 'react-helmet';
 import { getTheme } from 'components/Theme';
 import Home from 'components/Home';
 import SignUp from 'components/SignUp';
+import Header from 'components/Header';
+
 import { RootState } from 'types';
 
 import { selectThemeMode } from './selectors';
@@ -26,6 +28,8 @@ const App: React.FC<Props> = ({ theme }: Props) => {
       <Helmet>
         <title>Airsoft Klub Zadar</title>
       </Helmet>
+
+      <Header />
 
       <Switch>
         <Route path="/signUp" component={SignUp} />
