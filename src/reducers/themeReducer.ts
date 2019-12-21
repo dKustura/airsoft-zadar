@@ -1,7 +1,7 @@
 import { createReducer, ActionType } from 'typesafe-actions';
 
 import { TOGGLE_THEME } from 'actions/constants';
-import * as themeActions from 'actions';
+import { themeActions } from 'actions';
 import { ThemeMode } from './constants';
 
 export type ThemeState = {

@@ -1,6 +1,4 @@
-import { createAction } from 'typesafe-actions';
-import { TOGGLE_THEME } from './constants';
+import * as themeActions from './theme';
+import * as sessionActions from './session';
 
-export const toggleTheme = createAction(TOGGLE_THEME, action => {
-  return () => action();
-});
+export { themeActions, sessionActions };

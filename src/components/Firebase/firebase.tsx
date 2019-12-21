@@ -5,13 +5,13 @@ import 'firebase/database';
 import firebaseConfig from './config';
 
 class Firebase {
-  private serverValue: typeof firebase.database.ServerValue;
-  private emailAuthProvider: typeof firebase.auth.EmailAuthProvider;
-  private auth: firebase.auth.Auth;
-  private db: firebase.database.Database;
-  private googleProvider: firebase.auth.GoogleAuthProvider;
-  private facebookProvider: firebase.auth.FacebookAuthProvider;
-  private twitterProvider: firebase.auth.TwitterAuthProvider;
+  public serverValue: typeof firebase.database.ServerValue;
+  public emailAuthProvider: typeof firebase.auth.EmailAuthProvider;
+  public auth: firebase.auth.Auth;
+  public db: firebase.database.Database;
+  public googleProvider: firebase.auth.GoogleAuthProvider;
+  public facebookProvider: firebase.auth.FacebookAuthProvider;
+  public twitterProvider: firebase.auth.TwitterAuthProvider;
 
   constructor() {
     firebase.initializeApp(firebaseConfig);
@@ -67,6 +67,38 @@ class Firebase {
       this.auth.currentUser.updatePassword(password);
     }
   };
+
+  onAuthUserListener = (
+    next: (user: firebase.User) => void,
+    fallback: () => void
+  ) =>
+    this.auth.onAuthStateChanged(authUser => {
+      if (authUser) {
+        this.user(authUser.uid)
+          .once('value')
+          .then(snapshot => {
+            // const dbUser = snapshot.val();
+
+            // // default empty roles
+            // if (!dbUser.roles) {
+            //   dbUser.roles = {};
+            // }
+
+            // // merge auth and db user
+            // authUser = {
+            //   uid: authUser.uid,
+            //   email: authUser.email,
+            //   emailVerified: authUser.emailVerified,
+            //   providerData: authUser.providerData,
+            //   ...dbUser,
+            // };
+
+            next(authUser);
+          });
+      } else {
+        fallback();
+      }
+    });
 
   // *** User API ***
 

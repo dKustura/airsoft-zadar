@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { toggleTheme } from 'actions';
+
+// Actions
+import { toggleTheme } from 'actions/theme';
 
 // Components
 import {

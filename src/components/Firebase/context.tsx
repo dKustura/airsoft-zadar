@@ -3,7 +3,7 @@ import Firebase from './firebase';
 
 const { Provider, Consumer } = React.createContext<Firebase | null>(null);
 
-export type WithFirebase = {
+export type WithFirebaseProps = {
   readonly firebase: Firebase;
 };
 

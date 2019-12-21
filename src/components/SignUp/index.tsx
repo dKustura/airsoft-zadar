@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { compose } from 'redux';
 import { Formik, Form } from 'formik';
 import { withRouter, RouteComponentProps } from 'react-router';
-import { withFirebase } from 'components/Firebase';
+import { withFirebase, WithFirebaseProps } from 'components/Firebase';
 import { withSnackbar, WithSnackbarProps } from 'notistack';
 
 // Components
@@ -31,12 +31,11 @@ import { successNotification, errorNotification } from 'helpers/snackbar';
 import { MaterialRouterLink } from 'helpers';
 
 // Types
-import { WithFirebase } from 'components/Firebase/context';
 import { FirebaseError } from 'firebase';
 
 interface Props
   extends WithStyles<typeof styles>,
-    WithFirebase,
+    WithFirebaseProps,
     RouteComponentProps,
     WithSnackbarProps {}
 
