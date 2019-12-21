@@ -74,6 +74,7 @@ class Firebase {
   ) =>
     this.auth.onAuthStateChanged(authUser => {
       if (authUser) {
+        // TODO: fix This next operation is forbidden
         this.user(authUser.uid)
           .once('value')
           .then(snapshot => {
@@ -93,6 +94,7 @@ class Firebase {
             //   ...dbUser,
             // };
 
+            console.log('authUser', authUser);
             next(authUser);
           });
       } else {

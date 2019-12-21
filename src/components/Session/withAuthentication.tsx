@@ -8,7 +8,8 @@ import { setAuthUser } from 'actions/session';
 // Components
 import { withFirebase, WithFirebaseProps } from 'components/Firebase';
 
-type WithAuthenticationProps = WithFirebaseProps & typeof mapDispatchToProps;
+export type WithAuthenticationProps = WithFirebaseProps &
+  typeof mapDispatchToProps;
 
 const withAuthentication = <Props extends WithAuthenticationProps>(
   Component: React.ComponentType<Props>
@@ -49,7 +50,7 @@ const withAuthentication = <Props extends WithAuthenticationProps>(
     }
   }
 
-  return compose(
+  return compose<any>(
     withFirebase,
     connect(null, mapDispatchToProps)
   )(WithAuthentication);

@@ -72,11 +72,9 @@ const SignUp: React.FC<Props> = ({
                 history.push('/');
               })
               .catch((error: FirebaseError) => {
-                enqueueSnackbar(error.message, errorNotification);
-              })
-              .finally(() => {
                 setIsLoading(false);
                 actions.setSubmitting(false);
+                enqueueSnackbar(error.message, errorNotification);
               });
           }}
           render={({ values, handleChange, handleBlur, errors, touched }) => (

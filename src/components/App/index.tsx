@@ -16,10 +16,16 @@ import Header from 'components/Header';
 import { RootState } from 'types';
 
 import { selectThemeMode } from './selectors';
+import {
+  withAuthentication,
+  WithAuthenticationProps,
+} from 'components/Session';
 
 interface OwnProps {}
 
-type Props = OwnProps & ReturnType<typeof mapStateToProps>;
+type Props = OwnProps &
+  ReturnType<typeof mapStateToProps> &
+  WithAuthenticationProps;
 
 const App: React.FC<Props> = ({ theme }: Props) => {
   return (
@@ -45,4 +51,6 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withAuthentication(
+  connect(mapStateToProps, mapDispatchToProps)(App)
+);
