@@ -182,7 +182,11 @@ const SignUp: React.FC<Props> = ({
 
               <Grid container justify="center">
                 <Grid item>
-                  <Link component={MaterialRouterLink} to="/" variant="body2">
+                  <Link
+                    component={MaterialRouterLink}
+                    to="/signIn"
+                    variant="body2"
+                  >
                     Already have an account? Sign in
                   </Link>
                 </Grid>

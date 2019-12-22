@@ -29,7 +29,7 @@ import { MaterialRouterLink } from 'helpers';
 import { successNotification, errorNotification } from 'helpers/snackbar';
 
 // Selectors
-import { selectThemeMode } from './selectors';
+import { selectThemeMode, selectAuthUser } from './selectors';
 
 // Types
 import { RootState } from 'types';
@@ -45,6 +45,7 @@ type Props = OwnProps &
 const Header: React.FC<Props> = ({
   classes,
   theme,
+  authUser,
   toggleTheme,
   firebase,
   enqueueSnackbar,
@@ -103,47 +104,55 @@ const Header: React.FC<Props> = ({
                   {theme === ThemeMode.Light ? <MoonIcon /> : <SunIcon />}
                 </IconButton>
               </Grid>
-              <Grid item>
-                <Button
-                  aria-label="sign up"
-                  variant="outlined"
-                  color="inherit"
-                  component={MaterialRouterLink}
-                  to="/signUp"
-                >
-                  Sign up
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button
-                  aria-label="sign in"
-                  variant="outlined"
-                  color="inherit"
-                  component={MaterialRouterLink}
-                  to="/signIn"
-                >
-                  Log In
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button
-                  aria-label="sign up"
-                  variant="outlined"
-                  color="inherit"
-                  onClick={() =>
-                    firebase
-                      .doSignOut()
-                      .then(() => {
-                        enqueueSnackbar('Signed out.', successNotification);
-                      })
-                      .catch((error: FirebaseError) => {
-                        enqueueSnackbar(error.message, errorNotification);
-                      })
-                  }
-                >
-                  Sign out
-                </Button>
-              </Grid>
+              {!authUser ? (
+                <>
+                  <Grid item>
+                    <Button
+                      aria-label="sign up"
+                      variant="outlined"
+                      color="inherit"
+                      component={MaterialRouterLink}
+                      to="/signUp"
+                    >
+                      Sign up
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      aria-label="sign in"
+                      variant="outlined"
+                      color="inherit"
+                      component={MaterialRouterLink}
+                      to="/signIn"
+                    >
+                      Log In
+                    </Button>
+                  </Grid>
+                </>
+              ) : (
+                <>
+                  <Grid item>{authUser.email}</Grid>
+                  <Grid item>
+                    <Button
+                      aria-label="sign up"
+                      variant="outlined"
+                      color="inherit"
+                      onClick={() =>
+                        firebase
+                          .doSignOut()
+                          .then(() => {
+                            enqueueSnackbar('Signed out.', successNotification);
+                          })
+                          .catch((error: FirebaseError) => {
+                            enqueueSnackbar(error.message, errorNotification);
+                          })
+                      }
+                    >
+                      Sign out
+                    </Button>
+                  </Grid>
+                </>
+              )}
             </Grid>
           </Grid>
         </Grid>
@@ -153,12 +162,10 @@ const Header: React.FC<Props> = ({
 };
 
 const mapStateToProps = (state: RootState) => {
-  return { theme: selectThemeMode(state) };
+  return { theme: selectThemeMode(state), authUser: selectAuthUser(state) };
 };
 
 const mapDispatchToProps = { toggleTheme };
-
-// export default withFirebase(withStyles(styles)(Header));
 
 export default compose<any>(
   withFirebase,
