@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withSnackbar, WithSnackbarProps } from 'notistack';
+import { compose } from 'redux';
 
 // Actions
 import { toggleTheme } from 'actions/theme';
@@ -16,6 +18,7 @@ import {
 } from '@material-ui/core';
 import SunIcon from '@material-ui/icons/Brightness7';
 import MoonIcon from '@material-ui/icons/Brightness2';
+import { withFirebase, WithFirebaseProps } from 'components/Firebase';
 
 import styles from './styles';
 // import logo from 'logo.png';
@@ -23,20 +26,29 @@ import styles from './styles';
 // Helpers
 import { ThemeMode } from 'reducers/constants';
 import { MaterialRouterLink } from 'helpers';
+import { successNotification, errorNotification } from 'helpers/snackbar';
 
 // Selectors
 import { selectThemeMode } from './selectors';
 
 // Types
 import { RootState } from 'types';
+import { FirebaseError } from 'firebase';
 
-interface OwnProps extends WithStyles<typeof styles> {}
+interface OwnProps extends WithStyles<typeof styles>, WithFirebaseProps {}
 
 type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps;
+  typeof mapDispatchToProps &
+  WithSnackbarProps;
 
-const Header: React.FC<Props> = ({ classes, theme, toggleTheme }) => {
+const Header: React.FC<Props> = ({
+  classes,
+  theme,
+  toggleTheme,
+  firebase,
+  enqueueSnackbar,
+}) => {
   return (
     <div className={classes.headerContainer}>
       <Container maxWidth="xl">
@@ -113,6 +125,25 @@ const Header: React.FC<Props> = ({ classes, theme, toggleTheme }) => {
                   Log In
                 </Button>
               </Grid>
+              <Grid item>
+                <Button
+                  aria-label="sign up"
+                  variant="outlined"
+                  color="inherit"
+                  onClick={() =>
+                    firebase
+                      .doSignOut()
+                      .then(() => {
+                        enqueueSnackbar('Signed out.', successNotification);
+                      })
+                      .catch((error: FirebaseError) => {
+                        enqueueSnackbar(error.message, errorNotification);
+                      })
+                  }
+                >
+                  Sign out
+                </Button>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
@@ -127,7 +158,10 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = { toggleTheme };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+// export default withFirebase(withStyles(styles)(Header));
+
+export default compose<any>(
+  withFirebase,
+  withSnackbar,
+  connect(mapStateToProps, mapDispatchToProps)
 )(withStyles(styles)(Header));

@@ -78,7 +78,8 @@ const SignUp: React.FC<Props> = ({
                 enqueueSnackbar(error.message, errorNotification);
               });
           }}
-          render={({ values, handleChange, handleBlur, errors, touched }) => (
+        >
+          {({ values, handleChange, handleBlur, errors, touched }) => (
             <Form className={classes.form}>
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
@@ -194,7 +195,7 @@ const SignUp: React.FC<Props> = ({
               </Grid>
             </Form>
           )}
-        />
+        </Formik>
       </div>
     </Container>
   );

@@ -16,8 +16,6 @@ import {
   Link,
   CircularProgress,
   IconButton,
-  FormControlLabel,
-  Checkbox,
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import FacebookIcon from '@material-ui/icons/Facebook';
@@ -80,7 +78,8 @@ const SignIn: React.FC<Props> = ({
                 enqueueSnackbar(error.message, errorNotification);
               });
           }}
-          render={({ values, handleChange, handleBlur, errors, touched }) => (
+        >
+          {({ values, handleChange, handleBlur, errors, touched }) => (
             <Form className={classes.form}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -181,7 +180,7 @@ const SignIn: React.FC<Props> = ({
               </Grid>
             </Form>
           )}
-        />
+        </Formik>
       </div>
     </Container>
   );
