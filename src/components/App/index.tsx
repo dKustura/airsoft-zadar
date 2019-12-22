@@ -11,6 +11,7 @@ import { Helmet } from 'react-helmet';
 import { getTheme } from 'components/Theme';
 import Home from 'components/Home';
 import SignUp from 'components/SignUp';
+import SignIn from 'components/SignIn';
 import Header from 'components/Header';
 
 import { RootState } from 'types';
@@ -39,6 +40,7 @@ const App: React.FC<Props> = ({ theme }: Props) => {
 
       <Switch>
         <Route path="/signUp" component={SignUp} />
+        <Route path="/signIn" component={SignIn} />
         <Route path="/" component={Home} />
       </Switch>
     </MuiThemeProvider>

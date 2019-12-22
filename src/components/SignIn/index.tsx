@@ -16,6 +16,8 @@ import {
   Link,
   CircularProgress,
   IconButton,
+  FormControlLabel,
+  Checkbox,
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import FacebookIcon from '@material-ui/icons/Facebook';
@@ -27,7 +29,7 @@ import { withStyles, WithStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
 // Helpers
-import { INITIAL_SIGNUP_FORM_VALUES } from './constants';
+import { INITIAL_SIGNIN_FORM_VALUES } from './constants';
 import { successNotification, errorNotification } from 'helpers/snackbar';
 import { MaterialRouterLink } from 'helpers';
 
@@ -40,7 +42,7 @@ interface Props
     RouteComponentProps,
     WithSnackbarProps {}
 
-const SignUp: React.FC<Props> = ({
+const SignIn: React.FC<Props> = ({
   classes,
   firebase,
   history,
@@ -55,61 +57,32 @@ const SignUp: React.FC<Props> = ({
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Create Account
+          Sign In
         </Typography>
         <Formik
-          initialValues={INITIAL_SIGNUP_FORM_VALUES}
+          initialValues={INITIAL_SIGNIN_FORM_VALUES}
           onSubmit={(values, actions) => {
             setIsLoading(true);
 
-            firebase
-              .doCreateUserWithEmailAndPassword(values.email, values.password)
-              .then(credentials => {
-                console.log('credentials', credentials);
-                enqueueSnackbar(
-                  'You signed up successfully!',
-                  successNotification
-                );
-                history.push('/');
-              })
-              .catch((error: FirebaseError) => {
-                setIsLoading(false);
-                actions.setSubmitting(false);
-                enqueueSnackbar(error.message, errorNotification);
-              });
+            // firebase
+            //   .doCreateUserWithEmailAndPassword(values.email, values.password)
+            //   .then(credentials => {
+            //     console.log('credentials', credentials);
+            //     enqueueSnackbar(
+            //       'You signed up successfully!',
+            //       successNotification
+            //     );
+            //     history.push('/');
+            //   })
+            //   .catch((error: FirebaseError) => {
+            //     setIsLoading(false);
+            //     actions.setSubmitting(false);
+            //     enqueueSnackbar(error.message, errorNotification);
+            //   });
           }}
           render={({ values, handleChange, handleBlur, errors, touched }) => (
             <Form className={classes.form}>
               <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    id="firstName"
-                    name="firstName"
-                    label="First Name"
-                    value={values.firstName}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    variant="outlined"
-                    autoComplete="fname"
-                    fullWidth
-                    autoFocus
-                    required
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    id="lastName"
-                    name="lastName"
-                    label="Last Name"
-                    value={values.lastName}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    variant="outlined"
-                    autoComplete="lname"
-                    fullWidth
-                    required
-                  />
-                </Grid>
                 <Grid item xs={12}>
                   <TextField
                     id="email"
@@ -121,6 +94,7 @@ const SignUp: React.FC<Props> = ({
                     variant="outlined"
                     autoComplete="email"
                     fullWidth
+                    autoFocus
                     required
                   />
                 </Grid>
@@ -154,7 +128,7 @@ const SignUp: React.FC<Props> = ({
                         thickness={6}
                       />
                     ) : (
-                      'Sign Up'
+                      'Login'
                     )}
                   </Button>
                 </Grid>
@@ -162,7 +136,7 @@ const SignUp: React.FC<Props> = ({
               <Grid container>
                 <Grid item className={classes.social}>
                   <Typography component="span" className={classes.socialSpan}>
-                    or sign up with social media
+                    or login with social media
                   </Typography>
                 </Grid>
               </Grid>
@@ -179,10 +153,23 @@ const SignUp: React.FC<Props> = ({
                 </Grid>
               </Grid>
 
-              <Grid container justify="center">
+              <Grid container justify="space-between">
                 <Grid item>
-                  <Link component={MaterialRouterLink} to="/" variant="body2">
-                    Already have an account? Sign in
+                  <Link
+                    component={MaterialRouterLink}
+                    to="/resetPassword"
+                    variant="body2"
+                  >
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link
+                    component={MaterialRouterLink}
+                    to="/signUp"
+                    variant="body2"
+                  >
+                    Don't have an account?
                   </Link>
                 </Grid>
               </Grid>
@@ -204,4 +191,4 @@ export default compose<any>(
   withFirebase,
   withRouter,
   withSnackbar
-)(withStyles(styles)(SignUp));
+)(withStyles(styles)(SignIn));

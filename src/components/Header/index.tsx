@@ -103,8 +103,14 @@ const Header: React.FC<Props> = ({ classes, theme, toggleTheme }) => {
                 </Button>
               </Grid>
               <Grid item>
-                <Button aria-label="sign in" variant="outlined" color="inherit">
-                  LogIn
+                <Button
+                  aria-label="sign in"
+                  variant="outlined"
+                  color="inherit"
+                  component={MaterialRouterLink}
+                  to="/signIn"
+                >
+                  Log In
                 </Button>
               </Grid>
             </Grid>
