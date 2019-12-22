@@ -64,21 +64,21 @@ const SignIn: React.FC<Props> = ({
           onSubmit={(values, actions) => {
             setIsLoading(true);
 
-            // firebase
-            //   .doCreateUserWithEmailAndPassword(values.email, values.password)
-            //   .then(credentials => {
-            //     console.log('credentials', credentials);
-            //     enqueueSnackbar(
-            //       'You signed up successfully!',
-            //       successNotification
-            //     );
-            //     history.push('/');
-            //   })
-            //   .catch((error: FirebaseError) => {
-            //     setIsLoading(false);
-            //     actions.setSubmitting(false);
-            //     enqueueSnackbar(error.message, errorNotification);
-            //   });
+            firebase
+              .doSignInWithEmailAndPassword(values.email, values.password)
+              .then(credentials => {
+                console.log('credentials', credentials);
+                enqueueSnackbar(
+                  'You logged in successfully!',
+                  successNotification
+                );
+                history.push('/');
+              })
+              .catch((error: FirebaseError) => {
+                setIsLoading(false);
+                actions.setSubmitting(false);
+                enqueueSnackbar(error.message, errorNotification);
+              });
           }}
           render={({ values, handleChange, handleBlur, errors, touched }) => (
             <Form className={classes.form}>
