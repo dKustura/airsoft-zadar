@@ -1,14 +1,13 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import 'firebase/database';
+import 'firebase/firestore';
 
 import firebaseConfig from './config';
 
 class Firebase {
-  public serverValue: typeof firebase.database.ServerValue;
   public emailAuthProvider: typeof firebase.auth.EmailAuthProvider;
   public auth: firebase.auth.Auth;
-  public db: firebase.database.Database;
+  public db: firebase.firestore.Firestore;
   public googleProvider: firebase.auth.GoogleAuthProvider;
   public facebookProvider: firebase.auth.FacebookAuthProvider;
   public twitterProvider: firebase.auth.TwitterAuthProvider;
@@ -17,14 +16,12 @@ class Firebase {
     firebase.initializeApp(firebaseConfig);
 
     /* Helper */
-
-    this.serverValue = firebase.database.ServerValue;
     this.emailAuthProvider = firebase.auth.EmailAuthProvider;
 
     /* Firebase APIs */
 
     this.auth = firebase.auth();
-    this.db = firebase.database();
+    this.db = firebase.firestore();
 
     /* Social Sign In Method Provider */
 
@@ -63,9 +60,7 @@ class Firebase {
   };
 
   doPasswordUpdate = (password: string) => {
-    if (this.auth.currentUser) {
-      this.auth.currentUser.updatePassword(password);
-    }
+    this.auth.currentUser?.updatePassword(password);
   };
 
   onAuthUserListener = (
@@ -105,9 +100,9 @@ class Firebase {
 
   // *** User API ***
 
-  user = (uid: string) => this.db.ref(`users/${uid}`);
+  user = (uid: string) => this.users().doc(`${uid}`);
 
-  users = () => this.db.ref('users');
+  users = () => this.db.collection('users');
 }
 
 export default Firebase;

@@ -1,7 +1,7 @@
 import { createReducer, ActionType } from 'typesafe-actions';
 
 import { SET_AUTH_USER } from 'actions/constants';
-import * as sessionActions from 'actions';
+import { sessionActions } from 'actions';
 
 export type SessionState = {
   authUser: firebase.User | null;

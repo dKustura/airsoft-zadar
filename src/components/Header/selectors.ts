@@ -14,3 +14,8 @@ export const selectAuthUser = createSelector(
   selectSessionState,
   session => session.authUser
 );
+
+export const selectUserDisplayName = createSelector(
+  selectSessionState,
+  session => session.authUser?.displayName
+);

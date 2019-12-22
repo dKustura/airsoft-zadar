@@ -29,7 +29,11 @@ import { MaterialRouterLink } from 'helpers';
 import { successNotification, errorNotification } from 'helpers/snackbar';
 
 // Selectors
-import { selectThemeMode, selectAuthUser } from './selectors';
+import {
+  selectThemeMode,
+  selectAuthUser,
+  selectUserDisplayName,
+} from './selectors';
 
 // Types
 import { RootState } from 'types';
@@ -46,6 +50,7 @@ const Header: React.FC<Props> = ({
   classes,
   theme,
   authUser,
+  displayName,
   toggleTheme,
   firebase,
   enqueueSnackbar,
@@ -131,7 +136,7 @@ const Header: React.FC<Props> = ({
                 </>
               ) : (
                 <>
-                  <Grid item>{authUser.email}</Grid>
+                  <Grid item>{displayName}</Grid>
                   <Grid item>
                     <Button
                       aria-label="sign up"
@@ -162,7 +167,15 @@ const Header: React.FC<Props> = ({
 };
 
 const mapStateToProps = (state: RootState) => {
-  return { theme: selectThemeMode(state), authUser: selectAuthUser(state) };
+  console.log(
+    'JSON.stringify(selectAuthUser(state))',
+    JSON.stringify(selectAuthUser(state))
+  );
+  return {
+    theme: selectThemeMode(state),
+    authUser: selectAuthUser(state),
+    displayName: selectUserDisplayName(state),
+  };
 };
 
 const mapDispatchToProps = { toggleTheme };
@@ -170,5 +183,6 @@ const mapDispatchToProps = { toggleTheme };
 export default compose<any>(
   withFirebase,
   withSnackbar,
+  withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps)
-)(withStyles(styles)(Header));
+)(Header);

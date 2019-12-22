@@ -40,9 +40,7 @@ const withAuthentication = <Props extends WithAuthenticationProps>(
     }
 
     componentWillUnmount() {
-      if (this.unsubscribe) {
-        this.unsubscribe();
-      }
+      this.unsubscribe && this.unsubscribe();
     }
 
     render() {

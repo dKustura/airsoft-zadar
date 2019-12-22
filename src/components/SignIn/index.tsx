@@ -65,7 +65,6 @@ const SignIn: React.FC<Props> = ({
             firebase
               .doSignInWithEmailAndPassword(values.email, values.password)
               .then(credentials => {
-                console.log('credentials', credentials);
                 enqueueSnackbar(
                   'You logged in successfully!',
                   successNotification

@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import { compose } from 'redux';
 import { Formik, Form } from 'formik';
+import { connect } from 'react-redux';
+
 import { withRouter, RouteComponentProps } from 'react-router';
 import { withFirebase, WithFirebaseProps } from 'components/Firebase';
 import { withSnackbar, WithSnackbarProps } from 'notistack';
+
+// Actions
+import { setAuthUser } from 'actions/session';
 
 // Components
 import {
@@ -34,17 +39,18 @@ import { MaterialRouterLink } from 'helpers';
 // Types
 import { FirebaseError } from 'firebase';
 
-interface Props
-  extends WithStyles<typeof styles>,
-    WithFirebaseProps,
-    RouteComponentProps,
-    WithSnackbarProps {}
+type Props = WithStyles<typeof styles> &
+  WithFirebaseProps &
+  RouteComponentProps &
+  WithSnackbarProps &
+  typeof mapDispatchToProps;
 
 const SignUp: React.FC<Props> = ({
   classes,
   firebase,
   history,
   enqueueSnackbar,
+  setAuthUser,
 }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -65,12 +71,18 @@ const SignUp: React.FC<Props> = ({
             firebase
               .doCreateUserWithEmailAndPassword(values.email, values.password)
               .then(credentials => {
-                console.log('credentials', credentials);
-                enqueueSnackbar(
-                  'You signed up successfully!',
-                  successNotification
-                );
-                history.push('/');
+                credentials.user
+                  ?.updateProfile({
+                    displayName: `${values.firstName} ${values.lastName}`,
+                  })
+                  .then(() => {
+                    setAuthUser(credentials.user);
+                    enqueueSnackbar(
+                      'You signed up successfully!',
+                      successNotification
+                    );
+                    history.push('/');
+                  });
               })
               .catch((error: FirebaseError) => {
                 setIsLoading(false);
@@ -205,8 +217,11 @@ const SignUp: React.FC<Props> = ({
   );
 };
 
+const mapDispatchToProps = { setAuthUser };
+
 export default compose<any>(
   withFirebase,
   withRouter,
-  withSnackbar
+  withSnackbar,
+  connect(null, mapDispatchToProps)
 )(withStyles(styles)(SignUp));

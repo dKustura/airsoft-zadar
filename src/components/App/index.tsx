@@ -34,9 +34,7 @@ type Props = OwnProps &
 
 const notistackRef = React.createRef<WithSnackbarProps>();
 const onClickDismiss = (key: string | number | undefined) => () => {
-  if (notistackRef.current) {
-    notistackRef.current.closeSnackbar(key);
-  }
+  notistackRef.current?.closeSnackbar(key);
 };
 
 const App: React.FC<Props> = ({ theme }: Props) => {
