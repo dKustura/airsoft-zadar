@@ -5,7 +5,7 @@ import './App.css';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 import { getTheme } from 'components/Theme';
@@ -20,7 +20,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import { RootState } from 'types';
 
-import { selectThemeMode } from './selectors';
+import { selectThemeMode, selectAuthUser } from './selectors';
 import {
   withAuthentication,
   WithAuthenticationProps,
@@ -37,7 +37,7 @@ const onClickDismiss = (key: string | number | undefined) => () => {
   notistackRef.current?.closeSnackbar(key);
 };
 
-const App: React.FC<Props> = ({ theme }: Props) => {
+const App: React.FC<Props> = ({ theme, authUser }: Props) => {
   return (
     <MuiThemeProvider theme={getTheme(theme)}>
       <SnackbarProvider
@@ -65,6 +65,8 @@ const App: React.FC<Props> = ({ theme }: Props) => {
         <Header />
 
         <Switch>
+          {authUser && <Redirect from="/signUp" to="/" />}
+          {authUser && <Redirect from="/signIn" to="/" />}
           <Route path="/signUp" component={SignUp} />
           <Route path="/signIn" component={SignIn} />
           <Route path="/" component={Home} />
@@ -75,7 +77,7 @@ const App: React.FC<Props> = ({ theme }: Props) => {
 };
 
 const mapStateToProps = (state: RootState) => {
-  return { theme: selectThemeMode(state) };
+  return { theme: selectThemeMode(state), authUser: selectAuthUser(state) };
 };
 
 const mapDispatchToProps = {};

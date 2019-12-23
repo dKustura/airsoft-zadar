@@ -3,7 +3,6 @@ import { compose } from 'redux';
 import { Formik, Form } from 'formik';
 import { connect } from 'react-redux';
 
-import { withRouter, RouteComponentProps } from 'react-router';
 import { withFirebase, WithFirebaseProps } from 'components/Firebase';
 import { withSnackbar, WithSnackbarProps } from 'notistack';
 
@@ -41,14 +40,12 @@ import { FirebaseError } from 'firebase';
 
 type Props = WithStyles<typeof styles> &
   WithFirebaseProps &
-  RouteComponentProps &
   WithSnackbarProps &
   typeof mapDispatchToProps;
 
 const SignUp: React.FC<Props> = ({
   classes,
   firebase,
-  history,
   enqueueSnackbar,
   setAuthUser,
 }: Props) => {
@@ -81,7 +78,6 @@ const SignUp: React.FC<Props> = ({
                       'You signed up successfully!',
                       successNotification
                     );
-                    history.push('/');
                   });
               })
               .catch((error: FirebaseError) => {
@@ -221,7 +217,6 @@ const mapDispatchToProps = { setAuthUser };
 
 export default compose<any>(
   withFirebase,
-  withRouter,
   withSnackbar,
   connect(null, mapDispatchToProps)
 )(withStyles(styles)(SignUp));

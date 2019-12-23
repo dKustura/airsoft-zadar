@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { compose } from 'redux';
 import { Formik, Form } from 'formik';
-import { withRouter, RouteComponentProps } from 'react-router';
 import { withFirebase, WithFirebaseProps } from 'components/Firebase';
 import { withSnackbar, WithSnackbarProps } from 'notistack';
 
@@ -37,13 +36,11 @@ import { FirebaseError } from 'firebase';
 interface Props
   extends WithStyles<typeof styles>,
     WithFirebaseProps,
-    RouteComponentProps,
     WithSnackbarProps {}
 
 const SignIn: React.FC<Props> = ({
   classes,
   firebase,
-  history,
   enqueueSnackbar,
 }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -69,7 +66,6 @@ const SignIn: React.FC<Props> = ({
                   'You logged in successfully!',
                   successNotification
                 );
-                history.push('/');
               })
               .catch((error: FirebaseError) => {
                 setIsLoading(false);
@@ -187,6 +183,5 @@ const SignIn: React.FC<Props> = ({
 
 export default compose<any>(
   withFirebase,
-  withRouter,
   withSnackbar
 )(withStyles(styles)(SignIn));

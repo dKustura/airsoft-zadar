@@ -167,10 +167,6 @@ const Header: React.FC<Props> = ({
 };
 
 const mapStateToProps = (state: RootState) => {
-  console.log(
-    'JSON.stringify(selectAuthUser(state))',
-    JSON.stringify(selectAuthUser(state))
-  );
   return {
     theme: selectThemeMode(state),
     authUser: selectAuthUser(state),
