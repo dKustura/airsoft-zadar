@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import 'firebase/functions';
 
 import firebaseConfig from './config';
 
@@ -8,6 +9,7 @@ class Firebase {
   public emailAuthProvider: typeof firebase.auth.EmailAuthProvider;
   public auth: firebase.auth.Auth;
   public db: firebase.firestore.Firestore;
+  public functions: firebase.functions.Functions;
   public googleProvider: firebase.auth.GoogleAuthProvider;
   public facebookProvider: firebase.auth.FacebookAuthProvider;
   public twitterProvider: firebase.auth.TwitterAuthProvider;
@@ -22,6 +24,7 @@ class Firebase {
 
     this.auth = firebase.auth();
     this.db = firebase.firestore();
+    this.functions = firebase.functions();
 
     /* Social Sign In Method Provider */
 
@@ -103,6 +106,11 @@ class Firebase {
   user = (uid: string) => this.users().doc(`${uid}`);
 
   users = () => this.db.collection('users');
+
+  // Functions API
+  // TODO: store function name string into constants
+  doAddAdminRole = (email: string) =>
+    this.functions.httpsCallable('addAdminRole')({ email });
 }
 
 export default Firebase;
