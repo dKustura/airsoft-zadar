@@ -15,6 +15,7 @@ import {
   Link,
   Container,
   IconButton,
+  Tooltip,
 } from '@material-ui/core';
 import SunIcon from '@material-ui/icons/Brightness7';
 import MoonIcon from '@material-ui/icons/Brightness2';
@@ -100,14 +101,15 @@ const Header: React.FC<Props> = ({
           <Grid item>
             <Grid container spacing={1} alignItems="center">
               <Grid item>
-                <IconButton
-                  aria-label="toggle theme"
-                  color="inherit"
-                  title="Toggle theme"
-                  onClick={() => toggleTheme()}
-                >
-                  {theme === ThemeMode.Light ? <MoonIcon /> : <SunIcon />}
-                </IconButton>
+                <Tooltip title="Toggle theme">
+                  <IconButton
+                    aria-label="toggle theme"
+                    color="inherit"
+                    onClick={() => toggleTheme()}
+                  >
+                    {theme === ThemeMode.Light ? <MoonIcon /> : <SunIcon />}
+                  </IconButton>
+                </Tooltip>
               </Grid>
               {!authUser ? (
                 <>
