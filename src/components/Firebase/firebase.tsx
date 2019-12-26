@@ -4,6 +4,7 @@ import 'firebase/firestore';
 import 'firebase/functions';
 
 import firebaseConfig from './config';
+import { functionNames } from './constants';
 
 class Firebase {
   public emailAuthProvider: typeof firebase.auth.EmailAuthProvider;
@@ -107,10 +108,41 @@ class Firebase {
 
   users = () => this.db.collection('users');
 
-  // Functions API
-  // TODO: store function name string into constants
+  //******* Functions API *******//
+
+  // Admin role
   doAddAdminRole = (email: string) =>
-    this.functions.httpsCallable('addAdminRole')({ email });
+    this.functions.httpsCallable(functionNames.ADD_ADMIN_ROLE_FUNCTION)({
+      email,
+    });
+
+  doRemoveAdminRole = (email: string) =>
+    this.functions.httpsCallable(functionNames.REMOVE_ADMIN_ROLE_FUNCTION)({
+      email,
+    });
+
+  doSetAdminRole = (email: string, admin: boolean) =>
+    this.functions.httpsCallable(functionNames.SET_ADMIN_ROLE_FUNCTION)({
+      email,
+      admin,
+    });
+
+  // Member role
+  doAddMemberRole = (email: string) =>
+    this.functions.httpsCallable(functionNames.ADD_MEMBER_ROLE_FUNCTION)({
+      email,
+    });
+
+  doRemoveMemberRole = (email: string) =>
+    this.functions.httpsCallable(functionNames.REMOVE_MEMBER_ROLE_FUNCTION)({
+      email,
+    });
+
+  doSetMemberRole = (email: string, member: boolean) =>
+    this.functions.httpsCallable(functionNames.SET_MEMBER_ROLE_FUNCTION)({
+      email,
+      member,
+    });
 }
 
 export default Firebase;
