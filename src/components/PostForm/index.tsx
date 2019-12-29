@@ -59,27 +59,6 @@ const PostForm: React.FC<Props> = ({
           onSubmit={(values, actions) => {
             setIsLoading(true);
 
-            // firebase
-            //   .doCreateUserWithEmailAndPassword(values.email, values.password)
-            //   .then(credentials => {
-            //     credentials.user
-            //       ?.updateProfile({
-            //         displayName: `${values.firstName} ${values.lastName}`,
-            //       })
-            //       .then(() => {
-            //         setAuthUser(credentials.user);
-            //         enqueueSnackbar(
-            //           'You signed up successfully!',
-            //           successNotification
-            //         );
-            //       });
-            //   })
-            //   .catch((error: FirebaseError) => {
-            //     setIsLoading(false);
-            //     actions.setSubmitting(false);
-            //     enqueueSnackbar(error.message, errorNotification);
-            //   });
-
             firebase
               .posts()
               .add({ title: values.title, content: values.content })
