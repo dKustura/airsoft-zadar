@@ -7,17 +7,15 @@ try {
 
 const addPost = functions.firestore
   .document('/posts/{postId}')
-  .onCreate((snapshot, _) => {
+  .onCreate(async (snapshot, _) => {
     const data = snapshot.data();
 
     if (data) {
       const timestamp = data.dateCreated
         ? admin.firestore.Timestamp.fromDate(data.dateCreated)
         : snapshot.createTime;
-      return snapshot.ref.set({ ...data, dateCreated: timestamp });
+      await snapshot.ref.set({ ...data, dateCreated: timestamp });
     }
-
-    return null;
   });
 
 export { addPost };

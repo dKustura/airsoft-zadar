@@ -41,7 +41,6 @@ const PostForm: React.FC<Props> = ({
   classes,
   firebase,
   enqueueSnackbar,
-  setAuthUser,
 }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
