@@ -20,6 +20,7 @@ import {
 import SunIcon from '@material-ui/icons/Brightness7';
 import MoonIcon from '@material-ui/icons/Brightness2';
 import { withFirebase, WithFirebaseProps } from 'components/Firebase';
+import UserMenu from 'components/UserMenu';
 
 import styles from './styles';
 // import logo from 'logo.png';
@@ -147,28 +148,11 @@ const Header: React.FC<Props> = ({
                   </Grid>
                 </>
               ) : (
-                <>
-                  <Grid item>{displayName}</Grid>
+                displayName && (
                   <Grid item>
-                    <Button
-                      aria-label="sign up"
-                      variant="outlined"
-                      color="inherit"
-                      onClick={() =>
-                        firebase
-                          .doSignOut()
-                          .then(() => {
-                            enqueueSnackbar('Signed out.', successNotification);
-                          })
-                          .catch((error: FirebaseError) => {
-                            enqueueSnackbar(error.message, errorNotification);
-                          })
-                      }
-                    >
-                      Sign out
-                    </Button>
+                    <UserMenu displayName={displayName} />
                   </Grid>
-                </>
+                )
               )}
             </Grid>
           </Grid>
