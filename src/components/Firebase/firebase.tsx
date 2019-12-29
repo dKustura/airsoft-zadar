@@ -104,9 +104,13 @@ class Firebase {
 
   // *** User API ***
 
+  users = () => this.db.collection('users');
+
   user = (uid: string) => this.users().doc(`${uid}`);
 
-  users = () => this.db.collection('users');
+  posts = () => this.db.collection('posts');
+
+  post = (uid: string) => this.posts().doc(`${uid}`);
 
   //******* Functions API *******//
 

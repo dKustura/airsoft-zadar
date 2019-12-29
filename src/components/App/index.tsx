@@ -14,6 +14,7 @@ import SignUp from 'components/SignUp';
 import SignIn from 'components/SignIn';
 import Header from 'components/Header';
 import AddAdmin from 'components/AddAdmin';
+import PostForm from 'components/PostForm';
 
 import { SnackbarProvider, WithSnackbarProps } from 'notistack';
 import { IconButton } from '@material-ui/core';
@@ -68,6 +69,7 @@ const App: React.FC<Props> = ({ theme, authUser }: Props) => {
         <Switch>
           {authUser && <Redirect from="/signUp" to="/" />}
           {authUser && <Redirect from="/signIn" to="/" />}
+          <Route path="/post" component={PostForm} />
           <Route path="/addAdmin" component={AddAdmin} />
           <Route path="/signUp" component={SignUp} />
           <Route path="/signIn" component={SignIn} />
