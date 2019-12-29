@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withSnackbar, WithSnackbarProps } from 'notistack';
-import { compose } from 'redux';
 
 // Actions
 import { toggleTheme } from 'actions/theme';
@@ -19,7 +17,6 @@ import {
 } from '@material-ui/core';
 import SunIcon from '@material-ui/icons/Brightness7';
 import MoonIcon from '@material-ui/icons/Brightness2';
-import { withFirebase, WithFirebaseProps } from 'components/Firebase';
 import UserMenu from 'components/UserMenu';
 
 import styles from './styles';
@@ -28,7 +25,6 @@ import styles from './styles';
 // Helpers
 import { ThemeMode } from 'reducers/constants';
 import { MaterialRouterLink } from 'helpers';
-import { successNotification, errorNotification } from 'helpers/snackbar';
 
 // Selectors
 import {
@@ -39,14 +35,12 @@ import {
 
 // Types
 import { RootState } from 'types';
-import { FirebaseError } from 'firebase';
 
-interface OwnProps extends WithStyles<typeof styles>, WithFirebaseProps {}
+interface OwnProps extends WithStyles<typeof styles> {}
 
 type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps &
-  WithSnackbarProps;
+  typeof mapDispatchToProps;
 
 const Header: React.FC<Props> = ({
   classes,
@@ -54,8 +48,6 @@ const Header: React.FC<Props> = ({
   authUser,
   displayName,
   toggleTheme,
-  firebase,
-  enqueueSnackbar,
 }) => {
   return (
     <div className={classes.headerContainer}>
@@ -172,9 +164,7 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = { toggleTheme };
 
-export default compose<any>(
-  withFirebase,
-  withSnackbar,
-  withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps)
-)(Header);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(Header));
