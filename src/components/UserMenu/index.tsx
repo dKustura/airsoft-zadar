@@ -97,7 +97,7 @@ const UserMenu: React.FC<Props> = ({
                   placement === 'bottom-end' ? 'center top' : 'center bottom',
               }}
             >
-              <Paper className={classes.paper} elevation={20}>
+              <Paper>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList
                     autoFocusItem={open}
