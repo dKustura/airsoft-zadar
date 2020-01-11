@@ -59,8 +59,7 @@ const PostForm: React.FC<Props> = ({
             setIsLoading(true);
 
             firebase
-              .posts()
-              .add({ title: values.title, content: values.content })
+              .doCreatePost(values.title, values.content)
               .then(() => {
                 setIsLoading(false);
                 enqueueSnackbar('Blog post created', successNotification);
