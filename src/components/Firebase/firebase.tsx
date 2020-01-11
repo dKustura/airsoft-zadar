@@ -106,11 +106,11 @@ class Firebase {
 
   users = () => this.db.collection('users');
 
-  user = (uid: string) => this.users().doc(`${uid}`);
+  user = (uid: string) => this.users().doc(uid);
 
   posts = () => this.db.collection('posts');
 
-  post = (uid: string) => this.posts().doc(`${uid}`);
+  post = (uid: string) => this.posts().doc(uid);
 
   //******* Functions API *******//
 
@@ -146,6 +146,25 @@ class Firebase {
     this.functions.httpsCallable(functionNames.SET_MEMBER_ROLE_FUNCTION)({
       email,
       member,
+    });
+
+  // Post Management
+  doCreatePost = (title: string, content: string) =>
+    this.functions.httpsCallable(functionNames.CREATE_POST_FUNCTION)({
+      title,
+      content,
+    });
+
+  doUpdatePost = (uid: string, title: string, content: string) =>
+    this.functions.httpsCallable(functionNames.UPDATE_POST_FUNCTION)({
+      uid,
+      title,
+      content,
+    });
+
+  doDeletePost = (uid: string) =>
+    this.functions.httpsCallable(functionNames.DELETE_POST_FUNCTION)({
+      uid,
     });
 }
 
