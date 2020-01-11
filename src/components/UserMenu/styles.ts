@@ -5,9 +5,6 @@ export default (theme: Theme) =>
     root: {
       display: 'flex',
     },
-    paper: {
-      backgroundColor: theme.palette.secondary.light,
-    },
     userButtonLabel: {
       textTransform: 'none',
     },
