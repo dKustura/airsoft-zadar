@@ -29,6 +29,7 @@ const withAuthentication = <Props extends WithAuthenticationProps>(
     componentDidMount() {
       this.unsubscribe = this.props.firebase.onAuthUserListener(
         authUser => {
+          // TODO: Remove all use of localStorage and test
           localStorage.setItem('authUser', JSON.stringify(authUser));
           this.props.setAuthUser(authUser);
         },
