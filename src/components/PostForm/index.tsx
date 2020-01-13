@@ -79,6 +79,7 @@ const PostForm: React.FC<Props> = ({
                     id="title"
                     name="title"
                     label="Title"
+                    multiline
                     value={values.title}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -86,6 +87,21 @@ const PostForm: React.FC<Props> = ({
                     fullWidth
                     autoFocus
                     required
+                    InputProps={{
+                      classes: {
+                        multiline: classes.titleInput,
+                      },
+                    }}
+                    InputLabelProps={{
+                      classes: {
+                        root: classes.titleInputLabel,
+                      },
+                    }}
+                    onKeyPress={event => {
+                      if (event.key === 'Enter') {
+                        event.preventDefault();
+                      }
+                    }}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -98,9 +114,14 @@ const PostForm: React.FC<Props> = ({
                     onChange={handleChange}
                     onBlur={handleBlur}
                     variant="outlined"
-                    // rows={4}
+                    // rows={6}
                     fullWidth
                     required
+                    InputProps={{
+                      classes: {
+                        multiline: classes.contentInput,
+                      },
+                    }}
                   />
                 </Grid>
                 <Grid item xs={12}>

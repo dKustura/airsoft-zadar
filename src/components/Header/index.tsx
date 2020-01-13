@@ -98,6 +98,16 @@ const Header: React.FC<Props> = ({
                   Add Admin
                 </Link>
               </Grid>
+              <Grid item>
+                <Link
+                  component={MaterialRouterLink}
+                  variant="h6"
+                  color="inherit"
+                  to="/post"
+                >
+                  New Post
+                </Link>
+              </Grid>
             </Grid>
           </Grid>
 
