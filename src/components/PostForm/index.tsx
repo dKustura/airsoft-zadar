@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { compose } from 'redux';
-import { Formik, Form } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import { connect } from 'react-redux';
 
 import { withFirebase, WithFirebaseProps } from 'components/Firebase';
@@ -28,6 +28,7 @@ import styles from './styles';
 // Helpers
 import { INITIAL_POST_FORM_VALUES } from './constants';
 import { successNotification, errorNotification } from 'helpers/snackbar';
+import { postSchema } from './validationSchema';
 
 // Types
 import { FirebaseError } from 'firebase';
@@ -55,6 +56,7 @@ const PostForm: React.FC<Props> = ({
         </Typography>
         <Formik
           initialValues={INITIAL_POST_FORM_VALUES}
+          validationSchema={postSchema}
           onSubmit={(values, actions) => {
             setIsLoading(true);
 
@@ -71,81 +73,80 @@ const PostForm: React.FC<Props> = ({
               });
           }}
         >
-          {({ values, handleChange, handleBlur, errors, touched }) => (
-            <Form className={classes.form}>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <TextField
-                    id="title"
-                    name="title"
-                    label="Title"
-                    multiline
-                    value={values.title}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    variant="outlined"
-                    fullWidth
-                    autoFocus
-                    required
-                    InputProps={{
-                      classes: {
-                        multiline: classes.titleInput,
-                      },
-                    }}
-                    InputLabelProps={{
-                      classes: {
-                        root: classes.titleInputLabel,
-                      },
-                    }}
-                    onKeyPress={event => {
-                      if (event.key === 'Enter') {
-                        event.preventDefault();
-                      }
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    id="content"
-                    name="content"
-                    label="Content"
-                    multiline
-                    value={values.content}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    variant="outlined"
-                    // rows={6}
-                    fullWidth
-                    required
-                    InputProps={{
-                      classes: {
-                        multiline: classes.contentInput,
-                      },
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                    fullWidth
-                  >
-                    {isLoading ? (
-                      <CircularProgress
-                        color="secondary"
-                        size={24}
-                        thickness={6}
-                      />
-                    ) : (
-                      'Submit'
-                    )}
-                  </Button>
-                </Grid>
+          <Form className={classes.form}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Field name="title">
+                  {({ field, meta: { touched, error } }: any) => (
+                    <TextField
+                      {...field}
+                      label="Title"
+                      multiline
+                      variant="outlined"
+                      fullWidth
+                      autoFocus
+                      required
+                      InputProps={{
+                        classes: {
+                          multiline: classes.titleInput,
+                        },
+                      }}
+                      InputLabelProps={{
+                        classes: {
+                          root: classes.titleInputLabel,
+                        },
+                      }}
+                      onKeyPress={event => {
+                        if (event.key === 'Enter') {
+                          event.preventDefault();
+                        }
+                      }}
+                      helperText={touched && error}
+                    />
+                  )}
+                </Field>
               </Grid>
-            </Form>
-          )}
+              <Grid item xs={12}>
+                <Field name="content">
+                  {({ field, meta: { touched, error } }: any) => (
+                    <TextField
+                      {...field}
+                      label="Content"
+                      multiline
+                      variant="outlined"
+                      fullWidth
+                      required
+                      InputProps={{
+                        classes: {
+                          multiline: classes.contentInput,
+                        },
+                      }}
+                      helperText={touched && error}
+                    />
+                  )}
+                </Field>
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  fullWidth
+                >
+                  {isLoading ? (
+                    <CircularProgress
+                      color="secondary"
+                      size={24}
+                      thickness={6}
+                    />
+                  ) : (
+                    'Submit'
+                  )}
+                </Button>
+              </Grid>
+            </Grid>
+          </Form>
         </Formik>
       </div>
     </Container>

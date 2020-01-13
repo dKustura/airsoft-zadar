@@ -1,5 +1,4 @@
-export interface PostFormValues {
-  readonly title: string;
-  readonly content: string;
-  readonly dateCreated?: Date;
-}
+import * as yup from 'yup';
+import { postSchema } from './validationSchema';
+
+export type PostForm = yup.InferType<typeof postSchema>;
