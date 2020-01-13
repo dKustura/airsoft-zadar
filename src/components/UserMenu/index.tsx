@@ -61,12 +61,12 @@ const UserMenu: React.FC<Props> = ({
     prevOpen.current = open;
   }, [open]);
 
-  // function handleListKeyDown(event: React.KeyboardEvent) {
-  //   if (event.key === 'Tab') {
-  //     event.preventDefault();
-  //     setOpen(false);
-  //   }
-  // }
+  function handleListKeyDown(event: React.KeyboardEvent) {
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      setOpen(false);
+    }
+  }
 
   return (
     <div className={classes.root}>
@@ -102,10 +102,10 @@ const UserMenu: React.FC<Props> = ({
                   <MenuList
                     autoFocusItem={open}
                     id="menu-list-grow"
-                    // onKeyDown={handleListKeyDown}
+                    onKeyDown={handleListKeyDown}
                   >
                     <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
+                    <MenuItem onClick={handleClose}>Settings</MenuItem>
                     <MenuItem
                       onClick={() =>
                         firebase

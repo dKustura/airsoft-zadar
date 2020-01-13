@@ -8,7 +8,8 @@ export default (theme: Theme) => {
       borderColor: 'transparent',
       borderRadius: 20,
       elevation: 2,
-      transition: 'all .1s ease-in-out',
+      transition:
+        'border-color .2s ease-in-out, background-color .2s ease-in-out, color .2s ease-in-out',
       '&:hover': {
         borderColor: theme.palette.primary.light,
       },

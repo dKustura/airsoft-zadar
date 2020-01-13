@@ -19,4 +19,13 @@ export default (theme: Theme) =>
     submit: {
       margin: theme.spacing(0, 0, 2),
     },
+    titleInput: {
+      fontSize: '1.5rem',
+    },
+    contentInput: {
+      minHeight: '20vh',
+    },
+    titleInputLabel: {
+      fontSize: '1.5rem',
+    },
   });
