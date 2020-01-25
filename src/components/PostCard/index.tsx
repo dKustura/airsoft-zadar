@@ -1,8 +1,11 @@
 import React from 'react';
+
+// Components
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { Typography, Grid, withStyles, WithStyles } from '@material-ui/core';
 
+// Styling
 import styles from './styles';
 
 interface Props extends WithStyles<typeof styles> {

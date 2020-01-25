@@ -37,6 +37,8 @@ import { MaterialRouterLink } from 'helpers';
 
 // Types
 import { FirebaseError } from 'firebase';
+import { FormattedMessage, MessageDescriptor, useIntl } from 'react-intl';
+import messages from './messages';
 
 type Props = WithStyles<typeof styles> &
   WithFirebaseProps &
@@ -50,6 +52,7 @@ const SignUp: React.FC<Props> = ({
   setAuthUser,
 }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const intl = useIntl();
 
   return (
     <Container component="main" maxWidth="xs">
@@ -58,7 +61,7 @@ const SignUp: React.FC<Props> = ({
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Create Account
+          <FormattedMessage {...messages.createAccount} />
         </Typography>
         <Formik
           initialValues={INITIAL_SIGNUP_FORM_VALUES}
@@ -78,6 +81,10 @@ const SignUp: React.FC<Props> = ({
                       'You signed up successfully!',
                       successNotification
                     );
+
+                    // TODO: Set email language based on selected locale
+                    // firebase.auth.languageCode = 'hr';
+                    credentials.user?.sendEmailVerification();
                   });
               })
               .catch((error: FirebaseError) => {
@@ -94,7 +101,9 @@ const SignUp: React.FC<Props> = ({
                   <TextField
                     id="firstName"
                     name="firstName"
-                    label="First Name"
+                    label={intl.formatMessage(
+                      messages.firstNameLabel as MessageDescriptor
+                    )}
                     value={values.firstName}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -109,7 +118,9 @@ const SignUp: React.FC<Props> = ({
                   <TextField
                     id="lastName"
                     name="lastName"
-                    label="Last Name"
+                    label={intl.formatMessage(
+                      messages.lastNameLabel as MessageDescriptor
+                    )}
                     value={values.lastName}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -123,7 +134,9 @@ const SignUp: React.FC<Props> = ({
                   <TextField
                     id="email"
                     name="email"
-                    label="Email Address"
+                    label={intl.formatMessage(
+                      messages.emailAddressLabel as MessageDescriptor
+                    )}
                     value={values.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -137,7 +150,9 @@ const SignUp: React.FC<Props> = ({
                   <TextField
                     id="password"
                     name="password"
-                    label="Password"
+                    label={intl.formatMessage(
+                      messages.passwordLabel as MessageDescriptor
+                    )}
                     type="password"
                     value={values.password}
                     onChange={handleChange}
@@ -163,7 +178,7 @@ const SignUp: React.FC<Props> = ({
                         thickness={6}
                       />
                     ) : (
-                      'Sign Up'
+                      <FormattedMessage {...messages.signUpButton} />
                     )}
                   </Button>
                 </Grid>
@@ -171,7 +186,7 @@ const SignUp: React.FC<Props> = ({
               <Grid container>
                 <Grid item className={classes.social}>
                   <Typography component="span" className={classes.socialSpan}>
-                    or sign up with social media
+                    <FormattedMessage {...messages.orUseSocialSignUp} />
                   </Typography>
                 </Grid>
               </Grid>
@@ -195,7 +210,9 @@ const SignUp: React.FC<Props> = ({
                     to="/signIn"
                     variant="body2"
                   >
-                    Already have an account? Sign in
+                    <FormattedMessage
+                      {...messages.alreadyHaveAnAccountQuestion}
+                    />
                   </Link>
                 </Grid>
               </Grid>

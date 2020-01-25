@@ -32,6 +32,8 @@ import { MaterialRouterLink } from 'helpers';
 
 // Types
 import { FirebaseError } from 'firebase';
+import { FormattedMessage, useIntl, MessageDescriptor } from 'react-intl';
+import messages from './messages';
 
 interface Props
   extends WithStyles<typeof styles>,
@@ -44,6 +46,7 @@ const SignIn: React.FC<Props> = ({
   enqueueSnackbar,
 }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const intl = useIntl();
 
   return (
     <Container component="main" maxWidth="xs">
@@ -52,7 +55,7 @@ const SignIn: React.FC<Props> = ({
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign In
+          <FormattedMessage {...messages.signIn} />
         </Typography>
         <Formik
           initialValues={INITIAL_SIGNIN_FORM_VALUES}
@@ -81,7 +84,9 @@ const SignIn: React.FC<Props> = ({
                   <TextField
                     id="email"
                     name="email"
-                    label="Email Address"
+                    label={intl.formatMessage(
+                      messages.emailAddressLabel as MessageDescriptor
+                    )}
                     value={values.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -96,7 +101,9 @@ const SignIn: React.FC<Props> = ({
                   <TextField
                     id="password"
                     name="password"
-                    label="Password"
+                    label={intl.formatMessage(
+                      messages.passwordLabel as MessageDescriptor
+                    )}
                     type="password"
                     value={values.password}
                     onChange={handleChange}
@@ -122,7 +129,7 @@ const SignIn: React.FC<Props> = ({
                         thickness={6}
                       />
                     ) : (
-                      'Login'
+                      <FormattedMessage {...messages.logInButton} />
                     )}
                   </Button>
                 </Grid>
@@ -130,7 +137,7 @@ const SignIn: React.FC<Props> = ({
               <Grid container>
                 <Grid item className={classes.social}>
                   <Typography component="span" className={classes.socialSpan}>
-                    or login with social media
+                    <FormattedMessage {...messages.orUseSocialLogin} />
                   </Typography>
                 </Grid>
               </Grid>
@@ -154,7 +161,7 @@ const SignIn: React.FC<Props> = ({
                     to="/resetPassword"
                     variant="body2"
                   >
-                    Forgot password?
+                    <FormattedMessage {...messages.forgotPasswordQuestion} />
                   </Link>
                 </Grid>
                 <Grid item>
@@ -163,7 +170,7 @@ const SignIn: React.FC<Props> = ({
                     to="/signUp"
                     variant="body2"
                   >
-                    Don't have an account?
+                    <FormattedMessage {...messages.dontHaveAccountQuestion} />
                   </Link>
                 </Grid>
               </Grid>

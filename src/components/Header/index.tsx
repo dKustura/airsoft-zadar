@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
 
 // Actions
 import { toggleTheme } from 'actions/theme';
+import { setLocale } from 'actions/locale';
 
 // Components
 import {
@@ -35,6 +37,7 @@ import {
 
 // Types
 import { RootState } from 'types';
+import messages from './messages';
 
 interface OwnProps extends WithStyles<typeof styles> {}
 
@@ -48,6 +51,7 @@ const Header: React.FC<Props> = ({
   authUser,
   displayName,
   toggleTheme,
+  setLocale,
 }) => {
   return (
     <div className={classes.headerContainer}>
@@ -65,7 +69,7 @@ const Header: React.FC<Props> = ({
                   color="inherit"
                   to="/"
                 >
-                  Home
+                  <FormattedMessage {...messages.homeLink} />
                 </Link>
               </Grid>
               <Grid item>
@@ -75,7 +79,7 @@ const Header: React.FC<Props> = ({
                   color="inherit"
                   to="/blog"
                 >
-                  Blog
+                  <FormattedMessage {...messages.blogLink} />
                 </Link>
               </Grid>
               <Grid item>
@@ -85,7 +89,7 @@ const Header: React.FC<Props> = ({
                   color="inherit"
                   to="/about"
                 >
-                  About
+                  <FormattedMessage {...messages.aboutLink} />
                 </Link>
               </Grid>
               <Grid item>
@@ -105,7 +109,7 @@ const Header: React.FC<Props> = ({
                   color="inherit"
                   to="/post"
                 >
-                  New Post
+                  <FormattedMessage {...messages.newPostLink} />
                 </Link>
               </Grid>
             </Grid>
@@ -134,7 +138,7 @@ const Header: React.FC<Props> = ({
                       component={MaterialRouterLink}
                       to="/signUp"
                     >
-                      Sign up
+                      <FormattedMessage {...messages.signUpButton} />
                     </Button>
                   </Grid>
                   <Grid item>
@@ -145,7 +149,7 @@ const Header: React.FC<Props> = ({
                       component={MaterialRouterLink}
                       to="/signIn"
                     >
-                      Log In
+                      <FormattedMessage {...messages.logInButton} />
                     </Button>
                   </Grid>
                 </>
@@ -172,7 +176,7 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-const mapDispatchToProps = { toggleTheme };
+const mapDispatchToProps = { toggleTheme, setLocale };
 
 export default connect(
   mapStateToProps,
