@@ -1,6 +1,7 @@
 import React from 'react';
 import { withSnackbar, WithSnackbarProps } from 'notistack';
 
+// Components
 import {
   Paper,
   Button,
@@ -11,14 +12,21 @@ import {
   Grow,
   Typography,
 } from '@material-ui/core';
-
 import { withFirebase, WithFirebaseProps } from 'components/Firebase';
 
 // Styling
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import styles from './styles';
-import { FirebaseError } from 'firebase';
+
+// Helpers
 import { errorNotification, successNotification } from 'helpers/snackbar';
+
+// i18n
+import { FormattedMessage } from 'react-intl';
+import messages from './messages';
+
+// Types
+import { FirebaseError } from 'firebase';
 
 interface Props
   extends WithStyles<typeof styles>,
@@ -104,8 +112,12 @@ const UserMenu: React.FC<Props> = ({
                     id="menu-list-grow"
                     onKeyDown={handleListKeyDown}
                   >
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>Settings</MenuItem>
+                    <MenuItem onClick={handleClose}>
+                      <FormattedMessage {...messages.profileItem} />
+                    </MenuItem>
+                    <MenuItem onClick={handleClose}>
+                      <FormattedMessage {...messages.settingsItem} />
+                    </MenuItem>
                     <MenuItem
                       onClick={() =>
                         firebase
@@ -118,7 +130,7 @@ const UserMenu: React.FC<Props> = ({
                           })
                       }
                     >
-                      Sign out
+                      <FormattedMessage {...messages.signOutItem} />
                     </MenuItem>
                   </MenuList>
                 </ClickAwayListener>

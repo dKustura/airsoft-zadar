@@ -28,5 +28,5 @@ export const postSchema = yup.object({
       MAX_CONTENT_LENGTH,
       `Post must be at most ${MAX_CONTENT_LENGTH} characters long.`
     )
-    .required('Title is required.'),
+    .required('Content is required.'),
 });

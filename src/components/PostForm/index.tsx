@@ -32,6 +32,8 @@ import { postSchema } from './validationSchema';
 
 // Types
 import { FirebaseError } from 'firebase';
+import { FormattedMessage, useIntl, MessageDescriptor } from 'react-intl';
+import messages from './messages';
 
 type Props = WithStyles<typeof styles> &
   WithFirebaseProps &
@@ -44,6 +46,7 @@ const PostForm: React.FC<Props> = ({
   enqueueSnackbar,
 }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const intl = useIntl();
 
   return (
     <Container component="main" maxWidth="sm">
@@ -52,7 +55,7 @@ const PostForm: React.FC<Props> = ({
           <MenuBookIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Create new post
+          <FormattedMessage {...messages.createNewPost} />
         </Typography>
         <Formik
           initialValues={INITIAL_POST_FORM_VALUES}
@@ -80,7 +83,9 @@ const PostForm: React.FC<Props> = ({
                   {({ field, meta: { touched, error } }: any) => (
                     <TextField
                       {...field}
-                      label="Title"
+                      label={intl.formatMessage(
+                        messages.titleLabel as MessageDescriptor
+                      )}
                       multiline
                       variant="outlined"
                       fullWidth
@@ -111,7 +116,9 @@ const PostForm: React.FC<Props> = ({
                   {({ field, meta: { touched, error } }: any) => (
                     <TextField
                       {...field}
-                      label="Content"
+                      label={intl.formatMessage(
+                        messages.contentLabel as MessageDescriptor
+                      )}
                       multiline
                       variant="outlined"
                       fullWidth
@@ -141,7 +148,7 @@ const PostForm: React.FC<Props> = ({
                       thickness={6}
                     />
                   ) : (
-                    'Submit'
+                    <FormattedMessage {...messages.submitButton} />
                   )}
                 </Button>
               </Grid>
