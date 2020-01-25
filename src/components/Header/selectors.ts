@@ -5,17 +5,24 @@ export const selectThemeState = (state: RootState) => state.theme;
 
 export const selectSessionState = (state: RootState) => state.session;
 
+export const selectLocaleState = (state: RootState) => state.locale;
+
 export const selectThemeMode = createSelector(
   selectThemeState,
-  theme => theme.mode
+  themeState => themeState.mode
 );
 
 export const selectAuthUser = createSelector(
   selectSessionState,
-  session => session.authUser
+  sessionState => sessionState.authUser
 );
 
 export const selectUserDisplayName = createSelector(
   selectSessionState,
-  session => session.authUser?.displayName
+  sessionState => sessionState.authUser?.displayName
+);
+
+export const selectLocale = createSelector(
+  selectLocaleState,
+  localeState => localeState.locale
 );
