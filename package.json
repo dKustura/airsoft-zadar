@@ -54,6 +54,8 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-transform-typescript": "^7.8.3",
+    "babel-plugin-react-intl-auto": "^3.1.0",
     "cli-glob": "^0.1.0",
     "cross-env": "^6.0.3",
     "extract-react-intl-messages": "^2.3.5"
