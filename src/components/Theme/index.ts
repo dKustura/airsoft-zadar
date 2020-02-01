@@ -18,6 +18,20 @@ const commonTheme = {
   },
 };
 
+declare module '@material-ui/core/styles/createPalette' {
+  interface Palette {
+    icon: {
+      border: string;
+    };
+  }
+  // allow configuration using `createMuiTheme`
+  interface PaletteOptions {
+    icon?: {
+      border?: string;
+    };
+  }
+}
+
 const lightTheme = createMuiTheme({
   palette: {
     type: ThemeMode.Light,
@@ -31,6 +45,9 @@ const lightTheme = createMuiTheme({
     },
     secondary: {
       main: '#f9f0dd',
+    },
+    icon: {
+      border: '#000000',
     },
   },
   ...commonTheme,
@@ -48,6 +65,9 @@ const darkTheme = createMuiTheme({
     },
     secondary: {
       main: '#0d1f22',
+    },
+    icon: {
+      border: '#ffffff',
     },
   },
   ...commonTheme,
