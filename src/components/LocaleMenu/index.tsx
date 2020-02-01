@@ -17,9 +17,19 @@ import FlagIcon from 'components/FlagIcon';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
-interface Props extends WithStyles<typeof styles> {}
+// Helpers
+import { COUNTRY_OPTIONS } from './constants';
+import {
+  getLanguageCodeForCountry,
+  getCountryCodeForLanguage,
+} from 'helpers/locale';
 
-const LocaleMenu: React.FC<Props> = ({ classes }) => {
+interface Props extends WithStyles<typeof styles> {
+  readonly languageCode: string;
+  readonly onChange: (languageCode: string) => void;
+}
+
+const LocaleMenu: React.FC<Props> = ({ languageCode, onChange, classes }) => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
 
@@ -65,7 +75,11 @@ const LocaleMenu: React.FC<Props> = ({ classes }) => {
           aria-haspopup="true"
           onClick={handleToggle}
         >
-          <FlagIcon code="hr" squared className={classes.flagIcon} />
+          <FlagIcon
+            code={getCountryCodeForLanguage(languageCode)}
+            squared
+            className={classes.flagIcon}
+          />
         </IconButton>
       </Tooltip>
       <Popper
@@ -91,22 +105,21 @@ const LocaleMenu: React.FC<Props> = ({ classes }) => {
                   id="menu-list-grow"
                   onKeyDown={handleListKeyDown}
                 >
-                  <MenuItem onClick={handleClose}>
-                    <FlagIcon
-                      code="de"
-                      squared
-                      size="lg"
-                      className={classes.flagIcon}
-                    />
-                  </MenuItem>
-                  <MenuItem onClick={handleClose}>
-                    <FlagIcon
-                      code="gb"
-                      squared
-                      size="lg"
-                      className={classes.flagIcon}
-                    />
-                  </MenuItem>
+                  {COUNTRY_OPTIONS.map(countryCode => (
+                    <MenuItem
+                      key={countryCode}
+                      onClick={() =>
+                        onChange(getLanguageCodeForCountry(countryCode))
+                      }
+                    >
+                      <FlagIcon
+                        code={countryCode}
+                        squared
+                        size="lg"
+                        className={classes.flagIcon}
+                      />
+                    </MenuItem>
+                  ))}
                 </MenuList>
               </ClickAwayListener>
             </Paper>

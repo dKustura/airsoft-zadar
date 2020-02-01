@@ -34,6 +34,7 @@ import {
   selectThemeMode,
   selectAuthUser,
   selectUserDisplayName,
+  selectLocale,
 } from './selectors';
 
 // Types
@@ -51,6 +52,7 @@ const Header: React.FC<Props> = ({
   theme,
   authUser,
   displayName,
+  locale,
   toggleTheme,
   setLocale,
 }) => {
@@ -119,7 +121,10 @@ const Header: React.FC<Props> = ({
           <Grid item>
             <Grid container spacing={1} alignItems="center">
               <Grid item>
-                <LocaleMenu />
+                <LocaleMenu
+                  languageCode={locale}
+                  onChange={locale => setLocale(locale)}
+                />
               </Grid>
               <Grid item>
                 <Tooltip title="Toggle theme">
@@ -177,6 +182,7 @@ const mapStateToProps = (state: RootState) => {
     theme: selectThemeMode(state),
     authUser: selectAuthUser(state),
     displayName: selectUserDisplayName(state),
+    locale: selectLocale(state),
   };
 };
 
