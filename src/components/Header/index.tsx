@@ -20,6 +20,7 @@ import {
 import SunIcon from '@material-ui/icons/Brightness7';
 import MoonIcon from '@material-ui/icons/Brightness2';
 import UserMenu from 'components/UserMenu';
+import LocaleMenu from 'components/LocaleMenu';
 
 import styles from './styles';
 // import logo from 'logo.png';
@@ -117,6 +118,9 @@ const Header: React.FC<Props> = ({
 
           <Grid item>
             <Grid container spacing={1} alignItems="center">
+              <Grid item>
+                <LocaleMenu />
+              </Grid>
               <Grid item>
                 <Tooltip title="Toggle theme">
                   <IconButton
