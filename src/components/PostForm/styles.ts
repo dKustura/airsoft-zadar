@@ -28,4 +28,7 @@ export default (theme: Theme) =>
     titleInputLabel: {
       fontSize: '1.5rem',
     },
+    titleInputLabelShrinked: {
+      backgroundColor: theme.palette.secondary.main,
+    },
   });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useImperativeHandle } from 'react';
 import { compose } from 'redux';
 import { Formik, Form, Field } from 'formik';
 import { connect } from 'react-redux';
@@ -18,8 +18,12 @@ import {
   TextField,
   Button,
   CircularProgress,
+  FormControl,
+  InputLabel,
+  Input,
 } from '@material-ui/core';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
+import CustomEditor from 'components/CustomEditor';
 
 // Styling
 import { withStyles, WithStyles } from '@material-ui/core/styles';
@@ -49,7 +53,7 @@ const PostForm: React.FC<Props> = ({
   const intl = useIntl();
 
   return (
-    <Container component="main" maxWidth="sm">
+    <Container component="main" maxWidth="md">
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <MenuBookIcon />
@@ -99,6 +103,7 @@ const PostForm: React.FC<Props> = ({
                       InputLabelProps={{
                         classes: {
                           root: classes.titleInputLabel,
+                          shrink: classes.titleInputLabelShrinked,
                         },
                       }}
                       onKeyPress={event => {
@@ -114,22 +119,7 @@ const PostForm: React.FC<Props> = ({
               <Grid item xs={12}>
                 <Field name="content">
                   {({ field, meta: { touched, error } }: any) => (
-                    <TextField
-                      {...field}
-                      label={intl.formatMessage(
-                        messages.contentLabel as MessageDescriptor
-                      )}
-                      multiline
-                      variant="outlined"
-                      fullWidth
-                      required
-                      InputProps={{
-                        classes: {
-                          multiline: classes.contentInput,
-                        },
-                      }}
-                      helperText={touched && error}
-                    />
+                    <CustomEditor />
                   )}
                 </Field>
               </Grid>
