@@ -1,39 +1,18 @@
 import React from 'react';
 
 // Components
-import { ButtonGroup, Button } from '@material-ui/core';
+import { ButtonGroup } from '@material-ui/core';
 import FormatBoldIcon from '@material-ui/icons/FormatBold';
 import FormatItalicIcon from '@material-ui/icons/FormatItalic';
+import MarkButton from './MarkButton';
 
-interface Props {
-  isBoldActive?: boolean;
-  onBoldToggle?: () => void;
-  isItalicActive?: boolean;
-  onItalicToggle?: () => void;
-}
+interface Props {}
 
-const Toolbar: React.FC<Props> = ({
-  isBoldActive,
-  onBoldToggle,
-  isItalicActive,
-  onItalicToggle,
-}) => {
+const Toolbar: React.FC<Props> = () => {
   return (
     <ButtonGroup color="primary" aria-label="outlined primary button group">
-      <Button
-        variant={isBoldActive ? 'contained' : 'outlined'}
-        onClick={onBoldToggle}
-        disableElevation
-      >
-        <FormatBoldIcon />
-      </Button>
-      <Button
-        variant={isItalicActive ? 'contained' : 'outlined'}
-        onClick={onItalicToggle}
-        disableElevation
-      >
-        <FormatItalicIcon />
-      </Button>
+      <MarkButton format="bold" Icon={FormatBoldIcon} />
+      <MarkButton format="italic" Icon={FormatItalicIcon} />
     </ButtonGroup>
   );
 };

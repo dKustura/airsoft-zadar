@@ -1,4 +1,4 @@
-import React, { useState, useImperativeHandle } from 'react';
+import React, { useState } from 'react';
 import { compose } from 'redux';
 import { Formik, Form, Field } from 'formik';
 import { connect } from 'react-redux';
@@ -18,9 +18,6 @@ import {
   TextField,
   Button,
   CircularProgress,
-  FormControl,
-  InputLabel,
-  Input,
 } from '@material-ui/core';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import CustomEditor from 'components/CustomEditor';

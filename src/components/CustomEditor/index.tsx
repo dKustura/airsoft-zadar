@@ -7,7 +7,6 @@ import {
   RenderLeafProps,
   RenderElementProps,
 } from 'slate-react';
-import EditorCommands from './commands';
 
 // Components
 import { Typography, Grid } from '@material-ui/core';
@@ -46,10 +45,7 @@ const CustomEditor: React.FC<Props> = ({ classes }) => {
     <Slate editor={editor} value={value} onChange={value => setValue(value)}>
       <Grid container spacing={1}>
         <Grid item xs={12}>
-          <Toolbar
-            onBoldToggle={() => EditorCommands.toggleBoldMark(editor)}
-            isBoldActive={EditorCommands.isBoldMarkActive(editor)}
-          />
+          <Toolbar />
         </Grid>
         <Grid item xs={12}>
           <Editable
@@ -57,34 +53,31 @@ const CustomEditor: React.FC<Props> = ({ classes }) => {
             renderElement={renderElement}
             renderLeaf={renderLeaf}
             placeholder="Enter some text..."
-            onKeyDown={event => {
-              if (event.key === 'p') {
-                event.preventDefault();
-                editor.insertBreak();
-              }
-              if (!event.ctrlKey) {
-                return;
-              }
+            // onKeyDown={event => {
+            //   if (event.key === 'p') {
+            //     event.preventDefault();
+            //     editor.insertBreak();
+            //   }
+            //   if (!event.ctrlKey) {
+            //     return;
+            //   }
 
-              switch (event.key) {
-                // When "`" is pressed, keep our existing code block logic.
-                // case '`': {
-                //   event.preventDefault()
-                //   EditorCommands.toggleCodeBlock(editor)
-                //   break
-                // }
+            //   switch (event.key) {
+            //     // When "`" is pressed, keep our existing code block logic.
+            //     // case '`': {
+            //     //   event.preventDefault()
+            //     //   EditorCommands.toggleCodeBlock(editor)
+            //     //   break
+            //     // }
 
-                // When "B" is pressed, bold the text in the selection.
-                case 'b': {
-                  event.preventDefault();
-                  EditorCommands.toggleBoldMark(editor);
-                  break;
-                }
-              }
-            }}
-            onSelectCapture={event => {
-              console.log('editor.selection', editor.selection);
-            }}
+            //     // When "B" is pressed, bold the text in the selection.
+            //     case 'b': {
+            //       event.preventDefault();
+            //       EditorCommands.toggleBoldMark(editor);
+            //       break;
+            //     }
+            //   }
+            // }}
           />
         </Grid>
       </Grid>
