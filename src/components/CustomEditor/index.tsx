@@ -10,11 +10,14 @@ import {
 
 // Components
 import { Typography, Grid } from '@material-ui/core';
+import Toolbar from './Toolbar';
 
 // Styling
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import styles from './styles';
-import Toolbar from './Toolbar';
+
+// Helpers
+import { toggleMark, MarkFormat, getTextDecoration } from './helpers';
 
 interface Props extends WithStyles<typeof styles> {}
 
@@ -53,31 +56,43 @@ const CustomEditor: React.FC<Props> = ({ classes }) => {
             renderElement={renderElement}
             renderLeaf={renderLeaf}
             placeholder="Enter some text..."
-            // onKeyDown={event => {
-            //   if (event.key === 'p') {
-            //     event.preventDefault();
-            //     editor.insertBreak();
-            //   }
-            //   if (!event.ctrlKey) {
-            //     return;
-            //   }
+            onKeyDown={event => {
+              if (event.key === 'p') {
+                event.preventDefault();
+                editor.insertBreak();
+              }
+              if (!event.ctrlKey) {
+                return;
+              }
 
-            //   switch (event.key) {
-            //     // When "`" is pressed, keep our existing code block logic.
-            //     // case '`': {
-            //     //   event.preventDefault()
-            //     //   EditorCommands.toggleCodeBlock(editor)
-            //     //   break
-            //     // }
+              switch (event.key) {
+                // When "`" is pressed, keep our existing code block logic.
+                // case '`': {
+                //   event.preventDefault()
+                //   EditorCommands.toggleCodeBlock(editor)
+                //   break
+                // }
 
-            //     // When "B" is pressed, bold the text in the selection.
-            //     case 'b': {
-            //       event.preventDefault();
-            //       EditorCommands.toggleBoldMark(editor);
-            //       break;
-            //     }
-            //   }
-            // }}
+                case 'B':
+                case 'b': {
+                  event.preventDefault();
+                  toggleMark(editor, MarkFormat.Bold);
+                  break;
+                }
+                case 'I':
+                case 'i': {
+                  event.preventDefault();
+                  toggleMark(editor, MarkFormat.Italic);
+                  break;
+                }
+                case 'U':
+                case 'u': {
+                  event.preventDefault();
+                  toggleMark(editor, MarkFormat.Underline);
+                  break;
+                }
+              }
+            }}
           />
         </Grid>
       </Grid>
@@ -99,7 +114,11 @@ const Leaf = (props: RenderLeafProps) => {
   return (
     <span
       {...props.attributes}
-      style={{ fontWeight: props.leaf.bold ? 'bold' : 'normal' }}
+      style={{
+        fontWeight: props.leaf[MarkFormat.Bold] ? 'bold' : 'normal',
+        fontStyle: props.leaf[MarkFormat.Italic] ? 'italic' : 'normal',
+        textDecoration: getTextDecoration(props.leaf),
+      }}
     >
       {props.children}
     </span>

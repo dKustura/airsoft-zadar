@@ -2,7 +2,7 @@ import React from 'react';
 import { useSlate } from 'slate-react';
 
 // Components
-import { Button } from '@material-ui/core';
+import ToggleButton from '@material-ui/lab/ToggleButton';
 
 // Helpers
 import { toggleMark, isMarkActive, MarkFormat } from './helpers';
@@ -17,18 +17,14 @@ const MarkButton: React.FC<Props> = ({ format, Icon, ...other }) => {
   const isActive = isMarkActive(editor, format);
 
   return (
-    <Button
+    <ToggleButton
       {...other}
-      variant={isActive ? 'contained' : 'outlined'}
-      onClick={() => toggleMark(editor, format)}
-      disableElevation
-      onMouseDown={event => {
-        // Added to prevent editor from losing focus on button click
-        event.preventDefault();
-      }}
+      size="small"
+      selected={isActive}
+      onChange={() => toggleMark(editor, format)}
     >
       <Icon />
-    </Button>
+    </ToggleButton>
   );
 };
 
