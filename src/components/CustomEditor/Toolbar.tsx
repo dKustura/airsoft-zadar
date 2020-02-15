@@ -1,10 +1,10 @@
 import React from 'react';
 
 // Components
-import { ButtonGroup } from '@material-ui/core';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
-import MarkButton from './MarkButton';
+import { Paper, Divider } from '@material-ui/core';
 import MarkToggleButton from './MarkToggleButton';
+import MarksRemoveButton from './MarksRemoveButton';
+import StyledToggleButtonGroup from './StyledToggleButtonGroup';
 
 // Icons
 import FormatBoldIcon from '@material-ui/icons/FormatBold';
@@ -15,34 +15,43 @@ import FormatStrikethroughIcon from '@material-ui/icons/FormatStrikethrough';
 // Helpers
 import { MarkFormat } from './helpers';
 
-interface Props {}
+// Styling
+import { withStyles, WithStyles } from '@material-ui/core/styles';
+import { toolbarStyles as styles } from './styles';
 
-const Toolbar: React.FC<Props> = () => {
+interface Props extends WithStyles<typeof styles> {}
+
+const Toolbar: React.FC<Props> = ({ classes }) => {
   return (
-    <>
-      <ButtonGroup color="primary" aria-label="outlined primary button group">
-        <MarkButton format={MarkFormat.Bold} Icon={FormatBoldIcon} />
-        <MarkButton format={MarkFormat.Italic} Icon={FormatItalicIcon} />
-        <MarkButton format={MarkFormat.Underline} Icon={FormatUnderlinedIcon} />
-        <MarkButton
-          format={MarkFormat.Linetrough}
-          Icon={FormatStrikethroughIcon}
+    <Paper elevation={0} className={classes.paper}>
+      <StyledToggleButtonGroup>
+        <MarkToggleButton
+          format={MarkFormat.Bold}
+          Icon={FormatBoldIcon}
+          tooltip="Bold"
         />
-      </ButtonGroup>
-      <ToggleButtonGroup>
-        <MarkToggleButton format={MarkFormat.Bold} Icon={FormatBoldIcon} />
-        <MarkToggleButton format={MarkFormat.Italic} Icon={FormatItalicIcon} />
+        <MarkToggleButton
+          format={MarkFormat.Italic}
+          Icon={FormatItalicIcon}
+          tooltip="Italic"
+        />
         <MarkToggleButton
           format={MarkFormat.Underline}
           Icon={FormatUnderlinedIcon}
+          tooltip="Underline"
         />
         <MarkToggleButton
           format={MarkFormat.Linetrough}
           Icon={FormatStrikethroughIcon}
+          tooltip="Linethrough"
         />
-      </ToggleButtonGroup>
-    </>
+      </StyledToggleButtonGroup>
+      <Divider orientation="vertical" className={classes.divider} />
+      <StyledToggleButtonGroup>
+        <MarksRemoveButton />
+      </StyledToggleButtonGroup>
+    </Paper>
   );
 };
 
-export default Toolbar;
+export default withStyles(styles)(Toolbar);

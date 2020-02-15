@@ -35,10 +35,13 @@
     "yup": "^0.28.0"
   },
   "scripts": {
-    "start": "npm run trans && react-scripts start",
-    "build": "npm run trans && react-scripts build",
-    "test": "npm run trans && react-scripts test",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "start:trans": "npm run trans && react-scripts start",
+    "build:trans": "npm run trans && react-scripts build",
+    "test:trans": "npm run trans && react-scripts test",
     "trans:extract": "extract-messages -l=en -o src/translations/locales -d hr --flat true src/**/messages.ts",
     "trans:combine": "glob \"src/translations/locales/**/*.json\" | node scripts/concat -v -o src/translations/index.json",
     "trans": "npm run trans:extract && npm run trans:combine"
