@@ -40,6 +40,10 @@ const MarkButton: React.FC<Props> = ({
           root: classes.root,
           selected: classes.selected,
         }}
+        onMouseDown={event => {
+          // Added to prevent editor from losing focus on button click
+          event.preventDefault();
+        }}
       >
         <Icon />
       </ToggleButton>
