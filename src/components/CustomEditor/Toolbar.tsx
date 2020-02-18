@@ -18,6 +18,7 @@ import { MarkFormat } from './helpers';
 // Styling
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import { toolbarStyles as styles } from './styles';
+import DropdownStylingButton from './DropdownStylingButton';
 
 interface Props extends WithStyles<typeof styles> {}
 
@@ -28,17 +29,17 @@ const Toolbar: React.FC<Props> = ({ classes }) => {
         <MarkToggleButton
           format={MarkFormat.Bold}
           Icon={FormatBoldIcon}
-          tooltip="Bold"
+          tooltip="Bold (Ctrl-B)"
         />
         <MarkToggleButton
           format={MarkFormat.Italic}
           Icon={FormatItalicIcon}
-          tooltip="Italic"
+          tooltip="Italic (CTRL-I)"
         />
         <MarkToggleButton
           format={MarkFormat.Underline}
           Icon={FormatUnderlinedIcon}
-          tooltip="Underline"
+          tooltip="Underline (Ctrl-U)"
         />
         <MarkToggleButton
           format={MarkFormat.Linetrough}
@@ -49,6 +50,7 @@ const Toolbar: React.FC<Props> = ({ classes }) => {
       <Divider orientation="vertical" className={classes.divider} />
       <StyledToggleButtonGroup>
         <MarksRemoveButton />
+        <DropdownStylingButton />
       </StyledToggleButtonGroup>
     </Paper>
   );

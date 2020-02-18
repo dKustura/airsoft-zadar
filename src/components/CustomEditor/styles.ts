@@ -11,10 +11,11 @@ export default (theme: Theme) =>
       '&:focus': {
         boxShadow: `inset 0px 0px 0px 1px ${theme.palette.primary.main}`,
       },
+      minHeight: '30vh',
     },
   });
 
-export const markToggleButtonStyles = (theme: Theme) =>
+export const toolbarButtonStyles = (theme: Theme) =>
   createStyles({
     root: {
       color: theme.palette.primary.main,

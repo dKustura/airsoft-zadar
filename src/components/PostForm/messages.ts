@@ -1,7 +1,7 @@
 import { defineMessages } from 'react-intl';
 
 const messages = defineMessages({
-  createNewPost: 'Stvori Novu Objavu',
+  createNewPost: 'Nova Objava',
   titleLabel: 'Naslov',
   contentLabel: 'Sadržaj',
   submitButton: 'Objavi',

@@ -3,19 +3,15 @@ import { useSlate } from 'slate-react';
 
 // Components
 import { Tooltip } from '@material-ui/core';
-import ToggleButton from '@material-ui/lab/ToggleButton';
 import FormatClearIcon from '@material-ui/icons/FormatClear';
 
 // Helpers
 import { MarkFormat } from './helpers';
+import ToolbarToggleButton from './ToolbarToggleButton';
 
-// Styling
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-import { markToggleButtonStyles as styles } from './styles';
+interface Props {}
 
-interface Props extends WithStyles<typeof styles> {}
-
-const MarksRemoveButton: React.FC<Props> = ({ classes, ...other }) => {
+const MarksRemoveButton: React.FC<Props> = ({ ...other }) => {
   const editor = useSlate();
 
   const removeMarks = useCallback(() => {
@@ -23,22 +19,17 @@ const MarksRemoveButton: React.FC<Props> = ({ classes, ...other }) => {
   }, [editor]);
 
   return (
-    <Tooltip placement="top" title="Remove styling">
-      <ToggleButton
+    <Tooltip placement="top" title="Remove formatting">
+      <ToolbarToggleButton
         {...other}
         value="removeStyle"
-        size="small"
         selected={false}
         onChange={removeMarks}
-        classes={{
-          root: classes.root,
-          selected: classes.selected,
-        }}
       >
         <FormatClearIcon />
-      </ToggleButton>
+      </ToolbarToggleButton>
     </Tooltip>
   );
 };
 
-export default withStyles(styles)(MarksRemoveButton);
+export default MarksRemoveButton;
