@@ -1,4 +1,4 @@
-import { Editor, Text } from 'slate';
+import { Editor, Transforms } from 'slate';
 
 export enum MarkFormat {
   Bold = 'bold',
@@ -7,9 +7,43 @@ export enum MarkFormat {
   Linetrough = 'linetrough',
 }
 
+export enum BlockFormat {
+  Header = 'header',
+  Subheader = 'subheader',
+  Paragraph = 'paragraph',
+}
+
+const isBlockActive = (editor: Editor, format: BlockFormat) => {
+  const [match] = Editor.nodes(editor, {
+    match: n => n.type === format,
+  });
+
+  return !!match;
+};
+
 export const isMarkActive = (editor: Editor, format: MarkFormat) => {
   const marks = Editor.marks(editor);
   return marks ? marks[format] === true : false;
+};
+
+export const toggleBlock = (editor: Editor, format: BlockFormat) => {
+  const isActive = isBlockActive(editor, format);
+  // const isList = LIST_TYPES.includes(format)
+
+  // Transforms.unwrapNodes(editor, {
+  //   match: n => LIST_TYPES.includes(n.type),
+  //   split: true,
+  // });
+
+  Transforms.setNodes(editor, {
+    // type: isActive ? 'paragraph' : isList ? 'list-item' : format,
+    type: isActive ? BlockFormat.Paragraph : format,
+  });
+
+  // if (!isActive && isList) {
+  //   const block = { type: format, children: [] };
+  //   Transforms.wrapNodes(editor, block);
+  // }
 };
 
 export const toggleMark = (editor: Editor, format: MarkFormat) => {
@@ -39,13 +73,4 @@ export const exclusiveMarkFormatGroupMappings: {
   [MarkFormat.Italic]: undefined,
   [MarkFormat.Underline]: exclusiveMarkFormatGroups.textDecoration,
   [MarkFormat.Linetrough]: exclusiveMarkFormatGroups.textDecoration,
-};
-
-export const getTextDecoration = (leaf: Text) => {
-  if (leaf[MarkFormat.Underline]) {
-    return 'underline';
-  } else if (leaf[MarkFormat.Linetrough]) {
-    return 'line-through';
-  }
-  return 'none';
 };

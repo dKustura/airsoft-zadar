@@ -17,7 +17,7 @@ import { withStyles, WithStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
 // Helpers
-import { toggleMark, MarkFormat, getTextDecoration } from './helpers';
+import { toggleMark, MarkFormat, BlockFormat } from './helpers';
 
 interface Props extends WithStyles<typeof styles> {}
 
@@ -30,19 +30,9 @@ const CustomEditor: React.FC<Props> = ({ classes }) => {
     },
   ]);
 
-  const renderElement = useCallback((props: RenderElementProps) => {
-    switch (props.element.type) {
-      // case 'code':
-      //   return <CodeElement {...props} />;
-      default:
-        return <DefaultElement {...props} />;
-    }
-  }, []);
+  const renderElement = useCallback(props => <Element {...props} />, []);
 
-  // Define a leaf rendering function that is memoized with `useCallback`.
-  const renderLeaf = useCallback(props => {
-    return <Leaf {...props} />;
-  }, []);
+  const renderLeaf = useCallback(props => <Leaf {...props} />, []);
 
   return (
     <Slate editor={editor} value={value} onChange={value => setValue(value)}>
@@ -66,13 +56,6 @@ const CustomEditor: React.FC<Props> = ({ classes }) => {
               }
 
               switch (event.key) {
-                // When "`" is pressed, keep our existing code block logic.
-                // case '`': {
-                //   event.preventDefault()
-                //   EditorCommands.toggleCodeBlock(editor)
-                //   break
-                // }
-
                 case 'B':
                 case 'b': {
                   event.preventDefault();
@@ -102,25 +85,53 @@ const CustomEditor: React.FC<Props> = ({ classes }) => {
 
 export default withStyles(styles)(CustomEditor);
 
-// const CodeElement = (props: RenderElementProps) => {
-//   return <code {...props.attributes}>{props.children}</code>;
-// };
+const HeaderElement = (props: RenderElementProps) => {
+  return (
+    <Typography variant="h2" {...props.attributes}>
+      {props.children}
+    </Typography>
+  );
+};
+
+const SubheaderElement = (props: RenderElementProps) => {
+  return (
+    <Typography variant="h4" {...props.attributes}>
+      {props.children}
+    </Typography>
+  );
+};
 
 const DefaultElement = (props: RenderElementProps) => {
   return <Typography {...props.attributes}>{props.children}</Typography>;
 };
 
-const Leaf = (props: RenderLeafProps) => {
-  return (
-    <span
-      {...props.attributes}
-      style={{
-        fontWeight: props.leaf[MarkFormat.Bold] ? 'bold' : 'normal',
-        fontStyle: props.leaf[MarkFormat.Italic] ? 'italic' : 'normal',
-        textDecoration: getTextDecoration(props.leaf),
-      }}
-    >
-      {props.children}
-    </span>
-  );
+const Element = (props: RenderElementProps) => {
+  switch (props.element.type) {
+    case BlockFormat.Header:
+      return <HeaderElement {...props} />;
+    case BlockFormat.Subheader:
+      return <SubheaderElement {...props} />;
+    default:
+      return <DefaultElement {...props} />;
+  }
+};
+
+const Leaf = ({ attributes, children, leaf }: RenderLeafProps) => {
+  if (leaf[MarkFormat.Bold]) {
+    children = <strong>{children}</strong>;
+  }
+
+  if (leaf[MarkFormat.Italic]) {
+    children = <em>{children}</em>;
+  }
+
+  if (leaf[MarkFormat.Underline]) {
+    children = <u>{children}</u>;
+  }
+
+  if (leaf[MarkFormat.Linetrough]) {
+    children = <del>{children}</del>;
+  }
+
+  return <span {...attributes}>{children}</span>;
 };

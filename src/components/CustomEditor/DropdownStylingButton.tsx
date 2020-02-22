@@ -1,8 +1,9 @@
 import React from 'react';
+import { useSlate } from 'slate-react';
 
+// Components
 import { MenuItem, Button, Tooltip } from '@material-ui/core';
 import DropdownMenu from 'components/DropdownMenu';
-
 import FormatSizeIcon from '@material-ui/icons/FormatSize';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
@@ -10,12 +11,17 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import { toolbarButtonStyles as styles } from './styles';
 
+// Helpers
+import { BlockFormat, toggleBlock } from './helpers';
+
 interface Props extends WithStyles<typeof styles> {}
 
 const DropdownStylingButton: React.FC<Props> = ({
   classes,
   ...buttonProps
 }) => {
+  const editor = useSlate();
+
   const dropdownButton = (
     <Tooltip placement="top" title="Font size">
       <Button
@@ -32,9 +38,15 @@ const DropdownStylingButton: React.FC<Props> = ({
 
   return (
     <DropdownMenu menuButton={dropdownButton}>
-      <MenuItem>Huge</MenuItem>
-      <MenuItem>Normal</MenuItem>
-      <MenuItem>Small </MenuItem>
+      <MenuItem onClick={() => toggleBlock(editor, BlockFormat.Header)}>
+        Header
+      </MenuItem>
+      <MenuItem onClick={() => toggleBlock(editor, BlockFormat.Subheader)}>
+        Subheader
+      </MenuItem>
+      <MenuItem onClick={() => toggleBlock(editor, BlockFormat.Paragraph)}>
+        Paragraph
+      </MenuItem>
     </DropdownMenu>
   );
 };
