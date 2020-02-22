@@ -2,17 +2,9 @@ import React from 'react';
 import { withSnackbar, WithSnackbarProps } from 'notistack';
 
 // Components
-import {
-  Paper,
-  Button,
-  Popper,
-  ClickAwayListener,
-  MenuList,
-  MenuItem,
-  Grow,
-  Typography,
-} from '@material-ui/core';
+import { Button, MenuItem, Typography } from '@material-ui/core';
 import { withFirebase, WithFirebaseProps } from 'components/Firebase';
+import DropdownMenu from 'components/DropdownMenu';
 
 // Styling
 import { withStyles, WithStyles } from '@material-ui/core/styles';
@@ -76,70 +68,35 @@ const UserMenu: React.FC<Props> = ({
     }
   }
 
+  const dropdownButton = (
+    <Button classes={{ label: classes.userButtonLabel }} color="inherit">
+      <Typography>{displayName}</Typography>
+    </Button>
+  );
+
   return (
-    <div className={classes.root}>
-      <div>
-        <Button
-          classes={{ label: classes.userButtonLabel }}
-          color="inherit"
-          ref={anchorRef}
-          aria-controls={open ? 'menu-list-grow' : undefined}
-          aria-haspopup="true"
-          onClick={handleToggle}
-        >
-          <Typography>{displayName}</Typography>
-        </Button>
-        <Popper
-          open={open}
-          anchorEl={anchorRef.current}
-          role={undefined}
-          transition
-          disablePortal
-          placement="bottom-end"
-        >
-          {({ TransitionProps, placement }) => (
-            <Grow
-              {...TransitionProps}
-              style={{
-                transformOrigin:
-                  placement === 'bottom-end' ? 'center top' : 'center bottom',
-              }}
-            >
-              <Paper>
-                <ClickAwayListener onClickAway={handleClose}>
-                  <MenuList
-                    autoFocusItem={open}
-                    id="menu-list-grow"
-                    onKeyDown={handleListKeyDown}
-                  >
-                    <MenuItem onClick={handleClose}>
-                      <FormattedMessage {...messages.profileItem} />
-                    </MenuItem>
-                    <MenuItem onClick={handleClose}>
-                      <FormattedMessage {...messages.settingsItem} />
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() =>
-                        firebase
-                          .doSignOut()
-                          .then(() => {
-                            enqueueSnackbar('Signed out.', successNotification);
-                          })
-                          .catch((error: FirebaseError) => {
-                            enqueueSnackbar(error.message, errorNotification);
-                          })
-                      }
-                    >
-                      <FormattedMessage {...messages.signOutItem} />
-                    </MenuItem>
-                  </MenuList>
-                </ClickAwayListener>
-              </Paper>
-            </Grow>
-          )}
-        </Popper>
-      </div>
-    </div>
+    <DropdownMenu menuButton={dropdownButton}>
+      <MenuItem onClick={handleClose}>
+        <FormattedMessage {...messages.profileItem} />
+      </MenuItem>
+      <MenuItem onClick={handleClose}>
+        <FormattedMessage {...messages.settingsItem} />
+      </MenuItem>
+      <MenuItem
+        onClick={() =>
+          firebase
+            .doSignOut()
+            .then(() => {
+              enqueueSnackbar('Signed out.', successNotification);
+            })
+            .catch((error: FirebaseError) => {
+              enqueueSnackbar(error.message, errorNotification);
+            })
+        }
+      >
+        <FormattedMessage {...messages.signOutItem} />
+      </MenuItem>
+    </DropdownMenu>
   );
 };
 

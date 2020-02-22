@@ -54,8 +54,6 @@ const UserMenu: React.FC<Props> = ({ menuButton, children }) => {
   }
 
   return (
-    // TODO: Replace UserMenu with this component
-    // <div className={classes.root}>
     <>
       {React.cloneElement(menuButton, {
         ref: anchorRef,
@@ -94,7 +92,6 @@ const UserMenu: React.FC<Props> = ({ menuButton, children }) => {
         )}
       </Popper>
     </>
-    // </div>
   );
 };
 
