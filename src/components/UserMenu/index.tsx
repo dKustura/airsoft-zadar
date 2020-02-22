@@ -36,10 +36,6 @@ const UserMenu: React.FC<Props> = ({
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
 
-  const handleToggle = () => {
-    setOpen(prevOpen => !prevOpen);
-  };
-
   const handleClose = (event: React.MouseEvent<EventTarget>) => {
     if (
       anchorRef.current &&
@@ -60,13 +56,6 @@ const UserMenu: React.FC<Props> = ({
 
     prevOpen.current = open;
   }, [open]);
-
-  function handleListKeyDown(event: React.KeyboardEvent) {
-    if (event.key === 'Tab') {
-      event.preventDefault();
-      setOpen(false);
-    }
-  }
 
   const dropdownButton = (
     <Button classes={{ label: classes.userButtonLabel }} color="inherit">
