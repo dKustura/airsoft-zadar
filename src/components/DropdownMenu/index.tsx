@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Ref, useState, RefObject } from 'react';
 
 // Components
 import {
@@ -7,6 +7,7 @@ import {
   ClickAwayListener,
   MenuList,
   Grow,
+  PopperPlacementType,
 } from '@material-ui/core';
 
 // Styling
@@ -15,11 +16,18 @@ import styles from './styles';
 
 interface Props extends WithStyles<typeof styles> {
   readonly menuButton: React.ReactElement;
+  readonly placement?: PopperPlacementType;
 }
 
-const UserMenu: React.FC<Props> = ({ menuButton, children }) => {
+const UserMenu: React.FC<Props> = ({
+  menuButton,
+  children,
+  placement,
+  classes,
+}) => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
+  const arrowRef = React.useRef<HTMLSpanElement>(null);
 
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
@@ -46,38 +54,56 @@ const UserMenu: React.FC<Props> = ({ menuButton, children }) => {
     prevOpen.current = open;
   }, [open]);
 
-  function handleListKeyDown(event: React.KeyboardEvent) {
+  const handleListKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === 'Tab') {
       event.preventDefault();
       setOpen(false);
     }
-  }
+  };
 
   return (
     <>
-      {React.cloneElement(menuButton, {
-        ref: anchorRef,
-        'aria-controls': open ? 'menu-list-grow' : undefined,
-        'aria-haspopup': true,
-        onClick: handleToggle,
-      })}
+      <>
+        {React.cloneElement(menuButton, {
+          ref: anchorRef,
+          'aria-controls': open ? 'menu-list-grow' : undefined,
+          'aria-haspopup': true,
+          onClick: handleToggle,
+        })}
+      </>
       <Popper
         open={open}
         anchorEl={anchorRef.current}
         role={undefined}
         transition
         disablePortal
-        placement="bottom-end"
+        placement={placement}
+        modifiers={{
+          flip: {
+            enabled: true,
+          },
+          preventOverflow: {
+            enabled: true,
+            boundariesElement: 'scrollParent',
+          },
+          arrow: {
+            enabled: true,
+            element: arrowRef.current,
+          },
+        }}
       >
         {({ TransitionProps, placement }) => (
           <Grow
             {...TransitionProps}
             style={{
               transformOrigin:
-                placement === 'bottom-end' ? 'center top' : 'center bottom',
+                placement === 'bottom' || 'bottom-end' || 'bottom-start'
+                  ? 'center top'
+                  : 'center bottom',
             }}
           >
             <Paper>
+              <span className={classes.arrow} ref={arrowRef} />
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList
                   autoFocusItem={open}
@@ -93,6 +119,10 @@ const UserMenu: React.FC<Props> = ({ menuButton, children }) => {
       </Popper>
     </>
   );
+};
+
+UserMenu.defaultProps = {
+  placement: 'bottom',
 };
 
 export default withStyles(styles)(UserMenu);

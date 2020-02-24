@@ -39,10 +39,10 @@ const DropdownStylingButton: React.FC<Props> = ({
   return (
     <DropdownMenu menuButton={dropdownButton}>
       <MenuItem onClick={() => toggleBlock(editor, BlockFormat.Header)}>
-        Header
+        Title
       </MenuItem>
       <MenuItem onClick={() => toggleBlock(editor, BlockFormat.Subheader)}>
-        Subheader
+        Subtitle
       </MenuItem>
       <MenuItem onClick={() => toggleBlock(editor, BlockFormat.Paragraph)}>
         Paragraph

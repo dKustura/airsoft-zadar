@@ -65,6 +65,7 @@ const LocaleMenu: React.FC<Props> = ({ languageCode, onChange, classes }) => {
     }
   }
 
+  // TODO: Change this for DropdownMenu component
   return (
     <>
       <Tooltip title="Change language">

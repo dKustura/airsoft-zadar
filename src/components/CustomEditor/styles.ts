@@ -20,6 +20,7 @@ export const toolbarButtonStyles = (theme: Theme) =>
     root: {
       color: theme.palette.primary.main,
       borderColor: theme.palette.primary.main,
+      minWidth: theme.spacing(3),
       '&$selected': {
         backgroundColor: theme.palette.primary.main,
         color: theme.palette.secondary.main,
