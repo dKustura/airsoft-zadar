@@ -4294,13 +4294,12 @@ direction@^1.0.3:
   resolved "https://registry.yarnpkg.com/direction/-/direction-1.0.4.tgz#2b86fb686967e987088caf8b89059370d4837442"
   integrity sha512-GYqKi1aH7PJXxdhTeZBFrg8vUBeKXi+cNprXsC1kpJcbcVnV9wBsrOu1cQEdG0WeQwlfHiy3XvnKfIrJ2R0NzQ==
 
-dkustura-react-scripts@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/dkustura-react-scripts/-/dkustura-react-scripts-0.1.0.tgz#a5ce867d016d34381eb3635d7eeabffce5cfbd2f"
-  integrity sha512-SkheJoLgGvWJLHUE8byLfkNMCL8+iXNuIQnZ437qZyp/pan2gaOk0VR80aTQqZ7bg2eoDNa6Hl2YzwjvaxMz/Q==
+dkustura-react-scripts@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/dkustura-react-scripts/-/dkustura-react-scripts-0.1.2.tgz#b4ac773c1b550b683a858f3a62d2233c1aa7c978"
+  integrity sha512-aGlZVmF+MSAXqRWYojX9omtOzx6c5zymEMFCEgiaeW65alksROYiI6RVD79C5zG3Sj55y9pYDao+7jEUD1XIew==
   dependencies:
     "@babel/core" "7.7.5"
-    "@babel/plugin-transform-typescript" "^7.8.3"
     "@svgr/webpack" "4.3.3"
     "@typescript-eslint/eslint-plugin" "^2.10.0"
     "@typescript-eslint/parser" "^2.10.0"
