@@ -39,12 +39,12 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start:trans": "npm run trans && react-scripts start",
-    "build:trans": "npm run trans && react-scripts build",
-    "test:trans": "npm run trans && react-scripts test",
+    "start:trans": "yarn run trans && react-scripts start",
+    "build:trans": "yarn run trans && react-scripts build",
+    "test:trans": "yarn run trans && react-scripts test",
     "trans:extract": "extract-messages -l=en -o src/translations/locales -d hr --flat true src/**/messages.ts",
     "trans:combine": "glob \"src/translations/locales/**/*.json\" | node scripts/concat -v -o src/translations/index.json",
-    "trans": "npm run trans:extract && npm run trans:combine"
+    "trans": "yarn run trans:extract && yarn run trans:combine"
   },
   "eslintConfig": {
     "extends": "react-app"
