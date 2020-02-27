@@ -5,6 +5,8 @@ import { Paper, Divider } from '@material-ui/core';
 import MarkToggleButton from './MarkToggleButton';
 import MarksRemoveButton from './MarksRemoveButton';
 import StyledToggleButtonGroup from './StyledToggleButtonGroup';
+import DropdownStylingButton from './DropdownStylingButton';
+import HyperlinkButton from './HyperlinkButton';
 
 // Icons
 import FormatBoldIcon from '@material-ui/icons/FormatBold';
@@ -18,7 +20,6 @@ import { MarkFormat } from './helpers';
 // Styling
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import { toolbarStyles as styles } from './styles';
-import DropdownStylingButton from './DropdownStylingButton';
 
 interface Props extends WithStyles<typeof styles> {}
 
@@ -42,15 +43,16 @@ const Toolbar: React.FC<Props> = ({ classes }) => {
           tooltip="Underline (Ctrl-U)"
         />
         <MarkToggleButton
-          format={MarkFormat.Linetrough}
+          format={MarkFormat.Strikethrough}
           Icon={FormatStrikethroughIcon}
-          tooltip="Linethrough"
+          tooltip="Strikethrough"
         />
       </StyledToggleButtonGroup>
       <Divider orientation="vertical" className={classes.divider} />
       <StyledToggleButtonGroup>
         <MarksRemoveButton />
         <DropdownStylingButton />
+        <HyperlinkButton />
       </StyledToggleButtonGroup>
     </Paper>
   );

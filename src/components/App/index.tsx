@@ -61,11 +61,7 @@ const App: React.FC<Props> = ({ theme, authUser, locale }: Props) => {
             horizontal: 'right',
           }}
           action={key => (
-            <IconButton
-              onClick={onClickDismiss(key)}
-              size="small"
-              color="inherit"
-            >
+            <IconButton onClick={onClickDismiss(key)} color="inherit">
               <CloseIcon />
             </IconButton>
           )}

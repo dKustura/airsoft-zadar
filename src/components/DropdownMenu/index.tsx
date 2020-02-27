@@ -1,4 +1,4 @@
-import React, { Ref, useState, RefObject } from 'react';
+import React from 'react';
 
 // Components
 import {
@@ -17,17 +17,18 @@ import styles from './styles';
 interface Props extends WithStyles<typeof styles> {
   readonly menuButton: React.ReactElement;
   readonly placement?: PopperPlacementType;
+  readonly wrapInMenuList?: boolean;
 }
 
 const UserMenu: React.FC<Props> = ({
   menuButton,
   children,
   placement,
+  wrapInMenuList,
   classes,
 }) => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
-  const arrowRef = React.useRef<HTMLSpanElement>(null);
 
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
@@ -54,7 +55,7 @@ const UserMenu: React.FC<Props> = ({
     prevOpen.current = open;
   }, [open]);
 
-  const handleListKeyDown = (event: React.KeyboardEvent) => {
+  const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === 'Tab') {
       event.preventDefault();
       setOpen(false);
@@ -80,15 +81,11 @@ const UserMenu: React.FC<Props> = ({
         placement={placement}
         modifiers={{
           flip: {
-            enabled: true,
+            enabled: false,
           },
           preventOverflow: {
             enabled: true,
             boundariesElement: 'scrollParent',
-          },
-          arrow: {
-            enabled: true,
-            element: arrowRef.current,
           },
         }}
       >
@@ -103,15 +100,19 @@ const UserMenu: React.FC<Props> = ({
             }}
           >
             <Paper>
-              <span className={classes.arrow} ref={arrowRef} />
+              <span className={classes.arrow} />
               <ClickAwayListener onClickAway={handleClose}>
-                <MenuList
-                  autoFocusItem={open}
-                  id="menu-list-grow"
-                  onKeyDown={handleListKeyDown}
-                >
-                  {children}
-                </MenuList>
+                {wrapInMenuList ? (
+                  <MenuList
+                    autoFocusItem={open}
+                    id="menu-list-grow"
+                    onKeyDown={handleKeyDown}
+                  >
+                    {children}
+                  </MenuList>
+                ) : (
+                  <div onKeyDown={handleKeyDown}>{children}</div>
+                )}
               </ClickAwayListener>
             </Paper>
           </Grow>
@@ -123,6 +124,7 @@ const UserMenu: React.FC<Props> = ({
 
 UserMenu.defaultProps = {
   placement: 'bottom',
+  wrapInMenuList: true,
 };
 
 export default withStyles(styles)(UserMenu);

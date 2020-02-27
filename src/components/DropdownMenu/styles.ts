@@ -4,12 +4,13 @@ export default (theme: Theme) =>
   createStyles({
     arrow: {
       position: 'absolute',
-      fontSize: 7,
+      fontSize: theme.spacing(1),
       width: '3em',
       height: '3em',
       top: 0,
       left: 0,
       right: 0,
+      textAlign: 'center',
       margin: '0 auto',
       marginTop: '-0.9em',
       '&::before': {

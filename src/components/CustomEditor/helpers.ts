@@ -4,7 +4,7 @@ export enum MarkFormat {
   Bold = 'bold',
   Italic = 'italic',
   Underline = 'underline',
-  Linetrough = 'linetrough',
+  Strikethrough = 'strikethrough',
 }
 
 export enum BlockFormat {
@@ -62,7 +62,7 @@ export const toggleMark = (editor: Editor, format: MarkFormat) => {
 
 // Groups of mark formats where only one mark can be active
 export const exclusiveMarkFormatGroups = {
-  textDecoration: [MarkFormat.Underline, MarkFormat.Linetrough],
+  textDecoration: [MarkFormat.Underline, MarkFormat.Strikethrough],
 };
 
 // Mappings between mark formats and their exclusive groups
@@ -72,5 +72,5 @@ export const exclusiveMarkFormatGroupMappings: {
   [MarkFormat.Bold]: undefined,
   [MarkFormat.Italic]: undefined,
   [MarkFormat.Underline]: exclusiveMarkFormatGroups.textDecoration,
-  [MarkFormat.Linetrough]: exclusiveMarkFormatGroups.textDecoration,
+  [MarkFormat.Strikethrough]: exclusiveMarkFormatGroups.textDecoration,
 };

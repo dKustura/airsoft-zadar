@@ -35,6 +35,10 @@ export const toolbarButtonStyles = (theme: Theme) =>
       },
     },
     selected: {},
+    dropdownTextfieldInput: {
+      height: '3rem',
+      borderRadius: '8px',
+    },
   });
 
 export const toolbarStyles = (theme: Theme) =>
@@ -66,3 +70,5 @@ export const toolbarStyles = (theme: Theme) =>
       margin: theme.spacing(1, 0.5),
     },
   });
+
+export const hyperlinkButtonStyles = (theme: Theme) => createStyles({});

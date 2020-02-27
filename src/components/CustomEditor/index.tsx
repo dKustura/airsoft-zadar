@@ -129,7 +129,7 @@ const Leaf = ({ attributes, children, leaf }: RenderLeafProps) => {
     children = <u>{children}</u>;
   }
 
-  if (leaf[MarkFormat.Linetrough]) {
+  if (leaf[MarkFormat.Strikethrough]) {
     children = <del>{children}</del>;
   }
 
