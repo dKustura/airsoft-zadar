@@ -18,19 +18,28 @@ interface Props extends WithStyles<typeof styles> {
   readonly menuButton: React.ReactElement;
   readonly placement?: PopperPlacementType;
   readonly wrapInMenuList?: boolean;
+  readonly onOpen?: () => void;
+  readonly onClose?: () => void;
 }
 
-const UserMenu: React.FC<Props> = ({
+const DropdownMenu: React.FC<Props> = ({
   menuButton,
   children,
   placement,
   wrapInMenuList,
+  onOpen,
+  onClose,
   classes,
 }) => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
 
   const handleToggle = () => {
+    if (open) {
+      onClose?.();
+    } else {
+      onOpen?.();
+    }
     setOpen(prevOpen => !prevOpen);
   };
 
@@ -44,16 +53,6 @@ const UserMenu: React.FC<Props> = ({
 
     setOpen(false);
   };
-
-  // return focus to the button when we transitioned from !open -> open
-  const prevOpen = React.useRef(open);
-  React.useEffect(() => {
-    if (prevOpen.current === true && open === false) {
-      anchorRef.current!.focus();
-    }
-
-    prevOpen.current = open;
-  }, [open]);
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === 'Tab') {
@@ -122,9 +121,9 @@ const UserMenu: React.FC<Props> = ({
   );
 };
 
-UserMenu.defaultProps = {
+DropdownMenu.defaultProps = {
   placement: 'bottom',
   wrapInMenuList: true,
 };
 
-export default withStyles(styles)(UserMenu);
+export default withStyles(styles)(DropdownMenu);

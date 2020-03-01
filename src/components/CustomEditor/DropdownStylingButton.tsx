@@ -2,7 +2,7 @@ import React from 'react';
 import { useSlate } from 'slate-react';
 
 // Components
-import { MenuItem, Button, Tooltip } from '@material-ui/core';
+import { MenuItem, Button, Tooltip, Typography } from '@material-ui/core';
 import DropdownMenu from 'components/DropdownMenu';
 import FormatSizeIcon from '@material-ui/icons/FormatSize';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
@@ -39,13 +39,13 @@ const DropdownStylingButton: React.FC<Props> = ({
   return (
     <DropdownMenu menuButton={dropdownButton}>
       <MenuItem onClick={() => toggleBlock(editor, BlockFormat.Header)}>
-        Title
+        <Typography variant="h2">Title</Typography>
       </MenuItem>
       <MenuItem onClick={() => toggleBlock(editor, BlockFormat.Subheader)}>
-        Subtitle
+        <Typography variant="h4">Subtitle</Typography>
       </MenuItem>
       <MenuItem onClick={() => toggleBlock(editor, BlockFormat.Paragraph)}>
-        Paragraph
+        <Typography>Paragraph</Typography>
       </MenuItem>
     </DropdownMenu>
   );

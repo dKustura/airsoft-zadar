@@ -5,6 +5,8 @@ export enum MarkFormat {
   Italic = 'italic',
   Underline = 'underline',
   Strikethrough = 'strikethrough',
+  Link = 'link',
+  Href = 'href',
 }
 
 export enum BlockFormat {
@@ -73,4 +75,6 @@ export const exclusiveMarkFormatGroupMappings: {
   [MarkFormat.Italic]: undefined,
   [MarkFormat.Underline]: exclusiveMarkFormatGroups.textDecoration,
   [MarkFormat.Strikethrough]: exclusiveMarkFormatGroups.textDecoration,
+  [MarkFormat.Link]: undefined,
+  [MarkFormat.Href]: undefined,
 };

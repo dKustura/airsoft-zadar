@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useMemo, useState, useCallback, useEffect } from 'react';
 import { createEditor, Node } from 'slate';
 import {
   Slate,
@@ -9,7 +9,7 @@ import {
 } from 'slate-react';
 
 // Components
-import { Typography, Grid } from '@material-ui/core';
+import { Typography, Grid, Link } from '@material-ui/core';
 import Toolbar from './Toolbar';
 
 // Styling
@@ -23,6 +23,7 @@ interface Props extends WithStyles<typeof styles> {}
 
 const CustomEditor: React.FC<Props> = ({ classes }) => {
   const editor = useMemo(() => withReact(createEditor()), []);
+
   const [value, setValue] = useState<Node[]>([
     {
       type: 'paragraph',
@@ -76,6 +77,7 @@ const CustomEditor: React.FC<Props> = ({ classes }) => {
                 }
               }
             }}
+            spellCheck={false}
           />
         </Grid>
       </Grid>
@@ -131,6 +133,10 @@ const Leaf = ({ attributes, children, leaf }: RenderLeafProps) => {
 
   if (leaf[MarkFormat.Strikethrough]) {
     children = <del>{children}</del>;
+  }
+
+  if (leaf[MarkFormat.Link]) {
+    children = <Link href={leaf[MarkFormat.Href]}>{children}</Link>;
   }
 
   return <span {...attributes}>{children}</span>;
