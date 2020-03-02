@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 // Components
 import {
@@ -34,14 +34,14 @@ const DropdownMenu: React.FC<Props> = ({
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
 
-  const handleToggle = () => {
+  const handleToggle = useCallback(() => {
     if (open) {
       onClose?.();
     } else {
       onOpen?.();
     }
     setOpen(prevOpen => !prevOpen);
-  };
+  }, []);
 
   const handleClose = (event: React.MouseEvent<EventTarget>) => {
     if (
@@ -63,14 +63,12 @@ const DropdownMenu: React.FC<Props> = ({
 
   return (
     <>
-      <>
-        {React.cloneElement(menuButton, {
-          ref: anchorRef,
-          'aria-controls': open ? 'menu-list-grow' : undefined,
-          'aria-haspopup': true,
-          onClick: handleToggle,
-        })}
-      </>
+      {React.cloneElement(menuButton, {
+        ref: anchorRef,
+        'aria-controls': open ? 'menu-list-grow' : undefined,
+        'aria-haspopup': true,
+        onClick: handleToggle,
+      })}
       <Popper
         open={open}
         anchorEl={anchorRef.current}

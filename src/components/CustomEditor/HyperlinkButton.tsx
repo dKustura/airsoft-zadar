@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useMemo } from 'react';
-import { Range, SetSelectionOperation } from 'slate';
+import React, { useState, useCallback } from 'react';
+import { Range, SetSelectionOperation, Editor } from 'slate';
 import { useSlate } from 'slate-react';
 
 // Components
@@ -24,8 +24,7 @@ import { MarkFormat, toggleMark, isMarkActive } from './helpers';
 
 interface Props extends WithStyles<typeof styles> {}
 
-// This selection should never be set but is needed to conform
-// the SetSelectionOperation interface
+// This selection should never be set but is needed to conform the SetSelectionOperation interface
 const defaultSelection: Range = {
   anchor: { path: [0, 0], offset: 0 },
   focus: { path: [0, 0], offset: 0 },
@@ -33,7 +32,12 @@ const defaultSelection: Range = {
 
 const HyperlinkButton: React.FC<Props> = ({ classes, ...buttonProps }) => {
   const editor = useSlate();
+
   const [linkText, setLinkText] = useState('');
+  const [isLinkActive, setIsLinkActive] = useState(
+    isMarkActive(editor, MarkFormat.Link)
+  );
+
   const [
     editorSelectionState,
     setEditorSelectionState,
@@ -43,6 +47,7 @@ const HyperlinkButton: React.FC<Props> = ({ classes, ...buttonProps }) => {
     <Tooltip placement="top" title="Hyperlink">
       <Button
         {...buttonProps}
+        color="secondary"
         classes={{
           root: classes.root,
         }}
@@ -54,13 +59,20 @@ const HyperlinkButton: React.FC<Props> = ({ classes, ...buttonProps }) => {
 
   const onOpen = useCallback(() => {
     setEditorSelectionState(editor.selection);
-  }, []);
 
-  const isLinkActive = isMarkActive(editor, MarkFormat.Link);
+    const marks = Editor.marks(editor);
+    const initialLinkText =
+      marks && marks[MarkFormat.Href] ? marks[MarkFormat.Href] : '';
+    setLinkText(initialLinkText);
+
+    const isInitialLinkActive = isMarkActive(editor, MarkFormat.Link);
+    setIsLinkActive(isInitialLinkActive);
+  }, [editor.selection]);
 
   const toggleLink = useCallback(() => {
     toggleMark(editor, MarkFormat.Link);
     editor.addMark(MarkFormat.Href, linkText);
+    setIsLinkActive(isMarkActive(editor, MarkFormat.Link));
   }, [editor, linkText]);
 
   // const onKeyPress = useCallback(
@@ -84,14 +96,16 @@ const HyperlinkButton: React.FC<Props> = ({ classes, ...buttonProps }) => {
       };
       editor.apply(setSelectionOperation);
     },
-    [editor.selection, editorSelectionState]
+    [editor, editorSelectionState]
   );
 
   const onAdornmentClick = useCallback(() => {
     if (isLinkActive) {
       setLinkText('');
     }
-    toggleLink();
+    if (linkText) {
+      toggleLink();
+    }
   }, [isLinkActive, toggleLink]);
 
   const handleTextChange = useCallback(
@@ -123,7 +137,7 @@ const HyperlinkButton: React.FC<Props> = ({ classes, ...buttonProps }) => {
                 onClick={onAdornmentClick}
                 edge="end"
               >
-                {isLinkActive ? <CloseIcon /> : <CheckIcon />}
+                {isLinkActive || !linkText ? <CloseIcon /> : <CheckIcon />}
               </IconButton>
             </InputAdornment>
           ),
