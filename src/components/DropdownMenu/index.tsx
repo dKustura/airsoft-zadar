@@ -41,7 +41,7 @@ const DropdownMenu: React.FC<Props> = ({
       onOpen?.();
     }
     setOpen(prevOpen => !prevOpen);
-  }, []);
+  }, [onClose, onOpen, open]);
 
   const handleClose = (event: React.MouseEvent<EventTarget>) => {
     if (
