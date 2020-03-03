@@ -20,10 +20,17 @@ import { MarkFormat } from './helpers';
 // Styling
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import { toolbarStyles as styles } from './styles';
+import { useSlate } from 'slate-react';
 
 interface Props extends WithStyles<typeof styles> {}
 
 const Toolbar: React.FC<Props> = ({ classes }) => {
+  const editor = useSlate();
+
+  const selectionLength = editor.selection
+    ? Math.abs(editor.selection.anchor.offset - editor.selection.focus.offset)
+    : 0;
+
   return (
     <Paper elevation={0} className={classes.paper}>
       <StyledToggleButtonGroup>
@@ -52,7 +59,7 @@ const Toolbar: React.FC<Props> = ({ classes }) => {
       <StyledToggleButtonGroup>
         <MarksRemoveButton />
         <DropdownStylingButton />
-        <HyperlinkButton />
+        <HyperlinkButton disabled={selectionLength === 0} />
       </StyledToggleButtonGroup>
     </Paper>
   );
