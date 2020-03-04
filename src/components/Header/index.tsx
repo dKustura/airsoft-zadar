@@ -16,6 +16,7 @@ import {
   Container,
   IconButton,
   Tooltip,
+  Zoom,
 } from '@material-ui/core';
 import SunIcon from '@material-ui/icons/Brightness7';
 import MoonIcon from '@material-ui/icons/Brightness2';
@@ -127,7 +128,7 @@ const Header: React.FC<Props> = ({
                 />
               </Grid>
               <Grid item>
-                <Tooltip title="Toggle theme">
+                <Tooltip TransitionComponent={Zoom} title="Toggle theme">
                   <IconButton
                     aria-label="toggle theme"
                     color="inherit"

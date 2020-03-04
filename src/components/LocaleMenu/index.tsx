@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Components
-import { MenuItem, IconButton, Tooltip } from '@material-ui/core';
+import { MenuItem, IconButton, Tooltip, Zoom } from '@material-ui/core';
 import FlagIcon from 'components/FlagIcon';
 
 // Styling
@@ -23,7 +23,7 @@ interface Props extends WithStyles<typeof styles> {
 
 const LocaleMenu: React.FC<Props> = ({ languageCode, onChange, classes }) => {
   const menuButton = (
-    <Tooltip title="Change language">
+    <Tooltip TransitionComponent={Zoom} title="Change language">
       <IconButton>
         <FlagIcon
           code={getCountryCodeForLanguage(languageCode)}

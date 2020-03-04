@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useSlate } from 'slate-react';
 
 // Components
-import { Tooltip } from '@material-ui/core';
+import { Tooltip, Zoom } from '@material-ui/core';
 import FormatClearIcon from '@material-ui/icons/FormatClear';
 
 // Helpers
@@ -19,7 +19,11 @@ const MarksRemoveButton: React.FC<Props> = ({ ...other }) => {
   }, [editor]);
 
   return (
-    <Tooltip placement="top" title="Remove formatting">
+    <Tooltip
+      TransitionComponent={Zoom}
+      placement="top"
+      title="Remove formatting"
+    >
       <ToolbarToggleButton
         {...other}
         value="removeStyle"

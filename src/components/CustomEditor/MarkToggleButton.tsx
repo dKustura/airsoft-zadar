@@ -2,7 +2,7 @@ import React from 'react';
 import { useSlate } from 'slate-react';
 
 // Components
-import { Tooltip } from '@material-ui/core';
+import { Tooltip, Zoom } from '@material-ui/core';
 import ToolbarToggleButton from './ToolbarToggleButton';
 
 // Helpers
@@ -19,7 +19,7 @@ const MarkButton: React.FC<Props> = ({ format, Icon, tooltip, ...other }) => {
   const isActive = isMarkActive(editor, format);
 
   return (
-    <Tooltip placement="top" title={tooltip}>
+    <Tooltip TransitionComponent={Zoom} placement="top" title={tooltip}>
       <ToolbarToggleButton
         {...other}
         value="format"

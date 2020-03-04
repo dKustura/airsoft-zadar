@@ -2,7 +2,7 @@ import React from 'react';
 import { useSlate } from 'slate-react';
 
 // Components
-import { MenuItem, Button, Tooltip, Typography } from '@material-ui/core';
+import { MenuItem, Button, Tooltip, Typography, Zoom } from '@material-ui/core';
 import DropdownMenu from 'components/DropdownMenu';
 import FormatSizeIcon from '@material-ui/icons/FormatSize';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
@@ -23,7 +23,7 @@ const DropdownStylingButton: React.FC<Props> = ({
   const editor = useSlate();
 
   const dropdownButton = (
-    <Tooltip placement="top" title="Font size">
+    <Tooltip TransitionComponent={Zoom} placement="top" title="Font size">
       <Button
         {...buttonProps}
         classes={{

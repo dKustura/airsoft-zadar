@@ -24,4 +24,7 @@ export default (theme: Theme) =>
         borderColor: `transparent transparent ${theme.palette.background.paper} transparent`,
       },
     },
+    popper: {
+      zIndex: 1,
+    },
   });

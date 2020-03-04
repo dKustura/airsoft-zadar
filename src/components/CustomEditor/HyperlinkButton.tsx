@@ -9,6 +9,7 @@ import {
   TextField,
   IconButton,
   InputAdornment,
+  Zoom,
 } from '@material-ui/core';
 import DropdownMenu from 'components/DropdownMenu';
 import LinkIcon from '@material-ui/icons/Link';
@@ -54,17 +55,19 @@ const HyperlinkButton: React.FC<Props> = ({
 
   // TODO: Fix tooltip when button is disabled
   const menuButton = (
-    <Tooltip placement="top" title="Hyperlink">
-      <Button
-        {...buttonProps}
-        disabled={disabled}
-        color="secondary"
-        classes={{
-          root: classes.root,
-        }}
-      >
-        <LinkIcon />
-      </Button>
+    <Tooltip TransitionComponent={Zoom} placement="top" title="Hyperlink">
+      <div className={(buttonProps as any).className} style={{ padding: 0 }}>
+        <Button
+          style={{ height: '100%' }}
+          disabled={disabled}
+          color="secondary"
+          classes={{
+            root: classes.root,
+          }}
+        >
+          <LinkIcon />
+        </Button>
+      </div>
     </Tooltip>
   );
 
@@ -137,6 +140,7 @@ const HyperlinkButton: React.FC<Props> = ({
       menuButton={menuButton}
       wrapInMenuList={false}
       onOpen={onOpen}
+      disabled={disabled}
     >
       <TextField
         autoFocus

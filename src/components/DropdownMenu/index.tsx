@@ -6,7 +6,7 @@ import {
   Popper,
   ClickAwayListener,
   MenuList,
-  Grow,
+  Zoom,
   PopperPlacementType,
 } from '@material-ui/core';
 
@@ -20,6 +20,7 @@ interface Props extends WithStyles<typeof styles> {
   readonly wrapInMenuList?: boolean;
   readonly onOpen?: () => void;
   readonly onClose?: () => void;
+  readonly disabled?: boolean;
 }
 
 const DropdownMenu: React.FC<Props> = ({
@@ -29,6 +30,7 @@ const DropdownMenu: React.FC<Props> = ({
   wrapInMenuList,
   onOpen,
   onClose,
+  disabled,
   classes,
 }) => {
   const [open, setOpen] = React.useState(false);
@@ -61,13 +63,15 @@ const DropdownMenu: React.FC<Props> = ({
     }
   };
 
+  const onMenuButtonClick = disabled ? undefined : handleToggle;
+
   return (
     <>
       {React.cloneElement(menuButton, {
         ref: anchorRef,
         'aria-controls': open ? 'menu-list-grow' : undefined,
         'aria-haspopup': true,
-        onClick: handleToggle,
+        onClick: onMenuButtonClick,
       })}
       <Popper
         open={open}
@@ -85,9 +89,10 @@ const DropdownMenu: React.FC<Props> = ({
             boundariesElement: 'scrollParent',
           },
         }}
+        className={classes.popper}
       >
         {({ TransitionProps, placement }) => (
-          <Grow
+          <Zoom
             {...TransitionProps}
             style={{
               transformOrigin:
@@ -112,7 +117,7 @@ const DropdownMenu: React.FC<Props> = ({
                 )}
               </ClickAwayListener>
             </Paper>
-          </Grow>
+          </Zoom>
         )}
       </Popper>
     </>
