@@ -107,12 +107,34 @@ const DefaultElement = (props: RenderElementProps) => {
   return <Typography {...props.attributes}>{props.children}</Typography>;
 };
 
+const BulletedListElement = (props: RenderElementProps) => {
+  return <ul {...props.attributes}>{props.children}</ul>;
+};
+
+const NumberedListElement = (props: RenderElementProps) => {
+  return <ol {...props.attributes}>{props.children}</ol>;
+};
+
+const ListItemElement = (props: RenderElementProps) => {
+  return (
+    <li {...props.attributes}>
+      <Typography>{props.children}</Typography>
+    </li>
+  );
+};
+
 const Element = (props: RenderElementProps) => {
   switch (props.element.type) {
     case BlockFormat.Header:
       return <HeaderElement {...props} />;
     case BlockFormat.Subheader:
       return <SubheaderElement {...props} />;
+    case BlockFormat.ListItem:
+      return <ListItemElement {...props} />;
+    case BlockFormat.BulletedList:
+      return <BulletedListElement {...props} />;
+    case BlockFormat.NumberedList:
+      return <NumberedListElement {...props} />;
     default:
       return <DefaultElement {...props} />;
   }

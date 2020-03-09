@@ -13,9 +13,15 @@ export enum BlockFormat {
   Header = 'header',
   Subheader = 'subheader',
   Paragraph = 'paragraph',
+  BulletedList = 'bulleted-list',
+  NumberedList = 'numbered-list',
+  ListItem = 'list-item',
 }
 
-const isBlockActive = (editor: Editor, format: BlockFormat) => {
+const isListBlockFormat = (format: BlockFormat) =>
+  format === BlockFormat.BulletedList || format === BlockFormat.NumberedList;
+
+export const isBlockActive = (editor: Editor, format: BlockFormat) => {
   const [match] = Editor.nodes(editor, {
     match: n => n.type === format,
   });
@@ -30,22 +36,25 @@ export const isMarkActive = (editor: Editor, format: MarkFormat) => {
 
 export const toggleBlock = (editor: Editor, format: BlockFormat) => {
   const isActive = isBlockActive(editor, format);
-  // const isList = LIST_TYPES.includes(format)
+  const isList = isListBlockFormat(format);
 
-  // Transforms.unwrapNodes(editor, {
-  //   match: n => LIST_TYPES.includes(n.type),
-  //   split: true,
-  // });
-
-  Transforms.setNodes(editor, {
-    // type: isActive ? 'paragraph' : isList ? 'list-item' : format,
-    type: isActive ? BlockFormat.Paragraph : format,
+  Transforms.unwrapNodes(editor, {
+    match: n => isListBlockFormat(n.type),
+    split: true,
   });
 
-  // if (!isActive && isList) {
-  //   const block = { type: format, children: [] };
-  //   Transforms.wrapNodes(editor, block);
-  // }
+  Transforms.setNodes(editor, {
+    type: isActive
+      ? BlockFormat.Paragraph
+      : isList
+      ? BlockFormat.ListItem
+      : format,
+  });
+
+  if (!isActive && isList) {
+    const block = { type: format, children: [] };
+    Transforms.wrapNodes(editor, block);
+  }
 };
 
 export const toggleMark = (editor: Editor, format: MarkFormat) => {

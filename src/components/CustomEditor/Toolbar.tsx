@@ -13,14 +13,17 @@ import FormatBoldIcon from '@material-ui/icons/FormatBold';
 import FormatItalicIcon from '@material-ui/icons/FormatItalic';
 import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined';
 import FormatStrikethroughIcon from '@material-ui/icons/FormatStrikethrough';
+import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
+import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 
 // Helpers
-import { MarkFormat } from './helpers';
+import { MarkFormat, BlockFormat } from './helpers';
 
 // Styling
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import { toolbarStyles as styles } from './styles';
 import { useSlate } from 'slate-react';
+import BlockToggleButton from './BlockToggleButton';
 
 interface Props extends WithStyles<typeof styles> {}
 
@@ -60,6 +63,19 @@ const Toolbar: React.FC<Props> = ({ classes }) => {
         <MarksRemoveButton />
         <DropdownStylingButton />
         <HyperlinkButton disabled={selectionLength === 0} />
+      </StyledToggleButtonGroup>
+      <Divider orientation="vertical" className={classes.divider} />
+      <StyledToggleButtonGroup>
+        <BlockToggleButton
+          format={BlockFormat.BulletedList}
+          Icon={FormatListBulletedIcon}
+          tooltip="Unordered List"
+        />
+        <BlockToggleButton
+          format={BlockFormat.NumberedList}
+          Icon={FormatListNumberedIcon}
+          tooltip="Ordered List"
+        />
       </StyledToggleButtonGroup>
     </Paper>
   );

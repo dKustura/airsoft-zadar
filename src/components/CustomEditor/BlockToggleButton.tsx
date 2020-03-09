@@ -6,22 +6,22 @@ import { Tooltip, Zoom } from '@material-ui/core';
 import ToolbarToggleButton from './ToolbarToggleButton';
 
 // Helpers
-import { toggleMark, isMarkActive, MarkFormat } from './helpers';
+import { toggleBlock, isBlockActive, BlockFormat } from './helpers';
 
 interface Props {
-  readonly format: MarkFormat;
+  readonly format: BlockFormat;
   readonly Icon: React.ComponentType;
   readonly tooltip?: string;
 }
 
-const MarkToggleButton: React.FC<Props> = ({
+const BlockToggleButton: React.FC<Props> = ({
   format,
   Icon,
   tooltip,
   ...other
 }) => {
   const editor = useSlate();
-  const isActive = isMarkActive(editor, format);
+  const isActive = isBlockActive(editor, format);
 
   return (
     <Tooltip TransitionComponent={Zoom} placement="top" title={tooltip}>
@@ -29,7 +29,7 @@ const MarkToggleButton: React.FC<Props> = ({
         {...other}
         value="format"
         selected={isActive}
-        onChange={() => toggleMark(editor, format)}
+        onChange={() => toggleBlock(editor, format)}
       >
         <Icon />
       </ToolbarToggleButton>
@@ -37,4 +37,4 @@ const MarkToggleButton: React.FC<Props> = ({
   );
 };
 
-export default MarkToggleButton;
+export default BlockToggleButton;
