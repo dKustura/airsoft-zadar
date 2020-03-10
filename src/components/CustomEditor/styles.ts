@@ -71,4 +71,11 @@ export const toolbarStyles = (theme: Theme) =>
     },
   });
 
+export const elementStyles = (theme: Theme) =>
+  createStyles({
+    imageElement: {
+      margin: theme.spacing(2),
+    },
+  });
+
 export const hyperlinkButtonStyles = (theme: Theme) => createStyles({});

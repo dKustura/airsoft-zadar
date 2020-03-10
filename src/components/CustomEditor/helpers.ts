@@ -1,4 +1,10 @@
 import { Editor, Transforms } from 'slate';
+import { ReactEditor } from 'slate-react';
+import { HistoryEditor } from 'slate-history';
+import imageExtensions from 'image-extensions';
+import isUrl from 'is-url';
+
+type EditorType = Editor & ReactEditor & HistoryEditor;
 
 export enum MarkFormat {
   Bold = 'bold',
@@ -16,12 +22,13 @@ export enum BlockFormat {
   BulletedList = 'bulleted-list',
   NumberedList = 'numbered-list',
   ListItem = 'list-item',
+  Image = 'image',
 }
 
 const isListBlockFormat = (format: BlockFormat) =>
   format === BlockFormat.BulletedList || format === BlockFormat.NumberedList;
 
-export const isBlockActive = (editor: Editor, format: BlockFormat) => {
+export const isBlockActive = (editor: ReactEditor, format: BlockFormat) => {
   const [match] = Editor.nodes(editor, {
     match: n => n.type === format,
   });
@@ -29,12 +36,12 @@ export const isBlockActive = (editor: Editor, format: BlockFormat) => {
   return !!match;
 };
 
-export const isMarkActive = (editor: Editor, format: MarkFormat) => {
+export const isMarkActive = (editor: ReactEditor, format: MarkFormat) => {
   const marks = Editor.marks(editor);
   return marks ? marks[format] === true : false;
 };
 
-export const toggleBlock = (editor: Editor, format: BlockFormat) => {
+export const toggleBlock = (editor: ReactEditor, format: BlockFormat) => {
   const isActive = isBlockActive(editor, format);
   const isList = isListBlockFormat(format);
 
@@ -57,7 +64,7 @@ export const toggleBlock = (editor: Editor, format: BlockFormat) => {
   }
 };
 
-export const toggleMark = (editor: Editor, format: MarkFormat) => {
+export const toggleMark = (editor: ReactEditor, format: MarkFormat) => {
   const isActive = isMarkActive(editor, format);
 
   if (isActive) {
@@ -86,4 +93,56 @@ export const exclusiveMarkFormatGroupMappings: {
   [MarkFormat.Strikethrough]: exclusiveMarkFormatGroups.textDecoration,
   [MarkFormat.Link]: undefined,
   [MarkFormat.Href]: undefined,
+};
+
+export const withImages = (editor: EditorType) => {
+  const { insertData, isVoid } = editor;
+
+  editor.isVoid = element => {
+    return element.type === BlockFormat.Image ? true : isVoid(element);
+  };
+
+  editor.insertData = data => {
+    const text = data.getData('text/plain');
+    const { files } = data;
+
+    if (files && files.length > 0) {
+      for (const file of files) {
+        const reader = new FileReader();
+        const [mime] = file.type.split('/');
+
+        if (mime === 'image') {
+          reader.addEventListener('load', () => {
+            const url = reader.result as string;
+            insertImage(editor, url);
+          });
+
+          reader.readAsDataURL(file);
+        }
+      }
+    } else if (isImageUrl(text)) {
+      insertImage(editor, text);
+    } else {
+      insertData(data);
+    }
+  };
+
+  return editor;
+};
+
+const isImageUrl = (url: string) => {
+  if (!url) return false;
+  if (!isUrl(url)) return false;
+  const ext = new URL(url).pathname.split('.').pop();
+  return ext && imageExtensions.includes(ext);
+};
+
+const insertImage = (editor: EditorType, url: string) => {
+  const text = { text: '' };
+  const image = { type: 'image', url, children: [text] };
+  Transforms.insertNodes(editor, image);
+  Transforms.insertNodes(editor, {
+    type: BlockFormat.Paragraph,
+    children: [{ text: ' ' }],
+  });
 };

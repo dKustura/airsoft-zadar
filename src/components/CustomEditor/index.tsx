@@ -7,22 +7,35 @@ import {
   RenderLeafProps,
   RenderElementProps,
 } from 'slate-react';
+import { withHistory } from 'slate-history';
 
 // Components
-import { Typography, Grid, Link } from '@material-ui/core';
+import { Grid, Link } from '@material-ui/core';
 import Toolbar from './Toolbar';
+import {
+  DefaultElement,
+  HeaderElement,
+  SubheaderElement,
+  ListItemElement,
+  BulletedListElement,
+  NumberedListElement,
+  ImageElement,
+} from './elements';
 
 // Styling
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
 // Helpers
-import { toggleMark, MarkFormat, BlockFormat } from './helpers';
+import { toggleMark, MarkFormat, BlockFormat, withImages } from './helpers';
 
 interface Props extends WithStyles<typeof styles> {}
 
 const CustomEditor: React.FC<Props> = ({ classes }) => {
-  const editor = useMemo(() => withReact(createEditor()), []);
+  const editor = useMemo(
+    () => withImages(withHistory(withReact(createEditor()))),
+    []
+  );
 
   const [value, setValue] = useState<Node[]>([
     {
@@ -87,42 +100,6 @@ const CustomEditor: React.FC<Props> = ({ classes }) => {
 
 export default withStyles(styles)(CustomEditor);
 
-const HeaderElement = (props: RenderElementProps) => {
-  return (
-    <Typography variant="h2" {...props.attributes}>
-      {props.children}
-    </Typography>
-  );
-};
-
-const SubheaderElement = (props: RenderElementProps) => {
-  return (
-    <Typography variant="h4" {...props.attributes}>
-      {props.children}
-    </Typography>
-  );
-};
-
-const DefaultElement = (props: RenderElementProps) => {
-  return <Typography {...props.attributes}>{props.children}</Typography>;
-};
-
-const BulletedListElement = (props: RenderElementProps) => {
-  return <ul {...props.attributes}>{props.children}</ul>;
-};
-
-const NumberedListElement = (props: RenderElementProps) => {
-  return <ol {...props.attributes}>{props.children}</ol>;
-};
-
-const ListItemElement = (props: RenderElementProps) => {
-  return (
-    <li {...props.attributes}>
-      <Typography>{props.children}</Typography>
-    </li>
-  );
-};
-
 const Element = (props: RenderElementProps) => {
   switch (props.element.type) {
     case BlockFormat.Header:
@@ -135,6 +112,8 @@ const Element = (props: RenderElementProps) => {
       return <BulletedListElement {...props} />;
     case BlockFormat.NumberedList:
       return <NumberedListElement {...props} />;
+    case BlockFormat.Image:
+      return <ImageElement {...props} />;
     default:
       return <DefaultElement {...props} />;
   }
