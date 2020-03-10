@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useCallback } from 'react';
-import { createEditor, Node } from 'slate';
+import { createEditor, Node, Transforms } from 'slate';
 import {
   Slate,
   Editable,
@@ -27,7 +27,13 @@ import { withStyles, WithStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
 // Helpers
-import { toggleMark, MarkFormat, BlockFormat, withImages } from './helpers';
+import {
+  toggleMark,
+  MarkFormat,
+  BlockFormat,
+  withImages,
+  isBlockActive,
+} from './helpers';
 
 interface Props extends WithStyles<typeof styles> {}
 
@@ -61,10 +67,27 @@ const CustomEditor: React.FC<Props> = ({ classes }) => {
             renderLeaf={renderLeaf}
             placeholder="Enter some text..."
             onKeyDown={event => {
-              if (event.key === 'p') {
-                event.preventDefault();
-                editor.insertBreak();
+              // if (event.key === 'p') {
+              //   event.preventDefault();
+              //   editor.insertBreak();
+              // }
+
+              console.log('event.key', event.key);
+
+              // TODO: If current node is Paragraph and is empty -> on backspace removeNode and preventDefault
+              if (isBlockActive(editor, BlockFormat.Placeholder)) {
+                Transforms.removeNodes(editor);
+
+                if (event.key !== 'Backspace') {
+                  Transforms.insertNodes(editor, {
+                    type: BlockFormat.Paragraph,
+                    children: [{ text: '' }],
+                  });
+                } else {
+                  event.preventDefault();
+                }
               }
+
               if (!event.ctrlKey) {
                 return;
               }

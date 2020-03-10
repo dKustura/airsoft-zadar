@@ -23,6 +23,7 @@ export enum BlockFormat {
   NumberedList = 'numbered-list',
   ListItem = 'list-item',
   Image = 'image',
+  Placeholder = 'placeholder',
 }
 
 const isListBlockFormat = (format: BlockFormat) =>
@@ -142,7 +143,7 @@ const insertImage = (editor: EditorType, url: string) => {
   const image = { type: 'image', url, children: [text] };
   Transforms.insertNodes(editor, image);
   Transforms.insertNodes(editor, {
-    type: BlockFormat.Paragraph,
-    children: [{ text: ' ' }],
+    type: BlockFormat.Placeholder,
+    children: [{ text: '' }],
   });
 };
