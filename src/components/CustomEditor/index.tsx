@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useCallback } from 'react';
-import { createEditor, Node, Transforms } from 'slate';
+import { createEditor, Node, Transforms, Editor } from 'slate';
 import {
   Slate,
   Editable,
@@ -74,7 +74,20 @@ const CustomEditor: React.FC<Props> = ({ classes }) => {
 
               console.log('event.key', event.key);
 
-              // TODO: If current node is Paragraph and is empty -> on backspace removeNode and preventDefault
+              if (isBlockActive(editor, BlockFormat.Paragraph)) {
+                if (editor.selection && editor.children.length > 1) {
+                  const [leaf, _] = Editor.leaf(editor, editor.selection);
+
+                  if (leaf.text.length === 0) {
+                    Transforms.removeNodes(editor);
+                    Transforms.insertNodes(editor, {
+                      type: BlockFormat.Placeholder,
+                      children: [{ text: '' }],
+                    });
+                  }
+                }
+              }
+
               if (isBlockActive(editor, BlockFormat.Placeholder)) {
                 Transforms.removeNodes(editor);
 
@@ -85,6 +98,16 @@ const CustomEditor: React.FC<Props> = ({ classes }) => {
                   });
                 } else {
                   event.preventDefault();
+                }
+              }
+
+              if (isBlockActive(editor, BlockFormat.Image)) {
+                if (event.key === 'Enter') {
+                  event.preventDefault();
+                  Transforms.insertNodes(editor, {
+                    type: BlockFormat.Placeholder,
+                    children: [{ text: '' }],
+                  });
                 }
               }
 
