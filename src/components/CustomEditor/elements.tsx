@@ -52,7 +52,7 @@ export const ImageElement = withStyles(elementStyles)(
     const theme = useTheme();
 
     return (
-      <Grid container justify="center" xs={12} {...props.attributes}>
+      <Grid container justify="center" {...props.attributes}>
         <Grid
           item
           contentEditable={false}

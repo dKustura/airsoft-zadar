@@ -65,7 +65,6 @@ const CustomEditor: React.FC<Props> = ({ classes }) => {
             className={classes.editor}
             renderElement={renderElement}
             renderLeaf={renderLeaf}
-            placeholder="Enter some text..."
             onKeyDown={event => {
               // if (event.key === 'p') {
               //   event.preventDefault();
@@ -76,14 +75,18 @@ const CustomEditor: React.FC<Props> = ({ classes }) => {
 
               if (isBlockActive(editor, BlockFormat.Paragraph)) {
                 if (editor.selection && editor.children.length > 1) {
-                  const [leaf, _] = Editor.leaf(editor, editor.selection);
+                  try {
+                    const [leaf, _] = Editor.leaf(editor, editor.selection);
 
-                  if (leaf.text.length === 0) {
-                    Transforms.removeNodes(editor);
-                    Transforms.insertNodes(editor, {
-                      type: BlockFormat.Placeholder,
-                      children: [{ text: '' }],
-                    });
+                    if (leaf.text.length === 0) {
+                      Transforms.removeNodes(editor);
+                      Transforms.insertNodes(editor, {
+                        type: BlockFormat.Placeholder,
+                        children: [{ text: '' }],
+                      });
+                    }
+                  } catch (error) {
+                    // Catch the error thrown when there is no text leaf
                   }
                 }
               }

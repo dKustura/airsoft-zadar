@@ -122,6 +122,8 @@ export const withImages = (editor: EditorType) => {
         }
       }
     } else if (isImageUrl(text)) {
+      // TODO If possible, check here if the dropped image is actually dragged from inside the editor,
+      // if it is move it instead of copying
       insertImage(editor, text);
     } else {
       insertData(data);
