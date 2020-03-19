@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/functions';
+import 'firebase/storage';
 
 import firebaseConfig from './config';
 import { functionNames } from './constants';
@@ -14,6 +15,7 @@ class Firebase {
   public googleProvider: firebase.auth.GoogleAuthProvider;
   public facebookProvider: firebase.auth.FacebookAuthProvider;
   public twitterProvider: firebase.auth.TwitterAuthProvider;
+  public storage: firebase.storage.Storage;
 
   constructor() {
     firebase.initializeApp(firebaseConfig);
@@ -26,6 +28,7 @@ class Firebase {
     this.auth = firebase.auth();
     this.db = firebase.firestore();
     this.functions = firebase.functions();
+    this.storage = firebase.storage();
 
     /* Social Sign In Method Provider */
 
@@ -166,6 +169,15 @@ class Firebase {
     this.functions.httpsCallable(functionNames.DELETE_POST_FUNCTION)({
       uid,
     });
+
+  doUploadImage = (url: string) => {
+    const storageRef = this.storage.ref();
+
+    const imageRef = storageRef.child('/images/abc.jpg');
+    imageRef.putString(url, 'data_url').then(snapshot => {
+      console.log('Uploaded image.');
+    });
+  };
 }
 
 export default Firebase;

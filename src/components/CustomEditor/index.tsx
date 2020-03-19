@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useCallback } from 'react';
-import { createEditor, Node, Transforms, Editor } from 'slate';
+import { createEditor, Node, Transforms, Editor, Range } from 'slate';
 import {
   Slate,
   Editable,
@@ -33,6 +33,7 @@ import {
   BlockFormat,
   withImages,
   isBlockActive,
+  isMarkActive,
 } from './helpers';
 
 interface Props extends WithStyles<typeof styles> {}
@@ -54,6 +55,27 @@ const CustomEditor: React.FC<Props> = ({ classes }) => {
 
   const renderLeaf = useCallback(props => <Leaf {...props} />, []);
 
+  const isCaretAfterImage = (editor: Editor) => {
+    if (!editor.selection) return false;
+    if (!Range.isCollapsed(editor.selection)) return false;
+
+    const firstNodeEntry = Editor.first(editor, editor.selection);
+    if (firstNodeEntry) {
+      console.log('firstNodeEntry[0]', firstNodeEntry[0]);
+    }
+
+    const prevPoint = Editor.before(editor, editor.selection);
+    if (!prevPoint) return false;
+
+    const prevNodeEntry = Editor.node(editor, prevPoint);
+    if (!prevNodeEntry) return false;
+
+    const prevNode = prevNodeEntry[0];
+    const isAfterImage = prevNode.type === BlockFormat.Image;
+
+    return isAfterImage;
+  };
+
   return (
     <Slate editor={editor} value={value} onChange={value => setValue(value)}>
       <Grid container spacing={1}>
@@ -71,36 +93,15 @@ const CustomEditor: React.FC<Props> = ({ classes }) => {
               //   editor.insertBreak();
               // }
 
-              console.log('event.key', event.key);
+              // Alternative approach: On each backspace check if immediate previous element is an Image
 
-              if (isBlockActive(editor, BlockFormat.Paragraph)) {
-                if (editor.selection && editor.children.length > 1) {
-                  try {
-                    const [leaf, _] = Editor.leaf(editor, editor.selection);
+              if (event.key === 'Backspace') {
+                const prevNodeEntry = Editor.previous(editor);
+                const prevNode = prevNodeEntry && prevNodeEntry[0];
 
-                    if (leaf.text.length === 0) {
-                      Transforms.removeNodes(editor);
-                      Transforms.insertNodes(editor, {
-                        type: BlockFormat.Placeholder,
-                        children: [{ text: '' }],
-                      });
-                    }
-                  } catch (error) {
-                    // Catch the error thrown when there is no text leaf
-                  }
-                }
-              }
-
-              if (isBlockActive(editor, BlockFormat.Placeholder)) {
-                Transforms.removeNodes(editor);
-
-                if (event.key !== 'Backspace') {
-                  Transforms.insertNodes(editor, {
-                    type: BlockFormat.Paragraph,
-                    children: [{ text: '' }],
-                  });
-                } else {
+                if (isCaretAfterImage(editor)) {
                   event.preventDefault();
+                  console.log('IS AFTER!');
                 }
               }
 
@@ -108,9 +109,10 @@ const CustomEditor: React.FC<Props> = ({ classes }) => {
                 if (event.key === 'Enter') {
                   event.preventDefault();
                   Transforms.insertNodes(editor, {
-                    type: BlockFormat.Placeholder,
+                    type: BlockFormat.Paragraph,
                     children: [{ text: '' }],
                   });
+                  // editor.addMark(MarkFormat.Placeholder, true);
                 }
               }
 
