@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useCallback } from 'react';
-import { createEditor, Node, Transforms, Editor, Range } from 'slate';
+import { createEditor, Node, Transforms } from 'slate';
 import {
   Slate,
   Editable,
@@ -33,7 +33,7 @@ import {
   BlockFormat,
   withImages,
   isBlockActive,
-  isMarkActive,
+  isCaretAfterImage,
 } from './helpers';
 
 interface Props extends WithStyles<typeof styles> {}
@@ -55,27 +55,6 @@ const CustomEditor: React.FC<Props> = ({ classes }) => {
 
   const renderLeaf = useCallback(props => <Leaf {...props} />, []);
 
-  const isCaretAfterImage = (editor: Editor) => {
-    if (!editor.selection) return false;
-    if (!Range.isCollapsed(editor.selection)) return false;
-
-    const firstNodeEntry = Editor.first(editor, editor.selection);
-    if (firstNodeEntry) {
-      console.log('firstNodeEntry[0]', firstNodeEntry[0]);
-    }
-
-    const prevPoint = Editor.before(editor, editor.selection);
-    if (!prevPoint) return false;
-
-    const prevNodeEntry = Editor.node(editor, prevPoint);
-    if (!prevNodeEntry) return false;
-
-    const prevNode = prevNodeEntry[0];
-    const isAfterImage = prevNode.type === BlockFormat.Image;
-
-    return isAfterImage;
-  };
-
   return (
     <Slate editor={editor} value={value} onChange={value => setValue(value)}>
       <Grid container spacing={1}>
@@ -93,15 +72,12 @@ const CustomEditor: React.FC<Props> = ({ classes }) => {
               //   editor.insertBreak();
               // }
 
-              // Alternative approach: On each backspace check if immediate previous element is an Image
-
+              // TODO: If element before caret is image, check if the current node is empty
+              // if it is empty -> delete it
+              // else -> move selection to image element
               if (event.key === 'Backspace') {
-                const prevNodeEntry = Editor.previous(editor);
-                const prevNode = prevNodeEntry && prevNodeEntry[0];
-
                 if (isCaretAfterImage(editor)) {
                   event.preventDefault();
-                  console.log('IS AFTER!');
                 }
               }
 
@@ -112,7 +88,6 @@ const CustomEditor: React.FC<Props> = ({ classes }) => {
                     type: BlockFormat.Paragraph,
                     children: [{ text: '' }],
                   });
-                  // editor.addMark(MarkFormat.Placeholder, true);
                 }
               }
 

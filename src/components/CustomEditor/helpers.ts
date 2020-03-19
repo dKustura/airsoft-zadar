@@ -1,4 +1,4 @@
-import { Editor, Transforms } from 'slate';
+import { Editor, Transforms, Range } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { HistoryEditor } from 'slate-history';
 import imageExtensions from 'image-extensions';
@@ -13,7 +13,6 @@ export enum MarkFormat {
   Strikethrough = 'strikethrough',
   Link = 'link',
   Href = 'href',
-  Placeholder = 'placeholder',
 }
 
 export enum BlockFormat {
@@ -94,7 +93,6 @@ export const exclusiveMarkFormatGroupMappings: {
   [MarkFormat.Strikethrough]: exclusiveMarkFormatGroups.textDecoration,
   [MarkFormat.Link]: undefined,
   [MarkFormat.Href]: undefined,
-  [MarkFormat.Placeholder]: undefined,
 };
 
 export const withImages = (editor: EditorType) => {
@@ -149,4 +147,27 @@ const insertImage = (editor: EditorType, url: string) => {
   //   type: BlockFormat.Paragraph,
   //   children: [{ text: '' }],
   // });
+};
+
+export const isCaretAfterImage = (editor: Editor) => {
+  if (!editor.selection) return false;
+  if (!Range.isCollapsed(editor.selection)) return false;
+
+  const caret = editor.selection.anchor;
+
+  const breakPoint = Editor.before(editor, caret, {
+    unit: 'block',
+  });
+  if (!breakPoint) return false;
+
+  const isBlockStart = caret.offset === 0 && breakPoint.offset === 0;
+  if (!isBlockStart) return false;
+
+  const prevNodeEntry = Editor.previous(editor);
+  if (!prevNodeEntry) return false;
+
+  const prevNode = prevNodeEntry[0];
+  const isAfterImage = prevNode.type === BlockFormat.Image;
+
+  return isAfterImage;
 };
