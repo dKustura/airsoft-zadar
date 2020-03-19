@@ -13,6 +13,7 @@ export enum MarkFormat {
   Strikethrough = 'strikethrough',
   Link = 'link',
   Href = 'href',
+  Placeholder = 'placeholder',
 }
 
 export enum BlockFormat {
@@ -23,7 +24,6 @@ export enum BlockFormat {
   NumberedList = 'numbered-list',
   ListItem = 'list-item',
   Image = 'image',
-  Placeholder = 'placeholder',
 }
 
 const isListBlockFormat = (format: BlockFormat) =>
@@ -94,6 +94,7 @@ export const exclusiveMarkFormatGroupMappings: {
   [MarkFormat.Strikethrough]: exclusiveMarkFormatGroups.textDecoration,
   [MarkFormat.Link]: undefined,
   [MarkFormat.Href]: undefined,
+  [MarkFormat.Placeholder]: undefined,
 };
 
 export const withImages = (editor: EditorType) => {
@@ -144,8 +145,8 @@ const insertImage = (editor: EditorType, url: string) => {
   const text = { text: '' };
   const image = { type: 'image', url, children: [text] };
   Transforms.insertNodes(editor, image);
-  Transforms.insertNodes(editor, {
-    type: BlockFormat.Placeholder,
-    children: [{ text: '' }],
-  });
+  // Transforms.insertNodes(editor, {
+  //   type: BlockFormat.Paragraph,
+  //   children: [{ text: '' }],
+  // });
 };
