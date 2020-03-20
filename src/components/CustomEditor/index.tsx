@@ -35,6 +35,7 @@ import {
   isBlockActive,
   isCaretAfterImage,
   isCurrentNodeEmpty,
+  getPreviousBreakPoint,
 } from './helpers';
 
 interface Props extends WithStyles<typeof styles> {}
@@ -73,16 +74,18 @@ const CustomEditor: React.FC<Props> = ({ classes }) => {
               //   editor.insertBreak();
               // }
 
-              // TODO: If element before caret is image, check if the current node is empty
-              // if it is empty -> delete it
-              // else -> move selection to image element
               if (event.key === 'Backspace') {
                 if (isCaretAfterImage(editor)) {
                   event.preventDefault();
                   if (isCurrentNodeEmpty(editor)) {
                     Transforms.removeNodes(editor);
                   } else {
-                    // TODO: move selection to image element
+                    const breakPoint = getPreviousBreakPoint(editor);
+                    if (breakPoint) {
+                      Transforms.setSelection(editor, {
+                        anchor: breakPoint,
+                      });
+                    }
                   }
                 }
               }

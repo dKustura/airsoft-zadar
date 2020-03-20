@@ -143,10 +143,6 @@ const insertImage = (editor: EditorType, url: string) => {
   const text = { text: '' };
   const image = { type: 'image', url, children: [text] };
   Transforms.insertNodes(editor, image);
-  // Transforms.insertNodes(editor, {
-  //   type: BlockFormat.Paragraph,
-  //   children: [{ text: '' }],
-  // });
 };
 
 export const isCaretAfterImage = (editor: Editor) => {
@@ -186,4 +182,17 @@ export const isCurrentNodeEmpty = (editor: Editor) => {
   }
 
   return false;
+};
+
+export const getPreviousBreakPoint = (editor: Editor) => {
+  if (!editor.selection) return null;
+  if (!Range.isCollapsed(editor.selection)) return null;
+
+  const caret = editor.selection.anchor;
+
+  const breakPoint = Editor.before(editor, caret, {
+    unit: 'block',
+  });
+
+  return breakPoint;
 };
