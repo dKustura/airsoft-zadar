@@ -10,6 +10,8 @@ export const CREATE_POST_FUNCTION = 'createPost';
 export const UPDATE_POST_FUNCTION = 'updatePost';
 export const DELETE_POST_FUNCTION = 'deletePost';
 
+export const GET_UNIQUE_IDENTIFIER = 'getUniqueIdentifier';
+
 export const functionNames = {
   ADD_ADMIN_ROLE_FUNCTION,
   REMOVE_ADMIN_ROLE_FUNCTION,
@@ -20,4 +22,5 @@ export const functionNames = {
   CREATE_POST_FUNCTION,
   UPDATE_POST_FUNCTION,
   DELETE_POST_FUNCTION,
+  GET_UNIQUE_IDENTIFIER,
 };
