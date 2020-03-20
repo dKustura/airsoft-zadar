@@ -34,6 +34,7 @@ import {
   withImages,
   isBlockActive,
   isCaretAfterImage,
+  isCurrentNodeEmpty,
 } from './helpers';
 
 interface Props extends WithStyles<typeof styles> {}
@@ -78,6 +79,11 @@ const CustomEditor: React.FC<Props> = ({ classes }) => {
               if (event.key === 'Backspace') {
                 if (isCaretAfterImage(editor)) {
                   event.preventDefault();
+                  if (isCurrentNodeEmpty(editor)) {
+                    Transforms.removeNodes(editor);
+                  } else {
+                    // TODO: move selection to image element
+                  }
                 }
               }
 

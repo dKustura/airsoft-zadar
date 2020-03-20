@@ -1,4 +1,4 @@
-import { Editor, Transforms, Range } from 'slate';
+import { Editor, Transforms, Range, Element, Text } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { HistoryEditor } from 'slate-history';
 import imageExtensions from 'image-extensions';
@@ -170,4 +170,20 @@ export const isCaretAfterImage = (editor: Editor) => {
   const isAfterImage = prevNode.type === BlockFormat.Image;
 
   return isAfterImage;
+};
+
+export const isCurrentNodeEmpty = (editor: Editor) => {
+  if (!editor.selection) return false;
+
+  const currentNodeEntry = Editor.node(editor, editor.selection);
+  if (!currentNodeEntry) return false;
+
+  const currentNode = currentNodeEntry[0];
+  if (Element.isElement(currentNode)) {
+    return Editor.isEmpty(editor, currentNode);
+  } else if (Text.isText(currentNode)) {
+    return currentNode.text === '';
+  }
+
+  return false;
 };
