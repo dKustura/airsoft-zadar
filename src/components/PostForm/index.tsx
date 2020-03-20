@@ -64,6 +64,11 @@ const PostForm: React.FC<Props> = ({
           onSubmit={(values, actions) => {
             setIsLoading(true);
 
+            // TODO:
+            // - Upload all images (with data URLs) from post content to Firebase storage
+            // - Replace all data URLs with uploaded images' URLs
+            // - Continue with creating the post if upload of the images was successful
+
             firebase
               .doCreatePost(values.title, values.content)
               .then(() => {
