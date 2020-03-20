@@ -170,14 +170,15 @@ class Firebase {
       uid,
     });
 
-  doUploadImage = (url: string) => {
+  doUploadDataUrl = (url: string) => {
     const storageRef = this.storage.ref();
 
     const imageRef = storageRef.child('/images/abc.jpg');
-    imageRef.putString(url, 'data_url').then(snapshot => {
-      console.log('Uploaded image.');
-    });
+    return imageRef.putString(url, 'data_url');
   };
+
+  doGetUniqueIdentifier = () =>
+    this.functions.httpsCallable(functionNames.GET_UNIQUE_IDENTIFIER)();
 }
 
 export default Firebase;

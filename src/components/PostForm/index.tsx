@@ -116,6 +116,7 @@ const PostForm: React.FC<Props> = ({
               <Grid item xs={12}>
                 <Field name="content">
                   {({ field, meta: { touched, error } }: any) => (
+                    // TODO: Hook editor content to formik
                     <CustomEditor />
                   )}
                 </Field>
