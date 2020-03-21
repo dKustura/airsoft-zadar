@@ -1,4 +1,4 @@
 import * as yup from 'yup';
-import { postSchema } from './validationSchema';
+import { postSchema } from './validation/schema';
 
 export type PostForm = yup.InferType<typeof postSchema>;
