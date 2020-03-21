@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { compose } from 'redux';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, FieldProps } from 'formik';
 import { connect } from 'react-redux';
 
 import { withFirebase, WithFirebaseProps } from 'components/Firebase';
@@ -86,7 +86,7 @@ const PostForm: React.FC<Props> = ({
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Field name="title">
-                  {({ field, meta: { touched, error } }: any) => (
+                  {({ field, meta: { touched, error } }: FieldProps<any>) => (
                     <TextField
                       {...field}
                       label={intl.formatMessage(
@@ -120,9 +120,15 @@ const PostForm: React.FC<Props> = ({
               </Grid>
               <Grid item xs={12}>
                 <Field name="content">
-                  {({ field, meta: { touched, error } }: any) => (
-                    // TODO: Hook editor content to formik
-                    <CustomEditor />
+                  {({
+                    field,
+                    meta: { touched, error },
+                    form,
+                  }: FieldProps<any>) => (
+                    <CustomEditor
+                      {...field}
+                      onChange={value => form.setFieldValue('content', value)}
+                    />
                   )}
                 </Field>
               </Grid>

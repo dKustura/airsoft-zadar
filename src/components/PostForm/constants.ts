@@ -8,5 +8,10 @@ export const MAX_CONTENT_LENGTH = 5000;
 
 export const INITIAL_POST_FORM_VALUES: PostForm = {
   title: '',
-  content: '',
+  content: [
+    {
+      type: 'paragraph',
+      children: [{ text: '' }],
+    },
+  ],
 };

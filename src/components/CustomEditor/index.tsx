@@ -8,6 +8,7 @@ import {
   RenderElementProps,
 } from 'slate-react';
 import { withHistory } from 'slate-history';
+import { FieldInputProps } from 'formik';
 
 // Components
 import { Grid, Link } from '@material-ui/core';
@@ -36,35 +37,40 @@ import {
   isCaretAfterImage,
   isCurrentNodeEmpty,
   getPreviousBreakPoint,
+  uploadAndReplaceImages,
 } from './helpers';
 
-interface Props extends WithStyles<typeof styles> {}
+interface Props
+  extends WithStyles<typeof styles>,
+    Omit<FieldInputProps<Node[]>, 'onChange'> {
+  readonly onChange: (value: Node[]) => void;
+}
 
-const CustomEditor: React.FC<Props> = ({ classes }) => {
+const CustomEditor: React.FC<Props> = ({
+  name,
+  value,
+  onChange,
+  onBlur,
+  classes,
+}) => {
   const editor = useMemo(
     () => withImages(withHistory(withReact(createEditor()))),
     []
   );
-
-  const [value, setValue] = useState<Node[]>([
-    {
-      type: 'paragraph',
-      children: [{ text: '' }],
-    },
-  ]);
 
   const renderElement = useCallback(props => <Element {...props} />, []);
 
   const renderLeaf = useCallback(props => <Leaf {...props} />, []);
 
   return (
-    <Slate editor={editor} value={value} onChange={value => setValue(value)}>
+    <Slate editor={editor} value={value} onChange={onChange} onBlur={onBlur}>
       <Grid container spacing={1}>
         <Grid item xs={12}>
           <Toolbar />
         </Grid>
         <Grid item xs={12}>
           <Editable
+            onBlur={onBlur}
             className={classes.editor}
             renderElement={renderElement}
             renderLeaf={renderLeaf}

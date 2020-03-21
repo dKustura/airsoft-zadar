@@ -18,15 +18,17 @@ export const postSchema = yup.object({
       `Title must be at most ${MAX_TITLE_LENGTH} characters long.`
     )
     .required('Title is required.'),
-  content: yup
-    .string()
-    .min(
-      MIN_CONTENT_LENGTH,
-      `Post must be at least ${MIN_CONTENT_LENGTH} characters long.`
-    )
-    .max(
-      MAX_CONTENT_LENGTH,
-      `Post must be at most ${MAX_CONTENT_LENGTH} characters long.`
-    )
-    .required('Content is required.'),
+  // content: yup
+  //   .string()
+  //   .min(
+  //     MIN_CONTENT_LENGTH,
+  //     `Post must be at least ${MIN_CONTENT_LENGTH} characters long.`
+  //   )
+  //   .max(
+  //     MAX_CONTENT_LENGTH,
+  //     `Post must be at most ${MAX_CONTENT_LENGTH} characters long.`
+  //   )
+  //   .required('Content is required.'),
+  // TODO: Update this with a proper validation
+  content: yup.object(),
 });

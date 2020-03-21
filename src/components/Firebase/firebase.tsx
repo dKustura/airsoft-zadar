@@ -3,6 +3,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/functions';
 import 'firebase/storage';
+import { v4 as uuidv4 } from 'uuid';
 
 import firebaseConfig from './config';
 import { functionNames } from './constants';
@@ -152,13 +153,14 @@ class Firebase {
     });
 
   // Post Management
-  doCreatePost = (title: string, content: string) =>
+  // TODO: set appropriate type for post content
+  doCreatePost = (title: string, content: any) =>
     this.functions.httpsCallable(functionNames.CREATE_POST_FUNCTION)({
       title,
       content,
     });
 
-  doUpdatePost = (uid: string, title: string, content: string) =>
+  doUpdatePost = (uid: string, title: string, content: any) =>
     this.functions.httpsCallable(functionNames.UPDATE_POST_FUNCTION)({
       uid,
       title,
@@ -170,10 +172,11 @@ class Firebase {
       uid,
     });
 
-  doUploadDataUrl = (url: string) => {
+  doUploadImage = (url: string) => {
     const storageRef = this.storage.ref();
+    const uid = uuidv4();
 
-    const imageRef = storageRef.child('/images/abc.jpg');
+    const imageRef = storageRef.child(`/images/${uid}`);
     return imageRef.putString(url, 'data_url');
   };
 
