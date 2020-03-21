@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { createEditor, Node, Transforms } from 'slate';
 import {
   Slate,
@@ -37,7 +37,6 @@ import {
   isCaretAfterImage,
   isCurrentNodeEmpty,
   getPreviousBreakPoint,
-  uploadAndReplaceImages,
 } from './helpers';
 
 interface Props

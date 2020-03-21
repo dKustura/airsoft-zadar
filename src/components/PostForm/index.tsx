@@ -29,7 +29,7 @@ import styles from './styles';
 // Helpers
 import { INITIAL_POST_FORM_VALUES } from './constants';
 import { successNotification, errorNotification } from 'helpers/snackbar';
-import { postSchema } from './validationSchema';
+import { postSchema } from './validation/schema';
 
 // Types
 import { FirebaseError } from 'firebase';
