@@ -1,8 +1,9 @@
-import { Editor, Transforms, Range, Element, Text } from 'slate';
+import { Editor, Transforms, Range, Element, Text, Node } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { HistoryEditor } from 'slate-history';
 import imageExtensions from 'image-extensions';
 import isUrl from 'is-url';
+import validDataUrl from 'valid-data-url';
 
 type EditorType = Editor & ReactEditor & HistoryEditor;
 
@@ -195,4 +196,17 @@ export const getPreviousBreakPoint = (editor: Editor) => {
   });
 
   return breakPoint;
+};
+
+const filterNodesByType = (nodes: Node[], type: BlockFormat) =>
+  nodes.filter(node => node.type === type);
+
+export const uploadAndReplaceImages = (nodes: Node[]) => {
+  const imageNodes = filterNodesByType(nodes, BlockFormat.Image);
+  imageNodes.forEach(imageNode => {
+    // If URL of the image is a data URL upload it to storage
+    if (validDataUrl(imageNode.url)) {
+    }
+    // And replace the data URL with download URL of uploaded image
+  });
 };
