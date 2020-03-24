@@ -18,6 +18,7 @@ import {
   TextField,
   Button,
   CircularProgress,
+  FormHelperText,
 } from '@material-ui/core';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import CustomEditor from 'components/CustomEditor';
@@ -35,6 +36,7 @@ import { postSchema } from './validation/schema';
 import { FirebaseError } from 'firebase';
 import { FormattedMessage, useIntl, MessageDescriptor } from 'react-intl';
 import messages from './messages';
+import { uploadAndReplaceImages } from './helpers';
 
 type Props = WithStyles<typeof styles> &
   WithFirebaseProps &
@@ -61,16 +63,17 @@ const PostForm: React.FC<Props> = ({
         <Formik
           initialValues={INITIAL_POST_FORM_VALUES}
           validationSchema={postSchema}
-          onSubmit={(values, actions) => {
+          onSubmit={async (values, actions) => {
             setIsLoading(true);
 
-            // TODO:
-            // - Upload all images (with data URLs) from post content to Firebase storage
-            // - Replace all data URLs with uploaded images' URLs
-            // - Continue with creating the post if upload of the images was successful
+            // TODO: handle image upload errors
+            const newContent = await uploadAndReplaceImages(
+              values.content,
+              firebase
+            );
 
             firebase
-              .doCreatePost(values.title, values.content)
+              .doCreatePost(values.title, newContent)
               .then(() => {
                 setIsLoading(false);
                 enqueueSnackbar('Blog post created', successNotification);
@@ -113,7 +116,8 @@ const PostForm: React.FC<Props> = ({
                           event.preventDefault();
                         }
                       }}
-                      helperText={touched && error}
+                      error={touched && !!error}
+                      helperText={touched && error ? error : ' '}
                     />
                   )}
                 </Field>
@@ -125,10 +129,19 @@ const PostForm: React.FC<Props> = ({
                     meta: { touched, error },
                     form,
                   }: FieldProps<any>) => (
-                    <CustomEditor
-                      {...field}
-                      onChange={value => form.setFieldValue('content', value)}
-                    />
+                    <>
+                      <CustomEditor
+                        {...field}
+                        onChange={value => form.setFieldValue('content', value)}
+                        onBlur={form.handleBlur('content')}
+                        error={touched && !!error}
+                      />
+                      {
+                        <FormHelperText error>
+                          {touched && error ? error : ' '}
+                        </FormHelperText>
+                      }
+                    </>
                   )}
                 </Field>
               </Grid>
@@ -138,6 +151,7 @@ const PostForm: React.FC<Props> = ({
                   variant="contained"
                   color="primary"
                   className={classes.submit}
+                  disabled={isLoading}
                   fullWidth
                 >
                   {isLoading ? (

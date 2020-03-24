@@ -43,12 +43,13 @@ interface Props
   extends WithStyles<typeof styles>,
     Omit<FieldInputProps<Node[]>, 'onChange'> {
   readonly onChange: (value: Node[]) => void;
+  readonly error: boolean;
 }
 
 const CustomEditor: React.FC<Props> = ({
-  name,
   value,
   onChange,
+  error,
   onBlur,
   classes,
 }) => {
@@ -70,7 +71,7 @@ const CustomEditor: React.FC<Props> = ({
         <Grid item xs={12}>
           <Editable
             onBlur={onBlur}
-            className={classes.editor}
+            className={error ? classes.errorEditor : classes.editor}
             renderElement={renderElement}
             renderLeaf={renderLeaf}
             onKeyDown={event => {

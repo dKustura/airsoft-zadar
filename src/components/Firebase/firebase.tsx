@@ -11,12 +11,12 @@ import { functionNames } from './constants';
 class Firebase {
   public emailAuthProvider: typeof firebase.auth.EmailAuthProvider;
   public auth: firebase.auth.Auth;
-  public db: firebase.firestore.Firestore;
+  public firestore: firebase.firestore.Firestore;
   public functions: firebase.functions.Functions;
+  public storage: firebase.storage.Storage;
   public googleProvider: firebase.auth.GoogleAuthProvider;
   public facebookProvider: firebase.auth.FacebookAuthProvider;
   public twitterProvider: firebase.auth.TwitterAuthProvider;
-  public storage: firebase.storage.Storage;
 
   constructor() {
     firebase.initializeApp(firebaseConfig);
@@ -27,7 +27,7 @@ class Firebase {
     /* Firebase APIs */
 
     this.auth = firebase.auth();
-    this.db = firebase.firestore();
+    this.firestore = firebase.firestore();
     this.functions = firebase.functions();
     this.storage = firebase.storage();
 
@@ -108,11 +108,11 @@ class Firebase {
 
   // *** User API ***
 
-  users = () => this.db.collection('users');
+  users = () => this.firestore.collection('users');
 
   user = (uid: string) => this.users().doc(uid);
 
-  posts = () => this.db.collection('posts');
+  posts = () => this.firestore.collection('posts');
 
   post = (uid: string) => this.posts().doc(uid);
 

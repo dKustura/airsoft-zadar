@@ -6,6 +6,7 @@ import {
   MAX_TITLE_LENGTH,
   MIN_CONTENT_LENGTH,
   MAX_CONTENT_LENGTH,
+  INVALID_CONTENT_MESSAGE,
 } from './constants';
 import { getNodesLength } from './helpers';
 
@@ -24,24 +25,11 @@ export const postSchema = yup.object({
   content: yup
     .array()
     .of(yup.object<Node>())
-    .test('content-required', 'Content is required.', (nodes: Node[]) => {
+    .test('content-test', INVALID_CONTENT_MESSAGE, (nodes: Node[]) => {
       const contentLength = getNodesLength(nodes);
-      return contentLength !== 0;
-    })
-    .test(
-      'content-min-length',
-      `Post must be at least ${MIN_CONTENT_LENGTH} characters long.`,
-      (nodes: Node[]) => {
-        const contentLength = getNodesLength(nodes);
-        return contentLength >= MIN_CONTENT_LENGTH;
-      }
-    )
-    .test(
-      'content-max-length',
-      `Post must be at most ${MAX_CONTENT_LENGTH} characters long.`,
-      (nodes: Node[]) => {
-        const contentLength = getNodesLength(nodes);
-        return contentLength <= MAX_CONTENT_LENGTH;
-      }
-    ),
+      return (
+        contentLength >= MIN_CONTENT_LENGTH &&
+        contentLength <= MAX_CONTENT_LENGTH
+      );
+    }),
 });

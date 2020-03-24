@@ -13,6 +13,17 @@ export default (theme: Theme) =>
       },
       minHeight: '30vh',
     },
+    errorEditor: {
+      borderWidth: 1,
+      borderStyle: 'solid',
+      borderRadius: 4,
+      borderColor: theme.palette.error.main,
+      padding: theme.spacing(2),
+      '&:focus': {
+        boxShadow: `inset 0px 0px 0px 1px ${theme.palette.error.main}`,
+      },
+      minHeight: '30vh',
+    },
   });
 
 export const toolbarButtonStyles = (theme: Theme) =>
