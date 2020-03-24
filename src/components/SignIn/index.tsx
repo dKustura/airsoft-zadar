@@ -120,6 +120,7 @@ const SignIn: React.FC<Props> = ({
                     variant="contained"
                     color="primary"
                     className={classes.submit}
+                    disabled={isLoading}
                     fullWidth
                   >
                     {isLoading ? (
