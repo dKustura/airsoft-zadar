@@ -7,6 +7,7 @@ import MarksRemoveButton from './MarksRemoveButton';
 import StyledToggleButtonGroup from './StyledToggleButtonGroup';
 import DropdownStylingButton from './DropdownStylingButton';
 import HyperlinkButton from './HyperlinkButton';
+import ImageButton from './ImageButton';
 
 // Icons
 import FormatBoldIcon from '@material-ui/icons/FormatBold';
@@ -63,6 +64,7 @@ const Toolbar: React.FC<Props> = ({ classes }) => {
         <MarksRemoveButton />
         <DropdownStylingButton />
         <HyperlinkButton disabled={selectionLength === 0} />
+        <ImageButton />
       </StyledToggleButtonGroup>
       <Divider orientation="vertical" className={classes.divider} />
       <StyledToggleButtonGroup>
