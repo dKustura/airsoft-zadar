@@ -22,6 +22,7 @@ import SunIcon from '@material-ui/icons/Brightness7';
 import MoonIcon from '@material-ui/icons/Brightness2';
 import UserMenu from 'components/UserMenu';
 import LocaleMenu from 'components/LocaleMenu';
+import UnderlinedLink from 'components/UnderlinedLink';
 
 import styles from './styles';
 // import logo from 'logo.png';
@@ -67,54 +68,27 @@ const Header: React.FC<Props> = ({
                 <img src={logo} alt="logo" />
               </Grid> */}
               <Grid item>
-                <Link
-                  component={MaterialRouterLink}
-                  variant="h6"
-                  color="inherit"
-                  to="/"
-                >
+                <UnderlinedLink to="/">
                   <FormattedMessage {...messages.homeLink} />
-                </Link>
+                </UnderlinedLink>
               </Grid>
               <Grid item>
-                <Link
-                  component={MaterialRouterLink}
-                  variant="h6"
-                  color="inherit"
-                  to="/blog"
-                >
+                <UnderlinedLink to="/blog">
                   <FormattedMessage {...messages.blogLink} />
-                </Link>
+                </UnderlinedLink>
               </Grid>
               <Grid item>
-                <Link
-                  component={MaterialRouterLink}
-                  variant="h6"
-                  color="inherit"
-                  to="/about"
-                >
+                <UnderlinedLink to="/about">
                   <FormattedMessage {...messages.aboutLink} />
-                </Link>
+                </UnderlinedLink>
               </Grid>
               <Grid item>
-                <Link
-                  component={MaterialRouterLink}
-                  variant="h6"
-                  color="inherit"
-                  to="/addAdmin"
-                >
-                  Add Admin
-                </Link>
+                <UnderlinedLink to="/addAdmin">Add Admin</UnderlinedLink>
               </Grid>
               <Grid item>
-                <Link
-                  component={MaterialRouterLink}
-                  variant="h6"
-                  color="inherit"
-                  to="/post"
-                >
+                <UnderlinedLink to="/post">
                   <FormattedMessage {...messages.newPostLink} />
-                </Link>
+                </UnderlinedLink>
               </Grid>
             </Grid>
           </Grid>
