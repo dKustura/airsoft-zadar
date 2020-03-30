@@ -8,15 +8,16 @@ import styles from './styles';
 
 interface Props extends WithStyles {
   readonly to: string;
-  readonly text: string;
   readonly variant: Variant;
 }
 
-const LinkButton: React.FC<Props> = ({ to, text, variant, classes }) => {
+const LinkButton: React.FC<Props> = ({ to, variant, classes, children }) => {
   return (
     <Link to={to} className={classes.link}>
       <div className={classes.button}>
-        <Typography variant={variant}>{text}</Typography>
+        <Typography color="inherit" variant={variant}>
+          {children}
+        </Typography>
       </div>
     </Link>
   );
