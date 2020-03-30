@@ -9,12 +9,8 @@ const commonTheme = {
   typography: {
     fontFamily: ['Roboto', 'Big Shoulders Text', 'sans-serif'].join(','),
   },
-  overrides: {
-    MuiPaper: {
-      rounded: {
-        borderRadius: '8px',
-      },
-    },
+  shape: {
+    borderRadius: 15,
   },
 };
 

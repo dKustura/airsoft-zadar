@@ -48,7 +48,6 @@ export const toolbarButtonStyles = (theme: Theme) =>
     selected: {},
     dropdownTextfieldInput: {
       height: '3rem',
-      borderRadius: '8px',
     },
   });
 

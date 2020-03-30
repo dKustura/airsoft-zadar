@@ -6,7 +6,6 @@ export default (theme: Theme) => {
       borderWidth: 1,
       borderStyle: 'solid',
       borderColor: 'transparent',
-      borderRadius: 20,
       elevation: 2,
       transition:
         'border-color .2s ease-in-out, background-color .2s ease-in-out, color .2s ease-in-out',
