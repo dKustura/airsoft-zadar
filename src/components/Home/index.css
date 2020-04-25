@@ -1,0 +1,31 @@
+svg:hover #wall {
+  animation-name: animateWall;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes animateWall {
+  from {
+    transform: translateX(0) translateY(0);
+  }
+  to {
+    transform: translateX(7.15%) translateY(0);
+  }
+}
+
+svg:hover #waves {
+  animation-name: animateWaves;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes animateWaves {
+  from {
+    transform: translateX(0) translateY(0);
+  }
+  to {
+    transform: translateX(15.5%) translateY(0);
+  }
+}
