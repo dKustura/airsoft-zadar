@@ -1,0 +1,51 @@
+.background {
+  svg {
+    clip-path: circle(21.9% at 79.85% 45.4%);
+    transition: clip-path 0.5s ease-in-out;
+
+    #outer-circle {
+      transition: opacity 0.3s ease-in-out;
+      opacity: 1;
+    }
+
+    &.animated {
+      clip-path: circle(75%);
+
+      #wall {
+        animation-name: animateWall;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+      }
+
+      #waves {
+        animation-name: animateWaves;
+        animation-duration: 0.5s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+      }
+
+      #outer-circle {
+        opacity: 0;
+      }
+    }
+  }
+
+  @keyframes animateWall {
+    from {
+      transform: translateX(0) translateY(0);
+    }
+    to {
+      transform: translateX(4.75%) translateY(0);
+    }
+  }
+
+  @keyframes animateWaves {
+    from {
+      transform: translateX(0) translateY(0);
+    }
+    to {
+      transform: translateX(10.5%) translateY(0);
+    }
+  }
+}

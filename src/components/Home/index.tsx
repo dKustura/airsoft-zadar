@@ -1,4 +1,5 @@
-import React from 'react';
+import * as React from 'react';
+import { useState, useEffect } from 'react';
 
 // Components
 import Title from 'components/Title';
@@ -7,17 +8,50 @@ import PostCard from 'components/PostCard';
 import { withStyles, WithStyles, Container, Grid } from '@material-ui/core';
 import styles from './styles';
 import Background from './background';
-import './index.css';
+import './index.scss';
+import { animationNames } from './constants';
 
 interface Props extends WithStyles<typeof styles> {}
 
 const Home: React.FC<Props> = ({ classes }) => {
+  // TODO: Use useReducer
+  const [isAnimated, setIsAnimated] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isWallAnimationFinished, setIsWallAnimationFinished] = useState(false);
+  const [isWavesAnimationFinished, setIsWavesAnimationFinished] = useState(
+    false
+  );
+
+  useEffect(() => {
+    const isAnimated = isHovered
+      ? true
+      : !isWallAnimationFinished || !isWavesAnimationFinished;
+    setIsAnimated(isAnimated);
+  }, [isHovered, isWallAnimationFinished, isWavesAnimationFinished]);
+
   return (
     <>
-      <div>
-        <h1>Test header</h1>
-        <p>subheader</p>
-        <Background />
+      <div
+        onMouseEnter={() => {
+          setIsHovered(true);
+          setIsAnimated(true);
+        }}
+        onMouseLeave={() => {
+          setIsWallAnimationFinished(false);
+          setIsWavesAnimationFinished(false);
+          setIsHovered(false);
+        }}
+        onAnimationIteration={(event) => {
+          const { animationName } = event;
+          if (animationName === animationNames.wall) {
+            setIsWallAnimationFinished(true);
+          } else if (animationName === animationNames.waves) {
+            setIsWavesAnimationFinished(true);
+          }
+        }}
+        className="background"
+      >
+        <Background isAnimated={isAnimated} />
       </div>
     </>
     // <Container maxWidth="md">
