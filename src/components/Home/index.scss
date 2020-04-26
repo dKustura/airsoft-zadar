@@ -1,10 +1,10 @@
 .background {
   svg {
-    clip-path: circle(21.9% at 79.85% 45.4%);
+    clip-path: circle(21.95% at 79.85% 45.35%);
     transition: clip-path 0.5s ease-in-out;
 
     #outer-circle {
-      transition: opacity 0.3s ease-in-out;
+      transition: opacity 0.5s ease-in-out;
       opacity: 1;
     }
 
