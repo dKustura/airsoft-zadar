@@ -14,6 +14,7 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
     viewBox="0 0 1597.92 580.36"
     enable-background="new 0 0 1597.92 580.36"
     xmlSpace="preserve"
+    preserveAspectRatio="xMidYMid meet"
     className={isAnimated ? 'animated' : ''}
   >
     <g id="background">

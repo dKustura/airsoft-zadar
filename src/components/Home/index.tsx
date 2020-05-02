@@ -5,7 +5,13 @@ import { useState, useEffect } from 'react';
 import Title from 'components/Title';
 import PostCard from 'components/PostCard';
 
-import { withStyles, WithStyles, Container, Grid } from '@material-ui/core';
+import {
+  withStyles,
+  WithStyles,
+  Container,
+  Grid,
+  Typography,
+} from '@material-ui/core';
 import styles from './styles';
 import Background from './background';
 import './index.scss';
@@ -31,69 +37,73 @@ const Home: React.FC<Props> = ({ classes }) => {
 
   return (
     <>
-      <div
-        onMouseEnter={() => {
-          setIsHovered(true);
-          setIsAnimated(true);
-        }}
-        onMouseLeave={() => {
-          setIsWallAnimationFinished(false);
-          setIsWavesAnimationFinished(false);
-          setIsHovered(false);
-        }}
-        onAnimationIteration={(event) => {
-          const { animationName } = event;
-          if (animationName === animationNames.wall) {
-            setIsWallAnimationFinished(true);
-          } else if (animationName === animationNames.waves) {
-            setIsWavesAnimationFinished(true);
-          }
-        }}
-        className="background"
-      >
-        <Background isAnimated={isAnimated} />
-      </div>
+      {/* </div> */}
+      <Container maxWidth="md">
+        <Grid container alignItems="center" className="container">
+          <Grid item className="title" xs={8}>
+            <Title />
+          </Grid>
+          <Grid
+            item
+            onMouseEnter={() => {
+              setIsHovered(true);
+              setIsAnimated(true);
+            }}
+            onMouseLeave={() => {
+              setIsWallAnimationFinished(false);
+              setIsWavesAnimationFinished(false);
+              setIsHovered(false);
+            }}
+            onAnimationIteration={(event) => {
+              const { animationName } = event;
+              if (animationName === animationNames.wall) {
+                setIsWallAnimationFinished(true);
+              } else if (animationName === animationNames.waves) {
+                setIsWavesAnimationFinished(true);
+              }
+            }}
+            className="background"
+          >
+            <Background isAnimated={isAnimated} />
+          </Grid>
+        </Grid>
+        <Grid container spacing={1}>
+          {/* <Grid item xs={12}>
+            <Title />
+          </Grid> */}
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={6}>
+              <PostCard
+                title="Naslov"
+                content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
+                dateCreated={new Date()}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <PostCard
+                title="Naslov"
+                content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
+                dateCreated={new Date()}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <PostCard
+                title="Naslov"
+                content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
+                dateCreated={new Date()}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <PostCard
+                title="Naslov"
+                content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
+                dateCreated={new Date()}
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+      </Container>
     </>
-    // <Container maxWidth="md">
-    //   <Grid container spacing={1}>
-    //     <Grid item>
-
-    //     </Grid>
-    //     {/* <Grid item xs={12}>
-    //       <Title />
-    //     </Grid> */}
-    //     {/* <Grid container spacing={4}>
-    //       <Grid item xs={12} md={6}>
-    //         <PostCard
-    //           title="Naslov"
-    //           content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
-    //           dateCreated={new Date()}
-    //         />
-    //       </Grid>
-    //       <Grid item xs={12} md={6}>
-    //         <PostCard
-    //           title="Naslov"
-    //           content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
-    //           dateCreated={new Date()}
-    //         />
-    //       </Grid>
-    //       <Grid item xs={12} md={6}>
-    //         <PostCard
-    //           title="Naslov"
-    //           content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
-    //           dateCreated={new Date()}
-    //         />
-    //       </Grid>
-    //       <Grid item xs={12} md={6}>
-    //         <PostCard
-    //           title="Naslov"
-    //           content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
-    //           dateCreated={new Date()}
-    //         />
-    //       </Grid>
-    //     </Grid> */}
-    //   </Grid>
-    // </Container>
   );
 };
 

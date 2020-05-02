@@ -34,10 +34,10 @@ const lightTheme = createMuiTheme({
     background: {
       // TODO: Set custom paper colors
       // paper: '#fff',
-      default: '#f9f0dd',
+      default: '#fff',
     },
     primary: {
-      main: '#d19a57',
+      main: '#29abe2',
     },
     secondary: {
       main: '#f9f0dd',
@@ -57,7 +57,7 @@ const darkTheme = createMuiTheme({
       default: '#0d1f22',
     },
     primary: {
-      main: '#6f732f',
+      main: '#104e7b',
     },
     secondary: {
       main: '#0d1f22',

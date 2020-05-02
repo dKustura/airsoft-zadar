@@ -1,6 +1,36 @@
+.title {
+  box-sizing: content-box;
+  margin: 0 auto;
+  max-width: 60rem;
+  padding: 0 1em;
+  position: relative;
+  z-index: 2;
+}
+
+.container {
+  height: 35rem;
+  h1 {
+    display: block;
+  }
+}
+
 .background {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  left: 0;
+  top: 3rem;
+  z-index: 1;
+
   svg {
-    clip-path: circle(21.95% at 79.85% 45.35%);
+    flex: 0 0 auto;
+    height: 35rem;
+    width: auto;
+
+    clip-path: circle(21.95% at 79.85% 45.5%);
     transition: clip-path 0.5s ease-in-out;
 
     #outer-circle {

@@ -97,7 +97,7 @@ const Header: React.FC<Props> = ({
               <Grid item>
                 <LocaleMenu
                   languageCode={locale}
-                  onChange={locale => setLocale(locale)}
+                  onChange={(locale) => setLocale(locale)}
                 />
               </Grid>
               <Grid item>

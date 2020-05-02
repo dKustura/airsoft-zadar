@@ -5,6 +5,6 @@ export default (theme: Theme) =>
     headerContainer: {
       paddingTop: 5,
       paddingBottom: 5,
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: 'transparent',
     },
   });
