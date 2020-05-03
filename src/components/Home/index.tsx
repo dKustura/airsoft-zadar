@@ -5,13 +5,7 @@ import { useState, useEffect } from 'react';
 import Title from 'components/Title';
 import PostCard from 'components/PostCard';
 
-import {
-  withStyles,
-  WithStyles,
-  Container,
-  Grid,
-  Typography,
-} from '@material-ui/core';
+import { withStyles, WithStyles, Container, Grid } from '@material-ui/core';
 import styles from './styles';
 import Background from './background';
 import './index.scss';
@@ -62,7 +56,7 @@ const Home: React.FC<Props> = ({ classes }) => {
           }}
           className="background"
         >
-          <Background isAnimated={false} />
+          <Background isAnimated={isAnimated} />
         </Grid>
       </Grid>
       <Grid container spacing={1}>

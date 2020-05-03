@@ -24,28 +24,24 @@ export default (theme: Theme) =>
       position: 'relative',
       overflow: 'hidden',
       textAlign: 'center',
-    },
-    socialSpan: {
-      display: 'inline-block',
-      verticalAlign: 'baseline',
-      padding: '0 20px',
-
-      '&::before, &::after': {
-        content: "''",
-        display: 'block',
-        width: '500px',
-        position: 'absolute',
-        top: '0.8em',
-        borderTop: `1px solid ${theme.palette.text.primary}`,
-      },
 
       '&::before': {
-        right: '80%',
+        borderTop: `1px solid ${theme.palette.text.primary}`,
+        content: "''",
+        margin: '0 auto',
+        position: 'absolute',
+        top: '50%',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: '95%',
+        zIndex: -1,
       },
-
-      '&::after': {
-        left: '80%',
-      },
+    },
+    socialSpan: {
+      backgroundColor: theme.palette.background.default,
+      transition: 'all 0.2s ease-in-out',
+      padding: `0 ${theme.spacing(1)}px`,
     },
     copyright: {
       margin: theme.spacing(5, 0),
