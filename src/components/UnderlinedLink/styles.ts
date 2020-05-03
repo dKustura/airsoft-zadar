@@ -4,7 +4,7 @@ export default (theme: Theme) =>
   createStyles({
     link: {
       display: 'inline',
-      transition: 'all 0.2s ease-in-out 0s',
+      transition: 'background-size 0.2s ease-in-out 0s',
       backgroundImage:
         'linear-gradient(transparent 90%, currentColor 90%, currentColor 100%)',
       backgroundRepeat: 'no-repeat',

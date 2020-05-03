@@ -1,13 +1,17 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeMode } from 'reducers/constants';
+import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
 
 export const getTheme = (mode: ThemeMode) => {
   return mode === ThemeMode.Light ? lightTheme : darkTheme;
 };
 
-const commonTheme = {
+const commonTheme: ThemeOptions = {
   typography: {
-    fontFamily: ['Roboto', 'Big Shoulders Text', 'sans-serif'].join(','),
+    fontFamily: ['Arvo', 'Roboto', 'sans-serif'].join(','),
+    h1: {
+      fontWeight: 700,
+    },
   },
   shape: {
     borderRadius: 15,
