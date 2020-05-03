@@ -39,7 +39,7 @@ const Home: React.FC<Props> = ({ classes }) => {
     <>
       {/* </div> */}
       <Container maxWidth="md">
-        <Grid container alignItems="center" className="container">
+        <Grid container className="container">
           <Grid item className="title" xs={8}>
             <Title />
           </Grid>
@@ -64,13 +64,10 @@ const Home: React.FC<Props> = ({ classes }) => {
             }}
             className="background"
           >
-            <Background isAnimated={isAnimated} />
+            <Background isAnimated={false} />
           </Grid>
         </Grid>
         <Grid container spacing={1}>
-          {/* <Grid item xs={12}>
-            <Title />
-          </Grid> */}
           <Grid container spacing={4}>
             <Grid item xs={12} md={6}>
               <PostCard
