@@ -36,71 +36,68 @@ const Home: React.FC<Props> = ({ classes }) => {
   }, [isHovered, isWallAnimationFinished, isWavesAnimationFinished]);
 
   return (
-    <>
-      {/* </div> */}
-      <Container maxWidth="md">
-        <Grid container className="container">
-          <Grid item className="title" xs={8}>
-            <Title />
+    <Container maxWidth="md">
+      <Grid container className="container">
+        <Grid item className="title" xs={8}>
+          <Title />
+        </Grid>
+        <Grid
+          item
+          onMouseEnter={() => {
+            setIsHovered(true);
+            setIsAnimated(true);
+          }}
+          onMouseLeave={() => {
+            setIsWallAnimationFinished(false);
+            setIsWavesAnimationFinished(false);
+            setIsHovered(false);
+          }}
+          onAnimationIteration={(event) => {
+            const { animationName } = event;
+            if (animationName === animationNames.wall) {
+              setIsWallAnimationFinished(true);
+            } else if (animationName === animationNames.waves) {
+              setIsWavesAnimationFinished(true);
+            }
+          }}
+          className="background"
+        >
+          <Background isAnimated={false} />
+        </Grid>
+      </Grid>
+      <Grid container spacing={1}>
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={6}>
+            <PostCard
+              title="Naslov"
+              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
+              dateCreated={new Date()}
+            />
           </Grid>
-          <Grid
-            item
-            onMouseEnter={() => {
-              setIsHovered(true);
-              setIsAnimated(true);
-            }}
-            onMouseLeave={() => {
-              setIsWallAnimationFinished(false);
-              setIsWavesAnimationFinished(false);
-              setIsHovered(false);
-            }}
-            onAnimationIteration={(event) => {
-              const { animationName } = event;
-              if (animationName === animationNames.wall) {
-                setIsWallAnimationFinished(true);
-              } else if (animationName === animationNames.waves) {
-                setIsWavesAnimationFinished(true);
-              }
-            }}
-            className="background"
-          >
-            <Background isAnimated={false} />
+          <Grid item xs={12} md={6}>
+            <PostCard
+              title="Naslov"
+              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
+              dateCreated={new Date()}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <PostCard
+              title="Naslov"
+              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
+              dateCreated={new Date()}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <PostCard
+              title="Naslov"
+              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
+              dateCreated={new Date()}
+            />
           </Grid>
         </Grid>
-        <Grid container spacing={1}>
-          <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
-              <PostCard
-                title="Naslov"
-                content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
-                dateCreated={new Date()}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <PostCard
-                title="Naslov"
-                content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
-                dateCreated={new Date()}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <PostCard
-                title="Naslov"
-                content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
-                dateCreated={new Date()}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <PostCard
-                title="Naslov"
-                content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
-                dateCreated={new Date()}
-              />
-            </Grid>
-          </Grid>
-        </Grid>
-      </Container>
-    </>
+      </Grid>
+    </Container>
   );
 };
 

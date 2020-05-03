@@ -26,8 +26,11 @@
   justify-content: center;
   overflow: hidden;
   left: 0;
-  top: 4rem;
+  top: 6rem;
   z-index: -1;
+
+  transform-origin: 0 0;
+  transform: translateZ(-1px) scale(1.5);
 
   svg {
     flex: 0 0 auto;

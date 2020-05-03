@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import './App.css';
+import './App.scss';
 
 // Providers
 import { IntlProvider } from 'react-intl';
@@ -60,7 +60,7 @@ const App: React.FC<Props> = ({ theme, authUser, locale }: Props) => {
             vertical: 'bottom',
             horizontal: 'right',
           }}
-          action={key => (
+          action={(key) => (
             <IconButton onClick={onClickDismiss(key)} color="inherit">
               <CloseIcon />
             </IconButton>
@@ -71,17 +71,19 @@ const App: React.FC<Props> = ({ theme, authUser, locale }: Props) => {
             <title>Airsoft Klub Zadar</title>
           </Helmet>
 
-          <Header />
+          <div className="wrapper">
+            <Header />
 
-          <Switch>
-            {authUser && <Redirect from="/signUp" to="/" />}
-            {authUser && <Redirect from="/signIn" to="/" />}
-            <Route path="/post" component={PostForm} />
-            <Route path="/addAdmin" component={AddAdmin} />
-            <Route path="/signUp" component={SignUp} />
-            <Route path="/signIn" component={SignIn} />
-            <Route path="/" component={Home} />
-          </Switch>
+            <Switch>
+              {authUser && <Redirect from="/signUp" to="/" />}
+              {authUser && <Redirect from="/signIn" to="/" />}
+              <Route path="/post" component={PostForm} />
+              <Route path="/addAdmin" component={AddAdmin} />
+              <Route path="/signUp" component={SignUp} />
+              <Route path="/signIn" component={SignIn} />
+              <Route path="/" component={Home} />
+            </Switch>
+          </div>
         </SnackbarProvider>
       </MuiThemeProvider>
     </IntlProvider>
