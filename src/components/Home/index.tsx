@@ -26,9 +26,9 @@ const Home: React.FC<Props> = ({ classes }) => {
   );
 
   useEffect(() => {
-    const isAnimated = isHovered
-      ? true
-      : !isWallAnimationFinished || !isWavesAnimationFinished;
+    // const isAnimated = isHovered
+    //   ? true
+    //   : !isWallAnimationFinished || !isWavesAnimationFinished;
     setIsAnimated(false);
   }, [isHovered, isWallAnimationFinished, isWavesAnimationFinished]);
 

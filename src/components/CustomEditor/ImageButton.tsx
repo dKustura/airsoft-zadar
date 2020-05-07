@@ -5,10 +5,11 @@ import {
   Button,
   Dialog,
   DialogContent,
-  DialogTitle,
+  // DialogTitle,
   Tooltip,
   Zoom,
 } from '@material-ui/core';
+import Dropzone from 'components/Dropzone';
 import ImageIcon from '@material-ui/icons/Image';
 
 // Styling
@@ -42,9 +43,11 @@ const ImageButton: React.FC<Props> = ({ classes, ...buttonProps }: Props) => {
         </Button>
       </Tooltip>
 
-      <Dialog onClose={handleDialogClose} open={isDialogOpen}>
-        <DialogTitle>Insert Image</DialogTitle>
-        <DialogContent>{/* TODO: Add file dropdown component */}</DialogContent>
+      <Dialog fullWidth onClose={handleDialogClose} open={isDialogOpen}>
+        {/* <DialogTitle>Insert Image</DialogTitle> */}
+        <DialogContent classes={{ root: classes.dialogContent }}>
+          <Dropzone />
+        </DialogContent>
       </Dialog>
     </>
   );

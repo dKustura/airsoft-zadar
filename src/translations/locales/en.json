@@ -1,4 +1,7 @@
 {
+  "src.components.Dropzone.chooseImages": "Choose images",
+  "src.components.Dropzone.dragNDropImagesHere": "Drag 'n' drop images here",
+  "src.components.Dropzone.or": "or",
   "src.components.Header.aboutLink": "About",
   "src.components.Header.blogLink": "Blog",
   "src.components.Header.homeLink": "Home",

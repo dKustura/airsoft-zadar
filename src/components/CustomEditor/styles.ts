@@ -49,6 +49,12 @@ export const toolbarButtonStyles = (theme: Theme) =>
     dropdownTextfieldInput: {
       height: '3rem',
     },
+    dialogContent: {
+      '&:first-child': {
+        padding: `${theme.spacing(3)}px ${theme.spacing(3)}px`,
+      },
+      padding: `${theme.spacing(3)}px ${theme.spacing(3)}px`,
+    },
   });
 
 export const toolbarStyles = (theme: Theme) =>
