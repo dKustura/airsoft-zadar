@@ -30,7 +30,7 @@ const isListBlockFormat = (format: BlockFormat) =>
 
 export const isBlockActive = (editor: ReactEditor, format: BlockFormat) => {
   const [match] = Editor.nodes(editor, {
-    match: n => n.type === format,
+    match: (n) => n.type === format,
   });
 
   return !!match;
@@ -46,7 +46,7 @@ export const toggleBlock = (editor: ReactEditor, format: BlockFormat) => {
   const isList = isListBlockFormat(format);
 
   Transforms.unwrapNodes(editor, {
-    match: n => isListBlockFormat(n.type),
+    match: (n) => isListBlockFormat(n.type),
     split: true,
   });
 
@@ -72,7 +72,7 @@ export const toggleMark = (editor: ReactEditor, format: MarkFormat) => {
   } else {
     const exclusiveGroup = exclusiveMarkFormatGroupMappings[format];
     if (exclusiveGroup) {
-      exclusiveGroup.map(markFormat => editor.removeMark(markFormat));
+      exclusiveGroup.map((markFormat) => editor.removeMark(markFormat));
     }
     editor.addMark(format, true);
   }
@@ -98,11 +98,11 @@ export const exclusiveMarkFormatGroupMappings: {
 export const withImages = (editor: EditorType) => {
   const { insertData, isVoid } = editor;
 
-  editor.isVoid = element => {
+  editor.isVoid = (element) => {
     return element.type === BlockFormat.Image ? true : isVoid(element);
   };
 
-  editor.insertData = data => {
+  editor.insertData = (data) => {
     const text = data.getData('text/plain');
     const { files } = data;
 
@@ -139,7 +139,21 @@ const isImageUrl = (url: string) => {
   return ext && imageExtensions.includes(ext);
 };
 
-const insertImage = (editor: EditorType, url: string) => {
+export const insertFile = (editor: ReactEditor, file: File) => {
+  const reader = new FileReader();
+  const [mime] = file.type.split('/');
+
+  if (mime === 'image') {
+    reader.addEventListener('load', () => {
+      const url = reader.result as string;
+      insertImage(editor, url);
+    });
+
+    reader.readAsDataURL(file);
+  }
+};
+
+const insertImage = (editor: ReactEditor, url: string) => {
   const text = { text: '' };
   const image = { type: 'image', url, children: [text] };
   Transforms.insertNodes(editor, image);

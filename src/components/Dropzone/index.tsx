@@ -1,5 +1,5 @@
-import React from 'react';
-import { useDropzone } from 'react-dropzone';
+import * as React from 'react';
+import { useDropzone, DropEvent } from 'react-dropzone';
 
 // Components
 import { Button, Grid, Typography } from '@material-ui/core';
@@ -12,24 +12,32 @@ import messages from './messages';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
-interface Props extends WithStyles<typeof styles> {}
+interface Props extends WithStyles<typeof styles> {
+  readonly onDropAccepted?: <T extends File>(
+    files: T[],
+    event: DropEvent
+  ) => void;
+  readonly onDropRejected?: <T extends File>(
+    files: T[],
+    event: DropEvent
+  ) => void;
+}
 
-const Dropzone: React.FC<Props> = ({ classes }) => {
+const Dropzone: React.FC<Props> = ({
+  onDropAccepted,
+  onDropRejected,
+  classes,
+}) => {
   const {
     // acceptedFiles,
     getRootProps,
     getInputProps,
     open,
-  } = useDropzone();
-
-  // const files = acceptedFiles.map(file => {
-  //   console.log('file', file);
-  //   return (
-  //     <li key={file.name}>
-  //       {file.name} - {file.size} bytes
-  //     </li>
-  //   );
-  // });
+  } = useDropzone({
+    accept: 'image/*',
+    onDropAccepted,
+    onDropRejected,
+  });
 
   return (
     <>
@@ -41,14 +49,6 @@ const Dropzone: React.FC<Props> = ({ classes }) => {
           direction: 'column',
         })}
       >
-        {/* <Grid
-        container
-        direction="column"
-        alignItems="center"
-        justify="center"
-        className={classes.dropzone}
-        {...getRootProps()}
-      > */}
         <input {...getInputProps()} />
         <Grid item className={classes.padding}>
           <Typography variant="h6">
@@ -71,7 +71,6 @@ const Dropzone: React.FC<Props> = ({ classes }) => {
           </Button>
         </Grid>
       </Grid>
-      {/* <ul>{files}</ul> */}
     </>
   );
 };

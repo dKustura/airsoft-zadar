@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import { useSlate } from 'slate-react';
 
 // Components
 import {
@@ -15,11 +16,13 @@ import ImageIcon from '@material-ui/icons/Image';
 // Styling
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import { toolbarButtonStyles as styles } from './styles';
+import { insertFile } from './helpers';
 
 interface Props extends WithStyles<typeof styles> {}
 
 const ImageButton: React.FC<Props> = ({ classes, ...buttonProps }: Props) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const editor = useSlate();
 
   const handleButtonClick = () => {
     setIsDialogOpen(true);
@@ -28,6 +31,17 @@ const ImageButton: React.FC<Props> = ({ classes, ...buttonProps }: Props) => {
   const handleDialogClose = () => {
     setIsDialogOpen(false);
   };
+
+  const onDropAccepted = useCallback(
+    (acceptedFiles: File[]) => {
+      acceptedFiles.map((file) => insertFile(editor, file));
+      setIsDialogOpen(false);
+    },
+    [editor]
+  );
+
+  // TODO: implement
+  const onDropRejected = useCallback(() => {}, []);
 
   return (
     <>
@@ -51,7 +65,10 @@ const ImageButton: React.FC<Props> = ({ classes, ...buttonProps }: Props) => {
       >
         {/* <DialogTitle>Insert Image</DialogTitle> */}
         <DialogContent classes={{ root: classes.dialogContent }}>
-          <Dropzone />
+          <Dropzone
+            onDropAccepted={onDropAccepted}
+            onDropRejected={onDropRejected}
+          />
         </DialogContent>
       </Dialog>
     </>
