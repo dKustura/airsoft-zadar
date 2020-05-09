@@ -36,9 +36,8 @@ const lightTheme = createMuiTheme({
   palette: {
     type: ThemeMode.Light,
     background: {
-      // TODO: Set custom paper colors
-      // paper: '#fff',
       default: '#fff',
+      paper: '#fff',
     },
     primary: {
       main: '#29abe2',
@@ -59,6 +58,7 @@ const darkTheme = createMuiTheme({
     background: {
       // paper: '#000',
       default: '#0d1f22',
+      paper: '#243538',
     },
     primary: {
       main: '#104e7b',

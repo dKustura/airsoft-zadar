@@ -55,6 +55,9 @@ export const toolbarButtonStyles = (theme: Theme) =>
       },
       padding: `${theme.spacing(3)}px ${theme.spacing(3)}px`,
     },
+    dialogPaper: {
+      backgroundColor: theme.palette.background.default,
+    },
   });
 
 export const toolbarStyles = (theme: Theme) =>

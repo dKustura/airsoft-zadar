@@ -43,7 +43,12 @@ const ImageButton: React.FC<Props> = ({ classes, ...buttonProps }: Props) => {
         </Button>
       </Tooltip>
 
-      <Dialog fullWidth onClose={handleDialogClose} open={isDialogOpen}>
+      <Dialog
+        fullWidth
+        onClose={handleDialogClose}
+        open={isDialogOpen}
+        classes={{ paper: classes.dialogPaper }}
+      >
         {/* <DialogTitle>Insert Image</DialogTitle> */}
         <DialogContent classes={{ root: classes.dialogContent }}>
           <Dropzone />
