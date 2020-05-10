@@ -6,7 +6,7 @@ export default (theme: Theme) =>
       borderWidth: 1,
       borderStyle: 'solid',
       borderRadius: 4,
-      borderColor: theme.palette.primary.main,
+      borderColor: theme.palette.primary.dark,
       padding: theme.spacing(2),
       '&:focus': {
         boxShadow: `inset 0px 0px 0px 1px ${theme.palette.primary.main}`,
@@ -34,15 +34,15 @@ export const toolbarButtonStyles = (theme: Theme) =>
       minWidth: theme.spacing(3),
       '&$selected': {
         backgroundColor: theme.palette.primary.main,
-        color: theme.palette.secondary.main,
+        color: theme.palette.background.default,
         '&:hover': {
           backgroundColor: theme.palette.primary.dark,
-          color: theme.palette.secondary.dark,
+          color: theme.palette.background.default,
         },
       },
       '&:hover': {
-        backgroundColor: theme.palette.secondary.light,
-        color: theme.palette.primary.light,
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.secondary.main,
       },
     },
     selected: {},

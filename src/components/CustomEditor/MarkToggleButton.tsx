@@ -2,7 +2,7 @@ import React from 'react';
 import { useSlate } from 'slate-react';
 
 // Components
-import { Tooltip, Zoom } from '@material-ui/core';
+import { Tooltip, Zoom, IconProps } from '@material-ui/core';
 import ToolbarToggleButton from './ToolbarToggleButton';
 
 // Helpers
@@ -10,7 +10,7 @@ import { toggleMark, isMarkActive, MarkFormat } from './helpers';
 
 interface Props {
   readonly format: MarkFormat;
-  readonly Icon: React.ComponentType;
+  readonly Icon: React.ComponentType<IconProps>;
   readonly tooltip?: string;
 }
 

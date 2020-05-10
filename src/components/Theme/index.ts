@@ -6,6 +6,11 @@ export const getTheme = (mode: ThemeMode) => {
   return mode === ThemeMode.Light ? lightTheme : darkTheme;
 };
 
+const skyBlue = '#5ACDEE';
+const yaleBlue = '#104E7B';
+const darkJungleGreen = '#0D1F22';
+const outerSpace = '#243538';
+
 const commonTheme: ThemeOptions = {
   typography: {
     fontFamily: ['Arvo', 'Roboto', 'sans-serif'].join(','),
@@ -36,17 +41,17 @@ const lightTheme = createMuiTheme({
   palette: {
     type: ThemeMode.Light,
     background: {
-      default: '#fff',
-      paper: '#fff',
+      default: 'white',
+      paper: 'white',
     },
     primary: {
-      main: '#29abe2',
+      main: yaleBlue,
     },
     secondary: {
-      main: '#f9f0dd',
+      main: skyBlue,
     },
     icon: {
-      border: '#000000',
+      border: '#000',
     },
   },
   ...commonTheme,
@@ -57,17 +62,17 @@ const darkTheme = createMuiTheme({
     type: ThemeMode.Dark,
     background: {
       // paper: '#000',
-      default: '#0d1f22',
-      paper: '#243538',
+      default: darkJungleGreen,
+      paper: outerSpace,
     },
     primary: {
-      main: '#104e7b',
+      main: skyBlue,
     },
     secondary: {
-      main: '#0d1f22',
+      main: yaleBlue,
     },
     icon: {
-      border: '#ffffff',
+      border: 'white',
     },
   },
   ...commonTheme,

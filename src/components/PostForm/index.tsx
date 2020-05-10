@@ -20,7 +20,6 @@ import {
   CircularProgress,
   FormHelperText,
 } from '@material-ui/core';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
 import CustomEditor from 'components/CustomEditor';
 
 // Styling
@@ -54,9 +53,6 @@ const PostForm: React.FC<Props> = ({
   return (
     <Container component="main" maxWidth="md">
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <MenuBookIcon />
-        </Avatar>
         <Typography component="h1" variant="h5">
           <FormattedMessage {...messages.createNewPost} />
         </Typography>
@@ -111,7 +107,7 @@ const PostForm: React.FC<Props> = ({
                           shrink: classes.titleInputLabelShrinked,
                         },
                       }}
-                      onKeyPress={event => {
+                      onKeyPress={(event) => {
                         if (event.key === 'Enter') {
                           event.preventDefault();
                         }
@@ -132,7 +128,9 @@ const PostForm: React.FC<Props> = ({
                     <>
                       <CustomEditor
                         {...field}
-                        onChange={value => form.setFieldValue('content', value)}
+                        onChange={(value) =>
+                          form.setFieldValue('content', value)
+                        }
                         onBlur={form.handleBlur('content')}
                         error={touched && !!error}
                       />
