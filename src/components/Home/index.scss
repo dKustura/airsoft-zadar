@@ -22,24 +22,40 @@
   top: 16rem;
   transform-origin: 0 0;
   transform: translateZ(-1px) scale(1.5);
+
+  @media (max-width: 59rem) {
+    top: 23rem;
+  }
 }
 
 .parallax-level-2 {
   top: 18rem;
   transform-origin: 0 0;
   transform: translateZ(-2px) scale(2);
+
+  @media (max-width: 59rem) {
+    top: 30rem;
+  }
 }
 
 .parallax-level-3 {
   top: 20rem;
   transform-origin: 0 0;
   transform: translateZ(-3px) scale(2.5);
+
+  @media (max-width: 59rem) {
+    top: 35rem;
+  }
 }
 
 .parallax-level-4 {
   top: 25rem;
   transform-origin: 0 0;
   transform: translateZ(-4px) scale(3);
+
+  @media (max-width: 59rem) {
+    top: 43rem;
+  }
 }
 
 .background {
@@ -58,8 +74,8 @@
     height: 37rem;
     width: auto;
 
-    @media (max-width: 20rem) {
-      margin-left: -14.354em;
+    @media (max-width: 59rem) {
+      margin-left: -30em;
     }
 
     @media (min-width: 150rem) {
