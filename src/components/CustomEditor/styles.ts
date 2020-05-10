@@ -5,7 +5,7 @@ export default (theme: Theme) =>
     editor: {
       borderWidth: 1,
       borderStyle: 'solid',
-      borderRadius: 4,
+      borderRadius: theme.shape.borderRadius,
       borderColor: theme.palette.primary.dark,
       padding: theme.spacing(2),
       '&:focus': {
@@ -16,7 +16,7 @@ export default (theme: Theme) =>
     errorEditor: {
       borderWidth: 1,
       borderStyle: 'solid',
-      borderRadius: 4,
+      borderRadius: theme.shape.borderRadius,
       borderColor: theme.palette.error.main,
       padding: theme.spacing(2),
       '&:focus': {

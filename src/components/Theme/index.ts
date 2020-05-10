@@ -7,7 +7,9 @@ export const getTheme = (mode: ThemeMode) => {
 };
 
 const skyBlue = '#5ACDEE';
+const skyBlueTransparent = 'rgb(90, 205, 238, 0.75)';
 const yaleBlue = '#104E7B';
+const yaleBlueTransparent = 'rgb(16, 78, 123, 0.75)';
 const darkJungleGreen = '#0D1F22';
 const outerSpace = '#243538';
 
@@ -54,6 +56,18 @@ const lightTheme = createMuiTheme({
       border: '#000',
     },
   },
+  overrides: {
+    MuiOutlinedInput: {
+      notchedOutline: {
+        borderColor: yaleBlue,
+      },
+    },
+    MuiInputLabel: {
+      shrink: {
+        color: yaleBlueTransparent,
+      },
+    },
+  },
   ...commonTheme,
 });
 
@@ -73,6 +87,18 @@ const darkTheme = createMuiTheme({
     },
     icon: {
       border: 'white',
+    },
+  },
+  overrides: {
+    MuiOutlinedInput: {
+      notchedOutline: {
+        borderColor: skyBlue,
+      },
+    },
+    MuiInputLabel: {
+      outlined: {
+        color: skyBlueTransparent,
+      },
     },
   },
   ...commonTheme,

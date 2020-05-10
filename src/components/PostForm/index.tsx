@@ -12,7 +12,6 @@ import { setAuthUser } from 'actions/session';
 // Components
 import {
   Container,
-  Avatar,
   Typography,
   Grid,
   TextField,
