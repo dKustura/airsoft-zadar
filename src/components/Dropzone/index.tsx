@@ -28,12 +28,7 @@ const Dropzone: React.FC<Props> = ({
   onDropRejected,
   classes,
 }) => {
-  const {
-    // acceptedFiles,
-    getRootProps,
-    getInputProps,
-    open,
-  } = useDropzone({
+  const { getRootProps, getInputProps, open } = useDropzone({
     accept: 'image/*',
     onDropAccepted,
     onDropRejected,

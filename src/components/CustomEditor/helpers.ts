@@ -23,6 +23,7 @@ export enum BlockFormat {
   NumberedList = 'numbered-list',
   ListItem = 'list-item',
   Image = 'image',
+  Quote = 'quote',
 }
 
 const isListBlockFormat = (format: BlockFormat) =>

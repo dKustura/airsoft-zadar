@@ -38,15 +38,19 @@ const DropdownStylingButton: React.FC<Props> = ({
 
   return (
     <DropdownMenu menuButton={dropdownButton}>
-      <MenuItem onClick={() => toggleBlock(editor, BlockFormat.Header)}>
-        <Typography variant="h2">Title</Typography>
-      </MenuItem>
-      <MenuItem onClick={() => toggleBlock(editor, BlockFormat.Subheader)}>
-        <Typography variant="h4">Subtitle</Typography>
-      </MenuItem>
-      <MenuItem onClick={() => toggleBlock(editor, BlockFormat.Paragraph)}>
-        <Typography>Paragraph</Typography>
-      </MenuItem>
+      {() => (
+        <>
+          <MenuItem onClick={() => toggleBlock(editor, BlockFormat.Header)}>
+            <Typography variant="h2">Title</Typography>
+          </MenuItem>
+          <MenuItem onClick={() => toggleBlock(editor, BlockFormat.Subheader)}>
+            <Typography variant="h4">Subtitle</Typography>
+          </MenuItem>
+          <MenuItem onClick={() => toggleBlock(editor, BlockFormat.Paragraph)}>
+            <Typography>Paragraph</Typography>
+          </MenuItem>
+        </>
+      )}
     </DropdownMenu>
   );
 };

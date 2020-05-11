@@ -1,4 +1,4 @@
-import { createStyles, Theme } from '@material-ui/core';
+import { createStyles, Theme, fade } from '@material-ui/core';
 
 export default (theme: Theme) => {
   // const borderHover = theme.spacing(1);
@@ -12,13 +12,10 @@ export default (theme: Theme) => {
       transition: 'all 0.2s ease-in-out 0s',
 
       '&:hover': {
-        // paddingTop: theme.spacing(1),
-        // paddingBottom: theme.spacing(1),
-        // //         -webkit-box-shadow: 0px 0px 0px 10px rgba(255,0,0,1);
-        // // -moz-box-shadow: 0px 0px 0px 10px rgba(255,0,0,1);
-        // boxShadow: `0px ${borderHover}px rgba(255,0,0,1), 0px -${borderHover}px rgba(255,0,0,1)`,
+        backgroundColor: fade(theme.palette.secondary.main, 0.3),
       },
     },
+    dropzoneDrag: {},
     padding: {
       padding: theme.spacing(1),
     },

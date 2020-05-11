@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, ReactNode } from 'react';
 
 // Components
 import {
@@ -21,6 +21,7 @@ interface Props extends WithStyles<typeof styles> {
   readonly onOpen?: () => void;
   readonly onClose?: () => void;
   readonly disabled?: boolean;
+  readonly children: (setOpen: (open: boolean) => void) => ReactNode;
 }
 
 const DropdownMenu: React.FC<Props> = ({
@@ -42,7 +43,7 @@ const DropdownMenu: React.FC<Props> = ({
     } else {
       onOpen?.();
     }
-    setOpen(prevOpen => !prevOpen);
+    setOpen((prevOpen) => !prevOpen);
   }, [onClose, onOpen, open]);
 
   const handleClose = (event: React.MouseEvent<EventTarget>) => {
@@ -110,10 +111,10 @@ const DropdownMenu: React.FC<Props> = ({
                     id="menu-list-grow"
                     onKeyDown={handleKeyDown}
                   >
-                    {children}
+                    {children(setOpen)}
                   </MenuList>
                 ) : (
-                  <div onKeyDown={handleKeyDown}>{children}</div>
+                  <div onKeyDown={handleKeyDown}>{children(setOpen)}</div>
                 )}
               </ClickAwayListener>
             </Paper>

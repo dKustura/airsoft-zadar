@@ -25,6 +25,15 @@ export const SubheaderElement = (props: RenderElementProps) => {
   );
 };
 
+// TODO: Add propert styling to quotes
+export const QuoteElement = (props: RenderElementProps) => {
+  return (
+    <Typography variant="h5" {...props.attributes}>
+      {props.children}
+    </Typography>
+  );
+};
+
 export const DefaultElement = (props: RenderElementProps) => {
   return <Typography {...props.attributes}>{props.children}</Typography>;
 };

@@ -37,19 +37,21 @@ const LocaleMenu: React.FC<Props> = ({ languageCode, onChange, classes }) => {
   return (
     <>
       <DropdownMenu menuButton={menuButton}>
-        {COUNTRY_OPTIONS.map(countryCode => (
-          <MenuItem
-            key={countryCode}
-            onClick={() => onChange(getLanguageCodeForCountry(countryCode))}
-          >
-            <FlagIcon
-              code={countryCode}
-              squared
-              size="lg"
-              className={classes.flagIcon}
-            />
-          </MenuItem>
-        ))}
+        {() =>
+          COUNTRY_OPTIONS.map((countryCode) => (
+            <MenuItem
+              key={countryCode}
+              onClick={() => onChange(getLanguageCodeForCountry(countryCode))}
+            >
+              <FlagIcon
+                code={countryCode}
+                squared
+                size="lg"
+                className={classes.flagIcon}
+              />
+            </MenuItem>
+          ))
+        }
       </DropdownMenu>
     </>
   );

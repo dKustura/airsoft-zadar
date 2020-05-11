@@ -16,6 +16,7 @@ import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined';
 import FormatStrikethroughIcon from '@material-ui/icons/FormatStrikethrough';
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
+import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 
 // Helpers
 import { MarkFormat, BlockFormat } from './helpers';
@@ -77,6 +78,11 @@ const Toolbar: React.FC<Props> = ({ classes }) => {
           format={BlockFormat.NumberedList}
           Icon={FormatListNumberedIcon}
           tooltip="Ordered List"
+        />
+        <BlockToggleButton
+          format={BlockFormat.Quote}
+          Icon={FormatQuoteIcon}
+          tooltip="Block Quote"
         />
       </StyledToggleButtonGroup>
     </Paper>

@@ -53,7 +53,6 @@ const HyperlinkButton: React.FC<Props> = ({
     setEditorSelectionState,
   ] = useState<Range | null>(null);
 
-  // TODO: Fix tooltip when button is disabled
   const menuButton = (
     <Tooltip TransitionComponent={Zoom} placement="top" title="Hyperlink">
       <div className={(buttonProps as any).className} style={{ padding: 0 }}>
@@ -96,37 +95,52 @@ const HyperlinkButton: React.FC<Props> = ({
     setCurrentHref('');
   }, [editor]);
 
-  // const onKeyPress = useCallback(
-  //   (event: React.KeyboardEvent<HTMLDivElement>) => {
-  //     if (event.key === 'Enter') {
-  //       event.preventDefault();
-  //       setLink();
-  //     }
-  //   },
-  //   [toggleLink]
-  // );
+  const saveEditorSelection = useCallback(() => {
+    const setSelectionOperation: SetSelectionOperation = {
+      type: 'set_selection',
+      properties: null,
+      newProperties:
+        editor.selection || editorSelectionState || defaultSelection,
+    };
+    editor.apply(setSelectionOperation);
+  }, [editor, editorSelectionState]);
 
   const onFocus = useCallback(
     (event: React.FocusEvent<HTMLDivElement>) => {
       event.preventDefault();
-      const setSelectionOperation: SetSelectionOperation = {
-        type: 'set_selection',
-        properties: null,
-        newProperties:
-          editor.selection || editorSelectionState || defaultSelection,
-      };
-      editor.apply(setSelectionOperation);
+      saveEditorSelection();
     },
-    [editor, editorSelectionState]
+    [saveEditorSelection]
   );
 
-  const onAdornmentClick = useCallback(() => {
-    if (!isNewLink) {
-      removeLink();
-    } else {
-      addLink();
-    }
-  }, [isNewLink, removeLink, addLink]);
+  const onAdornmentClick = useCallback(
+    (setOpen: (isOpen: boolean) => void) => {
+      if (!isNewLink) {
+        removeLink();
+      } else {
+        addLink();
+      }
+      setOpen(false);
+    },
+    [isNewLink, removeLink, addLink]
+  );
+
+  const onKeyPress = useCallback(
+    (
+      event: React.KeyboardEvent<HTMLDivElement>,
+      setOpen: (isOpen: boolean) => void
+    ) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        saveEditorSelection();
+        if (isNewLink) {
+          addLink();
+        }
+        setOpen(false);
+      }
+    },
+    [isNewLink, addLink, saveEditorSelection]
+  );
 
   const handleTextChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -142,28 +156,30 @@ const HyperlinkButton: React.FC<Props> = ({
       onOpen={onOpen}
       disabled={disabled}
     >
-      <TextField
-        autoFocus
-        variant="outlined"
-        value={linkText}
-        onFocusCapture={onFocus}
-        onChange={handleTextChange}
-        // onKeyPress={onKeyPress}
-        InputProps={{
-          classes: { root: classes.dropdownTextfieldInput },
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="insert link"
-                onClick={onAdornmentClick}
-                edge="end"
-              >
-                {!isNewLink ? <CloseIcon /> : <CheckIcon />}
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-      ></TextField>
+      {(setOpen) => (
+        <TextField
+          autoFocus
+          variant="outlined"
+          value={linkText}
+          onFocusCapture={onFocus}
+          onChange={handleTextChange}
+          onKeyPress={(event) => onKeyPress(event, setOpen)}
+          InputProps={{
+            classes: { root: classes.dropdownTextfieldInput },
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="insert link"
+                  onClick={() => onAdornmentClick(setOpen)}
+                  edge="end"
+                >
+                  {!isNewLink ? <CloseIcon /> : <CheckIcon />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+      )}
     </DropdownMenu>
   );
 };

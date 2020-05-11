@@ -21,6 +21,7 @@ import {
   BulletedListElement,
   NumberedListElement,
   ImageElement,
+  QuoteElement,
 } from './elements';
 
 // Styling
@@ -58,9 +59,9 @@ const CustomEditor: React.FC<Props> = ({
     []
   );
 
-  const renderElement = useCallback(props => <Element {...props} />, []);
+  const renderElement = useCallback((props) => <Element {...props} />, []);
 
-  const renderLeaf = useCallback(props => <Leaf {...props} />, []);
+  const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
 
   return (
     <Slate editor={editor} value={value} onChange={onChange} onBlur={onBlur}>
@@ -74,7 +75,7 @@ const CustomEditor: React.FC<Props> = ({
             className={error ? classes.errorEditor : classes.editor}
             renderElement={renderElement}
             renderLeaf={renderLeaf}
-            onKeyDown={event => {
+            onKeyDown={(event) => {
               // if (event.key === 'p') {
               //   event.preventDefault();
               //   editor.insertBreak();
@@ -155,6 +156,8 @@ const Element = (props: RenderElementProps) => {
       return <NumberedListElement {...props} />;
     case BlockFormat.Image:
       return <ImageElement {...props} />;
+    case BlockFormat.Quote:
+      return <QuoteElement {...props} />;
     default:
       return <DefaultElement {...props} />;
   }
