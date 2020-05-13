@@ -51,10 +51,12 @@ const PostForm: React.FC<Props> = ({
 
   return (
     <Container component="main" maxWidth="md">
-      <div className={classes.paper}>
-        <Typography component="h1" variant="h5">
-          <FormattedMessage {...messages.createNewPost} />
-        </Typography>
+      <Grid container className={classes.paper}>
+        <Grid item xs={12}>
+          <Typography variant="h1">
+            <FormattedMessage {...messages.createNewPost} />
+          </Typography>
+        </Grid>
         <Formik
           initialValues={INITIAL_POST_FORM_VALUES}
           validationSchema={postSchema}
@@ -165,7 +167,7 @@ const PostForm: React.FC<Props> = ({
             </Grid>
           </Form>
         </Formik>
-      </div>
+      </Grid>
     </Container>
   );
 };

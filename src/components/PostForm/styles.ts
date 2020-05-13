@@ -4,9 +4,9 @@ export default (theme: Theme) =>
   createStyles({
     paper: {
       marginTop: theme.spacing(8),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
+      // display: 'flex',
+      // flexDirection: 'column',
+      // alignItems: 'center',
     },
     form: {
       width: '100%', // Fix IE 11 issue.

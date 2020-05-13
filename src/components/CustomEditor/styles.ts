@@ -94,6 +94,17 @@ export const elementStyles = (theme: Theme) =>
     imageElement: {
       margin: theme.spacing(2),
     },
+    quoteElement: {
+      borderLeft: `solid ${theme.spacing(0.5)}px ${theme.palette.primary.main}`,
+      paddingLeft: theme.spacing(2),
+      color: fade(theme.palette.text.primary, 0.5),
+      fontStyle: 'italic',
+      margin: `0px ${theme.spacing(10)}px`,
+    },
+    defaultElement: {
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+    },
   });
 
 export const hyperlinkButtonStyles = (theme: Theme) => createStyles({});
