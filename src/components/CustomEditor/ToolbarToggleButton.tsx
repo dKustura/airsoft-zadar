@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 
 import ToggleButton from '@material-ui/lab/ToggleButton';
 
@@ -34,7 +35,7 @@ class ToolbarToggleButton extends Component<Props> {
           root: classes.root,
           selected: classes.selected,
         }}
-        onMouseDown={event => {
+        onMouseDown={(event) => {
           // Added to prevent editor from losing focus on button click
           event.preventDefault();
         }}

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Firebase from './firebase';
 import { Optionalize } from 'types';
 
@@ -12,7 +12,7 @@ export const withFirebase = <Props extends WithFirebaseProps>(
   Component: React.ComponentType<Props>
 ) => (props: Optionalize<Props, WithFirebaseProps>) => (
   <Consumer>
-    {firebase => <Component {...(props as Props)} firebase={firebase} />}
+    {(firebase) => <Component {...(props as Props)} firebase={firebase} />}
   </Consumer>
 );
 

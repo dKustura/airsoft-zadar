@@ -1,4 +1,5 @@
-import React, { useCallback } from 'react';
+import * as React from 'react';
+import { useCallback } from 'react';
 import { useSlate } from 'slate-react';
 
 // Components
@@ -15,7 +16,7 @@ const MarksRemoveButton: React.FC<Props> = ({ ...other }) => {
   const editor = useSlate();
 
   const removeMarks = useCallback(() => {
-    Object.values(MarkFormat).map(format => editor.removeMark(format));
+    Object.values(MarkFormat).map((format) => editor.removeMark(format));
   }, [editor]);
 
   return (

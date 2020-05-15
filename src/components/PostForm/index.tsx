@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import { useState } from 'react';
 import { compose } from 'redux';
 import { Formik, Form, Field, FieldProps } from 'formik';
 import { connect } from 'react-redux';
@@ -19,6 +20,7 @@ import {
   CircularProgress,
   FormHelperText,
 } from '@material-ui/core';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import CustomEditor from 'components/CustomEditor';
 
 // Styling
@@ -84,6 +86,18 @@ const PostForm: React.FC<Props> = ({
         >
           <Form className={classes.form}>
             <Grid container spacing={2}>
+              <Grid item container justify="flex-end">
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    startIcon={<VisibilityIcon />}
+                    fullWidth
+                  >
+                    Preview
+                  </Button>
+                </Grid>
+              </Grid>
               <Grid item xs={12}>
                 <Field name="title">
                   {({ field, meta: { touched, error } }: FieldProps<any>) => (

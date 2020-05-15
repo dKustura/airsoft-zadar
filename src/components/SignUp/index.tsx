@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import { useState } from 'react';
 import { compose } from 'redux';
 import { Formik, Form } from 'formik';
 import { connect } from 'react-redux';
@@ -70,7 +71,7 @@ const SignUp: React.FC<Props> = ({
 
             firebase
               .doCreateUserWithEmailAndPassword(values.email, values.password)
-              .then(credentials => {
+              .then((credentials) => {
                 credentials.user
                   ?.updateProfile({
                     displayName: `${values.firstName} ${values.lastName}`,

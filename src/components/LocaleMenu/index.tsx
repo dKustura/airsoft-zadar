@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 // Components
 import { MenuItem, IconButton, Tooltip, Zoom } from '@material-ui/core';

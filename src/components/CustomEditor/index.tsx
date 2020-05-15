@@ -1,4 +1,5 @@
-import React, { useMemo, useCallback } from 'react';
+import * as React from 'react';
+import { useMemo, useCallback } from 'react';
 import { createEditor, Node, Transforms } from 'slate';
 import {
   Slate,

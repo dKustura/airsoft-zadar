@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { RenderElementProps, useSelected, useFocused } from 'slate-react';
 import {
   Typography,

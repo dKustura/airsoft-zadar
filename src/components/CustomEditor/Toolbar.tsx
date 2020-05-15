@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 // Components
 import { Paper, Divider } from '@material-ui/core';

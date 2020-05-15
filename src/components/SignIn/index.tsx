@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import { useState } from 'react';
 import { compose } from 'redux';
 import { Formik, Form } from 'formik';
 import { withFirebase, WithFirebaseProps } from 'components/Firebase';
@@ -64,7 +65,7 @@ const SignIn: React.FC<Props> = ({
 
             firebase
               .doSignInWithEmailAndPassword(values.email, values.password)
-              .then(credentials => {
+              .then((credentials) => {
                 enqueueSnackbar(
                   'You logged in successfully!',
                   successNotification
