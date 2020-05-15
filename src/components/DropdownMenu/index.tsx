@@ -22,7 +22,9 @@ interface Props extends WithStyles<typeof styles> {
   readonly onOpen?: () => void;
   readonly onClose?: () => void;
   readonly disabled?: boolean;
-  readonly children: (setOpen: (open: boolean) => void) => ReactNode;
+  readonly children:
+    | ReactNode
+    | ((setOpen: (open: boolean) => void) => ReactNode);
 }
 
 const DropdownMenu: React.FC<Props> = ({
@@ -66,6 +68,8 @@ const DropdownMenu: React.FC<Props> = ({
   };
 
   const onMenuButtonClick = disabled ? undefined : handleToggle;
+
+  const isRenderProps = typeof children === 'function';
 
   return (
     <>
@@ -112,10 +116,12 @@ const DropdownMenu: React.FC<Props> = ({
                     id="menu-list-grow"
                     onKeyDown={handleKeyDown}
                   >
-                    {children(setOpen)}
+                    {isRenderProps ? (children as Function)(setOpen) : children}
                   </MenuList>
                 ) : (
-                  <div onKeyDown={handleKeyDown}>{children(setOpen)}</div>
+                  <div onKeyDown={handleKeyDown}>
+                    {isRenderProps ? (children as Function)(setOpen) : children}
+                  </div>
                 )}
               </ClickAwayListener>
             </Paper>

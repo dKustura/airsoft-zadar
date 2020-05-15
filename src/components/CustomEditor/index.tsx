@@ -43,16 +43,21 @@ import {
 
 interface Props
   extends WithStyles<typeof styles>,
-    Omit<FieldInputProps<Node[]>, 'onChange'> {
-  readonly onChange: (value: Node[]) => void;
-  readonly error: boolean;
+    Omit<FieldInputProps<Node[]>, 'onChange' | 'onBlur'> {
+  readonly onChange?: (value: Node[]) => void;
+  readonly onBlur?: (event: React.FocusEvent<any>) => void;
+  readonly error?: boolean;
+  readonly readOnly?: boolean;
 }
+
+const readOnlyHandler = () => null;
 
 const CustomEditor: React.FC<Props> = ({
   value,
   onChange,
   error,
   onBlur,
+  readOnly,
   classes,
 }) => {
   const editor = useMemo(
@@ -65,17 +70,31 @@ const CustomEditor: React.FC<Props> = ({
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
 
   return (
-    <Slate editor={editor} value={value} onChange={onChange} onBlur={onBlur}>
+    <Slate
+      editor={editor}
+      value={value}
+      onChange={readOnly || !onChange ? readOnlyHandler : onChange}
+      onBlur={readOnly || !onBlur ? readOnlyHandler : onBlur}
+    >
       <Grid container spacing={1}>
-        <Grid item xs={12}>
-          <Toolbar />
-        </Grid>
+        {!readOnly && (
+          <Grid item xs={12}>
+            <Toolbar />
+          </Grid>
+        )}
         <Grid item xs={12}>
           <Editable
             onBlur={onBlur}
-            className={error ? classes.errorEditor : classes.editor}
+            className={
+              error
+                ? classes.errorEditor
+                : readOnly
+                ? undefined
+                : classes.editor
+            }
             renderElement={renderElement}
             renderLeaf={renderLeaf}
+            readOnly={readOnly}
             onKeyDown={(event) => {
               // if (event.key === 'p') {
               //   event.preventDefault();

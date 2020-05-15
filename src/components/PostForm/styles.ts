@@ -24,4 +24,12 @@ export default (theme: Theme) =>
     titleInputLabelShrinked: {
       backgroundColor: theme.palette.background.default,
     },
+    previewCloseIconButton: {
+      width: '4rem',
+      height: '4rem',
+    },
+    previewCloseIcon: {
+      width: '3rem',
+      height: '3rem',
+    },
   });

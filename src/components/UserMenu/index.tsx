@@ -65,30 +65,26 @@ const UserMenu: React.FC<Props> = ({
 
   return (
     <DropdownMenu menuButton={dropdownButton}>
-      {() => (
-        <>
-          <MenuItem onClick={handleClose}>
-            <FormattedMessage {...messages.profileItem} />
-          </MenuItem>
-          <MenuItem onClick={handleClose}>
-            <FormattedMessage {...messages.settingsItem} />
-          </MenuItem>
-          <MenuItem
-            onClick={() =>
-              firebase
-                .doSignOut()
-                .then(() => {
-                  enqueueSnackbar('Signed out.', successNotification);
-                })
-                .catch((error: FirebaseError) => {
-                  enqueueSnackbar(error.message, errorNotification);
-                })
-            }
-          >
-            <FormattedMessage {...messages.signOutItem} />
-          </MenuItem>
-        </>
-      )}
+      <MenuItem onClick={handleClose}>
+        <FormattedMessage {...messages.profileItem} />
+      </MenuItem>
+      <MenuItem onClick={handleClose}>
+        <FormattedMessage {...messages.settingsItem} />
+      </MenuItem>
+      <MenuItem
+        onClick={() =>
+          firebase
+            .doSignOut()
+            .then(() => {
+              enqueueSnackbar('Signed out.', successNotification);
+            })
+            .catch((error: FirebaseError) => {
+              enqueueSnackbar(error.message, errorNotification);
+            })
+        }
+      >
+        <FormattedMessage {...messages.signOutItem} />
+      </MenuItem>
     </DropdownMenu>
   );
 };
