@@ -12,7 +12,7 @@ const BackgroundWaves: React.FC<Props> = ({ isAnimated }) => (
     x="0px"
     y="0px"
     viewBox="0 0 4096 666.92"
-    enable-background="new 0 0 4096 666.92"
+    enableBackground="new 0 0 4096 666.92"
     xmlSpace="preserve"
     className={isAnimated ? 'animated' : ''}
   >
@@ -21,8 +21,8 @@ const BackgroundWaves: React.FC<Props> = ({ isAnimated }) => (
         id="waves"
         fill="#29ABE2"
         stroke="#010101"
-        stroke-width="2"
-        stroke-miterlimit="10"
+        strokeWidth="2"
+        strokeMiterlimit="10"
         d="M4175.17,579.36V452.01
 		c-41.29,0-41.29,26.79-82.58,26.79c-41.29,0-41.29-26.79-82.58-26.79c-41.29,0-41.29,26.79-82.58,26.79
 		c-41.29,0-41.29-26.79-82.58-26.79c-41.29,0-41.29,26.79-82.58,26.79c-41.29,0-41.29-26.79-82.58-26.79

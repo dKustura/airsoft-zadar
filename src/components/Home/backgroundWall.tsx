@@ -22,7 +22,7 @@ const BackgroundWall: React.FC<Props> = ({ isAnimated, theme, classes }) => (
     x="0px"
     y="0px"
     viewBox="0 0 4096 666.92"
-    enable-background="new 0 0 4096 666.92"
+    enableBackground="new 0 0 4096 666.92"
     xmlSpace="preserve"
     className={isAnimated ? 'animated' : ''}
   >
@@ -31,8 +31,8 @@ const BackgroundWall: React.FC<Props> = ({ isAnimated, theme, classes }) => (
         id="wall"
         className={classes.wall}
         stroke={theme === ThemeMode.Dark ? '#FFFFFF' : '#010101'}
-        stroke-width="2"
-        stroke-miterlimit="10"
+        strokeWidth="2"
+        strokeMiterlimit="10"
         points="4106.7,571.74 
 		4106.7,286.59 4106.7,242.14 4068.17,242.14 4068.17,286.59 4030.49,286.59 4030.49,242.14 3991.96,242.14 3991.96,286.59 
 		3954.29,286.59 3954.29,242.14 3915.76,242.14 3915.76,286.59 3878.08,286.59 3878.08,242.14 3839.55,242.14 3839.55,286.59 

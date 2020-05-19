@@ -12,7 +12,7 @@ const BackgroundSun: React.FC<Props> = ({ isAnimated }) => (
     x="0px"
     y="0px"
     viewBox="0 0 4096 666.92"
-    enable-background="new 0 0 4096 666.92"
+    enableBackground="new 0 0 4096 666.92"
     xmlSpace="preserve"
     className={isAnimated ? 'animated' : ''}
   >
@@ -27,7 +27,7 @@ const BackgroundSun: React.FC<Props> = ({ isAnimated }) => (
         <rect
           x="2238.69"
           y="-44.32"
-          clip-path="url(#SVGID_2_)"
+          clipPath="url(#SVGID_2_)"
           fill="#ED2028"
           width="568.03"
           height="623.05"
@@ -37,8 +37,8 @@ const BackgroundSun: React.FC<Props> = ({ isAnimated }) => (
           overflow="visible"
           fill="none"
           stroke="#010101"
-          stroke-width="4"
-          stroke-miterlimit="10"
+          strokeWidth="4"
+          strokeMiterlimit="10"
         />
       </g>
     </g>

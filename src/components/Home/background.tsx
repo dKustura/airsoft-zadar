@@ -12,7 +12,7 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
     x="0px"
     y="0px"
     viewBox="0 0 4096 666.92"
-    enable-background="new 0 0 4096 666.92"
+    enableBackground="new 0 0 4096 666.92"
     xmlSpace="preserve"
     className={isAnimated ? 'animated' : ''}
   >
@@ -27,7 +27,7 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
         <rect
           x="2238.69"
           y="-44.32"
-          clip-path="url(#SVGID_2_)"
+          clipPath="url(#SVGID_2_)"
           fill="#ED2028"
           width="568.03"
           height="623.05"
@@ -37,16 +37,16 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
           overflow="visible"
           fill="none"
           stroke="#010101"
-          stroke-width="4"
-          stroke-miterlimit="10"
+          strokeWidth="4"
+          strokeMiterlimit="10"
         />
       </g>
       <polygon
         id="wall"
         fill="#FFFFFF"
         stroke="#010101"
-        stroke-width="2"
-        stroke-miterlimit="10"
+        strokeWidth="2"
+        strokeMiterlimit="10"
         points="4106.7,571.74 
 		4106.7,286.59 4106.7,242.14 4068.17,242.14 4068.17,286.59 4030.49,286.59 4030.49,242.14 3991.96,242.14 3991.96,286.59 
 		3954.29,286.59 3954.29,242.14 3915.76,242.14 3915.76,286.59 3878.08,286.59 3878.08,242.14 3839.55,242.14 3839.55,286.59 
@@ -80,8 +80,8 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
         id="waves"
         fill="#29ABE2"
         stroke="#010101"
-        stroke-width="2"
-        stroke-miterlimit="10"
+        strokeWidth="2"
+        strokeMiterlimit="10"
         d="M4175.17,579.36V452.01
 		c-41.29,0-41.29,26.79-82.58,26.79c-41.29,0-41.29-26.79-82.58-26.79c-41.29,0-41.29,26.79-82.58,26.79
 		c-41.29,0-41.29-26.79-82.58-26.79c-41.29,0-41.29,26.79-82.58,26.79c-41.29,0-41.29-26.79-82.58-26.79
@@ -107,8 +107,8 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
         id="outer-circle"
         fill="none"
         stroke="#010101"
-        stroke-width="4"
-        stroke-miterlimit="10"
+        strokeWidth="4"
+        strokeMiterlimit="10"
         cx="2525.08"
         cy="263.61"
         r="261.61"
@@ -148,33 +148,33 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2397.61,112.19l-21.03-12.59c12.39-17.4,25.67-32.78,41.22-45.51"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2416.29,123.33l22.36,13.37c6.38-10.62,15.31-20.33,25.96-28.48"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2482.19,97.02c17.95-9.4,38.78-14.76,59.95-14.07
 				c36.98,1.22,77.18,24.94,99.81,46l11.63-12.5c0,0-25.52-24.89-69.99-43.25l2.18-7.16"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2591.69,46.64l2.67-8.76c0,0,46.96,17.69,83.54,53.43l13.28-13.6
 				c-35.24-32.54-84.73-65.38-151.44-63.81c-43.42,1.02-76.02,10.47-102.33,26.34"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2591.69,46.64c-39.51-13.31-88.38-15.81-138.73,12.65
 				l-15.55-19.06c-6.96,4.18-13.46,8.82-19.61,13.86l16.16,19.11c0,0-22.97,21.58-36.34,38.98l18.68,11.14
 				c6.99-10.36,32.02-33.01,32.02-33.01l16.3,17.9c5.42-4.15,11.34-7.92,17.58-11.2l-15.49-19.81c0,0,48.58-35.1,119.07-11.17
@@ -185,7 +185,7 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
       <circle
         fill="#F6EB16"
         stroke="#101010"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         cx="2524.39"
         cy="111.02"
         r="37.8"
@@ -247,7 +247,7 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2468.27,146.31c0.32,0.46,0.49,0.75,0.49,0.75
 				c-2.9,0.58-4.26,3.68-4.15,5.25c0,0.12,0.03,0.23,0.09,0.35c0.35,1.16,2.09,0.93,3.13,2.44c1.74,3.54-0.64,6.35-0.64,6.35
 				l26.05,19.9l-11.95,10.24l-2.93-8.12c-9.31-17.35-22.13-21.87-24.19-24.92c-5.34-7.77-6.61-12.41-6.61-12.41
@@ -257,25 +257,25 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2459.39,137.81c0,0-7.4-1.94-7.72,8.03"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2462.06,139.6c0,0-6.93,0.44-6.64,7.6"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2465.37,142.68c0,0-6.41-0.93-7.08,7.28"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2468.27,146.31h-0.03c-0.61,0.03-9.75,0.55-3.54,6.35"
           />
         </g>
@@ -311,14 +311,14 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
       <path
         fill="#F6EB16"
         stroke="#010101"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2405.82,244.48l4.81-8.8c36.32,25.68,99.07,38.3,99.07,38.3
 		l-1.68,8.27C2449.42,274.05,2405.82,244.48,2405.82,244.48z"
       />
       <path
         fill="#F6EB16"
         stroke="#010101"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2630.51,269.09c0,0-6.72,5.3-25.06,10
 		c-1.44-22.89-12.39-31.55-12.39-31.55l-11.61,1.65c10.51,6.1,13.18,22.94,12.97,32.34c-14.54,2.76-34.22,4.84-60.37,4.69
 		l-1.07,10.17c0,0,56.75,4.39,102.15-19.27L2630.51,269.09z"
@@ -326,28 +326,28 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
       <path
         fill="#F6EB16"
         stroke="#010101"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2514.7,294.96c-1.5,23.18-17.14,31.4-17.14,31.4
 		c4.38,3.91,11.77,3.22,11.77,3.22c20.2-10.54,16.78-34.62,16.78-34.62H2514.7z"
       />
       <path
         fill="#F6EB16"
         stroke="#010101"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2405.23,150.45c-11.9,18.84-25.72,63.63-25.72,63.63h5.91
 		c6.95-23.2,26.9-63.33,26.9-63.33L2405.23,150.45z"
       />
       <path
         fill="#F6EB16"
         stroke="#010101"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2366.85,172.11c12.98-4.34,25.96,0.29,25.96,0.29l-1.41,5.92
 		c-13.88-3.78-24.56,0-24.56,0V172.11z"
       />
       <circle
         fill="#F6EB16"
         stroke="#010101"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         cx="2394.71"
         cy="178.32"
         r="6.22"
@@ -355,28 +355,28 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
       <path
         fill="#F6EB16"
         stroke="#010101"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2364.97,215.37c9.43-4.77,16.02-0.73,16.02-0.73v4.29
 		c-10.88-0.83-16.02,2.9-16.02,2.9V215.37z"
       />
       <path
         fill="#F6EB16"
         stroke="#010101"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2381.62,220.91c0.49,8.35-1.64,12.8-1.64,12.8h2.18
 		c3.23-6.54,1.93-13.08,1.93-13.08L2381.62,220.91z"
       />
       <path
         fill="#F6EB16"
         stroke="#010101"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2385.74,215.47c70.74-7.42,107.64-21.34,107.64-21.34l1.6,5.46
 		c-62.93,17.85-109.14,21.03-109.14,21.03L2385.74,215.47z"
       />
       <circle
         fill="#F6EB16"
         stroke="#010101"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         cx="2382.11"
         cy="218.11"
         r="4.5"
@@ -388,7 +388,7 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
       <path
         fill="#FAA85E"
         stroke="#010101"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2544.41,142.83l-12.51,5.43c-1.65,0.72-3.59-0.05-4.3-1.7
 		l-8.71-20.08c-0.72-1.65,0.05-3.59,1.7-4.3l12.51-5.43c1.65-0.72,3.59,0.05,4.3,1.7l8.71,20.08
 		C2546.83,140.18,2546.06,142.11,2544.41,142.83z"
@@ -427,24 +427,24 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
           <path
             fill="none"
             stroke="#010101"
-            stroke-linecap="round"
-            stroke-miterlimit="10"
+            strokeLinecap="round"
+            strokeMiterlimit="10"
             d="M2543.86,142.51
 				c3.68,0.15,8.99-5.22,14.88-8.64c2.67-1.57,5.45-2.7,8.27-2.78c6.9,0,8.59,3.39,8.59,3.39"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-linecap="round"
-            stroke-miterlimit="10"
+            strokeLinecap="round"
+            strokeMiterlimit="10"
             d="M2557.9,143.2
 				c6.7-4.96,12.59-7.63,17.72-8.61c28.89-5.6,34.98,41.8,34.98,41.8"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-linecap="round"
-            stroke-miterlimit="10"
+            strokeLinecap="round"
+            strokeMiterlimit="10"
             d="M2620.93,184.97
 				c0,0-15.32,12.68-25.73,14.42c-5.71,0.96-9.98-1.36-9.46-10.82c0,0,5.28-29.06-18.68-21.75c0,0-3.74-11.83-38.75-16.5
 				c-4.73-0.64-10.01-1.13-15.95-1.45c0.96-7.16,11.92-9.54,11.92-9.54c0.49,4.12,2.32,5.6,4.7,5.6c6.18,0,16.13-10.18,16.13-10.18
@@ -453,54 +453,54 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
           <path
             fill="none"
             stroke="#010101"
-            stroke-linecap="round"
-            stroke-miterlimit="10"
+            strokeLinecap="round"
+            strokeMiterlimit="10"
             d="M2619.82,196.72
 				c-5.48,4.5-10.24,6.06-14.07,6.24c-6.7,0.35-10.56-3.57-10.56-3.57"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-linecap="round"
-            stroke-miterlimit="10"
+            strokeLinecap="round"
+            strokeMiterlimit="10"
             d="M2657.39,159.3
 				c-0.75,0.87-1.51,1.74-2.23,2.64c-9.63,11.92-15.81,26.66-22.45,36.08c-14.27,14.53-26.95,4.93-26.95,4.93"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-linecap="round"
-            stroke-miterlimit="10"
+            strokeLinecap="round"
+            strokeMiterlimit="10"
             d="M2655.15,161.94
 				c1.31-0.03,7.54,0.26,2.52,8.5c-4.52,7.69-14.76,20.62-3.63,23.87"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2654.95,161.94c0,0,0.09,0,0.2,0"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-linecap="round"
-            stroke-miterlimit="10"
+            strokeLinecap="round"
+            strokeMiterlimit="10"
             d="M2660,178.68
 				c-6.38,7.6-7.16,12.5-5.95,15.63c1.57,4.12,6.64,5.19,7.14,5.28"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-linecap="round"
-            stroke-miterlimit="10"
+            strokeLinecap="round"
+            strokeMiterlimit="10"
             d="M2667.31,179.23
 				c-8.96,11.95-8.7,17.66-6.12,20.36h0.03c2.7,2.81,7.89,2.38,7.89,2.38"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-linecap="round"
-            stroke-miterlimit="10"
+            strokeLinecap="round"
+            strokeMiterlimit="10"
             d="M2675.46,154.4
 				c12.65-5.51,14.44,13.05,1.57,24.83c-9.95,10.12-10.82,19-7.92,22.74c2.64,3.42,8.38,2.61,13.28-5.25
 				c0.09-0.15,0.2-0.32,0.29-0.46"
@@ -508,16 +508,16 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
           <path
             fill="none"
             stroke="#010101"
-            stroke-linecap="round"
-            stroke-miterlimit="10"
+            strokeLinecap="round"
+            strokeMiterlimit="10"
             d="M2662.2,154.69
 				c9.02-8.99,20.62-10.62,26.48-3.6c2.09,2.49,3.45,6.09,3.71,10.85c0.55,10.44-29.03,41.39-10.01,34.78"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-linecap="round"
-            stroke-miterlimit="10"
+            strokeLinecap="round"
+            strokeMiterlimit="10"
             d="M2652.92,140.1
 				c-12.82-5.8-26.05,13.05-34.57,25.53c-2.09,3.05-4.79,6.9-7.74,10.76c-2.03,2.67-4.21,5.34-6.41,7.74
 				c-2.64,2.87-5.28,5.37-7.74,7.02c-4.64,3.13-8.64,3.28-10.7-2.58"
@@ -525,32 +525,32 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
           <path
             fill="none"
             stroke="#010101"
-            stroke-linecap="round"
-            stroke-miterlimit="10"
+            strokeLinecap="round"
+            strokeMiterlimit="10"
             d="M2586.52,150.22
 				c20.19,10.09,17.66,33.91,17.66,33.91"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-linecap="round"
-            stroke-miterlimit="10"
+            strokeLinecap="round"
+            strokeMiterlimit="10"
             d="M2587.37,160.55
 				c11.25,8.79,9.08,30.6,9.08,30.6"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-linecap="round"
-            stroke-miterlimit="10"
+            strokeLinecap="round"
+            strokeMiterlimit="10"
             d="M2639.6,152.16
 				c4.96-6.41,9.46-10.04,13.37-11.92c9.83-4.84,15.92,1.28,15.92,1.28"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-linecap="round"
-            stroke-miterlimit="10"
+            strokeLinecap="round"
+            strokeMiterlimit="10"
             d="M2658.49,146.42
 				c3.92-2.61,7.37-4.15,10.41-4.9c14.01-3.6,19.52,8.88,19.78,9.57c0.03,0.03,0.03,0.03,0.03,0.03"
           />
@@ -559,7 +559,7 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
       <polygon
         fill="#F6EB16"
         stroke="#010101"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         points="2457.76,320.64 2486.24,267.78 2493.38,269.57 
 		2465.57,323.73 	"
       />
@@ -582,14 +582,14 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2565.9,248.49c0,0,4.18,38.84-26.05,43.1
 				c-28.98,4.09-55.31-15.66-51.66-28.69c3.63-12.99,18.59-26.37,18.59-26.37S2553.52,254.03,2565.9,248.49z"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2506.79,236.54c0,0,13.92-32.02-16.36,4.47
 				c-30.25,36.52,3.07,53.02,26.86,58.45c34.92,7.95,61.84-12.79,55.66-50.47c-0.09-0.58,0.44-1.1,1.02-0.96
 				c8.21,2.38,5.71-7.63-0.78-7.19c-4,0.26-6.03,2-7.28,7.66"
@@ -599,7 +599,7 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
       <path
         fill="#F6EB16"
         stroke="#101010"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2554.48,254.3c-11.89,18.26-39.1,30.92-44.32,34.54
 		c-10.91,7.55-10.34,15.24-11.19,23.91c-1.4,14.4-12.99,16.36-24.05,30.9c-4.89,6.43-24.97-2.68-24.97-2.68
 		c15.19-9.34,27.91-42.62,27.91-42.62c3.36-9.51,1.97-10.67,1.4-14.26c-1.01-6.39,7.83-10.35,7.83-10.35
@@ -608,28 +608,28 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
       <path
         fill="#F6EB16"
         stroke="#101010"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2502.67,292.99l-13.5-16.59c-1.77-2.17-1.99-5.05-0.38-6.25l0,0
 		c1.62-1.2,4.31-0.14,5.87,2.19l11.89,17.78c0.73,1.09,0.47,2.56-0.55,3.32l0,0C2504.99,294.19,2503.5,294.01,2502.67,292.99z"
       />
       <path
         fill="#F6EB16"
         stroke="#101010"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2477.89,278.62L2477.89,278.62c-1.12,1.93-0.11,4.39,2.04,4.98
 		l11.2,3.06c0.3,0.08,0.52-0.29,0.3-0.51l-8.2-8.21C2481.65,276.35,2479.01,276.69,2477.89,278.62z"
       />
       <path
         fill="#F6EB16"
         stroke="#101010"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2501.91,297.6l-21.79-1.22c-1.64-0.09-2.86-1.54-2.68-3.17l0,0
 		c0.18-1.63,1.7-2.77,3.31-2.5l21.52,3.63c0.86,0.14,1.45,0.93,1.36,1.8l0,0C2503.53,297.01,2502.78,297.65,2501.91,297.6z"
       />
       <path
         fill="#F6EB16"
         stroke="#101010"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2430.67,338.14c26.19-8.41,32.84,0.88,35.22-0.41
 		c4-2.16,2.54-5.24,2.54-5.25c0,0,0,0,0,0c1.91-0.91,7.51,1.89,7.63,4.77c-1.17-0.42-4.76,1.59-3.02,6.36c5.97,9.68-1.81,12-1.81,12
 		C2447.57,349.27,2430.67,338.14,2430.67,338.14z"
@@ -637,14 +637,14 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
       <polygon
         fill="#F6EB16"
         stroke="#010101"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         points="2455.48,329.36 2437.77,346.87 2463.12,358.13 
 		2463.12,323.73 	"
       />
       <circle
         fill="#F6EB16"
         stroke="#010101"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         cx="2460.39"
         cy="325.09"
         r="5.18"
@@ -652,7 +652,7 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
       <path
         fill="#F6EB16"
         stroke="#101010"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2557.62,221.81c4.64,7.14,8.21,24.07,9.3,29.67
 		c0.2,1.04-0.45,2.03-1.48,2.27c-8.73,2-46.63,9.5-65.77-6.06c-0.71-0.57-0.89-1.59-0.48-2.4l13.14-26.16
 		c0.13-0.26,0.2-0.55,0.21-0.84l0.87-48.59c0.02-1.07,0.89-1.92,1.96-1.92h34.29c1,0,1.84,0.75,1.95,1.74l5.74,51.51
@@ -661,7 +661,7 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
       <path
         fill="#F6EB16"
         stroke="#101010"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2550.28,152.57c20.76-2.78,16.18,17.2,16.24,25.25
 		c0,0,6.15,27.65,3.97,34.67c-2.19,7.02-8.5,8.82-11.98,9.21c-24.71,2.78-57.3-14.66-57.3-14.66l5.81-12.25
 		c0,0,25.76,13.31,32.8,8.1C2553.67,180.02,2530.82,157.06,2550.28,152.57z"
@@ -669,7 +669,7 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
       <path
         fill="#F5EB1F"
         stroke="#0D0E0E"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2568.92,176.5l-25.63,2.67c-0.52,0.05-0.99-0.33-1.05-0.85
 		l-0.38-3.61c-0.05-0.52,0.33-0.99,0.85-1.05l25.63-2.67c0.52-0.05,0.99,0.33,1.05,0.85l0.38,3.61
 		C2569.83,175.97,2569.45,176.44,2568.92,176.5z"
@@ -677,7 +677,7 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
       <path
         fill="#F6EB16"
         stroke="#101010"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2569.33,195.36l-25.28,3.94c-0.23,0.04-0.42,0.15-0.63,0.24
 		c-0.05,0.02-0.11,0.02-0.16,0.04c-0.02,0.01-0.03,0.02-0.04,0.03c-0.3,0.16-0.55,0.36-0.77,0.61c-0.02,0.02-0.04,0.03-0.06,0.05
 		c-0.52,0.61-0.8,1.41-0.67,2.25c0.07,0.44,0.26,0.82,0.51,1.16l10.04,19.97c0.68,1.36,2.36,1.91,3.72,1.23s1.91-2.36,1.23-3.72
@@ -687,14 +687,14 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
       <path
         fill="#F6EB16"
         stroke="#101010"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2558.97,210.08l11.21,2.65c1.62,0.38,2.41,2.22,1.57,3.66
 		l-0.43,0.74c-0.92,1.59-3.06,1.95-4.45,0.76l-8.27-7.08C2558.26,210.52,2558.54,209.97,2558.97,210.08z"
       />
       <path
         fill="#29ABE2"
         stroke="#010101"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2539.65,264.88c-5.56-2.3-10.18-5.07-8.57-13.28
 		c0.28-1.45,1.26-2.69,2.57-3.36c4.7-2.42,6.01-4.32,6.01-4.32c5.27-3.73,15.82-4.52,16.31-0.55c0.49,3.98,0.57,18.91-3.81,20.29
 		S2539.65,264.88,2539.65,264.88z"
@@ -702,7 +702,7 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
       <path
         fill="#010101"
         stroke="#010101"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2543.85,231.68c4.17,8.62,14.04-6.17,16.83-5.75
 		c4.07,0.61,6.25,9.09,5.96,10.42c-0.48,2.2-11.4,4.37-12.49,7.19c-0.85,2.22,0.44,12.95,1.04,17.43c0.15,1.14-0.56,2.21-1.66,2.54
 		l-5.36,1.56c-1.69,0.49-3.44-0.55-3.81-2.28l-5.75-27.45c-0.18-0.84,0.28-1.69,1.08-2.01L2543.85,231.68z"
@@ -710,7 +710,7 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
       <path
         fill="#29ABE2"
         stroke="#010101"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2538.69,250.46c-0.28-0.87-0.12-1.81,0.53-2.46
 		c2.45-2.44,6.5-4.56,9.71-4.84c3.17-0.08,4.58,2.73,7.95,4.12c0.7,0.29,1.26,0.82,1.45,1.54c1.42,5.28-2.17,17.49-3.03,19.27
 		c-1.73,3.54-12.22,4.95-14.19,1.2C2539.76,266.74,2540.63,256.43,2538.69,250.46z"
@@ -748,27 +748,27 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2483.15,213.08h0.03c6.06-1.19,11.81-0.78,11.81-0.78l-0.38,40.67
 				"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2496.03,149.06v0.03v40.75c0,0-8.99,0.38-16.1,2.26"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2546.24,194.14c-3.86-2.67-31.01-3.97-31.01-3.97l1.02-41.22
 				v-0.12"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2479.93,192.11c-1.42-12.65-2-26.54-1.28-41.48
 				c0,0,6.12-1.04,17.37-1.54c5.54-0.26,12.3-0.38,20.22-0.15c10.18,0.29,22.25,1.16,35.91,2.96c-0.52,15.78-2.73,29.82-5.92,42.23
 				c-1.89,7.31-4.12,14.07-6.58,20.25c-7.77,19.69-17.72,33.79-25.44,42.75c-7.08,8.24-12.27,12.15-12.27,12.15
@@ -777,7 +777,7 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2514.21,257.17v-0.03l0.75-45.13
 				c11.23-1.02,24.68,2.38,24.68,2.38"
           />
@@ -826,7 +826,7 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2499.28,113.53c-2.58-10.15,0.93-20.71,13.08-25.93
 				c12.12-5.19,25.79-0.87,29.35,11.23c4.03,2.93,6.5,6.29,7.14,8.41c0.32,0.96,0.26,1.65-0.17,1.94
 				c-1.39,0.96-5.51,2.09-11.92-3.65c-3.16-2.81-22.48,5.31-30.6,8.9c-2.23,0.99-3.6,1.62-3.6,1.62c-0.81,3.74,2.76,6.24,2.76,6.24
@@ -835,13 +835,13 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2543.1,106.19c3.42,3.13,5.74,1.04,5.74,1.04"
           />
           <line
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             x1="2499.28"
             y1="113.53"
             x2="2541.71"
@@ -850,7 +850,7 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
           <line
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             x1="2505.31"
             y1="122.29"
             x2="2506.15"
@@ -892,7 +892,7 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
           <path
             fill="none"
             stroke="#F6EB16"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2515.31,124.49l0.35-4.3c0.05-0.7,0.64-1.25,1.35-1.25h5.76h1.07
 				c0,0,5.67-3.68,7.02-8.41c0.16-0.55,0.87-0.67,1.21-0.21l4.81,6.49c0,0,0.91,11.4-5.13,17.92c-0.19,0.21-0.4,0.42-0.61,0.62
 				c-1.05,1-2.42,1.58-3.86,1.65c-1.14,0.06-2.65,0.05-4.29-0.2c-4.19-0.62-9.18-2.76-10.64-9.23c0,0,2.07,0.33,2.81-1.27l0.15-1.8"
@@ -900,13 +900,13 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
           <path
             fill="none"
             stroke="#F6EB16"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2531.74,134.7c-0.13-0.63-2.42-10.77-8.97-15.76"
           />
           <line
             fill="none"
             stroke="#F6EB16"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             x1="2531.74"
             y1="134.7"
             x2="2531.75"
@@ -915,14 +915,14 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
           <path
             fill="none"
             stroke="#F6EB16"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2515.3,124.48c0,0.01,0,0.01,0.01,0.02
 				c2.26,8.42,7.68,12.3,7.68,12.3"
           />
           <line
             fill="none"
             stroke="#F6EB16"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             x1="2515.31"
             y1="124.5"
             x2="2515.31"
@@ -933,7 +933,7 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
       <path
         fill="#F6EB16"
         stroke="#010101"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2626.65,327.75l-61.61-14.36c-3.09-0.72-5.02-3.81-4.3-6.91
 		l1.77-7.59c0.72-3.09,3.81-5.02,6.91-4.3l61.61,14.36c3.09,0.72,5.02,3.81,4.3,6.91l-1.77,7.59
 		C2632.83,326.55,2629.74,328.47,2626.65,327.75z"
@@ -941,21 +941,21 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
       <path
         fill="#F6EB16"
         stroke="#010101"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2619.13,328.03l-7.23-1.92c0,0,4.92-8.33,5.43-20.42
 		c0,0,5.25-0.08,7.23,1.92C2625.07,319.64,2619.13,328.03,2619.13,328.03z"
       />
       <path
         fill="#F6EB16"
         stroke="#010101"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2573.48,317.45l7.31,1.59c0,0-0.6-9.56,4.44-20.4
 		c0,0-4.64-2.45-7.31-1.59C2572,307.38,2573.48,317.45,2573.48,317.45z"
       />
       <path
         fill="#F6EB16"
         stroke="#010101"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2627.92,309.53l-56.31-14.96c-4.07-1.08-6.49-5.26-5.41-9.32
 		l4.89-18.39c1.08-4.07,5.26-6.49,9.32-5.41l56.31,14.96c4.07,1.08,6.49,5.26,5.41,9.32l-4.89,18.39
 		C2636.16,308.19,2631.99,310.61,2627.92,309.53z"
@@ -963,7 +963,7 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
       <path
         fill="#F6EB16"
         stroke="#010101"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         d="M2630.79,300.16l-57.01-15.15c-4.46-1.19-7.11-5.76-5.93-10.22
 		l3.99-15.01c1.19-4.46,5.76-7.11,10.22-5.93l57.01,15.15c4.46,1.19,7.11,5.76,5.93,10.22l-3.99,15.01
 		C2639.82,298.69,2635.24,301.35,2630.79,300.16z"
@@ -989,21 +989,21 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2580.8,283.92l0.37-1.42c0.55-2.21,2.81-3.56,5.02-2.98l0.8,0.18
 				c2.21,0.58,3.53,2.81,2.98,5.02l-0.27,1.05"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2587.4,294.97l-0.17,0.68c-0.55,2.21-2.81,3.56-5.02,2.98
 				l-0.8-0.18c-2.21-0.58-3.56-2.81-3.01-5.02l1.53-6.1"
           />
           <polygon
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             points="2579.94,287.32 2578.56,292.92 2587.4,294.97 
 				2589.7,285.77 2580.8,283.92 			"
           />
@@ -1030,21 +1030,21 @@ const Background: React.FC<Props> = ({ isAnimated }) => (
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2618.69,293.22l0.29-1.43c0.43-2.24,2.59-3.7,4.83-3.27l0.8,0.17
 				c2.24,0.43,3.7,2.62,3.27,4.86l-0.21,1.06"
           />
           <path
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             d="M2625.86,303.88l-0.13,0.69c-0.46,2.24-2.62,3.7-4.86,3.27
 				l-0.8-0.17c-2.24-0.43-3.7-2.62-3.27-4.86l0.09-0.49"
           />
           <polygon
             fill="none"
             stroke="#010101"
-            stroke-miterlimit="10"
+            strokeMiterlimit="10"
             points="2616.89,302.32 2625.86,303.88 2627.67,294.61 
 				2618.69,293.22 			"
           />
