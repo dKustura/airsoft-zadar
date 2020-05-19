@@ -25,7 +25,6 @@ export const SubheaderElement = (props: RenderElementProps) => {
   );
 };
 
-// TODO: Add propert styling to quotes
 export const QuoteElement = withStyles(elementStyles)(
   (props: RenderElementProps & WithStyles<typeof elementStyles>) => {
     return (
