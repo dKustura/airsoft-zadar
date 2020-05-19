@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState, useCallback } from 'react';
 import { useSlate } from 'slate-react';
+import { useDropzone } from 'react-dropzone';
 
 // Components
 import {
@@ -10,6 +11,8 @@ import {
   // DialogTitle,
   Tooltip,
   Zoom,
+  useMediaQuery,
+  Theme,
 } from '@material-ui/core';
 import Dropzone from 'components/Dropzone';
 import ImageIcon from '@material-ui/icons/Image';
@@ -24,14 +27,9 @@ interface Props extends WithStyles<typeof styles> {}
 const ImageButton: React.FC<Props> = ({ classes, ...buttonProps }: Props) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const editor = useSlate();
-
-  const handleButtonClick = () => {
-    setIsDialogOpen(true);
-  };
-
-  const handleDialogClose = () => {
-    setIsDialogOpen(false);
-  };
+  const isSmallScreen = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down('sm')
+  );
 
   const onDropAccepted = useCallback(
     (acceptedFiles: File[]) => {
@@ -43,6 +41,25 @@ const ImageButton: React.FC<Props> = ({ classes, ...buttonProps }: Props) => {
 
   // TODO: implement
   const onDropRejected = useCallback(() => {}, []);
+
+  const { open, getInputProps } = useDropzone({
+    accept: 'image/*',
+    onDropAccepted,
+    onDropRejected,
+  });
+
+  // When app is rendered on a small screen the drag'n'drop dialog is not shown
+  const handleButtonClick = useCallback(() => {
+    if (isSmallScreen) {
+      open();
+    } else {
+      setIsDialogOpen(true);
+    }
+  }, [open, isSmallScreen]);
+
+  const handleDialogClose = useCallback(() => {
+    setIsDialogOpen(false);
+  }, []);
 
   return (
     <>
@@ -57,6 +74,8 @@ const ImageButton: React.FC<Props> = ({ classes, ...buttonProps }: Props) => {
           <ImageIcon />
         </Button>
       </Tooltip>
+
+      <input {...getInputProps()} />
 
       <Dialog
         fullWidth

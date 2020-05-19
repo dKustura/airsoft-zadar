@@ -14,6 +14,7 @@
   "src.components.PostForm.dialogConfirm": "Confirm",
   "src.components.PostForm.dialogDescription": "You have unsaved changes. Are you sure you want to leave this page without saving?",
   "src.components.PostForm.dialogTitle": "Warning",
+  "src.components.PostForm.preview": "Preview",
   "src.components.PostForm.submitButton": "Submit",
   "src.components.PostForm.titleLabel": "Title",
   "src.components.RouteLeavingGuard.dialogCancel": "Cancel",

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Field, FieldProps } from 'formik';
 
 import { Grid, Tooltip, IconButton, Zoom } from '@material-ui/core';

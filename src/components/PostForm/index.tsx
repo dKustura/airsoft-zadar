@@ -169,7 +169,7 @@ const PostForm: React.FC<Props> = ({
                         fullWidth
                         onClick={onPreviewClick}
                       >
-                        Preview
+                        <FormattedMessage {...messages.preview} />
                       </Button>
                     </Grid>
                   </Grid>
