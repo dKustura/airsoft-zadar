@@ -41,7 +41,9 @@ export const DefaultElement = withStyles(elementStyles)(
   (props: RenderElementProps & WithStyles<typeof elementStyles>) => {
     return (
       <div className={props.classes.defaultElement}>
-        <Typography {...props.attributes}>{props.children}</Typography>
+        <Typography variant="body2" {...props.attributes}>
+          {props.children}
+        </Typography>
       </div>
     );
   }
@@ -58,7 +60,7 @@ export const NumberedListElement = (props: RenderElementProps) => {
 export const ListItemElement = (props: RenderElementProps) => {
   return (
     <li {...props.attributes}>
-      <Typography>{props.children}</Typography>
+      <Typography variant="body2">{props.children}</Typography>
     </li>
   );
 };

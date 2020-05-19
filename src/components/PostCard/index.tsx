@@ -33,7 +33,7 @@ const PostCard: React.FC<Props> = ({
             <Typography variant="h5">{title}</Typography>
           </Grid>
           <Grid item>
-            <Typography>{content}</Typography>
+            <Typography variant="body2">{content}</Typography>
           </Grid>
         </Grid>
       </CardContent>
