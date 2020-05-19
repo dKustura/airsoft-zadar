@@ -1,1 +1,1 @@
-export const COUNTRY_OPTIONS = ['hr', 'gb', 'de'];
+export const COUNTRY_OPTIONS = ['hr', 'gb'];

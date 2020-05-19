@@ -15,13 +15,23 @@ const outerSpace = '#243538';
 
 const commonTheme: ThemeOptions = {
   typography: {
-    fontFamily: ['Arvo', 'Roboto', 'sans-serif'].join(','),
+    fontFamily: ['Arvo', 'Roboto', 'monospace'].join(','),
     h1: {
       fontWeight: 700,
+    },
+    body1: {
+      fontFamily: ['Overpass Mono', 'monospace'].join(','),
     },
   },
   shape: {
     borderRadius: 15,
+  },
+  overrides: {
+    MuiFormLabel: {
+      root: {
+        fontFamily: ['Arvo', 'Roboto', 'monospace'].join(','),
+      },
+    },
   },
 };
 
