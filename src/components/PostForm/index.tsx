@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
+import { Prompt, useHistory, useLocation } from 'react-router-dom';
+import { Action, Location } from 'history';
 import { compose } from 'redux';
-import { Formik, Form, Field, FieldProps } from 'formik';
 import { connect } from 'react-redux';
+import { Formik, Form, Field, FieldProps } from 'formik';
 
 import { withFirebase, WithFirebaseProps } from 'components/Firebase';
 import { withSnackbar, WithSnackbarProps } from 'notistack';
@@ -19,16 +21,13 @@ import {
   Button,
   CircularProgress,
   FormHelperText,
-  IconButton,
-  Tooltip,
-  Zoom,
 } from '@material-ui/core';
 import CustomEditor from 'components/CustomEditor';
-import PostRead from 'components/PostRead';
+import PopupDialog from 'components/PopupDialog';
+import PostPreview from './PostPreview';
 
 // Icons
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import CloseIcon from '@material-ui/icons/Close';
 
 // Styling
 import { withStyles, WithStyles } from '@material-ui/core/styles';
@@ -44,7 +43,6 @@ import { FirebaseError } from 'firebase';
 import { FormattedMessage, useIntl, MessageDescriptor } from 'react-intl';
 import messages from './messages';
 import { uploadAndReplaceImages } from './helpers';
-import { PostSchemaType } from './types';
 
 type Props = WithStyles<typeof styles> &
   WithFirebaseProps &
@@ -58,7 +56,12 @@ const PostForm: React.FC<Props> = ({
 }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isPreview, setIsPreview] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [lastLocation, setLastLocation] = useState<Location | null>(null);
+  const [confirmedNavigation, setConfirmedNavigation] = useState(false);
   const intl = useIntl();
+  const history = useHistory();
+  const location = useLocation();
 
   const onPreviewClick = useCallback(() => {
     setIsPreview(true);
@@ -67,6 +70,39 @@ const PostForm: React.FC<Props> = ({
   const onPreviewExit = useCallback(() => {
     setIsPreview(false);
   }, []);
+
+  const closeModal = useCallback(() => {
+    setModalVisible(false);
+  }, []);
+
+  const handleNavigationBlock = useCallback(
+    (nextLocation: Location, action: Action): boolean => {
+      if (action === 'POP' && isPreview) {
+        setIsPreview(false);
+      } else if (
+        nextLocation.pathname !== location.pathname &&
+        !confirmedNavigation
+      ) {
+        setIsPreview(false);
+        setModalVisible(true);
+        setLastLocation(nextLocation);
+        return false;
+      }
+      return true;
+    },
+    [isPreview, location, confirmedNavigation]
+  );
+
+  const handleConfirmNavigationClick = useCallback(() => {
+    setModalVisible(false);
+    setConfirmedNavigation(true);
+  }, []);
+
+  useEffect(() => {
+    if (confirmedNavigation && lastLocation) {
+      history.push(lastLocation.pathname);
+    }
+  }, [confirmedNavigation, lastLocation, history]);
 
   return (
     <Formik
@@ -94,38 +130,27 @@ const PostForm: React.FC<Props> = ({
           });
       }}
     >
+      {/* TODO: Localize strings */}
       <Container component="main" maxWidth="md">
+        <Prompt message={handleNavigationBlock} />
+        <PopupDialog
+          isOpen={modalVisible}
+          title={intl.formatMessage(messages.dialogTitle as MessageDescriptor)}
+          description={intl.formatMessage(
+            messages.dialogDescription as MessageDescriptor
+          )}
+          cancelLabel={intl.formatMessage(
+            messages.dialogCancel as MessageDescriptor
+          )}
+          confirmLabel={intl.formatMessage(
+            messages.dialogConfirm as MessageDescriptor
+          )}
+          handleClose={closeModal}
+          handleConfirm={handleConfirmNavigationClick}
+        />
         <Grid container className={classes.paper}>
           {isPreview ? (
-            <>
-              <Grid container justify="flex-end">
-                <Grid item>
-                  <Tooltip
-                    TransitionComponent={Zoom}
-                    placement="bottom"
-                    title="Exit Preview"
-                  >
-                    <IconButton
-                      onClick={onPreviewExit}
-                      color="primary"
-                      className={classes.previewCloseIconButton}
-                    >
-                      <CloseIcon className={classes.previewCloseIcon} />
-                    </IconButton>
-                  </Tooltip>
-                </Grid>
-              </Grid>
-              <Grid item xs={12}>
-                <Field name="content">
-                  {({ form }: FieldProps<PostSchemaType>) => (
-                    <PostRead
-                      title={form.values.title}
-                      content={form.values.content}
-                    />
-                  )}
-                </Field>
-              </Grid>
-            </>
+            <PostPreview onExit={onPreviewExit} />
           ) : (
             <>
               <Grid item xs={12}>
