@@ -79,6 +79,7 @@ const PostForm: React.FC<Props> = ({
     (nextLocation: Location, action: Action): boolean => {
       if (action === 'POP' && isPreview) {
         setIsPreview(false);
+        return false;
       } else if (
         nextLocation.pathname !== location.pathname &&
         !confirmedNavigation
@@ -130,7 +131,6 @@ const PostForm: React.FC<Props> = ({
           });
       }}
     >
-      {/* TODO: Localize strings */}
       <Container component="main" maxWidth="md">
         <Prompt message={handleNavigationBlock} />
         <PopupDialog
