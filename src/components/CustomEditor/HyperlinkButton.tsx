@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState, useCallback, useMemo } from 'react';
 import { Range, SetSelectionOperation, Editor } from 'slate';
 import { useSlate } from 'slate-react';
+import { useIntl, MessageDescriptor } from 'react-intl';
 
 // Components
 import {
@@ -23,6 +24,7 @@ import { toolbarButtonStyles as styles } from './styles';
 
 // Helpers
 import { MarkFormat } from './helpers';
+import messages from './messages';
 
 interface Props extends WithStyles<typeof styles> {
   readonly disabled?: boolean;
@@ -40,6 +42,7 @@ const HyperlinkButton: React.FC<Props> = ({
   ...buttonProps
 }) => {
   const editor = useSlate();
+  const intl = useIntl();
 
   const [linkText, setLinkText] = useState('');
   const [currentHref, setCurrentHref] = useState('');
@@ -55,7 +58,11 @@ const HyperlinkButton: React.FC<Props> = ({
   ] = useState<Range | null>(null);
 
   const menuButton = (
-    <Tooltip TransitionComponent={Zoom} placement="top" title="Hyperlink">
+    <Tooltip
+      TransitionComponent={Zoom}
+      placement="top"
+      title={intl.formatMessage(messages.hyperlink as MessageDescriptor)}
+    >
       <div className={(buttonProps as any).className} style={{ padding: 0 }}>
         <Button
           style={{ height: '100%' }}

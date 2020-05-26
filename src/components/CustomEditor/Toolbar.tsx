@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useIntl, MessageDescriptor } from 'react-intl';
 
 // Components
 import { Paper, Divider } from '@material-ui/core';
@@ -26,11 +27,13 @@ import { withStyles, WithStyles } from '@material-ui/core/styles';
 import { toolbarStyles as styles } from './styles';
 import { useSlate } from 'slate-react';
 import BlockToggleButton from './BlockToggleButton';
+import messages from './messages';
 
 interface Props extends WithStyles<typeof styles> {}
 
 const Toolbar: React.FC<Props> = ({ classes }) => {
   const editor = useSlate();
+  const intl = useIntl();
 
   const selectionLength = editor.selection
     ? Math.abs(editor.selection.anchor.offset - editor.selection.focus.offset)
@@ -42,22 +45,30 @@ const Toolbar: React.FC<Props> = ({ classes }) => {
         <MarkToggleButton
           format={MarkFormat.Bold}
           Icon={FormatBoldIcon}
-          tooltip="Bold (Ctrl-B)"
+          tooltip={intl.formatMessage(
+            messages.toolbarBold as MessageDescriptor
+          )}
         />
         <MarkToggleButton
           format={MarkFormat.Italic}
           Icon={FormatItalicIcon}
-          tooltip="Italic (CTRL-I)"
+          tooltip={intl.formatMessage(
+            messages.toolbarItalic as MessageDescriptor
+          )}
         />
         <MarkToggleButton
           format={MarkFormat.Underline}
           Icon={FormatUnderlinedIcon}
-          tooltip="Underline (Ctrl-U)"
+          tooltip={intl.formatMessage(
+            messages.toolbarUnderline as MessageDescriptor
+          )}
         />
         <MarkToggleButton
           format={MarkFormat.Strikethrough}
           Icon={FormatStrikethroughIcon}
-          tooltip="Strikethrough"
+          tooltip={intl.formatMessage(
+            messages.toolbarStrikethrough as MessageDescriptor
+          )}
         />
       </StyledToggleButtonGroup>
       <Divider orientation="vertical" className={classes.divider} />
@@ -72,17 +83,23 @@ const Toolbar: React.FC<Props> = ({ classes }) => {
         <BlockToggleButton
           format={BlockFormat.BulletedList}
           Icon={FormatListBulletedIcon}
-          tooltip="Unordered List"
+          tooltip={intl.formatMessage(
+            messages.toolbarUnorderedList as MessageDescriptor
+          )}
         />
         <BlockToggleButton
           format={BlockFormat.NumberedList}
           Icon={FormatListNumberedIcon}
-          tooltip="Ordered List"
+          tooltip={intl.formatMessage(
+            messages.toolbarOrderedList as MessageDescriptor
+          )}
         />
         <BlockToggleButton
           format={BlockFormat.Quote}
           Icon={FormatQuoteIcon}
-          tooltip="Block Quote"
+          tooltip={intl.formatMessage(
+            messages.toolbarBlockQuote as MessageDescriptor
+          )}
         />
       </StyledToggleButtonGroup>
     </Paper>

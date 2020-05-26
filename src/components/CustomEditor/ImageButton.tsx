@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState, useCallback } from 'react';
+import { useIntl, MessageDescriptor } from 'react-intl';
 import { useSlate } from 'slate-react';
 import { useDropzone } from 'react-dropzone';
 
@@ -21,12 +22,15 @@ import ImageIcon from '@material-ui/icons/Image';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import { toolbarButtonStyles as styles } from './styles';
 import { insertFile } from './helpers';
+import messages from './messages';
 
 interface Props extends WithStyles<typeof styles> {}
 
 const ImageButton: React.FC<Props> = ({ classes, ...buttonProps }: Props) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const editor = useSlate();
+  const intl = useIntl();
+
   const isSmallScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('sm')
   );
@@ -63,7 +67,11 @@ const ImageButton: React.FC<Props> = ({ classes, ...buttonProps }: Props) => {
 
   return (
     <>
-      <Tooltip TransitionComponent={Zoom} placement="top" title="Insert Image">
+      <Tooltip
+        TransitionComponent={Zoom}
+        placement="top"
+        title={intl.formatMessage(messages.insertImage as MessageDescriptor)}
+      >
         <Button
           {...buttonProps}
           classes={{

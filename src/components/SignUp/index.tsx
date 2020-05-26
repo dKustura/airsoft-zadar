@@ -79,7 +79,9 @@ const SignUp: React.FC<Props> = ({
                   .then(() => {
                     setAuthUser(credentials.user);
                     enqueueSnackbar(
-                      'You signed up successfully!',
+                      intl.formatMessage(
+                        messages.signedUpSuccessfully as MessageDescriptor
+                      ),
                       successNotification
                     );
 

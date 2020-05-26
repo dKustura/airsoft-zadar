@@ -8,6 +8,7 @@ const messages = defineMessages({
   orUseSocialLogin: 'ili se prijavi socijalnom mrežom',
   forgotPasswordQuestion: 'Zaboravili ste zaporuku?',
   dontHaveAccountQuestion: 'Nemate korisnički račun?',
+  loggedInSuccessfully: 'Uspješno ste se prijavili!',
 });
 
 export default messages;

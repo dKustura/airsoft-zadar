@@ -4,6 +4,7 @@ import { compose } from 'redux';
 import { Formik, Form } from 'formik';
 import { withFirebase, WithFirebaseProps } from 'components/Firebase';
 import { withSnackbar, WithSnackbarProps } from 'notistack';
+import { FormattedMessage, useIntl, MessageDescriptor } from 'react-intl';
 
 // Components
 import {
@@ -22,6 +23,7 @@ import styles from './styles';
 // Helpers
 import { INITIAL_ADD_ADMIN_FORM_VALUES } from './constants';
 import { successNotification, errorNotification } from 'helpers/snackbar';
+import messages from './messages';
 
 // Types
 import { FirebaseError } from 'firebase';
@@ -37,12 +39,13 @@ const AddAdmin: React.FC<Props> = ({
   enqueueSnackbar,
 }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const intl = useIntl();
 
   return (
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          Add an Administrator
+          <FormattedMessage {...messages.addAdministrator} />
         </Typography>
         <Formik
           initialValues={INITIAL_ADD_ADMIN_FORM_VALUES}
@@ -71,7 +74,9 @@ const AddAdmin: React.FC<Props> = ({
                   <TextField
                     id="email"
                     name="email"
-                    label="Email Address"
+                    label={intl.formatMessage(
+                      messages.emailAddress as MessageDescriptor
+                    )}
                     value={values.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -98,7 +103,7 @@ const AddAdmin: React.FC<Props> = ({
                         thickness={6}
                       />
                     ) : (
-                      'Add Admin'
+                      <FormattedMessage {...messages.confirm} />
                     )}
                   </Button>
                 </Grid>

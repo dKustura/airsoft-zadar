@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl, MessageDescriptor } from 'react-intl';
 
 // Actions
 import { toggleTheme } from 'actions/theme';
@@ -57,6 +57,8 @@ const Header: React.FC<Props> = ({
   toggleTheme,
   setLocale,
 }) => {
+  const intl = useIntl();
+
   return (
     <div className={classes.headerContainer}>
       <Container maxWidth="xl">
@@ -101,7 +103,12 @@ const Header: React.FC<Props> = ({
                 />
               </Grid>
               <Grid item>
-                <Tooltip TransitionComponent={Zoom} title="Toggle theme">
+                <Tooltip
+                  TransitionComponent={Zoom}
+                  title={intl.formatMessage(
+                    messages.toggleTheme as MessageDescriptor
+                  )}
+                >
                   <IconButton
                     aria-label="toggle theme"
                     color="inherit"

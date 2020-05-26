@@ -14,7 +14,7 @@ import styles from './styles';
 import { errorNotification, successNotification } from 'helpers/snackbar';
 
 // i18n
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl, MessageDescriptor } from 'react-intl';
 import messages from './messages';
 
 // Types
@@ -33,6 +33,8 @@ const UserMenu: React.FC<Props> = ({
   classes,
   enqueueSnackbar,
 }) => {
+  const intl = useIntl();
+
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
 
@@ -76,7 +78,10 @@ const UserMenu: React.FC<Props> = ({
           firebase
             .doSignOut()
             .then(() => {
-              enqueueSnackbar('Signed out.', successNotification);
+              enqueueSnackbar(
+                intl.formatMessage(messages.signedOut as MessageDescriptor),
+                successNotification
+              );
             })
             .catch((error: FirebaseError) => {
               enqueueSnackbar(error.message, errorNotification);

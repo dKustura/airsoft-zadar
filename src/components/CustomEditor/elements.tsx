@@ -79,7 +79,7 @@ export const ImageElement = withStyles(elementStyles)(
           className={props.classes.imageElement}
         >
           <img
-            alt="gsdgsg"
+            alt="TODO: replace this"
             src={props.element.url}
             style={{
               display: 'block',

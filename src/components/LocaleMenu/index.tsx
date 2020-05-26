@@ -1,8 +1,10 @@
 import * as React from 'react';
+import { MessageDescriptor, useIntl } from 'react-intl';
 
 // Components
 import { MenuItem, IconButton, Tooltip, Zoom } from '@material-ui/core';
 import FlagIcon from 'components/FlagIcon';
+import DropdownMenu from 'components/DropdownMenu';
 
 // Styling
 import { withStyles, WithStyles } from '@material-ui/core/styles';
@@ -14,7 +16,7 @@ import {
   getLanguageCodeForCountry,
   getCountryCodeForLanguage,
 } from 'helpers/locale';
-import DropdownMenu from 'components/DropdownMenu';
+import messages from './messages';
 
 interface Props extends WithStyles<typeof styles> {
   readonly languageCode: string;
@@ -22,8 +24,13 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 const LocaleMenu: React.FC<Props> = ({ languageCode, onChange, classes }) => {
+  const intl = useIntl();
+
   const menuButton = (
-    <Tooltip TransitionComponent={Zoom} title="Change language">
+    <Tooltip
+      TransitionComponent={Zoom}
+      title={intl.formatMessage(messages.changeLanguage as MessageDescriptor)}
+    >
       <IconButton>
         <FlagIcon
           code={getCountryCodeForLanguage(languageCode)}

@@ -67,7 +67,9 @@ const SignIn: React.FC<Props> = ({
               .doSignInWithEmailAndPassword(values.email, values.password)
               .then((credentials) => {
                 enqueueSnackbar(
-                  'You logged in successfully!',
+                  intl.formatMessage(
+                    messages.loggedInSuccessfully as MessageDescriptor
+                  ),
                   successNotification
                 );
               })
@@ -156,7 +158,7 @@ const SignIn: React.FC<Props> = ({
                 </Grid>
               </Grid>
 
-              <Grid container justify="space-between">
+              <Grid container alignItems="center" direction="column">
                 <Grid item>
                   <Link
                     component={MaterialRouterLink}

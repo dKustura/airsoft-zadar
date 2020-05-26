@@ -9,6 +9,7 @@ const messages = defineMessages({
   signUpButton: 'Registriraj se',
   orUseSocialSignUp: 'ili se registriraj socijalnom mrežom',
   alreadyHaveAnAccountQuestion: 'Već posjedujete račun? Prijavite se',
+  signedUpSuccessfully: 'Uspješno ste registrirani!',
 });
 
 export default messages;
