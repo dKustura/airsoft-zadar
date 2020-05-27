@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Field, FieldProps } from 'formik';
 
+// Components
 import { Grid, Tooltip, IconButton, Zoom } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import PostRead from 'components/PostRead';

@@ -11,6 +11,7 @@ const messages = defineMessages({
   dialogCancel: 'Odustani',
   dialogConfirm: 'Potvrdi',
   preview: 'Pregled',
+  thumbnail: 'Naslovnica',
 });
 
 export default messages;

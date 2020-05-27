@@ -33,3 +33,16 @@ export default (theme: Theme) =>
       height: '3rem',
     },
   });
+
+export const thumbnailStyles = (theme: Theme) =>
+  createStyles({
+    card: {
+      width: '24rem',
+      height: '13.5rem',
+    },
+    image: {
+      width: '100%',
+      height: '100%',
+      borderRadius: 15,
+    },
+  });

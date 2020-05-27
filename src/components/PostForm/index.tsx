@@ -24,10 +24,12 @@ import {
 } from '@material-ui/core';
 import CustomEditor from 'components/CustomEditor';
 import PopupDialog from 'components/PopupDialog';
+import ImageCropDialog from 'components/ImageCropDialog';
 import PostPreview from './PostPreview';
 
 // Icons
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import ImageIcon from '@material-ui/icons/Image';
 
 // Styling
 import { withStyles, WithStyles } from '@material-ui/core/styles';
@@ -43,6 +45,7 @@ import { FirebaseError } from 'firebase';
 import { FormattedMessage, useIntl, MessageDescriptor } from 'react-intl';
 import messages from './messages';
 import { uploadAndReplaceImages } from './helpers';
+import Thumbnail from './Thumbnail';
 
 type Props = WithStyles<typeof styles> &
   WithFirebaseProps &
@@ -59,6 +62,9 @@ const PostForm: React.FC<Props> = ({
   const [modalVisible, setModalVisible] = useState(false);
   const [lastLocation, setLastLocation] = useState<Location | null>(null);
   const [confirmedNavigation, setConfirmedNavigation] = useState(false);
+  const [isThumbnailDialogOpen, setIsThumbnailDialogOpen] = useState(false);
+  const [thumbnail, setThumbnail] = useState<string>();
+
   const intl = useIntl();
   const history = useHistory();
   const location = useLocation();
@@ -69,6 +75,19 @@ const PostForm: React.FC<Props> = ({
 
   const onPreviewExit = useCallback(() => {
     setIsPreview(false);
+  }, []);
+
+  const onThumbnailClick = useCallback(() => {
+    setIsThumbnailDialogOpen(true);
+  }, []);
+
+  const onThumbnailConfirm = useCallback((imageSrc: string) => {
+    setThumbnail(imageSrc);
+    setIsThumbnailDialogOpen(false);
+  }, []);
+
+  const onThumbnailExit = useCallback(() => {
+    setIsThumbnailDialogOpen(false);
   }, []);
 
   const closeModal = useCallback(() => {
@@ -85,6 +104,7 @@ const PostForm: React.FC<Props> = ({
         !confirmedNavigation
       ) {
         setIsPreview(false);
+        setIsThumbnailDialogOpen(false);
         setModalVisible(true);
         setLastLocation(nextLocation);
         return false;
@@ -158,19 +178,44 @@ const PostForm: React.FC<Props> = ({
                   <FormattedMessage {...messages.createNewPost} />
                 </Typography>
               </Grid>
+
               <Form className={classes.form}>
                 <Grid container spacing={2}>
-                  <Grid item container justify="flex-end">
+                  {thumbnail && (
                     <Grid item>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        startIcon={<VisibilityIcon />}
-                        fullWidth
-                        onClick={onPreviewClick}
-                      >
-                        <FormattedMessage {...messages.preview} />
-                      </Button>
+                      <Thumbnail src={thumbnail} />
+                    </Grid>
+                  )}
+                  <Grid container item>
+                    <Grid item xs={6}>
+                      <Grid container justify="flex-start">
+                        <Grid item>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            startIcon={<ImageIcon />}
+                            fullWidth
+                            onClick={onThumbnailClick}
+                          >
+                            <FormattedMessage {...messages.thumbnail} />
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Grid container justify="flex-end">
+                        <Grid item>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            startIcon={<VisibilityIcon />}
+                            fullWidth
+                            onClick={onPreviewClick}
+                          >
+                            <FormattedMessage {...messages.preview} />
+                          </Button>
+                        </Grid>
+                      </Grid>
                     </Grid>
                   </Grid>
                   <Grid item xs={12}>
@@ -261,6 +306,12 @@ const PostForm: React.FC<Props> = ({
             </>
           )}
         </Grid>
+
+        <ImageCropDialog
+          isOpen={isThumbnailDialogOpen}
+          handleConfirm={onThumbnailConfirm}
+          handleClose={onThumbnailExit}
+        />
       </Container>
     </Formik>
   );
