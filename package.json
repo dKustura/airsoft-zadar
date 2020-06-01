@@ -18,7 +18,7 @@
     "@types/uuid": "^7.0.2",
     "@types/valid-data-url": "^2.0.0",
     "@types/yup": "^0.28.3",
-    "dkustura-react-scripts": "^0.1.2",
+    "dkustura-react-scripts": "^0.2.1",
     "firebase": "^7.6.0",
     "formik": "2.0.7",
     "image-extensions": "^1.1.0",
