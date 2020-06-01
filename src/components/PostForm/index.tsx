@@ -21,6 +21,8 @@ import {
   Button,
   CircularProgress,
   FormHelperText,
+  useMediaQuery,
+  Theme,
 } from '@material-ui/core';
 import CustomEditor from 'components/CustomEditor';
 import PopupDialog from 'components/PopupDialog';
@@ -29,7 +31,7 @@ import PostPreview from './PostPreview';
 
 // Icons
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import ImageIcon from '@material-ui/icons/Image';
+import SendIcon from '@material-ui/icons/Send';
 
 // Styling
 import { withStyles, WithStyles } from '@material-ui/core/styles';
@@ -64,6 +66,10 @@ const PostForm: React.FC<Props> = ({
   const [confirmedNavigation, setConfirmedNavigation] = useState(false);
   const [isThumbnailDialogOpen, setIsThumbnailDialogOpen] = useState(false);
   const [thumbnail, setThumbnail] = useState<string>();
+
+  const isSmallScreen = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down('sm')
+  );
 
   const intl = useIntl();
   const history = useHistory();
@@ -173,51 +179,28 @@ const PostForm: React.FC<Props> = ({
             <PostPreview onExit={onPreviewExit} />
           ) : (
             <>
-              <Grid item xs={12}>
-                <Typography variant="h1">
-                  <FormattedMessage {...messages.createNewPost} />
-                </Typography>
+              <Grid container wrap="wrap-reverse" alignItems="center">
+                <Grid
+                  container
+                  sm={12}
+                  md={6}
+                  justify={isSmallScreen ? 'center' : 'flex-start'}
+                >
+                  <Grid item>
+                    <Thumbnail src={thumbnail} onClick={onThumbnailClick} />
+                  </Grid>
+                </Grid>
+                <Grid container sm={12} md={6} justify="center">
+                  <Grid item>
+                    <Typography variant="h1" style={{ textAlign: 'center' }}>
+                      <FormattedMessage {...messages.createNewPost} />
+                    </Typography>
+                  </Grid>
+                </Grid>
               </Grid>
 
               <Form className={classes.form}>
                 <Grid container spacing={2}>
-                  {thumbnail && (
-                    <Grid item>
-                      <Thumbnail src={thumbnail} />
-                    </Grid>
-                  )}
-                  <Grid container item>
-                    <Grid item xs={6}>
-                      <Grid container justify="flex-start">
-                        <Grid item>
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            startIcon={<ImageIcon />}
-                            fullWidth
-                            onClick={onThumbnailClick}
-                          >
-                            <FormattedMessage {...messages.thumbnail} />
-                          </Button>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Grid container justify="flex-end">
-                        <Grid item>
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            startIcon={<VisibilityIcon />}
-                            fullWidth
-                            onClick={onPreviewClick}
-                          >
-                            <FormattedMessage {...messages.preview} />
-                          </Button>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Grid>
                   <Grid item xs={12}>
                     <Field name="title">
                       {({
@@ -281,25 +264,38 @@ const PostForm: React.FC<Props> = ({
                       )}
                     </Field>
                   </Grid>
-                  <Grid item xs={12}>
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      color="primary"
-                      className={classes.submit}
-                      disabled={isLoading}
-                      fullWidth
-                    >
-                      {isLoading ? (
-                        <CircularProgress
-                          color="secondary"
-                          size={24}
-                          thickness={6}
-                        />
-                      ) : (
-                        <FormattedMessage {...messages.submitButton} />
-                      )}
-                    </Button>
+                  <Grid container spacing={2} justify="center">
+                    <Grid item xs={12} sm={4}>
+                      <Button
+                        variant="contained"
+                        startIcon={<VisibilityIcon />}
+                        fullWidth
+                        onClick={onPreviewClick}
+                      >
+                        <FormattedMessage {...messages.preview} />
+                      </Button>
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                        disabled={isLoading}
+                        startIcon={<SendIcon />}
+                        fullWidth
+                      >
+                        {isLoading ? (
+                          <CircularProgress
+                            color="secondary"
+                            size={24}
+                            thickness={6}
+                          />
+                        ) : (
+                          <FormattedMessage {...messages.submitButton} />
+                        )}
+                      </Button>
+                    </Grid>
                   </Grid>
                 </Grid>
               </Form>

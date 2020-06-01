@@ -32,17 +32,38 @@ export default (theme: Theme) =>
       width: '3rem',
       height: '3rem',
     },
+    headerContainer: {
+      display: 'flex',
+      justifyContent: 'center',
+      flexWrap: 'wrap',
+    },
   });
 
 export const thumbnailStyles = (theme: Theme) =>
   createStyles({
     card: {
+      position: 'relative',
       width: '24rem',
       height: '13.5rem',
     },
     image: {
+      position: 'relative',
       width: '100%',
       height: '100%',
       borderRadius: 15,
+
+      // '&:hover ~ button': {
+      //   opacity: 1,
+      // },
+    },
+    button: {
+      position: 'absolute',
+      left: '1rem',
+      bottom: '1rem',
+      // opacity: 0,
+      // transition: 'opacity 0.2s ease-in-out',
+      // '&:hover': {
+      //   opacity: 1,
+      // },
     },
   });

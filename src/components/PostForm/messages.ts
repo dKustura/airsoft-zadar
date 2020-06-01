@@ -10,8 +10,8 @@ const messages = defineMessages({
     'Niste spremili promjene. Jeste li sigurni da želite napustiti stranicu bez spremanja?',
   dialogCancel: 'Odustani',
   dialogConfirm: 'Potvrdi',
-  preview: 'Pregled',
-  thumbnail: 'Naslovnica',
+  preview: 'Pregledaj',
+  uploadThumbnail: 'Postavi',
 });
 
 export default messages;

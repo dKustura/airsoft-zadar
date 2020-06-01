@@ -40,6 +40,7 @@
   "src.components.PostForm.submitButton": "Submit",
   "src.components.PostForm.thumbnail": "Thumbnail",
   "src.components.PostForm.titleLabel": "Title",
+  "src.components.PostForm.uploadThumbnail": "Upload",
   "src.components.RouteLeavingGuard.dialogCancel": "Cancel",
   "src.components.RouteLeavingGuard.dialogConfirm": "Confirm",
   "src.components.RouteLeavingGuard.dialogDescription": "You have unsaved changes. Are you sure you want to leave this page without saving?",
