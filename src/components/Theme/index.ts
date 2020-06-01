@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import { ThemeMode } from 'reducers/constants';
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
 
@@ -43,67 +43,71 @@ declare module '@material-ui/core/styles/createPalette' {
   }
 }
 
-const lightTheme = createMuiTheme({
-  palette: {
-    type: ThemeMode.Light,
-    background: {
-      default: 'white',
-      paper: 'white',
-    },
-    primary: {
-      main: yaleBlue,
-    },
-    secondary: {
-      main: skyBlue,
-    },
-    icon: {
-      border: '#000',
-    },
-  },
-  overrides: {
-    MuiOutlinedInput: {
-      notchedOutline: {
-        borderColor: yaleBlue,
+const lightTheme = responsiveFontSizes(
+  createMuiTheme({
+    palette: {
+      type: ThemeMode.Light,
+      background: {
+        default: 'white',
+        paper: 'white',
+      },
+      primary: {
+        main: yaleBlue,
+      },
+      secondary: {
+        main: skyBlue,
+      },
+      icon: {
+        border: '#000',
       },
     },
-    MuiInputLabel: {
-      shrink: {
-        color: yaleBlueTransparent,
+    overrides: {
+      MuiOutlinedInput: {
+        notchedOutline: {
+          borderColor: yaleBlue,
+        },
+      },
+      MuiInputLabel: {
+        shrink: {
+          color: yaleBlueTransparent,
+        },
       },
     },
-  },
-  ...commonTheme,
-});
+    ...commonTheme,
+  })
+);
 
-const darkTheme = createMuiTheme({
-  palette: {
-    type: ThemeMode.Dark,
-    background: {
-      // paper: '#000',
-      default: darkJungleGreen,
-      paper: outerSpace,
-    },
-    primary: {
-      main: skyBlue,
-    },
-    secondary: {
-      main: yaleBlue,
-    },
-    icon: {
-      border: 'white',
-    },
-  },
-  overrides: {
-    MuiOutlinedInput: {
-      notchedOutline: {
-        borderColor: skyBlue,
+const darkTheme = responsiveFontSizes(
+  createMuiTheme({
+    palette: {
+      type: ThemeMode.Dark,
+      background: {
+        // paper: '#000',
+        default: darkJungleGreen,
+        paper: outerSpace,
+      },
+      primary: {
+        main: skyBlue,
+      },
+      secondary: {
+        main: yaleBlue,
+      },
+      icon: {
+        border: 'white',
       },
     },
-    MuiInputLabel: {
-      outlined: {
-        color: skyBlueTransparent,
+    overrides: {
+      MuiOutlinedInput: {
+        notchedOutline: {
+          borderColor: skyBlue,
+        },
+      },
+      MuiInputLabel: {
+        outlined: {
+          color: skyBlueTransparent,
+        },
       },
     },
-  },
-  ...commonTheme,
-});
+    ...commonTheme,
+  })
+);
