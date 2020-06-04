@@ -2,6 +2,8 @@ import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import { ThemeMode } from 'reducers/constants';
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
 
+import colors from './colors';
+
 export const getTheme = (mode: ThemeMode) => {
   return mode === ThemeMode.Light ? lightTheme : darkTheme;
 };
@@ -29,6 +31,21 @@ const commonTheme: ThemeOptions = {
   },
 };
 
+const commonPalette = {
+  success: {
+    main: colors.success,
+  },
+  error: {
+    main: colors.error,
+  },
+  warning: {
+    main: colors.warning,
+  },
+  info: {
+    main: colors.info,
+  },
+};
+
 declare module '@material-ui/core/styles/createPalette' {
   interface Palette {
     icon: {
@@ -48,8 +65,8 @@ const lightTheme = responsiveFontSizes(
     palette: {
       type: ThemeMode.Light,
       background: {
-        default: 'white',
-        paper: 'white',
+        default: '#FFFFFF',
+        paper: '#FFFFFF',
       },
       primary: {
         main: yaleBlue,
@@ -60,6 +77,7 @@ const lightTheme = responsiveFontSizes(
       icon: {
         border: '#000',
       },
+      ...commonPalette,
     },
     overrides: {
       MuiOutlinedInput: {
@@ -93,8 +111,9 @@ const darkTheme = responsiveFontSizes(
         main: yaleBlue,
       },
       icon: {
-        border: 'white',
+        border: '#FFFFFF',
       },
+      ...commonPalette,
     },
     overrides: {
       MuiOutlinedInput: {

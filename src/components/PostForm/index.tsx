@@ -182,6 +182,7 @@ const PostForm: React.FC<Props> = ({
               <Grid container wrap="wrap-reverse" alignItems="center">
                 <Grid
                   container
+                  item
                   sm={12}
                   md={6}
                   justify={isSmallScreen ? 'center' : 'flex-start'}
@@ -190,7 +191,7 @@ const PostForm: React.FC<Props> = ({
                     <Thumbnail src={thumbnail} onClick={onThumbnailClick} />
                   </Grid>
                 </Grid>
-                <Grid container sm={12} md={6} justify="center">
+                <Grid container item sm={12} md={6} justify="center">
                   <Grid item>
                     <Typography variant="h1" style={{ textAlign: 'center' }}>
                       <FormattedMessage {...messages.createNewPost} />
