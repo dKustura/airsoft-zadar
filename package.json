@@ -24,7 +24,7 @@
     "image-extensions": "^1.1.0",
     "is-url": "^1.2.4",
     "node-sass": "^4.14.0",
-    "notistack": "^0.9.7",
+    "notistack": "^0.9.16",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-dropzone": "^10.2.2",
