@@ -48,7 +48,8 @@ class Firebase {
 
   doSignInWithGoogle = () => this.auth.signInWithPopup(this.googleProvider);
 
-  doSignInWithFacebook = () => this.auth.signInWithPopup(this.facebookProvider);
+  doSignInWithFacebook = () =>
+    this.auth.signInWithRedirect(this.facebookProvider);
 
   doSignInWithTwitter = () => this.auth.signInWithPopup(this.twitterProvider);
 
@@ -56,11 +57,15 @@ class Firebase {
 
   doPasswordReset = (email: string) => this.auth.sendPasswordResetEmail(email);
 
-  doSendEmailVerification = () => {
+  doSendEmailVerification = (languageCode?: string) => {
     if (
       process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT &&
       this.auth.currentUser
     ) {
+      if (languageCode) {
+        firebase.auth().languageCode = languageCode;
+      }
+
       this.auth.currentUser.sendEmailVerification({
         url: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT,
       });
@@ -75,7 +80,7 @@ class Firebase {
     next: (user: firebase.User) => void,
     fallback: () => void
   ) =>
-    this.auth.onAuthStateChanged(authUser => {
+    this.auth.onAuthStateChanged(async (authUser) => {
       if (authUser) {
         // TODO: fix This next operation is forbidden
         // this.user(authUser.uid)
@@ -182,6 +187,9 @@ class Firebase {
 
   doGetUniqueIdentifier = () =>
     this.functions.httpsCallable(functionNames.GET_UNIQUE_IDENTIFIER)();
+
+  doCheckIsEmailVerified = () =>
+    this.functions.httpsCallable(functionNames.CHECK_IS_EMAIL_VERIFIED)();
 }
 
 export default Firebase;

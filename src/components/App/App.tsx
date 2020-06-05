@@ -15,6 +15,7 @@ import SignIn from 'components/SignIn';
 import Header from 'components/Header';
 import AddAdmin from 'components/AddAdmin';
 import PostForm from 'components/PostForm';
+import EmailAction from 'components/EmailAction';
 
 // Other Componenets
 import { IconButton, withStyles, WithStyles } from '@material-ui/core';
@@ -78,6 +79,7 @@ const App = ({ authUser, classes }: Props) => {
           <Route path="/addAdmin" component={AddAdmin} />
           <Route path="/signUp" component={SignUp} />
           <Route path="/signIn" component={SignIn} />
+          <Route path="/emailAction" component={EmailAction} />
           <Route path="/" component={Home} />
         </Switch>
       </div>

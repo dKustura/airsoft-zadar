@@ -35,15 +35,18 @@ import styles from './styles';
 import { INITIAL_SIGNUP_FORM_VALUES } from './constants';
 import { successNotification, errorNotification } from 'helpers/snackbar';
 import { MaterialRouterLink } from 'helpers';
+import { selectLocale } from './selectors';
 
 // Types
 import { FirebaseError } from 'firebase';
 import { FormattedMessage, MessageDescriptor, useIntl } from 'react-intl';
 import messages from './messages';
+import { RootState } from 'types';
 
 type Props = WithStyles<typeof styles> &
   WithFirebaseProps &
   WithSnackbarProps &
+  ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
 
 const SignUp: React.FC<Props> = ({
@@ -51,6 +54,7 @@ const SignUp: React.FC<Props> = ({
   firebase,
   enqueueSnackbar,
   setAuthUser,
+  locale,
 }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const intl = useIntl();
@@ -86,8 +90,7 @@ const SignUp: React.FC<Props> = ({
                     );
 
                     // TODO: Set email language based on selected locale
-                    // firebase.auth.languageCode = 'hr';
-                    credentials.user?.sendEmailVerification();
+                    firebase.doSendEmailVerification(locale);
                   });
               })
               .catch((error: FirebaseError) => {
@@ -234,10 +237,16 @@ const SignUp: React.FC<Props> = ({
   );
 };
 
+const mapStateToProps = (state: RootState) => {
+  return {
+    locale: selectLocale(state),
+  };
+};
+
 const mapDispatchToProps = { setAuthUser };
 
 export default compose<any>(
   withFirebase,
   withSnackbar,
-  connect(null, mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps)
 )(withStyles(styles)(SignUp));
