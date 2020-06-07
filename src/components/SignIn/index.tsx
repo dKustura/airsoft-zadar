@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { compose } from 'redux';
+import { useState, useCallback, useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import { withFirebase, WithFirebaseProps } from 'components/Firebase';
-import { withSnackbar, WithSnackbarProps } from 'notistack';
+import { useSnackbar } from 'notistack';
 
 // Components
 import {
@@ -36,18 +35,23 @@ import { FirebaseError } from 'firebase';
 import { FormattedMessage, useIntl, MessageDescriptor } from 'react-intl';
 import messages from './messages';
 
-interface Props
-  extends WithStyles<typeof styles>,
-    WithFirebaseProps,
-    WithSnackbarProps {}
+interface Props extends WithStyles<typeof styles>, WithFirebaseProps {}
 
-const SignIn: React.FC<Props> = ({
-  classes,
-  firebase,
-  enqueueSnackbar,
-}: Props) => {
+const SignIn: React.FC<Props> = ({ classes, firebase }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const intl = useIntl();
+  const { enqueueSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    firebase.auth.getRedirectResult().then((result) => {
+      console.log('result', result);
+    });
+  }, [firebase.auth]);
+
+  const handleFacebookSignIn = useCallback(() => {
+    firebase.doSignInWithFacebook();
+  }, [firebase]);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -147,7 +151,7 @@ const SignIn: React.FC<Props> = ({
               </Grid>
               <Grid container justify="center">
                 <Grid item>
-                  <IconButton>
+                  <IconButton onClick={handleFacebookSignIn}>
                     <FacebookIcon fontSize="large" />
                   </IconButton>
                 </Grid>
@@ -192,7 +196,4 @@ const SignIn: React.FC<Props> = ({
   );
 };
 
-export default compose<any>(
-  withFirebase,
-  withSnackbar
-)(withStyles(styles)(SignIn));
+export default withFirebase(withStyles(styles)(SignIn));

@@ -5,7 +5,7 @@ import { Formik, Form } from 'formik';
 import { connect } from 'react-redux';
 
 import { withFirebase, WithFirebaseProps } from 'components/Firebase';
-import { withSnackbar, WithSnackbarProps } from 'notistack';
+import { useSnackbar } from 'notistack';
 
 // Actions
 import { setAuthUser } from 'actions/session';
@@ -45,19 +45,19 @@ import { RootState } from 'types';
 
 type Props = WithStyles<typeof styles> &
   WithFirebaseProps &
-  WithSnackbarProps &
   ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
 
 const SignUp: React.FC<Props> = ({
   classes,
   firebase,
-  enqueueSnackbar,
   setAuthUser,
   locale,
 }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const intl = useIntl();
+  const { enqueueSnackbar } = useSnackbar();
 
   return (
     <Container component="main" maxWidth="xs">
@@ -247,6 +247,5 @@ const mapDispatchToProps = { setAuthUser };
 
 export default compose<any>(
   withFirebase,
-  withSnackbar,
   connect(mapStateToProps, mapDispatchToProps)
 )(withStyles(styles)(SignUp));

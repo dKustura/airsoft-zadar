@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { withSnackbar, WithSnackbarProps } from 'notistack';
+import { useSnackbar } from 'notistack';
 
 // Components
 import { Button, MenuItem, Typography } from '@material-ui/core';
@@ -20,20 +20,13 @@ import messages from './messages';
 // Types
 import { FirebaseError } from 'firebase';
 
-interface Props
-  extends WithStyles<typeof styles>,
-    WithFirebaseProps,
-    WithSnackbarProps {
+interface Props extends WithStyles<typeof styles>, WithFirebaseProps {
   readonly displayName: string;
 }
 
-const UserMenu: React.FC<Props> = ({
-  displayName,
-  firebase,
-  classes,
-  enqueueSnackbar,
-}) => {
+const UserMenu: React.FC<Props> = ({ displayName, firebase, classes }) => {
   const intl = useIntl();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
@@ -94,4 +87,4 @@ const UserMenu: React.FC<Props> = ({
   );
 };
 
-export default withFirebase(withSnackbar(withStyles(styles)(UserMenu)));
+export default withFirebase(withStyles(styles)(UserMenu));

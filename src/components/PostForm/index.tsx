@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { Formik, Form, Field, FieldProps } from 'formik';
 
 import { withFirebase, WithFirebaseProps } from 'components/Firebase';
-import { withSnackbar, WithSnackbarProps } from 'notistack';
+import { useSnackbar } from 'notistack';
 
 // Actions
 import { setAuthUser } from 'actions/session';
@@ -51,14 +51,9 @@ import Thumbnail from './Thumbnail';
 
 type Props = WithStyles<typeof styles> &
   WithFirebaseProps &
-  WithSnackbarProps &
   typeof mapDispatchToProps;
 
-const PostForm: React.FC<Props> = ({
-  classes,
-  firebase,
-  enqueueSnackbar,
-}: Props) => {
+const PostForm: React.FC<Props> = ({ classes, firebase }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isPreview, setIsPreview] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -66,6 +61,8 @@ const PostForm: React.FC<Props> = ({
   const [confirmedNavigation, setConfirmedNavigation] = useState(false);
   const [isThumbnailDialogOpen, setIsThumbnailDialogOpen] = useState(false);
   const [thumbnail, setThumbnail] = useState<string>();
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const isSmallScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('sm')
@@ -318,6 +315,5 @@ const mapDispatchToProps = { setAuthUser };
 
 export default compose<any>(
   withFirebase,
-  withSnackbar,
   connect(null, mapDispatchToProps)
 )(withStyles(styles)(PostForm));
