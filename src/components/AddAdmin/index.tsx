@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { compose } from 'redux';
 import { Formik, Form } from 'formik';
-import { withFirebase, WithFirebaseProps } from 'components/Firebase';
-import { withSnackbar, WithSnackbarProps } from 'notistack';
+import { useFirebase } from 'components/Firebase';
+import { useSnackbar } from 'notistack';
 import { FormattedMessage, useIntl, MessageDescriptor } from 'react-intl';
 
 // Components
@@ -22,24 +21,24 @@ import styles from './styles';
 
 // Helpers
 import { INITIAL_ADD_ADMIN_FORM_VALUES } from './constants';
-import { successNotification, errorNotification } from 'helpers/snackbar';
+import {
+  successNotification,
+  errorNotification,
+  warningNotification,
+  infoNotification,
+} from 'helpers/snackbar';
 import messages from './messages';
 
 // Types
 import { FirebaseError } from 'firebase';
 
-interface Props
-  extends WithStyles<typeof styles>,
-    WithFirebaseProps,
-    WithSnackbarProps {}
+interface Props extends WithStyles<typeof styles> {}
 
-const AddAdmin: React.FC<Props> = ({
-  classes,
-  firebase,
-  enqueueSnackbar,
-}: Props) => {
+const AddAdmin: React.FC<Props> = ({ classes }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const intl = useIntl();
+  const firebase = useFirebase();
+  const { enqueueSnackbar } = useSnackbar();
 
   return (
     <Container component="main" maxWidth="xs">
@@ -107,6 +106,69 @@ const AddAdmin: React.FC<Props> = ({
                     )}
                   </Button>
                 </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                    fullWidth
+                    onClick={() => {
+                      firebase.doCheckIsEmailVerified().then((res) => {
+                        console.log('res', res);
+                      });
+                    }}
+                  >
+                    Check if verified
+                  </Button>
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    onClick={() => {
+                      enqueueSnackbar('Test message!', successNotification);
+                    }}
+                  >
+                    Success
+                  </Button>
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    onClick={() => {
+                      enqueueSnackbar('Test message!', errorNotification);
+                    }}
+                  >
+                    Error
+                  </Button>
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    onClick={() => {
+                      enqueueSnackbar('Test message!', warningNotification);
+                    }}
+                  >
+                    Warning
+                  </Button>
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    onClick={() => {
+                      enqueueSnackbar('Test message!', infoNotification);
+                    }}
+                  >
+                    Info
+                  </Button>
+                </Grid>
               </Grid>
             </Form>
           )}
@@ -116,7 +178,4 @@ const AddAdmin: React.FC<Props> = ({
   );
 };
 
-export default compose<any>(
-  withFirebase,
-  withSnackbar
-)(withStyles(styles)(AddAdmin));
+export default withStyles(styles)(AddAdmin);

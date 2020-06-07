@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { useEffect, useCallback } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
+import { MessageDescriptor, useIntl } from 'react-intl';
+import { useSnackbar } from 'notistack';
 
 // Components
-import { withFirebase, WithFirebaseProps } from 'components/Firebase';
+import { useFirebase } from 'components/Firebase';
 
 // Styling
 import styles from './styles';
@@ -11,6 +13,9 @@ import { withStyles, WithStyles } from '@material-ui/core/styles';
 
 // Helpers
 import { EmailActionParameter, EmailActionMode } from './constants';
+import EmailConfirmation from 'components/EmailConfirmation';
+import { successNotification, warningNotification } from 'helpers/snackbar';
+import messages from './messages';
 
 // A custom hook that builds on useLocation to parse
 // the query string for you.
@@ -18,11 +23,14 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-interface Props extends WithStyles<typeof styles>, WithFirebaseProps {}
+interface Props extends WithStyles<typeof styles> {}
 
-const EmailAction: React.FC<Props> = ({ firebase }) => {
+const EmailAction: React.FC<Props> = () => {
+  const firebase = useFirebase();
   const query = useQuery();
   const history = useHistory();
+  const intl = useIntl();
+  const { enqueueSnackbar } = useSnackbar();
 
   const mode = query.get(EmailActionParameter.mode);
   const actionCode = query.get(EmailActionParameter.oobCode);
@@ -30,9 +38,11 @@ const EmailAction: React.FC<Props> = ({ firebase }) => {
   const continueUrl = query.get(EmailActionParameter.continueUrl);
   const lang = query.get(EmailActionParameter.lang);
 
-  const redirectToHomepage = useCallback(() => {
-    history.push('/');
-  }, [history]);
+  const redirectToContinueUrl = useCallback(() => {
+    const homeUrl = '/';
+    const redirectUrl = continueUrl || homeUrl;
+    history.push(redirectUrl);
+  }, [history, continueUrl]);
 
   const handleVerifyEmail = useCallback(() => {
     // Localize the UI to the selected language as determined by the lang
@@ -40,7 +50,7 @@ const EmailAction: React.FC<Props> = ({ firebase }) => {
 
     // Try to apply the email verification code.
     if (!actionCode || !apiKey || !continueUrl || !lang) {
-      redirectToHomepage();
+      redirectToContinueUrl();
     } else {
       firebase.auth
         .applyActionCode(actionCode)
@@ -52,12 +62,22 @@ const EmailAction: React.FC<Props> = ({ firebase }) => {
           // click redirects the user back to the app via continueUrl with
           // additional state determined from that URL's parameters.
           firebase.auth.currentUser?.reload();
-          redirectToHomepage();
+          enqueueSnackbar(
+            intl.formatMessage(
+              messages.emailSuccessfullyConfirmed as MessageDescriptor
+            ),
+            successNotification
+          );
+          redirectToContinueUrl();
         })
         .catch((error) => {
-          // Code is invalid or expired. Ask the user to verify their email address
-          // again.
-          console.log('error', error);
+          enqueueSnackbar(
+            intl.formatMessage(
+              messages.emailConfirmationCodeExpired as MessageDescriptor
+            ),
+            warningNotification
+          );
+          redirectToContinueUrl();
         });
     }
   }, [
@@ -66,7 +86,9 @@ const EmailAction: React.FC<Props> = ({ firebase }) => {
     apiKey,
     continueUrl,
     lang,
-    redirectToHomepage,
+    redirectToContinueUrl,
+    intl,
+    enqueueSnackbar,
   ]);
 
   useEffect(() => {
@@ -76,12 +98,12 @@ const EmailAction: React.FC<Props> = ({ firebase }) => {
         handleVerifyEmail();
         break;
       default:
-        redirectToHomepage();
+        redirectToContinueUrl();
         break;
     }
-  }, [mode, handleVerifyEmail, redirectToHomepage]);
+  }, [mode, handleVerifyEmail, redirectToContinueUrl]);
 
-  return <div>Email Action Page</div>;
+  return <>{mode === EmailActionMode.verifyEmail && <EmailConfirmation />}</>;
 };
 
-export default withFirebase(withStyles(styles)(EmailAction));
+export default withStyles(styles)(EmailAction);
