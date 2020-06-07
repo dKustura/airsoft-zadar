@@ -1,8 +1,10 @@
 import * as React from 'react';
+import { useContext } from 'react';
 import Firebase from './firebase';
 import { Optionalize } from 'types';
 
-const { Provider, Consumer } = React.createContext<Firebase | null>(null);
+// @ts-ignore
+const FirebaseContext = React.createContext<Firebase>();
 
 export type WithFirebaseProps = {
   readonly firebase: Firebase;
@@ -11,9 +13,13 @@ export type WithFirebaseProps = {
 export const withFirebase = <Props extends WithFirebaseProps>(
   Component: React.ComponentType<Props>
 ) => (props: Optionalize<Props, WithFirebaseProps>) => (
-  <Consumer>
-    {(firebase) => <Component {...(props as Props)} firebase={firebase} />}
-  </Consumer>
+  <FirebaseContext.Consumer>
+    {(firebase: Firebase) => (
+      <Component {...(props as Props)} firebase={firebase} />
+    )}
+  </FirebaseContext.Consumer>
 );
 
-export { Provider, Consumer };
+export const useFirebase = (): Firebase => useContext(FirebaseContext);
+
+export const { Provider, Consumer } = FirebaseContext;

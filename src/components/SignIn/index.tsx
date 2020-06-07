@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useCallback, useEffect } from 'react';
 import { Formik, Form } from 'formik';
-import { withFirebase, WithFirebaseProps } from 'components/Firebase';
+import { useFirebase } from 'components/Firebase';
 import { useSnackbar } from 'notistack';
 
 // Components
@@ -35,10 +35,12 @@ import { FirebaseError } from 'firebase';
 import { FormattedMessage, useIntl, MessageDescriptor } from 'react-intl';
 import messages from './messages';
 
-interface Props extends WithStyles<typeof styles>, WithFirebaseProps {}
+interface Props extends WithStyles<typeof styles> {}
 
-const SignIn: React.FC<Props> = ({ classes, firebase }: Props) => {
+const SignIn: React.FC<Props> = ({ classes }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const firebase = useFirebase();
 
   const intl = useIntl();
   const { enqueueSnackbar } = useSnackbar();
@@ -196,4 +198,4 @@ const SignIn: React.FC<Props> = ({ classes, firebase }: Props) => {
   );
 };
 
-export default withFirebase(withStyles(styles)(SignIn));
+export default withStyles(styles)(SignIn);

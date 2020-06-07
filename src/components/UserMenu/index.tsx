@@ -3,7 +3,7 @@ import { useSnackbar } from 'notistack';
 
 // Components
 import { Button, MenuItem, Typography } from '@material-ui/core';
-import { withFirebase, WithFirebaseProps } from 'components/Firebase';
+import { useFirebase } from 'components/Firebase';
 import DropdownMenu from 'components/DropdownMenu';
 
 // Styling
@@ -20,12 +20,13 @@ import messages from './messages';
 // Types
 import { FirebaseError } from 'firebase';
 
-interface Props extends WithStyles<typeof styles>, WithFirebaseProps {
+interface Props extends WithStyles<typeof styles> {
   readonly displayName: string;
 }
 
-const UserMenu: React.FC<Props> = ({ displayName, firebase, classes }) => {
+const UserMenu: React.FC<Props> = ({ displayName, classes }) => {
   const intl = useIntl();
+  const firebase = useFirebase();
   const { enqueueSnackbar } = useSnackbar();
 
   const [open, setOpen] = React.useState(false);
@@ -87,4 +88,4 @@ const UserMenu: React.FC<Props> = ({ displayName, firebase, classes }) => {
   );
 };
 
-export default withFirebase(withStyles(styles)(UserMenu));
+export default withStyles(styles)(UserMenu);

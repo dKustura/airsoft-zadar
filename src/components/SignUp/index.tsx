@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { compose } from 'redux';
 import { Formik, Form } from 'formik';
 import { connect } from 'react-redux';
 
-import { withFirebase, WithFirebaseProps } from 'components/Firebase';
+import { useFirebase } from 'components/Firebase';
 import { useSnackbar } from 'notistack';
 
 // Actions
@@ -44,19 +43,14 @@ import messages from './messages';
 import { RootState } from 'types';
 
 type Props = WithStyles<typeof styles> &
-  WithFirebaseProps &
   ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
 
-const SignUp: React.FC<Props> = ({
-  classes,
-  firebase,
-  setAuthUser,
-  locale,
-}: Props) => {
+const SignUp: React.FC<Props> = ({ classes, setAuthUser, locale }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const intl = useIntl();
+  const firebase = useFirebase();
   const { enqueueSnackbar } = useSnackbar();
 
   return (
@@ -245,7 +239,7 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = { setAuthUser };
 
-export default compose<any>(
-  withFirebase,
-  connect(mapStateToProps, mapDispatchToProps)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
 )(withStyles(styles)(SignUp));
