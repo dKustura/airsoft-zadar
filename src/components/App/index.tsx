@@ -17,17 +17,11 @@ import translations from 'translations/index.json';
 import { RootState } from 'types';
 
 // Helpers
-import { selectThemeMode, selectAuthUser, selectLocale } from './selectors';
-import {
-  withAuthentication,
-  WithAuthenticationProps,
-} from 'components/Session';
+import { selectThemeMode, selectLocale } from './selectors';
 
 interface OwnProps {}
 
-type Props = OwnProps &
-  ReturnType<typeof mapStateToProps> &
-  WithAuthenticationProps;
+type Props = OwnProps & ReturnType<typeof mapStateToProps>;
 
 const AppWrapper: React.FC<Props> = ({ theme, locale }: Props) => {
   const messages = (translations as any)[locale];
@@ -44,13 +38,10 @@ const AppWrapper: React.FC<Props> = ({ theme, locale }: Props) => {
 const mapStateToProps = (state: RootState) => {
   return {
     theme: selectThemeMode(state),
-    authUser: selectAuthUser(state),
     locale: selectLocale(state),
   };
 };
 
 const mapDispatchToProps = {};
 
-export default withAuthentication(
-  connect(mapStateToProps, mapDispatchToProps)(AppWrapper)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(AppWrapper);
