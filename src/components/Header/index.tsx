@@ -29,6 +29,7 @@ import styles from './styles';
 // Helpers
 import { ThemeMode } from 'reducers/constants';
 import { MaterialRouterLink } from 'helpers';
+import { Routes } from 'helpers/constants';
 
 // Selectors
 import {
@@ -69,7 +70,7 @@ const Header: React.FC<Props> = ({
                 <img src={logo} alt="logo" />
               </Grid> */}
               <Grid item>
-                <UnderlinedLink to="/">
+                <UnderlinedLink to={Routes.HOME}>
                   <FormattedMessage {...messages.homeLink} />
                 </UnderlinedLink>
               </Grid>
@@ -84,10 +85,10 @@ const Header: React.FC<Props> = ({
                 </UnderlinedLink>
               </Grid>
               <Grid item>
-                <UnderlinedLink to="/addAdmin">Add Admin</UnderlinedLink>
+                <UnderlinedLink to={Routes.ADD_ADMIN}>Add Admin</UnderlinedLink>
               </Grid>
               <Grid item>
-                <UnderlinedLink to="/post">
+                <UnderlinedLink to={Routes.POST_FORM}>
                   <FormattedMessage {...messages.newPostLink} />
                 </UnderlinedLink>
               </Grid>
@@ -126,7 +127,7 @@ const Header: React.FC<Props> = ({
                       variant="outlined"
                       color="inherit"
                       component={MaterialRouterLink}
-                      to="/signUp"
+                      to={Routes.SIGN_UP}
                     >
                       <FormattedMessage {...messages.signUpButton} />
                     </Button>
@@ -137,7 +138,7 @@ const Header: React.FC<Props> = ({
                       variant="outlined"
                       color="inherit"
                       component={MaterialRouterLink}
-                      to="/signIn"
+                      to={Routes.SIGN_IN}
                     >
                       <FormattedMessage {...messages.logInButton} />
                     </Button>

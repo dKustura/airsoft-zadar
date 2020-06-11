@@ -31,6 +31,7 @@ import {
   WithAuthenticationProps,
 } from 'components/Session';
 import styles from './styles';
+import { Routes } from 'helpers/constants';
 
 interface OwnProps extends WithStyles<typeof styles> {}
 
@@ -73,14 +74,13 @@ const App = ({ authUser, classes }: Props) => {
         <Header />
 
         <Switch>
-          {authUser && <Redirect from="/signUp" to="/" />}
-          {authUser && <Redirect from="/signIn" to="/" />}
-          <Route path="/post" component={PostForm} />
-          <Route path="/addAdmin" component={AddAdmin} />
-          <Route path="/signUp" component={SignUp} />
-          <Route path="/signIn" component={SignIn} />
-          <Route path="/emailAction" component={EmailAction} />
-          <Route path="/" component={Home} />
+          {authUser && <Redirect from={Routes.SIGN_IN} to={Routes.HOME} />}
+          <Route path={Routes.POST_FORM} component={PostForm} />
+          <Route path={Routes.ADD_ADMIN} component={AddAdmin} />
+          <Route path={Routes.SIGN_UP} component={SignUp} />
+          <Route path={Routes.SIGN_IN} component={SignIn} />
+          <Route path={Routes.EMAIL_ACTION} component={EmailAction} />
+          <Route path={Routes.HOME} component={Home} />
         </Switch>
       </div>
     </SnackbarProvider>

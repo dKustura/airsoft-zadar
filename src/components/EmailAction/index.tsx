@@ -14,8 +14,9 @@ import { withStyles, WithStyles } from '@material-ui/core/styles';
 // Helpers
 import { EmailActionParameter, EmailActionMode } from './constants';
 import EmailConfirmation from 'components/EmailConfirmation';
-import { successNotification, warningNotification } from 'helpers/snackbar';
+import { warningNotification } from 'helpers/snackbar';
 import messages from './messages';
+import { Routes } from 'helpers/constants';
 
 // A custom hook that builds on useLocation to parse
 // the query string for you.
@@ -36,20 +37,26 @@ const EmailAction: React.FC<Props> = () => {
   const actionCode = query.get(EmailActionParameter.oobCode);
   const apiKey = query.get(EmailActionParameter.apiKey);
   const continueUrl = query.get(EmailActionParameter.continueUrl);
-  const lang = query.get(EmailActionParameter.lang);
+  // const lang = query.get(EmailActionParameter.lang);
 
   const redirectToContinueUrl = useCallback(() => {
-    const homeUrl = '/';
-    const redirectUrl = continueUrl || homeUrl;
+    const redirectUrl = continueUrl || Routes.HOME;
     history.push(redirectUrl);
   }, [history, continueUrl]);
 
   const handleVerifyEmail = useCallback(() => {
+    // TODO:
     // Localize the UI to the selected language as determined by the lang
     // parameter.
 
     // Try to apply the email verification code.
-    if (!actionCode || !apiKey || !continueUrl || !lang) {
+    if (!actionCode || !apiKey) {
+      enqueueSnackbar(
+        intl.formatMessage(
+          messages.emailConfirmationUriInvalid as MessageDescriptor
+        ),
+        warningNotification
+      );
       redirectToContinueUrl();
     } else {
       firebase.auth
@@ -62,13 +69,6 @@ const EmailAction: React.FC<Props> = () => {
           // click redirects the user back to the app via continueUrl with
           // additional state determined from that URL's parameters.
           firebase.auth.currentUser?.reload();
-          enqueueSnackbar(
-            intl.formatMessage(
-              messages.emailSuccessfullyConfirmed as MessageDescriptor
-            ),
-            successNotification
-          );
-          redirectToContinueUrl();
         })
         .catch((error) => {
           enqueueSnackbar(
@@ -84,8 +84,6 @@ const EmailAction: React.FC<Props> = () => {
     firebase.auth,
     actionCode,
     apiKey,
-    continueUrl,
-    lang,
     redirectToContinueUrl,
     intl,
     enqueueSnackbar,

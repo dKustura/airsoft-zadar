@@ -1,8 +1,8 @@
 import { defineMessages } from 'react-intl';
 
 const messages = defineMessages({
-  emailSuccessfullyConfirmed: 'Email je uspješno potvrđen!',
   emailConfirmationCodeExpired: 'Kod za potvrdu email adrese je istekao.',
+  emailConfirmationUriInvalid: 'Pogrešna poveznica za potvrdu email adrese.',
 });
 
 export default messages;

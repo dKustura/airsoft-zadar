@@ -29,6 +29,7 @@ import styles from './styles';
 import { INITIAL_SIGNIN_FORM_VALUES } from './constants';
 import { successNotification, errorNotification } from 'helpers/snackbar';
 import { MaterialRouterLink } from 'helpers';
+import { Routes } from 'helpers/constants';
 
 // Types
 import { FirebaseError } from 'firebase';
@@ -177,7 +178,7 @@ const SignIn: React.FC<Props> = ({ classes }: Props) => {
                 <Grid item>
                   <Link
                     component={MaterialRouterLink}
-                    to="/signUp"
+                    to={Routes.SIGN_UP}
                     variant="body2"
                   >
                     <FormattedMessage {...messages.dontHaveAccountQuestion} />

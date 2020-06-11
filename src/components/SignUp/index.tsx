@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { useFirebase } from 'components/Firebase';
 import { useSnackbar } from 'notistack';
@@ -34,7 +35,8 @@ import styles from './styles';
 import { INITIAL_SIGNUP_FORM_VALUES } from './constants';
 import { successNotification, errorNotification } from 'helpers/snackbar';
 import { MaterialRouterLink } from 'helpers';
-import { selectLocale } from './selectors';
+import { selectAuthUser, selectLocale } from './selectors';
+import { Routes } from 'helpers/constants';
 
 // Types
 import { FirebaseError } from 'firebase';
@@ -46,12 +48,24 @@ type Props = WithStyles<typeof styles> &
   ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
 
-const SignUp: React.FC<Props> = ({ classes, setAuthUser, locale }: Props) => {
+const SignUp: React.FC<Props> = ({
+  classes,
+  setAuthUser,
+  authUser,
+  locale,
+}: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const intl = useIntl();
   const firebase = useFirebase();
   const { enqueueSnackbar } = useSnackbar();
+  const history = useHistory();
+
+  useEffect(() => {
+    if (authUser) {
+      history.push(Routes.HOME);
+    }
+  }, [authUser, history]);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -83,8 +97,8 @@ const SignUp: React.FC<Props> = ({ classes, setAuthUser, locale }: Props) => {
                       successNotification
                     );
 
-                    // TODO: Set email language based on selected locale
                     firebase.doSendEmailVerification(locale);
+                    history.push(Routes.EMAIL_CONFIRMATION);
                   });
               })
               .catch((error: FirebaseError) => {
@@ -208,7 +222,7 @@ const SignUp: React.FC<Props> = ({ classes, setAuthUser, locale }: Props) => {
                 <Grid item>
                   <Link
                     component={MaterialRouterLink}
-                    to="/signIn"
+                    to={Routes.SIGN_IN}
                     variant="body2"
                   >
                     <FormattedMessage
@@ -233,6 +247,7 @@ const SignUp: React.FC<Props> = ({ classes, setAuthUser, locale }: Props) => {
 
 const mapStateToProps = (state: RootState) => {
   return {
+    authUser: selectAuthUser(state),
     locale: selectLocale(state),
   };
 };
