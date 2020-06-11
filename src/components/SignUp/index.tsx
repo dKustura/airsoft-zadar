@@ -65,7 +65,7 @@ const SignUp: React.FC<Props> = ({
     if (authUser) {
       history.push(Routes.HOME);
     }
-  }, [authUser, history]);
+  });
 
   return (
     <Container component="main" maxWidth="xs">
