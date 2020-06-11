@@ -32,6 +32,7 @@ import {
 } from 'components/Session';
 import styles from './styles';
 import { Routes } from 'helpers/constants';
+import EmailConfirmation from 'components/EmailConfirmation';
 
 interface OwnProps extends WithStyles<typeof styles> {}
 
@@ -75,10 +76,17 @@ const App = ({ authUser, classes }: Props) => {
 
         <Switch>
           {authUser && <Redirect from={Routes.SIGN_IN} to={Routes.HOME} />}
+          {!authUser && (
+            <Redirect from={Routes.EMAIL_CONFIRMATION} to={Routes.HOME} />
+          )}
           <Route path={Routes.POST_FORM} component={PostForm} />
           <Route path={Routes.ADD_ADMIN} component={AddAdmin} />
           <Route path={Routes.SIGN_UP} component={SignUp} />
           <Route path={Routes.SIGN_IN} component={SignIn} />
+          <Route
+            path={Routes.EMAIL_CONFIRMATION}
+            component={EmailConfirmation}
+          />
           <Route path={Routes.EMAIL_ACTION} component={EmailAction} />
           <Route path={Routes.HOME} component={Home} />
         </Switch>
