@@ -58,18 +58,15 @@ class Firebase {
   doPasswordReset = (email: string) => this.auth.sendPasswordResetEmail(email);
 
   doSendEmailVerification = (languageCode?: string) => {
-    if (
-      process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT &&
-      this.auth.currentUser
-    ) {
+    if (this.auth.currentUser) {
       if (languageCode) {
         firebase.auth().languageCode = languageCode;
       }
 
-      this.auth.currentUser.sendEmailVerification({
-        url: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT,
-      });
+      return this.auth.currentUser.sendEmailVerification();
     }
+
+    return Promise.resolve();
   };
 
   doPasswordUpdate = (password: string) => {
