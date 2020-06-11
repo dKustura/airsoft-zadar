@@ -5,5 +5,8 @@ export default (theme: Theme) => {
     centeredText: {
       textAlign: 'center',
     },
+    email: {
+      fontWeight: theme.typography.fontWeightBold,
+    },
   });
 };
