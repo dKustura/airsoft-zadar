@@ -65,7 +65,8 @@ const SignUp: React.FC<Props> = ({
     if (authUser) {
       history.push(Routes.HOME);
     }
-  });
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <Container component="main" maxWidth="xs">
