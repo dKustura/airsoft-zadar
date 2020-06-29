@@ -21,7 +21,6 @@ import {
 } from '@material-ui/core';
 import CustomEditor from 'components/CustomEditor';
 import PopupDialog from 'components/PopupDialog';
-import ImageCropDialog from 'components/ImageCropDialog';
 import PostPreview from './PostPreview';
 
 // Icons
@@ -49,10 +48,9 @@ interface Props extends WithStyles<typeof styles> {}
 const PostForm: React.FC<Props> = ({ classes }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isPreview, setIsPreview] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [lastLocation, setLastLocation] = useState<Location | null>(null);
   const [confirmedNavigation, setConfirmedNavigation] = useState(false);
-  const [isThumbnailDialogOpen, setIsThumbnailDialogOpen] = useState(false);
   const [thumbnail, setThumbnail] = useState<string>();
 
   const firebase = useFirebase();
@@ -74,21 +72,12 @@ const PostForm: React.FC<Props> = ({ classes }: Props) => {
     setIsPreview(false);
   }, []);
 
-  const onThumbnailClick = useCallback(() => {
-    setIsThumbnailDialogOpen(true);
-  }, []);
-
-  const onThumbnailConfirm = useCallback((imageSrc: string) => {
+  const onThumbnailSelection = useCallback((imageSrc: string) => {
     setThumbnail(imageSrc);
-    setIsThumbnailDialogOpen(false);
-  }, []);
-
-  const onThumbnailExit = useCallback(() => {
-    setIsThumbnailDialogOpen(false);
   }, []);
 
   const closeModal = useCallback(() => {
-    setModalVisible(false);
+    setIsModalVisible(false);
   }, []);
 
   const handleNavigationBlock = useCallback(
@@ -101,8 +90,7 @@ const PostForm: React.FC<Props> = ({ classes }: Props) => {
         !confirmedNavigation
       ) {
         setIsPreview(false);
-        setIsThumbnailDialogOpen(false);
-        setModalVisible(true);
+        setIsModalVisible(true);
         setLastLocation(nextLocation);
         return false;
       }
@@ -112,7 +100,7 @@ const PostForm: React.FC<Props> = ({ classes }: Props) => {
   );
 
   const handleConfirmNavigationClick = useCallback(() => {
-    setModalVisible(false);
+    setIsModalVisible(false);
     setConfirmedNavigation(true);
   }, []);
 
@@ -151,7 +139,7 @@ const PostForm: React.FC<Props> = ({ classes }: Props) => {
       <Container component="main" maxWidth="md">
         <Prompt message={handleNavigationBlock} />
         <PopupDialog
-          isOpen={modalVisible}
+          isOpen={isModalVisible}
           title={intl.formatMessage(messages.dialogTitle as MessageDescriptor)}
           description={intl.formatMessage(
             messages.dialogDescription as MessageDescriptor
@@ -179,7 +167,11 @@ const PostForm: React.FC<Props> = ({ classes }: Props) => {
                   justify={isSmallScreen ? 'center' : 'flex-start'}
                 >
                   <Grid item>
-                    <Thumbnail src={thumbnail} onClick={onThumbnailClick} />
+                    <Thumbnail
+                      src={thumbnail}
+                      onSelection={onThumbnailSelection}
+                      shouldCloseDialogs={isModalVisible}
+                    />
                   </Grid>
                 </Grid>
                 <Grid container item sm={12} md={6} justify="center">
@@ -294,12 +286,6 @@ const PostForm: React.FC<Props> = ({ classes }: Props) => {
             </>
           )}
         </Grid>
-
-        <ImageCropDialog
-          isOpen={isThumbnailDialogOpen}
-          handleConfirm={onThumbnailConfirm}
-          handleClose={onThumbnailExit}
-        />
       </Container>
     </Formik>
   );

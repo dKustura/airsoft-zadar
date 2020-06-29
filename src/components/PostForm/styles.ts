@@ -66,4 +66,12 @@ export const thumbnailStyles = (theme: Theme) =>
       //   opacity: 1,
       // },
     },
+    dropzoneDialogContent: {
+      '&:first-child': {
+        padding: `${theme.spacing(3)}px ${theme.spacing(3)}px`,
+      },
+    },
+    dropzoneDialogPaper: {
+      backgroundColor: theme.palette.background.default,
+    },
   });

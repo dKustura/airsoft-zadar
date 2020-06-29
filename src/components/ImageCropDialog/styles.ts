@@ -11,6 +11,7 @@ export default (theme: Theme) =>
     },
     dialog: {
       padding: theme.spacing(1),
+      backgroundColor: theme.palette.background.default,
     },
     cropContainer: {
       position: 'relative',

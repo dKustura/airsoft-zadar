@@ -26,20 +26,17 @@ import { Point, Area } from 'react-easy-crop/types';
 
 interface Props extends WithStyles<typeof styles> {
   readonly isOpen: boolean;
-  // readonly src: string;
+  readonly src: string;
   readonly handleClose: () => void;
   readonly handleConfirm: (croppedImage: string) => void;
 }
-
-const imageUrl =
-  'https://images.unsplash.com/photo-1590574508715-ed8fa0346f92?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80';
 
 const CROP_ZOOM_SPEED = 5;
 const CROP_ASPECT_RATIO = 16 / 9;
 
 const ImageCropDialog: React.FC<Props> = ({
   isOpen,
-  // src,
+  src,
   handleClose,
   handleConfirm,
   classes,
@@ -57,7 +54,7 @@ const ImageCropDialog: React.FC<Props> = ({
     if (croppedAreaPixels) {
       try {
         const croppedImage = await getCroppedImage(
-          imageUrl,
+          src,
           croppedAreaPixels,
           rotation
         );
@@ -66,8 +63,9 @@ const ImageCropDialog: React.FC<Props> = ({
         console.error(e);
       }
     }
-  }, [croppedAreaPixels, rotation]);
+  }, [src, croppedAreaPixels, rotation]);
 
+  // TODO: display a loading indicator while processing image
   const onConfirm = useCallback(() => {
     createCroppedImage().then((image) => {
       if (image) {
@@ -88,7 +86,7 @@ const ImageCropDialog: React.FC<Props> = ({
     >
       <DialogContent className={classes.cropContainer}>
         <Cropper
-          image={imageUrl}
+          image={src}
           crop={crop}
           rotation={rotation}
           zoom={zoom}
