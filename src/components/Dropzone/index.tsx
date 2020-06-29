@@ -37,6 +37,9 @@ const Dropzone: React.FC<Props> = ({
     onDropRejected,
   });
 
+  // Because default value (undefined) sets multiple to True
+  const isMultiple = multiple !== false;
+
   return (
     <>
       <Grid
@@ -50,7 +53,11 @@ const Dropzone: React.FC<Props> = ({
         <input {...getInputProps()} />
         <Grid item className={classes.padding}>
           <Typography variant="h6">
-            <FormattedMessage {...messages.dragNDropImagesHere} />
+            {isMultiple ? (
+              <FormattedMessage {...messages.dragNDropImagesHere} />
+            ) : (
+              <FormattedMessage {...messages.dragNDropImageHere} />
+            )}
           </Typography>
         </Grid>
         <Grid item>
@@ -65,7 +72,11 @@ const Dropzone: React.FC<Props> = ({
             onClick={open}
             style={{ textTransform: 'none' }}
           >
-            <FormattedMessage {...messages.chooseImages} />
+            {isMultiple ? (
+              <FormattedMessage {...messages.chooseImages} />
+            ) : (
+              <FormattedMessage {...messages.chooseImage} />
+            )}
           </Button>
         </Grid>
       </Grid>
