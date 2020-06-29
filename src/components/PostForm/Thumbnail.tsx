@@ -137,6 +137,7 @@ const Thumbnail: React.FC<Props> = ({
           <Dropzone
             onDropAccepted={onDropAccepted}
             onDropRejected={onDropRejected}
+            multiple={false}
           />
         </DialogContent>
       </Dialog>

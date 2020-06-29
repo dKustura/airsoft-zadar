@@ -21,14 +21,17 @@ interface Props extends WithStyles<typeof styles> {
     files: T[],
     event: DropEvent
   ) => void;
+  readonly multiple?: boolean;
 }
 
 const Dropzone: React.FC<Props> = ({
   onDropAccepted,
   onDropRejected,
+  multiple,
   classes,
 }) => {
   const { getRootProps, getInputProps, open } = useDropzone({
+    multiple,
     accept: 'image/*',
     onDropAccepted,
     onDropRejected,
