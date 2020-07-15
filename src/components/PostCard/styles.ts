@@ -16,5 +16,9 @@ export default (theme: Theme) => {
     cardContent: {
       padding: theme.spacing(1),
     },
+    cardThumbnail: {
+      width: '24rem',
+      height: '13.5rem',
+    },
   });
 };

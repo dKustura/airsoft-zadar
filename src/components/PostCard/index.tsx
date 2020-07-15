@@ -9,12 +9,14 @@ import { Typography, Grid, withStyles, WithStyles } from '@material-ui/core';
 import styles from './styles';
 
 interface Props extends WithStyles<typeof styles> {
+  readonly thumbnail?: string;
   readonly title: string;
   readonly content: string;
   readonly dateCreated: Date;
 }
 
 const PostCard: React.FC<Props> = ({
+  thumbnail,
   title,
   content,
   dateCreated,
@@ -25,12 +27,22 @@ const PostCard: React.FC<Props> = ({
       <CardContent>
         <Grid
           container
+          alignItems="center"
           direction="column"
           spacing={1}
           className={classes.cardContent}
         >
+          {thumbnail && (
+            <Grid item>
+              <img
+                src={thumbnail}
+                alt="thumbnail"
+                className={classes.cardThumbnail}
+              />
+            </Grid>
+          )}
           <Grid item>
-            <Typography variant="h5">{title}</Typography>
+            <Typography variant="h4">{title}</Typography>
           </Grid>
           <Grid item>
             <Typography variant="body2">{content}</Typography>

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { useFirebase } from 'components/Firebase';
 
 // Components
 import Title from 'components/Title';
@@ -24,6 +25,9 @@ const Home: React.FC<Props> = ({ classes }) => {
   const [isWavesAnimationFinished, setIsWavesAnimationFinished] = useState(
     false
   );
+  const [posts, setPosts] = useState<any[]>([]);
+
+  const firebase = useFirebase();
 
   useEffect(() => {
     // const isAnimated = isHovered
@@ -31,6 +35,17 @@ const Home: React.FC<Props> = ({ classes }) => {
     //   : !isWallAnimationFinished || !isWavesAnimationFinished;
     setIsAnimated(false);
   }, [isHovered, isWallAnimationFinished, isWavesAnimationFinished]);
+
+  useEffect(() => {
+    firebase
+      .posts()
+      .get()
+      .then((snapshot) => {
+        const posts: any[] = [];
+        snapshot.forEach((doc) => posts.push(doc.data()));
+        setPosts(posts);
+      });
+  }, [firebase]);
 
   const onMouseEnterBackground = () => {
     setIsHovered(true);
@@ -82,93 +97,18 @@ const Home: React.FC<Props> = ({ classes }) => {
           <BackgroundWaves isAnimated={isAnimated} />
         </Grid>
       </Grid>
-      <Grid container spacing={1}>
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={6}>
+      <Grid container justify="center" spacing={4}>
+        {posts.map((post, index) => (
+          <Grid key={`post-${index}`} item xs={12} sm={8} md={6}>
             <PostCard
-              title="Naslov"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
+              thumbnail={post.thumbnailUrl}
+              title={post.title}
+              content=""
               dateCreated={new Date()}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
-            <PostCard
-              title="Naslov"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
-              dateCreated={new Date()}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <PostCard
-              title="Naslov"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
-              dateCreated={new Date()}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <PostCard
-              title="Naslov"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
-              dateCreated={new Date()}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <PostCard
-              title="Naslov"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
-              dateCreated={new Date()}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <PostCard
-              title="Naslov"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
-              dateCreated={new Date()}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <PostCard
-              title="Naslov"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
-              dateCreated={new Date()}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <PostCard
-              title="Naslov"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
-              dateCreated={new Date()}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <PostCard
-              title="Naslov"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
-              dateCreated={new Date()}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <PostCard
-              title="Naslov"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
-              dateCreated={new Date()}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <PostCard
-              title="Naslov"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
-              dateCreated={new Date()}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <PostCard
-              title="Naslov"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam diam lectus, sagittis a blandit eu, sollicitudin id nisi. Quisque at ante tellus. Donec faucibus feugiat blandit. Morbi scelerisque, magna at vehicula lacinia, ex nunc euismod dui, a venenatis massa massa id odio. Mauris nec gravida neque. Suspendisse accumsan pellentesque eros a efficitur. Praesent ullamcorper neque sed arcu fermentum blandit. Phasellus posuere pulvinar nunc vitae scelerisque. Phasellus luctus diam et dolor porttitor vehicula. Sed non ultrices leo."
-              dateCreated={new Date()}
-            />
-          </Grid>
-        </Grid>
+        ))}
+        {posts.length % 2 !== 0 && <Grid item xs={12} sm={8} md={6} />}
       </Grid>
     </Container>
   );
