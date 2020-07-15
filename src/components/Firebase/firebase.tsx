@@ -110,6 +110,12 @@ class Firebase {
 
   // *** User API ***
 
+  // TODO idea:
+  // Add custom hook that fetches last N notifications
+  // and listens (onSnapshot) for new notifications
+  // id this turns ugly, try redux-firestore with react-redux-firebase
+  // Plus an additional cloud function which returns the number of unread notifications
+
   users = () => this.firestore.collection('users');
 
   user = (uid: string) => this.users().doc(uid);
@@ -156,8 +162,9 @@ class Firebase {
 
   // Post Management
   // TODO: set appropriate type for post content
-  doCreatePost = (title: string, content: any) =>
+  doCreatePost = (thumbnailUrl: string, title: string, content: any) =>
     this.functions.httpsCallable(functionNames.CREATE_POST_FUNCTION)({
+      thumbnailUrl,
       title,
       content,
     });
@@ -179,6 +186,14 @@ class Firebase {
     const uid = uuidv4();
 
     const imageRef = storageRef.child(`/images/${uid}`);
+    return imageRef.putString(url, 'data_url');
+  };
+
+  doUploadThumbnail = (url: string) => {
+    const storageRef = this.storage.ref();
+    const uid = uuidv4();
+
+    const imageRef = storageRef.child(`/thumbnails/${uid}`);
     return imageRef.putString(url, 'data_url');
   };
 

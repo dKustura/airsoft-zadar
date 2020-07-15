@@ -61,12 +61,12 @@ export default async function getCroppedImage(
   );
 
   // As Base64 string
-  // return canvas.toDataURL('image/jpeg');
+  return canvas.toDataURL('image/jpeg');
 
   // As a blob
-  return new Promise<string>((resolve) => {
-    canvas.toBlob((file) => {
-      resolve(URL.createObjectURL(file));
-    }, 'image/jpeg');
-  });
+  // return new Promise<string>((resolve) => {
+  //   canvas.toBlob((file) => {
+  //     resolve(URL.createObjectURL(file));
+  //   }, 'image/jpeg');
+  // });
 }

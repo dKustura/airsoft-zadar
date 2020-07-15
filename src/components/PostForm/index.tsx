@@ -35,6 +35,7 @@ import styles from './styles';
 import { INITIAL_POST_FORM_VALUES } from './constants';
 import { successNotification, errorNotification } from 'helpers/snackbar';
 import { postSchema } from './validation/schema';
+import { Routes } from 'helpers/constants';
 
 // Types
 import { FirebaseError } from 'firebase';
@@ -48,6 +49,7 @@ interface Props extends WithStyles<typeof styles> {}
 const PostForm: React.FC<Props> = ({ classes }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isPreview, setIsPreview] = useState(false);
+  const [isPostSaved, setIsPostSaved] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [lastLocation, setLastLocation] = useState<Location | null>(null);
   const [confirmedNavigation, setConfirmedNavigation] = useState(false);
@@ -80,6 +82,21 @@ const PostForm: React.FC<Props> = ({ classes }: Props) => {
     setIsModalVisible(false);
   }, []);
 
+  const uploadThumbnail = useCallback(() => {
+    if (!thumbnail) return null;
+
+    const uploadTask = firebase.doUploadThumbnail(thumbnail);
+
+    return uploadTask.then(
+      async (snapshot) => {
+        return await snapshot.ref.getDownloadURL();
+      },
+      (error) => {
+        // TODO: handle thumbnail upload error
+      }
+    );
+  }, [firebase, thumbnail]);
+
   const handleNavigationBlock = useCallback(
     (nextLocation: Location, action: Action): boolean => {
       if (action === 'POP' && isPreview) {
@@ -87,7 +104,8 @@ const PostForm: React.FC<Props> = ({ classes }: Props) => {
         return false;
       } else if (
         nextLocation.pathname !== location.pathname &&
-        !confirmedNavigation
+        !confirmedNavigation &&
+        !isPostSaved
       ) {
         setIsPreview(false);
         setIsModalVisible(true);
@@ -96,7 +114,7 @@ const PostForm: React.FC<Props> = ({ classes }: Props) => {
       }
       return true;
     },
-    [isPreview, location, confirmedNavigation]
+    [isPreview, isPostSaved, location, confirmedNavigation]
   );
 
   const handleConfirmNavigationClick = useCallback(() => {
@@ -118,22 +136,24 @@ const PostForm: React.FC<Props> = ({ classes }: Props) => {
         setIsLoading(true);
 
         // TODO: handle image upload errors
-        const newContent = await uploadAndReplaceImages(
-          values.content,
+        Promise.all([
+          uploadAndReplaceImages(values.content, firebase),
+          uploadThumbnail(),
+        ]).then(([newContent, thumbnailUrl]) => {
           firebase
-        );
-
-        firebase
-          .doCreatePost(values.title, newContent)
-          .then(() => {
-            setIsLoading(false);
-            enqueueSnackbar('Blog post created', successNotification);
-          })
-          .catch((error: FirebaseError) => {
-            setIsLoading(false);
-            actions.setSubmitting(false);
-            enqueueSnackbar(error.message, errorNotification);
-          });
+            .doCreatePost(thumbnailUrl, values.title, newContent)
+            .then(() => {
+              setIsLoading(false);
+              setIsPostSaved(true);
+              enqueueSnackbar('Blog post created', successNotification);
+              history.push(Routes.HOME);
+            })
+            .catch((error: FirebaseError) => {
+              setIsLoading(false);
+              actions.setSubmitting(false);
+              enqueueSnackbar(error.message, errorNotification);
+            });
+        });
       }}
     >
       <Container component="main" maxWidth="md">
