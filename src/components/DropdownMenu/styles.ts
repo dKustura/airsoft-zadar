@@ -1,6 +1,6 @@
-import { createStyles, Theme } from '@material-ui/core';
+import { createStyles, Theme, makeStyles } from '@material-ui/core';
 
-export default (theme: Theme) =>
+export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     arrow: {
       position: 'absolute',
@@ -27,4 +27,5 @@ export default (theme: Theme) =>
     popper: {
       zIndex: 1,
     },
-  });
+  })
+);

@@ -27,11 +27,8 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import Copyright from 'components/Copyright';
 
-// Styling
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-import styles from './styles';
-
 // Helpers
+import { useStyles } from './styles';
 import { INITIAL_SIGNUP_FORM_VALUES } from './constants';
 import { successNotification, errorNotification } from 'helpers/snackbar';
 import { MaterialRouterLink } from 'helpers';
@@ -44,22 +41,16 @@ import { FormattedMessage, MessageDescriptor, useIntl } from 'react-intl';
 import messages from './messages';
 import { RootState } from 'types';
 
-type Props = WithStyles<typeof styles> &
-  ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps;
+type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
-const SignUp: React.FC<Props> = ({
-  classes,
-  setAuthUser,
-  authUser,
-  locale,
-}: Props) => {
+const SignUp: React.FC<Props> = ({ setAuthUser, authUser, locale }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const intl = useIntl();
   const firebase = useFirebase();
   const { enqueueSnackbar } = useSnackbar();
   const history = useHistory();
+  const classes = useStyles();
 
   useEffect(() => {
     if (authUser) {
@@ -255,7 +246,4 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = { setAuthUser };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(SignUp));
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

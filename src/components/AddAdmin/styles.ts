@@ -1,6 +1,6 @@
-import { createStyles, Theme } from '@material-ui/core';
+import { createStyles, Theme, makeStyles } from '@material-ui/core';
 
-export default (theme: Theme) =>
+export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
       marginTop: theme.spacing(8),
@@ -18,4 +18,5 @@ export default (theme: Theme) =>
     copyright: {
       margin: theme.spacing(5, 0),
     },
-  });
+  })
+);

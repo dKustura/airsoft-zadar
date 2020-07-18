@@ -1,6 +1,6 @@
-import { createStyles, Theme, fade } from '@material-ui/core';
+import { createStyles, Theme, fade, makeStyles } from '@material-ui/core';
 
-export default (theme: Theme) => {
+export const useStyles = makeStyles((theme: Theme) => {
   // const borderHover = theme.spacing(1);
 
   return createStyles({
@@ -20,4 +20,4 @@ export default (theme: Theme) => {
       padding: theme.spacing(1),
     },
   });
-};
+});

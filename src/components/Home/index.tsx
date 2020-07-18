@@ -6,8 +6,7 @@ import { useFirebase } from 'components/Firebase';
 import Title from 'components/Title';
 import PostCard from 'components/PostCard';
 
-import { withStyles, WithStyles, Container, Grid } from '@material-ui/core';
-import styles from './styles';
+import { Container, Grid } from '@material-ui/core';
 // import Background from './background';
 import BackgroundWall from './backgroundWall';
 import BackgroundWaves from './backgroundWaves';
@@ -15,9 +14,9 @@ import BackgroundSun from './backgroundSun';
 import BackgroundLogo from './backgroundLogo';
 import './index.scss';
 
-interface Props extends WithStyles<typeof styles> {}
+interface Props {}
 
-const Home: React.FC<Props> = ({ classes }) => {
+const Home: React.FC<Props> = () => {
   // TODO: Use useReducer
   const [isAnimated, setIsAnimated] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -110,4 +109,4 @@ const Home: React.FC<Props> = ({ classes }) => {
   );
 };
 
-export default withStyles(styles)(Home);
+export default Home;

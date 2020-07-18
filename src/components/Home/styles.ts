@@ -1,6 +1,6 @@
-import { createStyles, Theme } from '@material-ui/core';
+import { createStyles, Theme, makeStyles } from '@material-ui/core';
 
-export const background = (theme: Theme) =>
+export const useBackgroundStyles = makeStyles((theme: Theme) =>
   createStyles({
     wall: {
       fill: theme.palette.background.default,
@@ -9,8 +9,9 @@ export const background = (theme: Theme) =>
     horse: {
       transition: 'all 0.2s ease-in-out',
     },
-  });
+  })
+);
 
-export default createStyles({
+export const useStyles = makeStyles({
   root: {},
 });

@@ -4,16 +4,17 @@ import * as React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import CustomEditor from 'components/CustomEditor';
 
-// Styling
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-import styles from './styles';
+// Helpers
+import { useStyles } from './styles';
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   readonly title: string;
   readonly content: any;
 }
 
-const PostRead: React.FC<Props> = ({ title, content, classes }) => {
+const PostRead: React.FC<Props> = ({ title, content }) => {
+  const classes = useStyles();
+
   return (
     <Grid container>
       <Grid item xs={12} className={classes.title}>
@@ -28,4 +29,4 @@ const PostRead: React.FC<Props> = ({ title, content, classes }) => {
   );
 };
 
-export default withStyles(styles)(PostRead);
+export default PostRead;

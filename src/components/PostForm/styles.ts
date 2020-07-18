@@ -1,6 +1,6 @@
-import { createStyles, Theme } from '@material-ui/core';
+import { createStyles, Theme, makeStyles } from '@material-ui/core';
 
-export default (theme: Theme) =>
+export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
       marginTop: theme.spacing(8),
@@ -24,22 +24,15 @@ export default (theme: Theme) =>
     titleInputLabelShrinked: {
       backgroundColor: theme.palette.background.default,
     },
-    previewCloseIconButton: {
-      width: '4rem',
-      height: '4rem',
-    },
-    previewCloseIcon: {
-      width: '3rem',
-      height: '3rem',
-    },
     headerContainer: {
       display: 'flex',
       justifyContent: 'center',
       flexWrap: 'wrap',
     },
-  });
+  })
+);
 
-export const thumbnailStyles = (theme: Theme) =>
+export const useThumbnailStyles = makeStyles((theme: Theme) =>
   createStyles({
     card: {
       position: 'relative',
@@ -74,4 +67,18 @@ export const thumbnailStyles = (theme: Theme) =>
     dropzoneDialogPaper: {
       backgroundColor: theme.palette.background.default,
     },
-  });
+  })
+);
+
+export const usePreviewStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    previewCloseIconButton: {
+      width: '4rem',
+      height: '4rem',
+    },
+    previewCloseIcon: {
+      width: '3rem',
+      height: '3rem',
+    },
+  })
+);

@@ -21,11 +21,8 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import Copyright from 'components/Copyright';
 
-// Styling
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-import styles from './styles';
-
 // Helpers
+import { useStyles } from './styles';
 import { INITIAL_SIGNIN_FORM_VALUES } from './constants';
 import { successNotification, errorNotification } from 'helpers/snackbar';
 import { MaterialRouterLink } from 'helpers';
@@ -36,12 +33,13 @@ import { FirebaseError } from 'firebase';
 import { FormattedMessage, useIntl, MessageDescriptor } from 'react-intl';
 import messages from './messages';
 
-interface Props extends WithStyles<typeof styles> {}
+interface Props {}
 
-const SignIn: React.FC<Props> = ({ classes }: Props) => {
+const SignIn: React.FC<Props> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const firebase = useFirebase();
+  const classes = useStyles();
 
   const intl = useIntl();
   const { enqueueSnackbar } = useSnackbar();
@@ -199,4 +197,4 @@ const SignIn: React.FC<Props> = ({ classes }: Props) => {
   );
 };
 
-export default withStyles(styles)(SignIn);
+export default SignIn;

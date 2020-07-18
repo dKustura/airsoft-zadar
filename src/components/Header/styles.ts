@@ -1,6 +1,6 @@
-import { createStyles, Theme } from '@material-ui/core';
+import { createStyles, Theme, makeStyles } from '@material-ui/core';
 
-export default (theme: Theme) =>
+export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     headerContainer: {
       position: 'sticky',
@@ -9,4 +9,5 @@ export default (theme: Theme) =>
       zIndex: 200,
       transition: 'background-color 0.2s ease-in-out 0s',
     },
-  });
+  })
+);

@@ -25,11 +25,8 @@ import {
   QuoteElement,
 } from './elements';
 
-// Styling
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-import styles from './styles';
-
 // Helpers
+import { useStyles } from './styles';
 import {
   toggleMark,
   MarkFormat,
@@ -41,9 +38,7 @@ import {
   getPreviousBreakPoint,
 } from './helpers';
 
-interface Props
-  extends WithStyles<typeof styles>,
-    Omit<FieldInputProps<Node[]>, 'onChange' | 'onBlur'> {
+interface Props extends Omit<FieldInputProps<Node[]>, 'onChange' | 'onBlur'> {
   readonly onChange?: (value: Node[]) => void;
   readonly onBlur?: (event: React.FocusEvent<any>) => void;
   readonly error?: boolean;
@@ -58,8 +53,9 @@ const CustomEditor: React.FC<Props> = ({
   error,
   onBlur,
   readOnly,
-  classes,
 }) => {
+  const classes = useStyles();
+
   const editor = useMemo(
     () => withImages(withHistory(withReact(createEditor()))),
     []
@@ -160,7 +156,7 @@ const CustomEditor: React.FC<Props> = ({
   );
 };
 
-export default withStyles(styles)(CustomEditor);
+export default CustomEditor;
 
 const Element = (props: RenderElementProps) => {
   switch (props.element.type) {

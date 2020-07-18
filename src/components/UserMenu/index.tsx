@@ -6,11 +6,8 @@ import { Button, MenuItem, Typography } from '@material-ui/core';
 import { useFirebase } from 'components/Firebase';
 import DropdownMenu from 'components/DropdownMenu';
 
-// Styling
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-import styles from './styles';
-
 // Helpers
+import { useStyles } from './styles';
 import { errorNotification, successNotification } from 'helpers/snackbar';
 
 // i18n
@@ -20,14 +17,15 @@ import messages from './messages';
 // Types
 import { FirebaseError } from 'firebase';
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   readonly displayName: string;
 }
 
-const UserMenu: React.FC<Props> = ({ displayName, classes }) => {
+const UserMenu: React.FC<Props> = ({ displayName }) => {
   const intl = useIntl();
   const firebase = useFirebase();
   const { enqueueSnackbar } = useSnackbar();
+  const classes = useStyles();
 
   // const [open, setOpen] = React.useState(false);
   // const anchorRef = React.useRef<HTMLButtonElement>(null);
@@ -82,4 +80,4 @@ const UserMenu: React.FC<Props> = ({ displayName, classes }) => {
   );
 };
 
-export default withStyles(styles)(UserMenu);
+export default UserMenu;

@@ -8,8 +8,6 @@ import { setLocale } from 'actions/locale';
 
 // Components
 import {
-  withStyles,
-  WithStyles,
   Button,
   Grid,
   Container,
@@ -23,10 +21,10 @@ import UserMenu from 'components/UserMenu';
 import LocaleMenu from 'components/LocaleMenu';
 import UnderlinedLink from 'components/UnderlinedLink';
 
-import styles from './styles';
 // import logo from 'logo.png';
 
 // Helpers
+import { useStyles } from './styles';
 import { ThemeMode } from 'reducers/constants';
 import { MaterialRouterLink } from 'helpers';
 import { Routes } from 'helpers/constants';
@@ -43,14 +41,13 @@ import {
 import { RootState } from 'types';
 import messages from './messages';
 
-interface OwnProps extends WithStyles<typeof styles> {}
+interface OwnProps {}
 
 type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
 
 const Header: React.FC<Props> = ({
-  classes,
   theme,
   authUser,
   displayName,
@@ -59,6 +56,7 @@ const Header: React.FC<Props> = ({
   setLocale,
 }) => {
   const intl = useIntl();
+  const classes = useStyles();
 
   return (
     <div className={classes.headerContainer}>
@@ -170,7 +168,4 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = { toggleTheme, setLocale };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(Header));
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

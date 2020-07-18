@@ -1,6 +1,6 @@
-import { createStyles, Theme } from '@material-ui/core';
+import { createStyles, Theme, makeStyles } from '@material-ui/core';
 
-export default (theme: Theme) => {
+export const useStyles = makeStyles((theme: Theme) => {
   const successColor = theme.palette.success.main;
   const errorColor = theme.palette.error.main;
   const warningColor = theme.palette.warning.main;
@@ -24,4 +24,4 @@ export default (theme: Theme) => {
       color: theme.palette.getContrastText(infoColor),
     },
   });
-};
+});

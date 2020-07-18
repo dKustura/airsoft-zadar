@@ -11,11 +11,10 @@ import {
   Button,
 } from '@material-ui/core';
 
-// Styling
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-import styles from './styles';
+// Helpers
+import { useStyles } from './styles';
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   readonly isOpen: boolean;
   readonly title: string;
   readonly description: string;
@@ -33,8 +32,9 @@ const PopupDialog: React.FC<Props> = ({
   handleConfirm,
   cancelLabel,
   confirmLabel,
-  classes,
 }) => {
+  const classes = useStyles();
+
   return (
     <Dialog
       open={isOpen}
@@ -68,4 +68,4 @@ const PopupDialog: React.FC<Props> = ({
   );
 };
 
-export default withStyles(styles)(PopupDialog);
+export default PopupDialog;

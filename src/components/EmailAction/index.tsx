@@ -7,10 +7,6 @@ import { useSnackbar } from 'notistack';
 // Components
 import { useFirebase } from 'components/Firebase';
 
-// Styling
-import styles from './styles';
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-
 // Helpers
 import { EmailActionParameter, EmailActionMode } from './constants';
 import EmailConfirmation from 'components/EmailConfirmation';
@@ -24,7 +20,7 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-interface Props extends WithStyles<typeof styles> {}
+interface Props {}
 
 const EmailAction: React.FC<Props> = () => {
   const firebase = useFirebase();
@@ -104,4 +100,4 @@ const EmailAction: React.FC<Props> = () => {
   return <>{mode === EmailActionMode.verifyEmail && <EmailConfirmation />}</>;
 };
 
-export default withStyles(styles)(EmailAction);
+export default EmailAction;

@@ -11,11 +11,10 @@ import {
   PopperPlacementType,
 } from '@material-ui/core';
 
-// Styling
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-import styles from './styles';
+// Helpers
+import { useStyles } from './styles';
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   readonly menuButton: React.ReactElement;
   readonly placement?: PopperPlacementType;
   readonly wrapInMenuList?: boolean;
@@ -35,10 +34,10 @@ const DropdownMenu: React.FC<Props> = ({
   onOpen,
   onClose,
   disabled,
-  classes,
 }) => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
+  const classes = useStyles();
 
   const handleToggle = useCallback(() => {
     if (open) {
@@ -137,4 +136,4 @@ DropdownMenu.defaultProps = {
   wrapInMenuList: true,
 };
 
-export default withStyles(styles)(DropdownMenu);
+export default DropdownMenu;

@@ -1,6 +1,6 @@
-import { createStyles, Theme, fade } from '@material-ui/core';
+import { createStyles, Theme, fade, makeStyles } from '@material-ui/core';
 
-export default (theme: Theme) =>
+export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     editor: {
       borderWidth: 1,
@@ -24,9 +24,10 @@ export default (theme: Theme) =>
       },
       minHeight: '30vh',
     },
-  });
+  })
+);
 
-export const toolbarButtonStyles = (theme: Theme) =>
+export const useToolbarButtonStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       color: theme.palette.primary.main,
@@ -57,9 +58,10 @@ export const toolbarButtonStyles = (theme: Theme) =>
     dialogPaper: {
       backgroundColor: theme.palette.background.default,
     },
-  });
+  })
+);
 
-export const toolbarStyles = (theme: Theme) =>
+export const useToolbarStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
       display: 'flex',
@@ -87,9 +89,10 @@ export const toolbarStyles = (theme: Theme) =>
       height: 'auto',
       margin: theme.spacing(1, 0.5),
     },
-  });
+  })
+);
 
-export const elementStyles = (theme: Theme) =>
+export const useElementStyles = makeStyles((theme: Theme) =>
   createStyles({
     imageElement: {
       margin: theme.spacing(2),
@@ -105,6 +108,5 @@ export const elementStyles = (theme: Theme) =>
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(1),
     },
-  });
-
-export const hyperlinkButtonStyles = (theme: Theme) => createStyles({});
+  })
+);

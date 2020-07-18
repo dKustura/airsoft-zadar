@@ -1,6 +1,6 @@
-import { createStyles, Theme } from '@material-ui/core';
+import { createStyles, Theme, makeStyles } from '@material-ui/core';
 
-export default (theme: Theme) =>
+export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     link: {
       display: 'inline',
@@ -16,4 +16,5 @@ export default (theme: Theme) =>
         backgroundSize: '100% 100%',
       },
     },
-  });
+  })
+);

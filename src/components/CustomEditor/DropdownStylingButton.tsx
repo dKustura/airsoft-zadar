@@ -8,22 +8,17 @@ import DropdownMenu from 'components/DropdownMenu';
 import FormatSizeIcon from '@material-ui/icons/FormatSize';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
-// Styling
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-import { toolbarButtonStyles as styles } from './styles';
-
 // Helpers
+import { useToolbarButtonStyles as useStyles } from './styles';
 import { BlockFormat, toggleBlock } from './helpers';
 import messages from './messages';
 
-interface Props extends WithStyles<typeof styles> {}
+interface Props {}
 
-const DropdownStylingButton: React.FC<Props> = ({
-  classes,
-  ...buttonProps
-}) => {
+const DropdownStylingButton: React.FC<Props> = (props) => {
   const editor = useSlate();
   const intl = useIntl();
+  const classes = useStyles();
 
   const dropdownButton = (
     <Tooltip
@@ -32,7 +27,7 @@ const DropdownStylingButton: React.FC<Props> = ({
       title={intl.formatMessage(messages.fontSize as MessageDescriptor)}
     >
       <Button
-        {...buttonProps}
+        {...props}
         classes={{
           root: classes.root,
         }}
@@ -64,4 +59,4 @@ const DropdownStylingButton: React.FC<Props> = ({
   );
 };
 
-export default withStyles(styles)(DropdownStylingButton);
+export default DropdownStylingButton;

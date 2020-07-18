@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { withStyles, WithStyles, Typography } from '@material-ui/core';
-import styles from './styles';
+import { Typography } from '@material-ui/core';
 import globalMessages from 'helpers/messages';
 
-interface Props extends WithStyles<typeof styles> {}
+interface Props {}
 
-const Title: React.FC<Props> = ({ classes }) => {
+const Title: React.FC<Props> = () => {
   return (
     <Typography variant="h1">
       <FormattedMessage {...globalMessages.pageTitle} />
@@ -15,4 +14,4 @@ const Title: React.FC<Props> = ({ classes }) => {
   );
 };
 
-export default withStyles(styles)(Title);
+export default Title;

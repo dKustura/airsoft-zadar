@@ -18,23 +18,23 @@ import EmailAction from 'components/EmailAction';
 import PostRoute from 'components/PostRoute';
 
 // Other Componenets
-import { IconButton, withStyles, WithStyles } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
 // Types
 import { RootState } from 'types';
 
 // Helpers
+import { useStyles } from './styles';
 import { selectThemeMode, selectAuthUser } from './selectors';
 import {
   withAuthentication,
   WithAuthenticationProps,
 } from 'components/Session';
-import styles from './styles';
 import { Routes } from 'helpers/constants';
 import EmailConfirmation from 'components/EmailConfirmation';
 
-interface OwnProps extends WithStyles<typeof styles> {}
+interface OwnProps {}
 
 type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
@@ -45,7 +45,9 @@ const onClickDismiss = (key: string | number | undefined) => () => {
   notistackRef.current?.closeSnackbar(key);
 };
 
-const App = ({ authUser, classes }: Props) => {
+const App: React.FC<Props> = ({ authUser }) => {
+  const classes = useStyles();
+
   return (
     <SnackbarProvider
       ref={notistackRef}
@@ -105,5 +107,5 @@ const mapStateToProps = (state: RootState) => {
 const mapDispatchToProps = {};
 
 export default withAuthentication(
-  connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(App))
+  connect(mapStateToProps, mapDispatchToProps)(App)
 );

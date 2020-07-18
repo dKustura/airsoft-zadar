@@ -5,29 +5,23 @@ import { useHistory } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 // Components
-import {
-  Container,
-  Grid,
-  Typography,
-  Button,
-  WithStyles,
-  withStyles,
-} from '@material-ui/core';
+import { Container, Grid, Typography, Button } from '@material-ui/core';
 import { useFirebase } from 'components/Firebase';
 
 // Helpers
 import messages from './messages';
 import { authUserSelector, localeSelector } from './selectors';
 import { Routes } from 'helpers/constants';
-import styles from './styles';
+import { useStyles } from './styles';
 
-interface Props extends WithStyles<typeof styles> {}
+interface Props {}
 
-const EmailConfirmation: React.FC<Props> = ({ classes }) => {
+const EmailConfirmation: React.FC<Props> = () => {
   const firebase = useFirebase();
   const history = useHistory();
   const authUser = useSelector(authUserSelector);
   const locale = useSelector(localeSelector);
+  const classes = useStyles();
   const isEmailConfirmed = authUser?.emailVerified;
 
   const handleContinueClick = useCallback(() => {
@@ -105,4 +99,4 @@ const EmailConfirmation: React.FC<Props> = ({ classes }) => {
   );
 };
 
-export default withStyles(styles)(EmailConfirmation);
+export default EmailConfirmation;

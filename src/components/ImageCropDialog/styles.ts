@@ -1,6 +1,6 @@
-import { createStyles, Theme, fade } from '@material-ui/core';
+import { createStyles, Theme, fade, makeStyles } from '@material-ui/core';
 
-export default (theme: Theme) =>
+export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     cancelButton: {
       color: theme.palette.error.main,
@@ -18,4 +18,5 @@ export default (theme: Theme) =>
       width: '100%',
       height: '100vh',
     },
-  });
+  })
+);

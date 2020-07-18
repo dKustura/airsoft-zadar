@@ -27,11 +27,8 @@ import PostPreview from './PostPreview';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import SendIcon from '@material-ui/icons/Send';
 
-// Styling
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-import styles from './styles';
-
 // Helpers
+import { useStyles } from './styles';
 import { INITIAL_POST_FORM_VALUES } from './constants';
 import { successNotification, errorNotification } from 'helpers/snackbar';
 import { postSchema } from './validation/schema';
@@ -44,9 +41,9 @@ import messages from './messages';
 import { uploadAndReplaceImages } from './helpers';
 import Thumbnail from './Thumbnail';
 
-interface Props extends WithStyles<typeof styles> {}
+interface Props {}
 
-const PostForm: React.FC<Props> = ({ classes }: Props) => {
+const PostForm: React.FC<Props> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isPreview, setIsPreview] = useState(false);
   const [isPostSaved, setIsPostSaved] = useState(false);
@@ -57,6 +54,7 @@ const PostForm: React.FC<Props> = ({ classes }: Props) => {
 
   const firebase = useFirebase();
   const { enqueueSnackbar } = useSnackbar();
+  const classes = useStyles();
 
   const isSmallScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('sm')
@@ -311,4 +309,4 @@ const PostForm: React.FC<Props> = ({ classes }: Props) => {
   );
 };
 
-export default withStyles(styles)(PostForm);
+export default PostForm;

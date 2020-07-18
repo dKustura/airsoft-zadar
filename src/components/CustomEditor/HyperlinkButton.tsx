@@ -18,15 +18,12 @@ import LinkIcon from '@material-ui/icons/Link';
 import CloseIcon from '@material-ui/icons/Close';
 import CheckIcon from '@material-ui/icons/Check';
 
-// Styling
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-import { toolbarButtonStyles as styles } from './styles';
-
 // Helpers
+import { useToolbarButtonStyles as useStyles } from './styles';
 import { MarkFormat } from './helpers';
 import messages from './messages';
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   readonly disabled?: boolean;
 }
 
@@ -36,13 +33,10 @@ const defaultSelection: Range = {
   focus: { path: [0, 0], offset: 0 },
 };
 
-const HyperlinkButton: React.FC<Props> = ({
-  disabled,
-  classes,
-  ...buttonProps
-}) => {
+const HyperlinkButton: React.FC<Props> = ({ disabled, ...buttonProps }) => {
   const editor = useSlate();
   const intl = useIntl();
+  const classes = useStyles();
 
   const [linkText, setLinkText] = useState('');
   const [currentHref, setCurrentHref] = useState('');
@@ -192,4 +186,4 @@ const HyperlinkButton: React.FC<Props> = ({
   );
 };
 
-export default withStyles(styles)(HyperlinkButton);
+export default HyperlinkButton;

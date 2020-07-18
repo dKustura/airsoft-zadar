@@ -2,16 +2,18 @@ import * as React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { WithStyles, withStyles, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { Variant } from '@material-ui/core/styles/createTypography';
-import styles from './styles';
+import { useStyles } from './styles';
 
-interface Props extends WithStyles {
+interface Props {
   readonly to: string;
   readonly variant: Variant;
 }
 
-const LinkButton: React.FC<Props> = ({ to, variant, classes, children }) => {
+const LinkButton: React.FC<Props> = ({ to, variant, children }) => {
+  const classes = useStyles();
+
   return (
     <Link to={to} className={classes.link}>
       <div className={classes.button}>
@@ -23,4 +25,4 @@ const LinkButton: React.FC<Props> = ({ to, variant, classes, children }) => {
   );
 };
 
-export default withStyles(styles)(LinkButton);
+export default LinkButton;

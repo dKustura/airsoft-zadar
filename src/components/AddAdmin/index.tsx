@@ -15,11 +15,8 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 
-// Styling
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-import styles from './styles';
-
 // Helpers
+import { useStyles } from './styles';
 import { INITIAL_ADD_ADMIN_FORM_VALUES } from './constants';
 import {
   successNotification,
@@ -32,13 +29,14 @@ import messages from './messages';
 // Types
 import { FirebaseError } from 'firebase';
 
-interface Props extends WithStyles<typeof styles> {}
+interface Props {}
 
-const AddAdmin: React.FC<Props> = ({ classes }: Props) => {
+const AddAdmin: React.FC<Props> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const intl = useIntl();
   const firebase = useFirebase();
   const { enqueueSnackbar } = useSnackbar();
+  const classes = useStyles();
 
   return (
     <Container component="main" maxWidth="xs">
@@ -178,4 +176,4 @@ const AddAdmin: React.FC<Props> = ({ classes }: Props) => {
   );
 };
 
-export default withStyles(styles)(AddAdmin);
+export default AddAdmin;

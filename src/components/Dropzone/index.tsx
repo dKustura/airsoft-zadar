@@ -8,11 +8,10 @@ import { Button, Grid, Typography } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-// Styling
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-import styles from './styles';
+// Helpers
+import { useStyles } from './styles';
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   readonly onDropAccepted?: <T extends File>(
     files: T[],
     event: DropEvent
@@ -28,7 +27,6 @@ const Dropzone: React.FC<Props> = ({
   onDropAccepted,
   onDropRejected,
   multiple,
-  classes,
 }) => {
   const { getRootProps, getInputProps, open } = useDropzone({
     multiple,
@@ -36,6 +34,7 @@ const Dropzone: React.FC<Props> = ({
     onDropAccepted,
     onDropRejected,
   });
+  const classes = useStyles();
 
   // Because default value (undefined) sets multiple to True
   const isMultiple = multiple !== false;
@@ -84,4 +83,4 @@ const Dropzone: React.FC<Props> = ({
   );
 };
 
-export default withStyles(styles)(Dropzone);
+export default Dropzone;

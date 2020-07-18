@@ -1,48 +1,43 @@
 import * as React from 'react';
-import { Component } from 'react';
 
 import ToggleButton from '@material-ui/lab/ToggleButton';
 
-// Styling
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-import { toolbarButtonStyles as styles } from './styles';
+// Helpers
+import { useToolbarButtonStyles as useStyles } from './styles';
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   readonly value: string;
   readonly selected: boolean;
   readonly onChange?: () => void;
 }
 
-class ToolbarToggleButton extends Component<Props> {
-  render() {
-    const {
-      value,
-      selected,
-      onChange,
-      classes,
-      children,
-      ...other
-    } = this.props;
+const ToolbarToggleButton: React.FC<Props> = ({
+  value,
+  selected,
+  onChange,
+  children,
+  ...other
+}) => {
+  const classes = useStyles();
 
-    return (
-      <ToggleButton
-        {...other}
-        value={value}
-        size="small"
-        selected={selected}
-        onChange={onChange}
-        classes={{
-          root: classes.root,
-          selected: classes.selected,
-        }}
-        onMouseDown={(event) => {
-          // Added to prevent editor from losing focus on button click
-          event.preventDefault();
-        }}
-      >
-        {children}
-      </ToggleButton>
-    );
-  }
-}
-export default withStyles(styles)(ToolbarToggleButton);
+  return (
+    <ToggleButton
+      {...other}
+      value={value}
+      size="small"
+      selected={selected}
+      onChange={onChange}
+      classes={{
+        root: classes.root,
+        selected: classes.selected,
+      }}
+      onMouseDown={(event) => {
+        // Added to prevent editor from losing focus on button click
+        event.preventDefault();
+      }}
+    >
+      {children}
+    </ToggleButton>
+  );
+};
+export default ToolbarToggleButton;

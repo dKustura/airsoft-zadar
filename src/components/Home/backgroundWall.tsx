@@ -4,36 +4,37 @@ import { connect } from 'react-redux';
 import { selectThemeMode } from './selectors';
 import { RootState } from 'types';
 import { ThemeMode } from 'reducers/constants';
-import { withStyles, WithStyles } from '@material-ui/core';
 
-import { background as styles } from './styles';
+import { useBackgroundStyles as useStyles } from './styles';
 
-interface OwnProps extends WithStyles<typeof styles> {
+interface OwnProps {
   readonly isAnimated: boolean;
 }
 
 type Props = OwnProps & ReturnType<typeof mapStateToProps>;
 
-const BackgroundWall: React.FC<Props> = ({ isAnimated, theme, classes }) => (
-  <svg
-    version="1.1"
-    xmlns="http://www.w3.org/2000/svg"
-    xmlnsXlink="http://www.w3.org/1999/xlink"
-    x="0px"
-    y="0px"
-    viewBox="0 0 4096 666.92"
-    enableBackground="new 0 0 4096 666.92"
-    xmlSpace="preserve"
-    className={isAnimated ? 'animated' : ''}
-  >
-    <g id="background">
-      <polygon
-        id="wall"
-        className={classes.wall}
-        stroke={theme === ThemeMode.Dark ? '#FFFFFF' : '#010101'}
-        strokeWidth="2"
-        strokeMiterlimit="10"
-        points="4106.7,571.74 
+const BackgroundWall: React.FC<Props> = ({ isAnimated, theme }) => {
+  const classes = useStyles();
+  return (
+    <svg
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      x="0px"
+      y="0px"
+      viewBox="0 0 4096 666.92"
+      enableBackground="new 0 0 4096 666.92"
+      xmlSpace="preserve"
+      className={isAnimated ? 'animated' : ''}
+    >
+      <g id="background">
+        <polygon
+          id="wall"
+          className={classes.wall}
+          stroke={theme === ThemeMode.Dark ? '#FFFFFF' : '#010101'}
+          strokeWidth="2"
+          strokeMiterlimit="10"
+          points="4106.7,571.74 
 		4106.7,286.59 4106.7,242.14 4068.17,242.14 4068.17,286.59 4030.49,286.59 4030.49,242.14 3991.96,242.14 3991.96,286.59 
 		3954.29,286.59 3954.29,242.14 3915.76,242.14 3915.76,286.59 3878.08,286.59 3878.08,242.14 3839.55,242.14 3839.55,286.59 
 		3801.88,286.59 3801.88,242.14 3763.34,242.14 3763.34,286.59 3725.67,286.59 3725.67,242.14 3687.14,242.14 3687.14,286.59 
@@ -61,17 +62,18 @@ const BackgroundWall: React.FC<Props> = ({ isAnimated, theme, classes }) => (
 		410.26,286.59 372.59,286.59 372.59,242.14 334.06,242.14 334.06,286.59 296.38,286.59 296.38,242.14 257.85,242.14 257.85,286.59 
 		220.17,286.59 220.17,242.14 181.64,242.14 181.64,286.59 143.97,286.59 143.97,242.14 105.44,242.14 105.44,286.59 67.76,286.59 
 		67.76,242.14 29.23,242.14 29.23,286.59 -8.45,286.59 -8.45,571.74 	"
-      />
-      <rect
-        x="-76.72"
-        y="505.74"
-        className={classes.wall}
-        width="4240.98"
-        height="187.45"
-      />
-    </g>
-  </svg>
-);
+        />
+        <rect
+          x="-76.72"
+          y="505.74"
+          className={classes.wall}
+          width="4240.98"
+          height="187.45"
+        />
+      </g>
+    </svg>
+  );
+};
 
 const mapStateToProps = (state: RootState) => {
   return {
@@ -79,4 +81,4 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(BackgroundWall));
+export default connect(mapStateToProps)(BackgroundWall);

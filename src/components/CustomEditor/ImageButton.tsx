@@ -18,18 +18,18 @@ import {
 import Dropzone from 'components/Dropzone';
 import ImageIcon from '@material-ui/icons/Image';
 
-// Styling
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-import { toolbarButtonStyles as styles } from './styles';
+// Helpers
+import { useToolbarButtonStyles as useStyles } from './styles';
 import { insertFile } from './helpers';
 import messages from './messages';
 
-interface Props extends WithStyles<typeof styles> {}
+interface Props {}
 
-const ImageButton: React.FC<Props> = ({ classes, ...buttonProps }: Props) => {
+const ImageButton: React.FC<Props> = (props) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const editor = useSlate();
   const intl = useIntl();
+  const classes = useStyles();
 
   const isSmallScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('sm')
@@ -73,7 +73,7 @@ const ImageButton: React.FC<Props> = ({ classes, ...buttonProps }: Props) => {
         title={intl.formatMessage(messages.insertImage as MessageDescriptor)}
       >
         <Button
-          {...buttonProps}
+          {...props}
           classes={{
             root: classes.root,
           }}
@@ -103,4 +103,4 @@ const ImageButton: React.FC<Props> = ({ classes, ...buttonProps }: Props) => {
   );
 };
 
-export default withStyles(styles)(ImageButton);
+export default ImageButton;

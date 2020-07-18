@@ -6,18 +6,19 @@ import { Grid, Tooltip, IconButton, Zoom } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import PostRead from 'components/PostRead';
 
-// Styling
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-import styles from './styles';
+// Helpers
+import { usePreviewStyles as useStyles } from './styles';
 
 // Types
 import { PostSchemaType } from './types';
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   readonly onExit: () => void;
 }
 
-const PostPreview: React.FC<Props> = ({ onExit, classes }) => {
+const PostPreview: React.FC<Props> = ({ onExit }) => {
+  const classes = useStyles();
+
   return (
     <>
       <Grid container justify="flex-end">
@@ -48,4 +49,4 @@ const PostPreview: React.FC<Props> = ({ onExit, classes }) => {
   );
 };
 
-export default withStyles(styles)(PostPreview);
+export default PostPreview;

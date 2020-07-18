@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useIntl, MessageDescriptor } from 'react-intl';
+import { useSlate } from 'slate-react';
 
 // Components
 import { Paper, Divider } from '@material-ui/core';
@@ -20,20 +21,17 @@ import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 
 // Helpers
+import { useToolbarStyles as useStyles } from './styles';
 import { MarkFormat, BlockFormat } from './helpers';
-
-// Styling
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-import { toolbarStyles as styles } from './styles';
-import { useSlate } from 'slate-react';
 import BlockToggleButton from './BlockToggleButton';
 import messages from './messages';
 
-interface Props extends WithStyles<typeof styles> {}
+interface Props {}
 
-const Toolbar: React.FC<Props> = ({ classes }) => {
+const Toolbar: React.FC<Props> = () => {
   const editor = useSlate();
   const intl = useIntl();
+  const classes = useStyles();
 
   const selectionLength = editor.selection
     ? Math.abs(editor.selection.anchor.offset - editor.selection.focus.offset)
@@ -106,4 +104,4 @@ const Toolbar: React.FC<Props> = ({ classes }) => {
   );
 };
 
-export default withStyles(styles)(Toolbar);
+export default Toolbar;

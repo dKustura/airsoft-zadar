@@ -6,11 +6,8 @@ import { MenuItem, IconButton, Tooltip, Zoom } from '@material-ui/core';
 import FlagIcon from 'components/FlagIcon';
 import DropdownMenu from 'components/DropdownMenu';
 
-// Styling
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-import styles from './styles';
-
 // Helpers
+import { useStyles } from './styles';
 import { COUNTRY_OPTIONS } from './constants';
 import {
   getLanguageCodeForCountry,
@@ -18,13 +15,14 @@ import {
 } from 'helpers/locale';
 import messages from './messages';
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   readonly languageCode: string;
   readonly onChange: (languageCode: string) => void;
 }
 
-const LocaleMenu: React.FC<Props> = ({ languageCode, onChange, classes }) => {
+const LocaleMenu: React.FC<Props> = ({ languageCode, onChange }) => {
   const intl = useIntl();
+  const classes = useStyles();
 
   const menuButton = (
     <Tooltip
@@ -64,4 +62,4 @@ const LocaleMenu: React.FC<Props> = ({ languageCode, onChange, classes }) => {
   );
 };
 
-export default withStyles(styles)(LocaleMenu);
+export default LocaleMenu;

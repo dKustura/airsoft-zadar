@@ -1,14 +1,16 @@
 import * as React from 'react';
-import { Link, WithStyles, withStyles } from '@material-ui/core';
+import { Link } from '@material-ui/core';
 
-import styles from './styles';
+import { useStyles } from './styles';
 import { MaterialRouterLink } from 'helpers';
 
-interface Props extends WithStyles {
+interface Props {
   readonly to: string;
 }
 
-const UnderlinedLink: React.FC<Props> = ({ to, classes, children }) => {
+const UnderlinedLink: React.FC<Props> = ({ to, children }) => {
+  const classes = useStyles();
+
   return (
     <Link
       component={MaterialRouterLink}
@@ -23,4 +25,4 @@ const UnderlinedLink: React.FC<Props> = ({ to, classes, children }) => {
   );
 };
 
-export default withStyles(styles)(UnderlinedLink);
+export default UnderlinedLink;

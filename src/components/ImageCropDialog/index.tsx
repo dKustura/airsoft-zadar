@@ -6,25 +6,21 @@ import { FormattedMessage } from 'react-intl';
 import {
   Dialog,
   Zoom,
-  WithStyles,
-  withStyles,
   DialogContent,
   DialogActions,
   Button,
 } from '@material-ui/core';
 import Cropper from 'react-easy-crop';
 
-// Styling
-import styles from './styles';
-
 // Helpers
+import { useStyles } from './styles';
 import messages from './messages';
 import getCroppedImage from './helpers';
 
 // Types
 import { Point, Area } from 'react-easy-crop/types';
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   readonly isOpen: boolean;
   readonly src: string;
   readonly handleClose: () => void;
@@ -39,12 +35,12 @@ const ImageCropDialog: React.FC<Props> = ({
   src,
   handleClose,
   handleConfirm,
-  classes,
 }) => {
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
+  const classes = useStyles();
 
   const onCropComplete = useCallback((_: Area, croppedAreaPixels: Area) => {
     setCroppedAreaPixels(croppedAreaPixels);
@@ -114,4 +110,4 @@ const ImageCropDialog: React.FC<Props> = ({
   );
 };
 
-export default withStyles(styles)(ImageCropDialog);
+export default ImageCropDialog;
