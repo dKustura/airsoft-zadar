@@ -74,8 +74,6 @@
     "src.components.SignUp.passwordLabel": "Password",
     "src.components.SignUp.signUpButton": "Sign Up",
     "src.components.SignUp.signedUpSuccessfully": "You signed up successfully!",
-    "src.components.UserMenu.profileItem": "Profile",
-    "src.components.UserMenu.settingsItem": "Settings",
     "src.components.UserMenu.signOutItem": "Sign Out",
     "src.components.UserMenu.signedOut": "Signed out.",
     "src.helpers.pageTitle": "Airsoft Club Zadar"

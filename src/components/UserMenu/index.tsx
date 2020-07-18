@@ -61,12 +61,6 @@ const UserMenu: React.FC<Props> = ({ displayName, classes }) => {
 
   return (
     <DropdownMenu menuButton={dropdownButton}>
-      <MenuItem onClick={handleClose}>
-        <FormattedMessage {...messages.profileItem} />
-      </MenuItem>
-      <MenuItem onClick={handleClose}>
-        <FormattedMessage {...messages.settingsItem} />
-      </MenuItem>
       <MenuItem
         onClick={() =>
           firebase
