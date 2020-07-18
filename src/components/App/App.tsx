@@ -14,8 +14,8 @@ import SignUp from 'components/SignUp';
 import SignIn from 'components/SignIn';
 import Header from 'components/Header';
 import AddAdmin from 'components/AddAdmin';
-import PostForm from 'components/PostForm';
 import EmailAction from 'components/EmailAction';
+import PostRoute from 'components/PostRoute';
 
 // Other Componenets
 import { IconButton, withStyles, WithStyles } from '@material-ui/core';
@@ -79,7 +79,7 @@ const App = ({ authUser, classes }: Props) => {
           {!authUser && (
             <Redirect from={Routes.EMAIL_CONFIRMATION} to={Routes.HOME} />
           )}
-          <Route path={Routes.POST_FORM} component={PostForm} />
+          <Route path={Routes.POST} component={PostRoute} />
           <Route path={Routes.ADD_ADMIN} component={AddAdmin} />
           <Route path={Routes.SIGN_UP} component={SignUp} />
           <Route path={Routes.SIGN_IN} component={SignIn} />

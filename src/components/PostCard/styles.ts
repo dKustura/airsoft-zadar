@@ -12,6 +12,7 @@ export default (theme: Theme) => {
       '&:hover': {
         borderColor: theme.palette.primary.light,
       },
+      height: '100%',
     },
     cardContent: {
       padding: theme.spacing(1),

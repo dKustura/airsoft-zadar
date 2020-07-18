@@ -37,14 +37,9 @@ const Home: React.FC<Props> = ({ classes }) => {
   }, [isHovered, isWallAnimationFinished, isWavesAnimationFinished]);
 
   useEffect(() => {
-    firebase
-      .posts()
-      .get()
-      .then((snapshot) => {
-        const posts: any[] = [];
-        snapshot.forEach((doc) => posts.push(doc.data()));
-        setPosts(posts);
-      });
+    firebase.getAllPosts().then((posts) => {
+      setPosts(posts);
+    });
   }, [firebase]);
 
   const onMouseEnterBackground = () => {
@@ -101,6 +96,7 @@ const Home: React.FC<Props> = ({ classes }) => {
         {posts.map((post, index) => (
           <Grid key={`post-${index}`} item xs={12} sm={8} md={6}>
             <PostCard
+              id={post.id}
               thumbnail={post.thumbnailUrl}
               title={post.title}
               content=""

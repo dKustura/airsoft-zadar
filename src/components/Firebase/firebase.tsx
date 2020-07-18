@@ -118,11 +118,26 @@ class Firebase {
 
   users = () => this.firestore.collection('users');
 
-  user = (uid: string) => this.users().doc(uid);
+  getUser = (uid: string) => this.users().doc(uid).get();
 
   posts = () => this.firestore.collection('posts');
 
-  post = (uid: string) => this.posts().doc(uid);
+  getAllPosts = () =>
+    this.posts()
+      .get()
+      .then((snapshot) => {
+        const dataArray: any[] = [];
+        snapshot.forEach((doc) => {
+          const data = {
+            id: doc.id,
+            ...doc.data(),
+          };
+          dataArray.push(data);
+        });
+        return dataArray;
+      });
+
+  getPost = (uid: string) => this.posts().doc(uid).get();
 
   //******* Functions API *******//
 
