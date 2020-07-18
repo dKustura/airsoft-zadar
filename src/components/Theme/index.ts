@@ -8,13 +8,6 @@ export const getTheme = (mode: ThemeMode) => {
   return mode === ThemeMode.Light ? lightTheme : darkTheme;
 };
 
-const skyBlue = '#5ACDEE';
-const skyBlueTransparent = 'rgb(90, 205, 238, 0.75)';
-const yaleBlue = '#104E7B';
-const yaleBlueTransparent = 'rgb(16, 78, 123, 0.75)';
-const darkJungleGreen = '#0D1F22';
-const outerSpace = '#243538';
-
 const commonTheme: ThemeOptions = {
   typography: {
     fontFamily: ['Arvo', 'Roboto Slab', 'sans-serif'].join(','),
@@ -51,12 +44,16 @@ declare module '@material-ui/core/styles/createPalette' {
     icon: {
       border: string;
     };
+    postCard: PaletteColor;
+    postCardBorder: PaletteColor;
   }
   // allow configuration using `createMuiTheme`
   interface PaletteOptions {
     icon?: {
       border?: string;
     };
+    postCard?: PaletteColorOptions;
+    postCardBorder?: PaletteColorOptions;
   }
 }
 
@@ -65,29 +62,35 @@ const lightTheme = responsiveFontSizes(
     palette: {
       type: ThemeMode.Light,
       background: {
-        default: '#FFFFFF',
-        paper: '#FFFFFF',
+        default: colors.white,
+        paper: colors.white,
       },
       primary: {
-        main: yaleBlue,
+        main: colors.yaleBlue,
       },
       secondary: {
-        main: skyBlue,
+        main: colors.skyBlue,
       },
       icon: {
-        border: '#000',
+        border: colors.black,
+      },
+      postCard: {
+        main: colors.logoYellow,
+      },
+      postCardBorder: {
+        main: colors.black,
       },
       ...commonPalette,
     },
     overrides: {
       MuiOutlinedInput: {
         notchedOutline: {
-          borderColor: yaleBlue,
+          borderColor: colors.yaleBlue,
         },
       },
       MuiInputLabel: {
         shrink: {
-          color: yaleBlueTransparent,
+          color: colors.yaleBlueTransparent,
         },
       },
     },
@@ -101,29 +104,35 @@ const darkTheme = responsiveFontSizes(
       type: ThemeMode.Dark,
       background: {
         // paper: '#000',
-        default: darkJungleGreen,
-        paper: outerSpace,
+        default: colors.darkJungleGreen,
+        paper: colors.outerSpace,
       },
       primary: {
-        main: skyBlue,
+        main: colors.skyBlue,
       },
       secondary: {
-        main: yaleBlue,
+        main: colors.yaleBlue,
       },
       icon: {
-        border: '#FFFFFF',
+        border: colors.white,
+      },
+      postCard: {
+        main: colors.logoRed,
+      },
+      postCardBorder: {
+        main: colors.logoYellow,
       },
       ...commonPalette,
     },
     overrides: {
       MuiOutlinedInput: {
         notchedOutline: {
-          borderColor: skyBlue,
+          borderColor: colors.skyBlue,
         },
       },
       MuiInputLabel: {
         outlined: {
-          color: skyBlueTransparent,
+          color: colors.skyBlueTransparent,
         },
       },
     },

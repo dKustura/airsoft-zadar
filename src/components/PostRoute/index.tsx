@@ -10,7 +10,7 @@ const PostRoute: React.FC<Props> = () => {
 
   return (
     <Switch>
-      <Route path={`${match.path}/add`} component={PostForm} />
+      <Route path={`${match.path}/new`} component={PostForm} />
       <Route path={`${match.path}/:id`} component={PostView} />
     </Switch>
   );

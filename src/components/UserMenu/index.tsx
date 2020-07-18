@@ -29,29 +29,29 @@ const UserMenu: React.FC<Props> = ({ displayName, classes }) => {
   const firebase = useFirebase();
   const { enqueueSnackbar } = useSnackbar();
 
-  const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef<HTMLButtonElement>(null);
+  // const [open, setOpen] = React.useState(false);
+  // const anchorRef = React.useRef<HTMLButtonElement>(null);
 
-  const handleClose = (event: React.MouseEvent<EventTarget>) => {
-    if (
-      anchorRef.current &&
-      anchorRef.current.contains(event.target as HTMLElement)
-    ) {
-      return;
-    }
+  // const handleClose = (event: React.MouseEvent<EventTarget>) => {
+  //   if (
+  //     anchorRef.current &&
+  //     anchorRef.current.contains(event.target as HTMLElement)
+  //   ) {
+  //     return;
+  //   }
 
-    setOpen(false);
-  };
+  //   setOpen(false);
+  // };
 
   // return focus to the button when we transitioned from !open -> open
-  const prevOpen = React.useRef(open);
-  React.useEffect(() => {
-    if (prevOpen.current === true && open === false) {
-      anchorRef.current!.focus();
-    }
+  // const prevOpen = React.useRef(open);
+  // React.useEffect(() => {
+  //   if (prevOpen.current === true && open === false) {
+  //     anchorRef.current!.focus();
+  //   }
 
-    prevOpen.current = open;
-  }, [open]);
+  //   prevOpen.current = open;
+  // }, [open]);
 
   const dropdownButton = (
     <Button classes={{ label: classes.userButtonLabel }} color="inherit">

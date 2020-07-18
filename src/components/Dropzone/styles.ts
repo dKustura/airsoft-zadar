@@ -8,7 +8,7 @@ export default (theme: Theme) => {
       // backgroundColor: 'red',
       padding: theme.spacing(3),
       border: `2px dashed ${theme.palette.primary.main}`,
-      borderRadius: 15,
+      borderRadius: theme.shape.borderRadius,
       transition: 'all 0.2s ease-in-out 0s',
 
       '&:hover': {

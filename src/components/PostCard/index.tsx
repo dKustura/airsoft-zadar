@@ -1,24 +1,16 @@
 import * as React from 'react';
 
 // Components
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import {
-  Typography,
-  Grid,
-  withStyles,
-  WithStyles,
-  Link,
-} from '@material-ui/core';
+import { Typography, Grid, Link } from '@material-ui/core';
 
 // Helpers
 import { Routes } from 'helpers/constants';
 
 // Styling
-import styles from './styles';
+import { useStyles } from './styles';
 import { MaterialRouterLink } from 'helpers';
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   readonly id: string;
   readonly thumbnail?: string;
   readonly title: string;
@@ -32,39 +24,34 @@ const PostCard: React.FC<Props> = ({
   title,
   content,
   dateCreated,
-  classes,
 }) => {
+  const classes = useStyles();
+
   return (
     <Link component={MaterialRouterLink} to={`${Routes.POST}/${id}`}>
-      <Card className={classes.card}>
-        <CardContent>
-          <Grid
-            container
-            alignItems="center"
-            direction="column"
-            spacing={1}
-            className={classes.cardContent}
-          >
-            {thumbnail && (
-              <Grid item>
-                <img
-                  src={thumbnail}
-                  alt="thumbnail"
-                  className={classes.cardThumbnail}
-                />
-              </Grid>
-            )}
-            <Grid item>
-              <Typography variant="h4">{title}</Typography>
-            </Grid>
-            <Grid item>
-              <Typography variant="body2">{content}</Typography>
-            </Grid>
+      <Grid container className={classes.card}>
+        <Grid
+          container
+          justify="flex-end"
+          alignItems="flex-end"
+          className={classes.titleContainer}
+        >
+          <Grid item style={{ padding: 20 }}>
+            <Typography variant="h4">{title}</Typography>
           </Grid>
-        </CardContent>
-      </Card>
+        </Grid>
+        {thumbnail && (
+          <div className={classes.thumbnailContainer}>
+            <img
+              src={thumbnail}
+              alt="thumbnail"
+              className={classes.thumbnailImage}
+            />
+          </div>
+        )}
+      </Grid>
     </Link>
   );
 };
 
-export default withStyles(styles)(PostCard);
+export default PostCard;

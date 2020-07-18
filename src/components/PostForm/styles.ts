@@ -50,7 +50,7 @@ export const thumbnailStyles = (theme: Theme) =>
       position: 'relative',
       width: '100%',
       height: '100%',
-      borderRadius: 15,
+      borderRadius: theme.shape.borderRadius,
 
       // '&:hover ~ button': {
       //   opacity: 1,
