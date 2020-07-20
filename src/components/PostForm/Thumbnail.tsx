@@ -16,11 +16,14 @@ import ImageCropDialog from 'components/ImageCropDialog';
 import Dropzone from 'components/Dropzone';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 
+// Styling
+import { withStyles, WithStyles } from '@material-ui/core/styles';
+import { thumbnailStyles as styles } from './styles';
+
 // Helpers
-import { useThumbnailStyles as useStyles } from './styles';
 import messages from './messages';
 
-interface Props {
+interface Props extends WithStyles<typeof styles> {
   readonly src?: string;
   readonly onSelection: (imageSrc: string) => void;
   readonly shouldCloseDialogs?: boolean;
@@ -29,12 +32,12 @@ interface Props {
 const Thumbnail: React.FC<Props> = ({
   src,
   onSelection,
+  classes,
   shouldCloseDialogs,
 }) => {
   const [isDropzoneDialogOpen, setIsDropzoneDialogOpen] = useState(false);
   const [isCropDialogOpen, setIsCropDialogOpen] = useState(false);
   const [image, setImage] = useState(src);
-  const classes = useStyles();
 
   useEffect(() => {
     if (shouldCloseDialogs) {
@@ -142,4 +145,4 @@ const Thumbnail: React.FC<Props> = ({
   );
 };
 
-export default Thumbnail;
+export default withStyles(styles)(Thumbnail);

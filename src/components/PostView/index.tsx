@@ -15,7 +15,6 @@ const PostView: React.FC<Props> = () => {
     firebase.getPost(id).then((post) => {
       const postData = post.data();
       setPost(postData);
-      console.log('postData', postData);
     });
   }, [firebase, id]);
 

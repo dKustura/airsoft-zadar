@@ -53,7 +53,7 @@ const Home: React.FC<Props> = () => {
   };
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="lg">
       <Grid container className="container">
         <Grid
           item
@@ -93,7 +93,7 @@ const Home: React.FC<Props> = () => {
       </Grid>
       <Grid container justify="center" spacing={4}>
         {posts.map((post, index) => (
-          <Grid key={`post-${index}`} item xs={12} sm={8} md={6}>
+          <Grid key={`post-${index}`} item xs={12} md={8} lg={6}>
             <PostCard
               id={post.id}
               thumbnail={post.thumbnailUrl}

@@ -130,7 +130,7 @@ const PostForm: React.FC<Props> = () => {
     <Formik
       initialValues={INITIAL_POST_FORM_VALUES}
       validationSchema={postSchema}
-      onSubmit={async (values, actions) => {
+      onSubmit={(values, actions) => {
         setIsLoading(true);
 
         // TODO: handle image upload errors

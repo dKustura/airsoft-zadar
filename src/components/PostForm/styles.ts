@@ -32,7 +32,7 @@ export const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const useThumbnailStyles = makeStyles((theme: Theme) =>
+export const thumbnailStyles = (theme: Theme) =>
   createStyles({
     card: {
       position: 'relative',
@@ -67,8 +67,7 @@ export const useThumbnailStyles = makeStyles((theme: Theme) =>
     dropzoneDialogPaper: {
       backgroundColor: theme.palette.background.default,
     },
-  })
-);
+  });
 
 export const usePreviewStyles = makeStyles((theme: Theme) =>
   createStyles({

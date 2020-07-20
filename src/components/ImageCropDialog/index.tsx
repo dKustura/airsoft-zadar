@@ -27,7 +27,7 @@ interface Props {
   readonly handleConfirm: (croppedImage: string) => void;
 }
 
-const CROP_ZOOM_SPEED = 5;
+const CROP_ZOOM_SPEED = 1;
 const CROP_ASPECT_RATIO = 16 / 9;
 
 const ImageCropDialog: React.FC<Props> = ({

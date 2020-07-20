@@ -117,10 +117,10 @@ const darkTheme = responsiveFontSizes(
         border: colors.white,
       },
       postCard: {
-        main: colors.logoRed,
+        main: colors.yaleBlue,
       },
       postCardBorder: {
-        main: colors.logoYellow,
+        main: colors.white,
       },
       ...commonPalette,
     },

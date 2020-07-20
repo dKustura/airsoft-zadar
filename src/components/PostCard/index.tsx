@@ -6,8 +6,9 @@ import { Typography, Grid, Link } from '@material-ui/core';
 // Helpers
 import { Routes } from 'helpers/constants';
 
-// Styling
+// Helpers
 import { useStyles } from './styles';
+import './index.scss';
 import { MaterialRouterLink } from 'helpers';
 
 interface Props {
@@ -28,7 +29,12 @@ const PostCard: React.FC<Props> = ({
   const classes = useStyles();
 
   return (
-    <Link component={MaterialRouterLink} to={`${Routes.POST}/${id}`}>
+    <Link
+      className="postLink"
+      underline="none"
+      component={MaterialRouterLink}
+      to={`${Routes.POST}/${id}`}
+    >
       <Grid container className={classes.card}>
         <Grid
           container
@@ -36,8 +42,11 @@ const PostCard: React.FC<Props> = ({
           alignItems="flex-end"
           className={classes.titleContainer}
         >
-          <Grid item style={{ padding: 20 }}>
-            <Typography variant="h4">{title}</Typography>
+          <Grid item style={{ width: '24rem', height: '13.5rem' }}></Grid>
+          <Grid item style={{ padding: '0rem 1rem 1rem 1rem' }}>
+            <Typography className="postTitle" variant="h4">
+              {title}
+            </Typography>
           </Grid>
         </Grid>
         {thumbnail && (

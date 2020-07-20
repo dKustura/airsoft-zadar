@@ -27,7 +27,7 @@ export const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const useToolbarButtonStyles = makeStyles((theme: Theme) =>
+export const toolbarButtonStyles = (theme: Theme) =>
   createStyles({
     root: {
       color: theme.palette.primary.main,
@@ -58,8 +58,9 @@ export const useToolbarButtonStyles = makeStyles((theme: Theme) =>
     dialogPaper: {
       backgroundColor: theme.palette.background.default,
     },
-  })
-);
+  });
+
+export const useToolbarButtonStyles = makeStyles(toolbarButtonStyles);
 
 export const useToolbarStyles = makeStyles((theme: Theme) =>
   createStyles({
