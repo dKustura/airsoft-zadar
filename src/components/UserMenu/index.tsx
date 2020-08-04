@@ -16,12 +16,14 @@ import messages from './messages';
 
 // Types
 import { FirebaseError } from 'firebase';
+import { Variant } from '@material-ui/core/styles/createTypography';
 
 interface Props {
   readonly displayName: string;
+  readonly typographyVariant?: Variant;
 }
 
-const UserMenu: React.FC<Props> = ({ displayName }) => {
+const UserMenu: React.FC<Props> = ({ displayName, typographyVariant }) => {
   const intl = useIntl();
   const firebase = useFirebase();
   const { enqueueSnackbar } = useSnackbar();
@@ -53,7 +55,7 @@ const UserMenu: React.FC<Props> = ({ displayName }) => {
 
   const dropdownButton = (
     <Button classes={{ label: classes.userButtonLabel }} color="inherit">
-      <Typography>{displayName}</Typography>
+      <Typography variant={typographyVariant}>{displayName}</Typography>
     </Button>
   );
 

@@ -18,7 +18,7 @@ import EmailAction from 'components/EmailAction';
 import PostRoute from 'components/PostRoute';
 
 // Other Componenets
-import { IconButton } from '@material-ui/core';
+import { IconButton, useMediaQuery, Theme } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
 // Types
@@ -33,6 +33,7 @@ import {
 } from 'components/Session';
 import { Routes } from 'helpers/constants';
 import EmailConfirmation from 'components/EmailConfirmation';
+import BurgerMenu from 'components/BurgerMenu';
 
 interface OwnProps {}
 
@@ -47,6 +48,10 @@ const onClickDismiss = (key: string | number | undefined) => () => {
 
 const App: React.FC<Props> = ({ authUser }) => {
   const classes = useStyles();
+
+  const isSmallScreen = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down('sm')
+  );
 
   return (
     <SnackbarProvider
@@ -74,7 +79,7 @@ const App: React.FC<Props> = ({ authUser }) => {
       </Helmet>
 
       <div className="wrapper">
-        <Header />
+        {isSmallScreen ? <BurgerMenu /> : <Header />}
 
         <Switch>
           {authUser && <Redirect from={Routes.SIGN_IN} to={Routes.HOME} />}

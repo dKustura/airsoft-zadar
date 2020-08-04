@@ -1,0 +1,18 @@
+@keyframes menuOpenAnimation {
+  50% {
+    width: 100vw;
+    height: 100vh;
+  }
+  100% {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+  }
+}
+
+@keyframes menuCloseAnimation {
+  0% {
+    width: 100vw;
+    height: 100vh;
+  }
+}
