@@ -3,9 +3,16 @@ import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
+import classnames from 'classnames';
 
 // Components
-import { Container, Grid, Typography, Button } from '@material-ui/core';
+import {
+  Container,
+  Grid,
+  Typography,
+  Button,
+  CircularProgress,
+} from '@material-ui/core';
 import { useFirebase } from 'components/Firebase';
 
 // Helpers
@@ -14,15 +21,18 @@ import { authUserSelector, localeSelector } from './selectors';
 import { Routes } from 'helpers/constants';
 import { useStyles } from './styles';
 
-interface Props {}
+interface Props {
+  readonly isConfirmed?: boolean;
+  readonly isLoading?: boolean;
+}
 
-const EmailConfirmation: React.FC<Props> = () => {
+const EmailConfirmation: React.FC<Props> = ({ isConfirmed, isLoading }) => {
   const firebase = useFirebase();
   const history = useHistory();
   const authUser = useSelector(authUserSelector);
   const locale = useSelector(localeSelector);
   const classes = useStyles();
-  const isEmailConfirmed = authUser?.emailVerified;
+  const isEmailConfirmed = isConfirmed || authUser?.emailVerified;
 
   const handleContinueClick = useCallback(() => {
     history.push(Routes.HOME);
@@ -34,8 +44,20 @@ const EmailConfirmation: React.FC<Props> = () => {
 
   return (
     <Container maxWidth="md">
-      <Grid container justify="center" alignItems="center" spacing={4}>
-        {isEmailConfirmed ? (
+      <Grid
+        container
+        justify="center"
+        alignItems="center"
+        spacing={4}
+        className={classnames(classes.container, {
+          [classes.loadingIndicatorContainer]: isLoading,
+        })}
+      >
+        {isLoading ? (
+          <Grid item className={classes.loadingIndicator}>
+            <CircularProgress color="primary" size="4rem" thickness={6} />
+          </Grid>
+        ) : isEmailConfirmed ? (
           <>
             <Grid item className={classes.centeredText}>
               <Typography variant="h1">

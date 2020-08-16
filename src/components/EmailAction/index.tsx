@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { MessageDescriptor, useIntl } from 'react-intl';
 import { useSnackbar } from 'notistack';
@@ -29,6 +29,9 @@ const EmailAction: React.FC<Props> = () => {
   const intl = useIntl();
   const { enqueueSnackbar } = useSnackbar();
 
+  const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
+  const [isConfirmingEmail, setIsConfirmingEmail] = useState(false);
+
   const mode = query.get(EmailActionParameter.mode);
   const actionCode = query.get(EmailActionParameter.oobCode);
   const apiKey = query.get(EmailActionParameter.apiKey);
@@ -41,6 +44,7 @@ const EmailAction: React.FC<Props> = () => {
   }, [history, continueUrl]);
 
   const handleVerifyEmail = useCallback(() => {
+    setIsConfirmingEmail(true);
     // TODO:
     // Localize the UI to the selected language as determined by the lang
     // parameter.
@@ -64,6 +68,8 @@ const EmailAction: React.FC<Props> = () => {
           // TODO: If a continue URL is available, display a button which on
           // click redirects the user back to the app via continueUrl with
           // additional state determined from that URL's parameters.
+          setIsEmailConfirmed(true);
+          setIsConfirmingEmail(false);
           firebase.auth.currentUser?.reload();
         })
         .catch((error) => {
@@ -97,7 +103,16 @@ const EmailAction: React.FC<Props> = () => {
     }
   }, [mode, handleVerifyEmail, redirectToContinueUrl]);
 
-  return <>{mode === EmailActionMode.verifyEmail && <EmailConfirmation />}</>;
+  return (
+    <>
+      {mode === EmailActionMode.verifyEmail && (
+        <EmailConfirmation
+          isConfirmed={isEmailConfirmed}
+          isLoading={isConfirmingEmail}
+        />
+      )}
+    </>
+  );
 };
 
 export default EmailAction;

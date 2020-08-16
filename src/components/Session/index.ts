@@ -3,8 +3,8 @@ import withAuthentication, {
 } from './withAuthentication';
 
 // import withAuthorization from './withAuthorization';
-// import withEmailVerification from './withEmailVerification';
+import withEmailVerification from './withEmailVerification';
 
-export { withAuthentication };
+export { withAuthentication, withEmailVerification };
 
 export type WithAuthenticationProps = WithAuthenticationPropsType;

@@ -14,6 +14,7 @@ import {
   Button,
   CircularProgress,
 } from '@material-ui/core';
+import { withEmailVerification } from 'components/Session';
 
 // Helpers
 import { useStyles } from './styles';
@@ -176,4 +177,4 @@ const AddAdmin: React.FC<Props> = () => {
   );
 };
 
-export default AddAdmin;
+export default withEmailVerification(AddAdmin);

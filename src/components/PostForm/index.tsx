@@ -5,6 +5,7 @@ import { Action, Location } from 'history';
 import { Formik, Form, Field, FieldProps } from 'formik';
 
 import { useFirebase } from 'components/Firebase';
+import { withEmailVerification } from 'components/Session';
 import { useSnackbar } from 'notistack';
 
 // Components
@@ -309,4 +310,4 @@ const PostForm: React.FC<Props> = () => {
   );
 };
 
-export default PostForm;
+export default withEmailVerification(PostForm);

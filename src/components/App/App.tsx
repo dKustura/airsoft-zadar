@@ -86,6 +86,9 @@ const App: React.FC<Props> = ({ authUser }) => {
           {!authUser && (
             <Redirect from={Routes.EMAIL_CONFIRMATION} to={Routes.HOME} />
           )}
+          {!authUser && <Redirect from={Routes.ADD_ADMIN} to={Routes.HOME} />}
+          {!authUser && <Redirect from={Routes.POST_FORM} to={Routes.HOME} />}
+
           <Route path={Routes.POST} component={PostRoute} />
           <Route path={Routes.ADD_ADMIN} component={AddAdmin} />
           <Route path={Routes.SIGN_UP} component={SignUp} />

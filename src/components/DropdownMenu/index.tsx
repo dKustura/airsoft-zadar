@@ -83,7 +83,6 @@ const DropdownMenu: React.FC<Props> = ({
         anchorEl={anchorRef.current}
         role={undefined}
         transition
-        disablePortal
         placement={placement}
         modifiers={{
           flip: {
