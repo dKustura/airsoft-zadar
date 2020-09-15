@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import firebaseConfig from './config';
 import { functionNames } from './constants';
+import { User } from 'types';
 
 class Firebase {
   public emailAuthProvider: typeof firebase.auth.EmailAuthProvider;
@@ -73,12 +74,12 @@ class Firebase {
     this.auth.currentUser?.updatePassword(password);
   };
 
-  onAuthUserListener = (
-    next: (user: firebase.User) => void,
-    fallback: () => void
-  ) =>
+  onAuthUserListener = (next: (user: User) => void, fallback: () => void) =>
     this.auth.onAuthStateChanged(async (authUser) => {
       if (authUser) {
+        const tokenResult = await authUser?.getIdTokenResult();
+        const claims = tokenResult.claims;
+
         // TODO: fix This next operation is forbidden
         // this.user(authUser.uid)
         //   .once('value')
@@ -99,10 +100,13 @@ class Firebase {
         //   ...dbUser,
         // };
 
-        //   console.log('authUser', authUser);
-        //   next(authUser);
-        // });
-        next(authUser);
+        const roles = {
+          admin: claims.admin,
+          member: claims.member,
+        };
+        const user: User = Object.assign(authUser, { roles });
+
+        next(user);
       } else {
         fallback();
       }

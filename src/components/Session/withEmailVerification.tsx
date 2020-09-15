@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 // Components
 import { selectAuthUser } from './selectors';
 
-import { User } from 'firebase';
-import { RootState } from 'types';
+import { RootState, User } from 'types';
 import EmailConfirmation from 'components/EmailConfirmation';
 
 const needsEmailVerification = (authUser: User | null) =>
