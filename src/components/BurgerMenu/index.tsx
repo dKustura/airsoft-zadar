@@ -18,6 +18,7 @@ import BurgerMenuIcon from 'components/BurgerMenuIcon';
 import UnderlinedLink from 'components/UnderlinedLink';
 import UserMenu from 'components/UserMenu';
 import LocaleMenu from 'components/LocaleMenu';
+import AuthorizationCheck from 'components/AuthorizationCheck';
 
 // Selectors
 import {
@@ -34,6 +35,7 @@ import messages from './messages';
 import { MaterialRouterLink } from 'helpers';
 import { RootState } from 'types';
 import { ThemeMode } from 'reducers/constants';
+import { UserRole } from 'helpers/roles';
 
 interface OwnProps {}
 
@@ -141,27 +143,31 @@ const BurgerMenu: React.FC<Props> = ({
             <FormattedMessage {...messages.homeLink} />
           </UnderlinedLink>
         </Grid>
-
-        <Grid item>
-          <UnderlinedLink to="/blog" variant="h4">
-            <FormattedMessage {...messages.blogLink} />
-          </UnderlinedLink>
-        </Grid>
         <Grid item>
           <UnderlinedLink to="/about" variant="h4">
             <FormattedMessage {...messages.aboutLink} />
           </UnderlinedLink>
         </Grid>
-        <Grid item>
-          <UnderlinedLink to={Routes.ADD_ADMIN} variant="h4">
-            Add Admin
-          </UnderlinedLink>
-        </Grid>
-        <Grid item>
-          <UnderlinedLink to={Routes.POST_FORM} variant="h4">
-            <FormattedMessage {...messages.newPostLink} />
-          </UnderlinedLink>
-        </Grid>
+        <AuthorizationCheck
+          userRoles={authUser?.roles}
+          authorizedRoles={[UserRole.Admin]}
+        >
+          <Grid item>
+            <UnderlinedLink to={Routes.ADD_ADMIN} variant="h4">
+              Add Admin
+            </UnderlinedLink>
+          </Grid>
+        </AuthorizationCheck>
+        <AuthorizationCheck
+          userRoles={authUser?.roles}
+          authorizedRoles={[UserRole.Admin]}
+        >
+          <Grid item>
+            <UnderlinedLink to={Routes.POST_FORM} variant="h4">
+              <FormattedMessage {...messages.newPostLink} />
+            </UnderlinedLink>
+          </Grid>
+        </AuthorizationCheck>
       </Grid>
     </div>
   );

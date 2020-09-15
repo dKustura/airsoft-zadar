@@ -40,6 +40,8 @@ import {
 // Types
 import { RootState } from 'types';
 import messages from './messages';
+import { UserRole } from 'helpers/roles';
+import AuthorizationCheck from 'components/AuthorizationCheck';
 
 interface OwnProps {}
 
@@ -73,23 +75,31 @@ const Header: React.FC<Props> = ({
                 </UnderlinedLink>
               </Grid>
               <Grid item>
-                <UnderlinedLink to="/blog">
-                  <FormattedMessage {...messages.blogLink} />
-                </UnderlinedLink>
-              </Grid>
-              <Grid item>
                 <UnderlinedLink to="/about">
                   <FormattedMessage {...messages.aboutLink} />
                 </UnderlinedLink>
               </Grid>
-              <Grid item>
-                <UnderlinedLink to={Routes.ADD_ADMIN}>Add Admin</UnderlinedLink>
-              </Grid>
-              <Grid item>
-                <UnderlinedLink to={Routes.POST_FORM}>
-                  <FormattedMessage {...messages.newPostLink} />
-                </UnderlinedLink>
-              </Grid>
+              <AuthorizationCheck
+                userRoles={authUser?.roles}
+                authorizedRoles={[UserRole.Admin]}
+              >
+                <Grid item>
+                  <UnderlinedLink to={Routes.ADD_ADMIN}>
+                    Add Admin
+                  </UnderlinedLink>
+                </Grid>
+              </AuthorizationCheck>
+
+              <AuthorizationCheck
+                userRoles={authUser?.roles}
+                authorizedRoles={[UserRole.Admin]}
+              >
+                <Grid item>
+                  <UnderlinedLink to={Routes.POST_FORM}>
+                    <FormattedMessage {...messages.newPostLink} />
+                  </UnderlinedLink>
+                </Grid>
+              </AuthorizationCheck>
             </Grid>
           </Grid>
 
