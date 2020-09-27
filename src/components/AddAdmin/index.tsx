@@ -50,7 +50,7 @@ const AddAdmin: React.FC<Props> = () => {
           onSubmit={(values, actions) => {
             setIsLoading(true);
             firebase
-              .doAddAdminRole(values.email)
+              .doAddAdminRole(values)
               .then(() => {
                 setIsLoading(false);
                 enqueueSnackbar(

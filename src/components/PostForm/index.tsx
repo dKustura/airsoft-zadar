@@ -188,18 +188,18 @@ const PostForm: React.FC<Props> = () => {
             let postRequest;
             // If is edit operation
             if (id) {
-              postRequest = firebase.doUpdatePost(
-                id,
+              postRequest = firebase.doUpdatePost({
+                uid: id,
                 thumbnailUrl,
-                values.title,
-                newContent
-              );
+                title: values.title,
+                content: newContent,
+              });
             } else {
-              postRequest = firebase.doCreatePost(
+              postRequest = firebase.doCreatePost({
                 thumbnailUrl,
-                values.title,
-                values.content
-              );
+                title: values.title,
+                content: values.content,
+              });
             }
 
             postRequest

@@ -9,7 +9,19 @@ import { get, all, collection } from 'typesaurus';
 import firebaseConfig from './config';
 import { functionNames } from './constants';
 import { User } from 'types';
-import { Post } from './types';
+import {
+  AdminRoleSetRequest,
+  MemberRoleSetRequest,
+  Post,
+  PostCreateRequest,
+  PostDeleteRequest,
+  PostUpdateRequest,
+  RoleAddRequest,
+  RoleRemoveRequest,
+} from './types';
+import { createFunction } from './utils';
+
+firebase.initializeApp(firebaseConfig);
 
 class Firebase {
   public emailAuthProvider: typeof firebase.auth.EmailAuthProvider;
@@ -22,8 +34,6 @@ class Firebase {
   public twitterProvider: firebase.auth.TwitterAuthProvider;
 
   constructor() {
-    firebase.initializeApp(firebaseConfig);
-
     /* Helper */
     this.emailAuthProvider = firebase.auth.EmailAuthProvider;
 
@@ -119,7 +129,7 @@ class Firebase {
   // TODO idea:
   // Add custom hook that fetches last N notifications
   // and listens (onSnapshot) for new notifications
-  // id this turns ugly, try redux-firestore with react-redux-firebase
+  // if this turns ugly, try redux-firestore with react-redux-firebase
   // Plus an additional cloud function which returns the number of unread notifications
 
   users = () => this.firestore.collection('users');
@@ -145,66 +155,47 @@ class Firebase {
 
   //******* Functions API *******//
 
+  //// Role Management
+
   // Admin role
-  doAddAdminRole = (email: string) =>
-    this.functions.httpsCallable(functionNames.ADD_ADMIN_ROLE_FUNCTION)({
-      email,
-    });
+  doAddAdminRole = createFunction<RoleAddRequest>(
+    functionNames.ADD_ADMIN_ROLE_FUNCTION
+  );
 
-  doRemoveAdminRole = (email: string) =>
-    this.functions.httpsCallable(functionNames.REMOVE_ADMIN_ROLE_FUNCTION)({
-      email,
-    });
+  doRemoveAdminRole = createFunction<RoleAddRequest>(
+    functionNames.REMOVE_ADMIN_ROLE_FUNCTION
+  );
 
-  doSetAdminRole = (email: string, admin: boolean) =>
-    this.functions.httpsCallable(functionNames.SET_ADMIN_ROLE_FUNCTION)({
-      email,
-      admin,
-    });
+  doSetAdminRole = createFunction<AdminRoleSetRequest>(
+    functionNames.SET_ADMIN_ROLE_FUNCTION
+  );
 
   // Member role
-  doAddMemberRole = (email: string) =>
-    this.functions.httpsCallable(functionNames.ADD_MEMBER_ROLE_FUNCTION)({
-      email,
-    });
+  doAddMemberRole = createFunction<RoleAddRequest>(
+    functionNames.ADD_MEMBER_ROLE_FUNCTION
+  );
 
-  doRemoveMemberRole = (email: string) =>
-    this.functions.httpsCallable(functionNames.REMOVE_MEMBER_ROLE_FUNCTION)({
-      email,
-    });
+  doRemoveMemberRole = createFunction<RoleRemoveRequest>(
+    functionNames.REMOVE_MEMBER_ROLE_FUNCTION
+  );
 
-  doSetMemberRole = (email: string, member: boolean) =>
-    this.functions.httpsCallable(functionNames.SET_MEMBER_ROLE_FUNCTION)({
-      email,
-      member,
-    });
+  doSetMemberRole = createFunction<MemberRoleSetRequest>(
+    functionNames.SET_MEMBER_ROLE_FUNCTION
+  );
 
-  // Post Management
-  // TODO: set appropriate type for post content
-  doCreatePost = (thumbnailUrl: string, title: string, content: any) =>
-    this.functions.httpsCallable(functionNames.CREATE_POST_FUNCTION)({
-      thumbnailUrl,
-      title,
-      content,
-    });
+  //// Post Management
 
-  doUpdatePost = (
-    uid: string,
-    thumbnailUrl: string,
-    title: string,
-    content: any
-  ) =>
-    this.functions.httpsCallable(functionNames.UPDATE_POST_FUNCTION)({
-      uid,
-      thumbnailUrl,
-      title,
-      content,
-    });
+  doCreatePost = createFunction<PostCreateRequest>(
+    functionNames.CREATE_POST_FUNCTION
+  );
 
-  doDeletePost = (uid: string) =>
-    this.functions.httpsCallable(functionNames.DELETE_POST_FUNCTION)({
-      uid,
-    });
+  doUpdatePost = createFunction<PostUpdateRequest>(
+    functionNames.UPDATE_POST_FUNCTION
+  );
+
+  doDeletePost = createFunction<PostDeleteRequest>(
+    functionNames.DELETE_POST_FUNCTION
+  );
 
   doUploadImage = (url: string) => {
     const storageRef = this.storage.ref();
