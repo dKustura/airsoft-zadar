@@ -7,10 +7,10 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 import { HashRouter } from 'react-router-dom';
-import Firebase, { FirebaseProvider } from 'components/Firebase';
+import { FirebaseInstance, FirebaseProvider } from 'components/Firebase';
 
 const ROOT_COMPONENT = 'root';
-const firebase = new Firebase();
+const firebase = FirebaseInstance;
 
 ReactDOM.render(
   <Provider store={store}>

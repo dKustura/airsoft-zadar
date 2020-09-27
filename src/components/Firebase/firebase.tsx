@@ -4,10 +4,12 @@ import 'firebase/firestore';
 import 'firebase/functions';
 import 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
+import { get, all, collection } from 'typesaurus';
 
 import firebaseConfig from './config';
 import { functionNames } from './constants';
 import { User } from 'types';
+import { Post } from './types';
 
 class Firebase {
   public emailAuthProvider: typeof firebase.auth.EmailAuthProvider;
@@ -124,24 +126,22 @@ class Firebase {
 
   getUser = (uid: string) => this.users().doc(uid).get();
 
-  posts = () => this.firestore.collection('posts');
+  posts = collection<Post>('posts');
 
   getAllPosts = () =>
-    this.posts()
-      .get()
-      .then((snapshot) => {
-        const dataArray: any[] = [];
-        snapshot.forEach((doc) => {
-          const data = {
-            id: doc.id,
-            ...doc.data(),
-          };
-          dataArray.push(data);
-        });
-        return dataArray;
+    all(this.posts).then((snapshot) => {
+      const dataArray: any[] = [];
+      snapshot.forEach((doc) => {
+        const data = {
+          id: doc.ref.id,
+          ...doc.data,
+        };
+        dataArray.push(data);
       });
+      return dataArray;
+    });
 
-  getPost = (uid: string) => this.posts().doc(uid).get();
+  getPost = (uid: string) => get(this.posts, uid);
 
   //******* Functions API *******//
 
@@ -188,9 +188,15 @@ class Firebase {
       content,
     });
 
-  doUpdatePost = (uid: string, title: string, content: any) =>
+  doUpdatePost = (
+    uid: string,
+    thumbnailUrl: string,
+    title: string,
+    content: any
+  ) =>
     this.functions.httpsCallable(functionNames.UPDATE_POST_FUNCTION)({
       uid,
+      thumbnailUrl,
       title,
       content,
     });
@@ -224,3 +230,5 @@ class Firebase {
 }
 
 export default Firebase;
+
+export const FirebaseInstance = new Firebase();

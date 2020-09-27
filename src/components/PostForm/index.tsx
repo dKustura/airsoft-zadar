@@ -42,6 +42,7 @@ import { uploadAndReplaceImages } from './helpers';
 // Types
 import { FirebaseError } from 'firebase';
 import { PostSchemaType, RouteParams } from './types';
+import { Post } from 'components/Firebase/types';
 
 interface Props {}
 
@@ -53,6 +54,9 @@ const PostForm: React.FC<Props> = () => {
   const [lastLocation, setLastLocation] = useState<Location | null>(null);
   const [confirmedNavigation, setConfirmedNavigation] = useState(false);
   const [thumbnail, setThumbnail] = useState<string>();
+  const [initialPostDocumentData, setInitialPostDocumentData] = useState<
+    Post
+  >();
   const [initialPost, setInitialPost] = useState<PostSchemaType>(
     DEFAULT_POST_FORM_VALUES
   );
@@ -74,20 +78,20 @@ const PostForm: React.FC<Props> = () => {
   useEffect(() => {
     if (id) {
       setIsLoadingEditPost(true);
-
       firebase
         .getPost(id)
         .then((post) => {
-          const postData = post.data();
-          if (!postData) {
+          const postDocumentData = post?.data;
+          if (!postDocumentData) {
             history.push(Routes.HOME);
           } else {
             const post: PostSchemaType = {
-              title: postData.title,
-              content: postData.content,
+              title: postDocumentData.title,
+              content: postDocumentData.content,
             };
+            setInitialPostDocumentData(postDocumentData);
             setInitialPost(post);
-            setThumbnail(postData.thumbnailUrl);
+            setThumbnail(postDocumentData.thumbnailUrl);
             setIsLoadingEditPost(false);
           }
         })
@@ -119,6 +123,11 @@ const PostForm: React.FC<Props> = () => {
   const uploadThumbnail = useCallback(() => {
     if (!thumbnail) return null;
 
+    // If the thumbnail hasn't changed return initial thumbnail URL
+    if (thumbnail === initialPostDocumentData?.thumbnailUrl) {
+      return Promise.resolve(thumbnail);
+    }
+
     const uploadTask = firebase.doUploadThumbnail(thumbnail);
 
     return uploadTask.then(
@@ -129,7 +138,7 @@ const PostForm: React.FC<Props> = () => {
         // TODO: handle thumbnail upload error
       }
     );
-  }, [firebase, thumbnail]);
+  }, [firebase, thumbnail, initialPostDocumentData]);
 
   // TODO: Extract navigation block to a separate component
   const handleNavigationBlock = useCallback(
@@ -176,14 +185,29 @@ const PostForm: React.FC<Props> = () => {
             uploadAndReplaceImages(values.content, firebase),
             uploadThumbnail(),
           ]).then(([newContent, thumbnailUrl]) => {
-            // TODO: Differentiate between CREATE post and UPDATE post operations
-            firebase
-              .doCreatePost(thumbnailUrl, values.title, newContent)
+            let postRequest;
+            // If is edit operation
+            if (id) {
+              postRequest = firebase.doUpdatePost(
+                id,
+                thumbnailUrl,
+                values.title,
+                newContent
+              );
+            } else {
+              postRequest = firebase.doCreatePost(
+                thumbnailUrl,
+                values.title,
+                values.content
+              );
+            }
+
+            postRequest
               .then(() => {
                 setIsLoading(false);
                 setIsPostSaved(true);
-                enqueueSnackbar('Blog post created', successNotification);
-                history.push(Routes.HOME);
+                enqueueSnackbar('Blog post saved.', successNotification);
+                // history.push(Routes.HOME);
               })
               .catch((error: FirebaseError) => {
                 setIsLoading(false);

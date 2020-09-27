@@ -5,7 +5,7 @@ import {
   WithFirebaseProps as WithFirebasePropsType,
   useFirebase,
 } from './context';
-import Firebase from './firebase';
+import Firebase, { FirebaseInstance } from './firebase';
 
 export default Firebase;
 
@@ -14,6 +14,7 @@ export {
   Consumer as FirebaseConsumer,
   withFirebase,
   useFirebase,
+  FirebaseInstance,
 };
 
 export type WithFirebaseProps = WithFirebasePropsType;

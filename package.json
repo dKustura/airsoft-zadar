@@ -42,6 +42,7 @@
     "slate-history": "^0.57.1",
     "slate-react": "^0.57.1",
     "typesafe-actions": "4.4.2",
+    "typesaurus": "^6.2.0",
     "typescript": "3.7.2",
     "uuid": "^7.0.2",
     "valid-data-url": "^2.0.0",

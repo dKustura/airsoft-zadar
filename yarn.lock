@@ -12281,6 +12281,11 @@ typesafe-actions@4.4.2:
   resolved "https://registry.yarnpkg.com/typesafe-actions/-/typesafe-actions-4.4.2.tgz#8f817c479d12130b5ebb442032968b2a18929e1a"
   integrity sha512-QW61P4cOX8dCNmrfpcUMjvU/MF/sFTC8/PlG9215W1gKDzZUBjRGdyYSO6ZcEUNsn491S2VpryJOHSIVSDqJrg==
 
+typesaurus@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/typesaurus/-/typesaurus-6.2.0.tgz#62869d4b9bce1f8951652c11b44db6e015f74d70"
+  integrity sha512-hgYHvD3nN823TrFrGYmuQ7ibzswr4xHLozbmq+/vPY4mU75cFlWixC4TDVI89jcQ4clQ5o0z5fdrYpy+vGUU6Q==
+
 typescript@3.7.2:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.2.tgz#27e489b95fa5909445e9fef5ee48d81697ad18fb"

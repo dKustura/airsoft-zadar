@@ -52,7 +52,7 @@ const PostView: React.FC<Props> = ({ authUser }) => {
     firebase
       .getPost(id)
       .then((post) => {
-        const postData = post.data();
+        const postData = post?.data;
         if (!postData) {
           history.push(Routes.HOME);
         } else {
