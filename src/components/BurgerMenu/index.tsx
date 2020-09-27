@@ -12,8 +12,8 @@ import { setLocale } from 'actions/locale';
 
 // Components
 import { Grid, Button, Tooltip, Zoom, IconButton } from '@material-ui/core';
-import SunIcon from '@material-ui/icons/Brightness7';
-import MoonIcon from '@material-ui/icons/Brightness2';
+import SunIcon from '@material-ui/icons/WbSunny';
+import MoonIcon from '@material-ui/icons/NightsStay';
 import BurgerMenuIcon from 'components/BurgerMenuIcon';
 import UnderlinedLink from 'components/UnderlinedLink';
 import UserMenu from 'components/UserMenu';
@@ -100,7 +100,7 @@ const BurgerMenu: React.FC<Props> = ({
               color="inherit"
               onClick={() => toggleTheme()}
             >
-              {theme === ThemeMode.Light ? <MoonIcon /> : <SunIcon />}
+              {theme === ThemeMode.Light ? <SunIcon /> : <MoonIcon />}
             </IconButton>
           </Tooltip>
         </Grid>
@@ -144,7 +144,7 @@ const BurgerMenu: React.FC<Props> = ({
           </UnderlinedLink>
         </Grid>
         <Grid item>
-          <UnderlinedLink to="/about" variant="h4">
+          <UnderlinedLink to={Routes.ABOUT} variant="h4">
             <FormattedMessage {...messages.aboutLink} />
           </UnderlinedLink>
         </Grid>
@@ -163,7 +163,7 @@ const BurgerMenu: React.FC<Props> = ({
           authorizedRoles={[UserRole.Admin]}
         >
           <Grid item>
-            <UnderlinedLink to={Routes.POST_FORM} variant="h4">
+            <UnderlinedLink to={Routes.POST_NEW} variant="h4">
               <FormattedMessage {...messages.newPostLink} />
             </UnderlinedLink>
           </Grid>

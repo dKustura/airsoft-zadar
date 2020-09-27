@@ -12,6 +12,7 @@ const PostRoute: React.FC<Props> = () => {
   return (
     <Switch>
       <Route path={`${match.path}/new`} component={PostForm} />
+      <Route path={`${match.path}/edit/:id`} component={PostForm} />
       <Route path={`${match.path}/:id`} component={PostView} />
       <Redirect to={Routes.HOME} />
     </Switch>

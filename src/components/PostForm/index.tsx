@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState, useCallback, useEffect } from 'react';
-import { Prompt, useHistory, useLocation } from 'react-router-dom';
+import { Prompt, useHistory, useLocation, useParams } from 'react-router-dom';
+import { FormattedMessage, useIntl, MessageDescriptor } from 'react-intl';
 import { Action, Location } from 'history';
 import { Formik, Form, Field, FieldProps } from 'formik';
 
@@ -23,24 +24,24 @@ import {
 import CustomEditor from 'components/CustomEditor';
 import PopupDialog from 'components/PopupDialog';
 import PostPreview from './PostPreview';
+import Thumbnail from './Thumbnail';
 
 // Icons
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import SendIcon from '@material-ui/icons/Send';
 
 // Helpers
+import messages from './messages';
 import { useStyles } from './styles';
-import { INITIAL_POST_FORM_VALUES } from './constants';
+import { DEFAULT_POST_FORM_VALUES } from './constants';
 import { successNotification, errorNotification } from 'helpers/snackbar';
 import { postSchema } from './validation/schema';
 import { Routes } from 'helpers/constants';
+import { uploadAndReplaceImages } from './helpers';
 
 // Types
 import { FirebaseError } from 'firebase';
-import { FormattedMessage, useIntl, MessageDescriptor } from 'react-intl';
-import messages from './messages';
-import { uploadAndReplaceImages } from './helpers';
-import Thumbnail from './Thumbnail';
+import { PostSchemaType, RouteParams } from './types';
 
 interface Props {}
 
@@ -52,7 +53,12 @@ const PostForm: React.FC<Props> = () => {
   const [lastLocation, setLastLocation] = useState<Location | null>(null);
   const [confirmedNavigation, setConfirmedNavigation] = useState(false);
   const [thumbnail, setThumbnail] = useState<string>();
+  const [initialPost, setInitialPost] = useState<PostSchemaType>(
+    DEFAULT_POST_FORM_VALUES
+  );
+  const [isLoadingEditPost, setIsLoadingEditPost] = useState(false);
 
+  const { id } = useParams<RouteParams>();
   const firebase = useFirebase();
   const { enqueueSnackbar } = useSnackbar();
   const classes = useStyles();
@@ -64,6 +70,35 @@ const PostForm: React.FC<Props> = () => {
   const intl = useIntl();
   const history = useHistory();
   const location = useLocation();
+
+  useEffect(() => {
+    if (id) {
+      setIsLoadingEditPost(true);
+
+      firebase
+        .getPost(id)
+        .then((post) => {
+          const postData = post.data();
+          if (!postData) {
+            history.push(Routes.HOME);
+          } else {
+            const post: PostSchemaType = {
+              title: postData.title,
+              content: postData.content,
+            };
+            setInitialPost(post);
+            setThumbnail(postData.thumbnailUrl);
+            setIsLoadingEditPost(false);
+          }
+        })
+        .catch(() => {
+          enqueueSnackbar(
+            'An error occurred while loading post.',
+            errorNotification
+          );
+        });
+    }
+  }, [enqueueSnackbar, firebase, history, id]);
 
   const onPreviewClick = useCallback(() => {
     setIsPreview(true);
@@ -96,6 +131,7 @@ const PostForm: React.FC<Props> = () => {
     );
   }, [firebase, thumbnail]);
 
+  // TODO: Extract navigation block to a separate component
   const handleNavigationBlock = useCallback(
     (nextLocation: Location, action: Action): boolean => {
       if (action === 'POP' && isPreview) {
@@ -127,187 +163,194 @@ const PostForm: React.FC<Props> = () => {
     }
   }, [confirmedNavigation, lastLocation, history]);
 
-  return (
-    <Formik
-      initialValues={INITIAL_POST_FORM_VALUES}
-      validationSchema={postSchema}
-      onSubmit={(values, actions) => {
-        setIsLoading(true);
+  if (!id || !isLoadingEditPost) {
+    return (
+      <Formik
+        initialValues={initialPost}
+        validationSchema={postSchema}
+        onSubmit={(values, actions) => {
+          setIsLoading(true);
 
-        // TODO: handle image upload errors
-        Promise.all([
-          uploadAndReplaceImages(values.content, firebase),
-          uploadThumbnail(),
-        ]).then(([newContent, thumbnailUrl]) => {
-          firebase
-            .doCreatePost(thumbnailUrl, values.title, newContent)
-            .then(() => {
-              setIsLoading(false);
-              setIsPostSaved(true);
-              enqueueSnackbar('Blog post created', successNotification);
-              history.push(Routes.HOME);
-            })
-            .catch((error: FirebaseError) => {
-              setIsLoading(false);
-              actions.setSubmitting(false);
-              enqueueSnackbar(error.message, errorNotification);
-            });
-        });
-      }}
-    >
-      <Container component="main" maxWidth="md">
-        <Prompt message={handleNavigationBlock} />
-        <PopupDialog
-          isOpen={isModalVisible}
-          title={intl.formatMessage(messages.dialogTitle as MessageDescriptor)}
-          description={intl.formatMessage(
-            messages.dialogDescription as MessageDescriptor
-          )}
-          cancelLabel={intl.formatMessage(
-            messages.dialogCancel as MessageDescriptor
-          )}
-          confirmLabel={intl.formatMessage(
-            messages.dialogConfirm as MessageDescriptor
-          )}
-          handleClose={closeModal}
-          handleConfirm={handleConfirmNavigationClick}
-        />
-        <Grid container className={classes.paper}>
-          {isPreview ? (
-            <PostPreview onExit={onPreviewExit} />
-          ) : (
-            <>
-              <Grid container wrap="wrap-reverse" alignItems="center">
-                <Grid
-                  container
-                  item
-                  sm={12}
-                  md={6}
-                  justify={isSmallScreen ? 'center' : 'flex-start'}
-                >
-                  <Grid item>
-                    <Thumbnail
-                      src={thumbnail}
-                      onSelection={onThumbnailSelection}
-                      shouldCloseDialogs={isModalVisible}
-                    />
+          // TODO: handle image upload errors
+          Promise.all([
+            uploadAndReplaceImages(values.content, firebase),
+            uploadThumbnail(),
+          ]).then(([newContent, thumbnailUrl]) => {
+            // TODO: Differentiate between CREATE post and UPDATE post operations
+            firebase
+              .doCreatePost(thumbnailUrl, values.title, newContent)
+              .then(() => {
+                setIsLoading(false);
+                setIsPostSaved(true);
+                enqueueSnackbar('Blog post created', successNotification);
+                history.push(Routes.HOME);
+              })
+              .catch((error: FirebaseError) => {
+                setIsLoading(false);
+                actions.setSubmitting(false);
+                enqueueSnackbar(error.message, errorNotification);
+              });
+          });
+        }}
+      >
+        <Container component="main" maxWidth="md">
+          <Prompt message={handleNavigationBlock} />
+          <PopupDialog
+            isOpen={isModalVisible}
+            title={intl.formatMessage(
+              messages.dialogTitle as MessageDescriptor
+            )}
+            description={intl.formatMessage(
+              messages.dialogDescription as MessageDescriptor
+            )}
+            cancelLabel={intl.formatMessage(
+              messages.dialogCancel as MessageDescriptor
+            )}
+            confirmLabel={intl.formatMessage(
+              messages.dialogConfirm as MessageDescriptor
+            )}
+            handleClose={closeModal}
+            handleConfirm={handleConfirmNavigationClick}
+          />
+          <Grid container className={classes.paper}>
+            {isPreview ? (
+              <PostPreview onExit={onPreviewExit} />
+            ) : (
+              <>
+                <Grid container wrap="wrap-reverse" alignItems="center">
+                  <Grid
+                    container
+                    item
+                    sm={12}
+                    md={6}
+                    justify={isSmallScreen ? 'center' : 'flex-start'}
+                  >
+                    <Grid item>
+                      <Thumbnail
+                        src={thumbnail}
+                        onSelection={onThumbnailSelection}
+                        shouldCloseDialogs={isModalVisible}
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid container item sm={12} md={6} justify="center">
+                    <Grid item>
+                      <Typography variant="h1" style={{ textAlign: 'center' }}>
+                        <FormattedMessage {...messages.createNewPost} />
+                      </Typography>
+                    </Grid>
                   </Grid>
                 </Grid>
-                <Grid container item sm={12} md={6} justify="center">
-                  <Grid item>
-                    <Typography variant="h1" style={{ textAlign: 'center' }}>
-                      <FormattedMessage {...messages.createNewPost} />
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Grid>
 
-              <Form className={classes.form}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <Field name="title">
-                      {({
-                        field,
-                        meta: { touched, error },
-                      }: FieldProps<any>) => (
-                        <TextField
-                          {...field}
-                          label={intl.formatMessage(
-                            messages.titleLabel as MessageDescriptor
-                          )}
-                          multiline
-                          variant="outlined"
-                          fullWidth
-                          autoFocus
-                          required
-                          InputProps={{
-                            classes: {
-                              multiline: classes.titleInput,
-                            },
-                          }}
-                          InputLabelProps={{
-                            classes: {
-                              root: classes.titleInputLabel,
-                              shrink: classes.titleInputLabelShrinked,
-                            },
-                          }}
-                          onKeyPress={(event) => {
-                            if (event.key === 'Enter') {
-                              event.preventDefault();
-                            }
-                          }}
-                          error={touched && !!error}
-                          helperText={touched && error ? error : ' '}
-                        />
-                      )}
-                    </Field>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Field name="content">
-                      {({
-                        field,
-                        meta: { touched, error },
-                        form,
-                      }: FieldProps<any>) => (
-                        <>
-                          <CustomEditor
+                <Form className={classes.form}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <Field name="title">
+                        {({
+                          field,
+                          meta: { touched, error },
+                        }: FieldProps<any>) => (
+                          <TextField
                             {...field}
-                            onChange={(value) =>
-                              form.setFieldValue('content', value)
-                            }
-                            onBlur={form.handleBlur('content')}
+                            label={intl.formatMessage(
+                              messages.titleLabel as MessageDescriptor
+                            )}
+                            multiline
+                            variant="outlined"
+                            fullWidth
+                            autoFocus
+                            required
+                            InputProps={{
+                              classes: {
+                                multiline: classes.titleInput,
+                              },
+                            }}
+                            InputLabelProps={{
+                              classes: {
+                                root: classes.titleInputLabel,
+                                shrink: classes.titleInputLabelShrinked,
+                              },
+                            }}
+                            onKeyPress={(event) => {
+                              if (event.key === 'Enter') {
+                                event.preventDefault();
+                              }
+                            }}
                             error={touched && !!error}
+                            helperText={touched && error ? error : ' '}
                           />
-                          {
-                            <FormHelperText error>
-                              {touched && error ? error : ' '}
-                            </FormHelperText>
-                          }
-                        </>
-                      )}
-                    </Field>
-                  </Grid>
-                  <Grid container spacing={2} justify="center">
-                    <Grid item xs={12} sm={4}>
-                      <Button
-                        variant="contained"
-                        startIcon={<VisibilityIcon />}
-                        fullWidth
-                        onClick={onPreviewClick}
-                      >
-                        <FormattedMessage {...messages.preview} />
-                      </Button>
-                    </Grid>
-                    <Grid item xs={12} sm={4}>
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                        disabled={isLoading}
-                        startIcon={<SendIcon />}
-                        fullWidth
-                      >
-                        {isLoading ? (
-                          <CircularProgress
-                            color="secondary"
-                            size={24}
-                            thickness={6}
-                          />
-                        ) : (
-                          <FormattedMessage {...messages.submitButton} />
                         )}
-                      </Button>
+                      </Field>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Field name="content">
+                        {({
+                          field,
+                          meta: { touched, error },
+                          form,
+                        }: FieldProps<any>) => (
+                          <>
+                            <CustomEditor
+                              {...field}
+                              onChange={(value) =>
+                                form.setFieldValue('content', value)
+                              }
+                              onBlur={form.handleBlur('content')}
+                              error={touched && !!error}
+                            />
+                            {
+                              <FormHelperText error>
+                                {touched && error ? error : ' '}
+                              </FormHelperText>
+                            }
+                          </>
+                        )}
+                      </Field>
+                    </Grid>
+                    <Grid container spacing={2} justify="center">
+                      <Grid item xs={12} sm={4}>
+                        <Button
+                          variant="contained"
+                          startIcon={<VisibilityIcon />}
+                          fullWidth
+                          onClick={onPreviewClick}
+                        >
+                          <FormattedMessage {...messages.preview} />
+                        </Button>
+                      </Grid>
+                      <Grid item xs={12} sm={4}>
+                        <Button
+                          type="submit"
+                          variant="contained"
+                          color="primary"
+                          className={classes.submit}
+                          disabled={isLoading}
+                          startIcon={<SendIcon />}
+                          fullWidth
+                        >
+                          {isLoading ? (
+                            <CircularProgress
+                              color="secondary"
+                              size={24}
+                              thickness={6}
+                            />
+                          ) : (
+                            <FormattedMessage {...messages.submitButton} />
+                          )}
+                        </Button>
+                      </Grid>
                     </Grid>
                   </Grid>
-                </Grid>
-              </Form>
-            </>
-          )}
-        </Grid>
-      </Container>
-    </Formik>
-  );
+                </Form>
+              </>
+            )}
+          </Grid>
+        </Container>
+      </Formik>
+    );
+  } else {
+    return null;
+  }
 };
 
 export default withEmailVerification(PostForm);

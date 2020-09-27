@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import classnames from 'classnames';
 import './App.scss';
 
 // Providers
@@ -48,6 +49,7 @@ const onClickDismiss = (key: string | number | undefined) => () => {
 
 const App: React.FC<Props> = ({ authUser }) => {
   const classes = useStyles();
+  const location = useLocation();
 
   const isSmallScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('sm')
@@ -78,7 +80,13 @@ const App: React.FC<Props> = ({ authUser }) => {
         <title>Airsoft Klub Zadar</title>
       </Helmet>
 
-      <div className="wrapper">
+      <div
+        className={classnames({
+          'parallax-wrapper':
+            location.pathname === Routes.HOME ||
+            location.pathname === Routes.ABOUT,
+        })}
+      >
         {isSmallScreen ? <BurgerMenu /> : <Header />}
 
         <Switch>
@@ -87,7 +95,7 @@ const App: React.FC<Props> = ({ authUser }) => {
             <Redirect from={Routes.EMAIL_CONFIRMATION} to={Routes.HOME} />
           )}
           {!authUser && <Redirect from={Routes.ADD_ADMIN} to={Routes.HOME} />}
-          {!authUser && <Redirect from={Routes.POST_FORM} to={Routes.HOME} />}
+          {!authUser && <Redirect from={Routes.POST_NEW} to={Routes.HOME} />}
 
           <Route path={Routes.POST} component={PostRoute} />
           <Route path={Routes.ADD_ADMIN} component={AddAdmin} />

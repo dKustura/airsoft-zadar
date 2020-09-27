@@ -15,8 +15,8 @@ import {
   Tooltip,
   Zoom,
 } from '@material-ui/core';
-import SunIcon from '@material-ui/icons/Brightness7';
-import MoonIcon from '@material-ui/icons/Brightness2';
+import SunIcon from '@material-ui/icons/WbSunny';
+import MoonIcon from '@material-ui/icons/NightsStay';
 import UserMenu from 'components/UserMenu';
 import LocaleMenu from 'components/LocaleMenu';
 import UnderlinedLink from 'components/UnderlinedLink';
@@ -75,7 +75,7 @@ const Header: React.FC<Props> = ({
                 </UnderlinedLink>
               </Grid>
               <Grid item>
-                <UnderlinedLink to="/about">
+                <UnderlinedLink to={Routes.ABOUT}>
                   <FormattedMessage {...messages.aboutLink} />
                 </UnderlinedLink>
               </Grid>
@@ -95,7 +95,7 @@ const Header: React.FC<Props> = ({
                 authorizedRoles={[UserRole.Admin]}
               >
                 <Grid item>
-                  <UnderlinedLink to={Routes.POST_FORM}>
+                  <UnderlinedLink to={Routes.POST_NEW}>
                     <FormattedMessage {...messages.newPostLink} />
                   </UnderlinedLink>
                 </Grid>
@@ -123,7 +123,7 @@ const Header: React.FC<Props> = ({
                     color="inherit"
                     onClick={() => toggleTheme()}
                   >
-                    {theme === ThemeMode.Light ? <MoonIcon /> : <SunIcon />}
+                    {theme === ThemeMode.Light ? <SunIcon /> : <MoonIcon />}
                   </IconButton>
                 </Tooltip>
               </Grid>

@@ -1,6 +1,6 @@
 import { PostSchemaType } from './types';
 
-export const INITIAL_POST_FORM_VALUES: PostSchemaType = {
+export const DEFAULT_POST_FORM_VALUES: PostSchemaType = {
   title: '',
   content: [
     {
