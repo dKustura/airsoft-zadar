@@ -20,8 +20,8 @@ This app is developed to share our adventures, updates to our gear, to organize 
 
 If you are interested in what out app looks like, but don't want to run the project, check out links below:
 
-- [Guest view](<#guest-view-(desktop)>)
-- [Member view](<#member-view-(desktop + mobile)>)
+- [Guest view](#guest-view)
+- [Member view](#member-view)
 
 Some of the currently implemented and planned features are:
 
@@ -37,14 +37,21 @@ Some of the currently implemented and planned features are:
 - Contacts 🚧
 - Admin panel 🚧
 
-## Guest view (Desktop)
+## Guest view
 
 <img src="./docs/guest.gif" />
 
-## Member view (Desktop + Mobile)
+## Member view
 
-<img src="./docs/member.gif" height="390" />
-<img src="./docs/mobile.gif" height="390" />
+### Desktop
+
+<img src="./docs/member.gif" />
+
+### Mobile
+
+<p align="center">
+  <img src="./docs/mobile.gif" height="500"/>
+</p>
 
 Before running the project install project dependencies by running:
 
