@@ -28,7 +28,7 @@ const Dropzone: React.FC<Props> = ({
   onDropRejected,
   multiple,
 }) => {
-  const { getRootProps, getInputProps, open } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     multiple,
     accept: 'image/*',
     onDropAccepted,
@@ -68,7 +68,6 @@ const Dropzone: React.FC<Props> = ({
           <Button
             variant="contained"
             color="primary"
-            onClick={open}
             style={{ textTransform: 'none' }}
           >
             {isMultiple ? (

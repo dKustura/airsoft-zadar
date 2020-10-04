@@ -40,7 +40,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     socialSpan: {
       backgroundColor: theme.palette.background.default,
-      transition: 'all 0.2s ease-in-out',
+      transition: 'background-color 0.2s ease-in-out',
       padding: `0 ${theme.spacing(1)}px`,
     },
     copyright: {

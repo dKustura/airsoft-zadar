@@ -148,7 +148,7 @@ const BurgerMenu: React.FC<Props> = ({
             <FormattedMessage {...messages.aboutLink} />
           </UnderlinedLink>
         </Grid>
-        <AuthorizationCheck
+        {/* <AuthorizationCheck
           userRoles={authUser?.roles}
           authorizedRoles={[UserRole.Admin]}
         >
@@ -157,7 +157,7 @@ const BurgerMenu: React.FC<Props> = ({
               Add Admin
             </UnderlinedLink>
           </Grid>
-        </AuthorizationCheck>
+        </AuthorizationCheck> */}
         <AuthorizationCheck
           userRoles={authUser?.roles}
           authorizedRoles={[UserRole.Admin]}

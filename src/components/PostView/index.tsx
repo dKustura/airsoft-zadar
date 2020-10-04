@@ -7,13 +7,7 @@ import { useSnackbar } from 'notistack';
 // Components
 import PostRead from 'components/PostRead';
 import { useFirebase } from 'components/Firebase';
-import {
-  Button,
-  Container,
-  Fab,
-  useMediaQuery,
-  Theme,
-} from '@material-ui/core';
+import { Container, Fab, useMediaQuery, Theme, Grid } from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
 import EditIcon from '@material-ui/icons/Edit';
 import AuthorizationCheck from 'components/AuthorizationCheck';
@@ -70,38 +64,40 @@ const PostView: React.FC<Props> = ({ authUser }) => {
   if (post) {
     return (
       <>
-        <AuthorizationCheck
-          userRoles={authUser?.roles}
-          authorizedRoles={[UserRole.Admin]}
-        >
-          {isSmallScreen ? (
-            <Fab
-              color="secondary"
-              aria-label="edit"
-              className={classes.smallScreenEditButton}
-              onClick={redirectToPostEdit}
+        <Container component="main" maxWidth="md">
+          <Grid container>
+            <AuthorizationCheck
+              userRoles={authUser?.roles}
+              authorizedRoles={[UserRole.Admin]}
             >
-              <EditIcon />
-            </Fab>
-          ) : (
-            <div className={classes.bigScreenEditButtonContainer}>
-              <div className={classes.bigScreenEditButton}>
-                <Button
+              {isSmallScreen ? (
+                <Fab
                   color="primary"
-                  variant="contained"
-                  startIcon={<CreateIcon />}
-                  fullWidth
+                  aria-label="edit"
+                  className={classes.smallScreenEditButton}
                   onClick={redirectToPostEdit}
                 >
-                  <FormattedMessage {...messages.editPost} />
-                </Button>
-              </div>
-            </div>
-          )}
-        </AuthorizationCheck>
-
-        <Container component="main" maxWidth="md">
-          <PostRead title={post.title} content={post.content} />
+                  <EditIcon />
+                </Fab>
+              ) : (
+                <div className={classes.bigScreenEditButtonRelativeContainer}>
+                  <div className={classes.bigScreenEditButtonAbsoluteContainer}>
+                    <div className={classes.bigScreenEditButton}>
+                      <Fab
+                        variant="extended"
+                        color="primary"
+                        onClick={redirectToPostEdit}
+                      >
+                        <CreateIcon className={classes.extendedIcon} />
+                        <FormattedMessage {...messages.editPost} />
+                      </Fab>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </AuthorizationCheck>
+            <PostRead title={post.title} content={post.content} />
+          </Grid>
         </Container>
       </>
     );

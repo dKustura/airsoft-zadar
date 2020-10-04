@@ -42,7 +42,7 @@ import { uploadAndReplaceImages } from './helpers';
 // Types
 import { FirebaseError } from 'firebase';
 import { PostSchemaType, RouteParams } from './types';
-import { Post } from 'components/Firebase/types';
+import { Post, PostCreateRequest } from 'components/Firebase/types';
 
 interface Props {}
 
@@ -121,7 +121,7 @@ const PostForm: React.FC<Props> = () => {
   }, []);
 
   const uploadThumbnail = useCallback(() => {
-    if (!thumbnail) return null;
+    if (!thumbnail) return Promise.resolve(null);
 
     // If the thumbnail hasn't changed return initial thumbnail URL
     if (thumbnail === initialPostDocumentData?.thumbnailUrl) {
@@ -186,20 +186,20 @@ const PostForm: React.FC<Props> = () => {
             uploadThumbnail(),
           ]).then(([newContent, thumbnailUrl]) => {
             let postRequest;
+            let postBody: PostCreateRequest = {
+              thumbnailUrl,
+              title: values.title,
+              content: newContent,
+            };
+
             // If is edit operation
             if (id) {
               postRequest = firebase.doUpdatePost({
                 uid: id,
-                thumbnailUrl,
-                title: values.title,
-                content: newContent,
+                ...postBody,
               });
             } else {
-              postRequest = firebase.doCreatePost({
-                thumbnailUrl,
-                title: values.title,
-                content: values.content,
-              });
+              postRequest = firebase.doCreatePost(postBody);
             }
 
             postRequest
@@ -260,7 +260,11 @@ const PostForm: React.FC<Props> = () => {
                   <Grid container item sm={12} md={6} justify="center">
                     <Grid item>
                       <Typography variant="h1" style={{ textAlign: 'center' }}>
-                        <FormattedMessage {...messages.createNewPost} />
+                        {id ? (
+                          <FormattedMessage {...messages.editPost} />
+                        ) : (
+                          <FormattedMessage {...messages.createNewPost} />
+                        )}
                       </Typography>
                     </Grid>
                   </Grid>

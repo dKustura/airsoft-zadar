@@ -25,7 +25,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       },
     },
     popper: {
-      zIndex: 1,
+      zIndex: 300,
     },
   })
 );
