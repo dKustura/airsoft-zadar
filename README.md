@@ -20,14 +20,31 @@ This app is developed to share our adventures, updates to our gear, to organize 
 
 If you are interested in what out app looks like, but don't want to run the project, check out links below:
 
+- [Guest view](<#guest-view-(desktop)>)
+- [Member view](<#member-view-(desktop + mobile)>)
+
+Some of the currently implemented and planned features are:
+
 - Registration
-- Sign In
+- Sign in
 - Home
-- Blog Post Editor
-- Blog Post (Member View)
-- Blog Post (Guest View)
-- About Us 🚧
+- Dark mode
+- Mobile support
+- Blog post editor
+- Blog post (Member view)
+- Blog post (Guest view)
+- About us 🚧
 - Contacts 🚧
+- Admin panel 🚧
+
+## Guest view (Desktop)
+
+<img src="./docs/guest.gif" />
+
+## Member view (Desktop + Mobile)
+
+<img src="./docs/member.gif" height="390" />
+<img src="./docs/mobile.gif" height="390" />
 
 Before running the project install project dependencies by running:
 
