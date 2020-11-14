@@ -17,6 +17,7 @@ import Header from 'components/Header';
 import AddAdmin from 'components/AddAdmin';
 import EmailAction from 'components/EmailAction';
 import PostRoute from 'components/PostRoute';
+import About from 'components/About';
 
 // Other Componenets
 import { IconButton, useMediaQuery, Theme } from '@material-ui/core';
@@ -82,9 +83,7 @@ const App: React.FC<Props> = ({ authUser }) => {
 
       <div
         className={classnames({
-          'parallax-wrapper':
-            location.pathname === Routes.HOME ||
-            location.pathname === Routes.ABOUT,
+          'parallax-wrapper': location.pathname === Routes.HOME,
         })}
       >
         {isSmallScreen ? <BurgerMenu /> : <Header />}
@@ -97,6 +96,7 @@ const App: React.FC<Props> = ({ authUser }) => {
           {!authUser && <Redirect from={Routes.ADD_ADMIN} to={Routes.HOME} />}
           {!authUser && <Redirect from={Routes.POST_NEW} to={Routes.HOME} />}
 
+          <Route path={Routes.ABOUT} component={About} />
           <Route path={Routes.POST} component={PostRoute} />
           <Route path={Routes.ADD_ADMIN} component={AddAdmin} />
           <Route path={Routes.SIGN_UP} component={SignUp} />

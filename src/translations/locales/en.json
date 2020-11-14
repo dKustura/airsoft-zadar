@@ -1,4 +1,5 @@
 {
+  "src.components.About.pageTitle": "About Us",
   "src.components.AddAdmin.addAdministrator": "Add an Administrator",
   "src.components.AddAdmin.confirm": "Confirm",
   "src.components.AddAdmin.emailAddress": "Email Address",
