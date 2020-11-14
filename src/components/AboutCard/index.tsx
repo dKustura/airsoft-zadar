@@ -39,9 +39,7 @@ const AboutCard = ({
       setIsVisible(true);
       set({ opacity: 1, transform: 'translate3d(0%,0,0)' });
     }
-  }, [inView, isVisible]);
-
-  console.log('inView', inView);
+  }, [inView, isVisible, set]);
 
   return (
     <animated.div style={props}>
