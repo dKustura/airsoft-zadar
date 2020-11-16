@@ -8,16 +8,13 @@ import { Container, Grid, Typography } from '@material-ui/core';
 
 import team from './images/team.jpeg';
 import stroke from './images/stroke.svg';
-import member1 from './images/member1.jpg';
-import member2 from './images/member2.jpg';
-import member3 from './images/member3.jpg';
-import member4 from './images/member4.jpg';
-import member5 from './images/member5.jpg';
-import member6 from './images/member6.jpg';
 
 // Helpers
 import messages from './messages';
 import AboutCard from 'components/AboutCard';
+
+// Member profiles data
+import { aboutProfiles } from './data';
 
 const About = () => {
   const [ref, { height }] = useMeasure<HTMLImageElement>();
@@ -124,57 +121,23 @@ const About = () => {
       </Grid>
 
       <Grid container>
-        <Grid item xs={12} lg={6}>
-          <AboutCard
-            image={member1}
-            name="Member1"
-            info="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec nisl eu leo feugiat commodo eget non mi."
-            imageAlt="A member of the club"
-          />
-        </Grid>
-        <Grid item xs={12} lg={6} style={{ paddingTop: '10rem' }}>
-          <AboutCard
-            image={member2}
-            name="Member2"
-            info="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec nisl eu leo feugiat commodo eget non mi."
-            imageAlt="A member of the club"
-            imageFirst={false}
-          />
-        </Grid>
-        <Grid item xs={12} lg={6} style={{ paddingTop: '5rem' }}>
-          <AboutCard
-            image={member3}
-            name="Member3"
-            info="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec nisl eu leo feugiat commodo eget non mi."
-            imageAlt="A member of the club"
-          />
-        </Grid>
-        <Grid item xs={12} lg={6} style={{ paddingTop: '15rem' }}>
-          <AboutCard
-            image={member4}
-            name="Member4"
-            info="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec nisl eu leo feugiat commodo eget non mi."
-            imageAlt="A member of the club"
-            imageFirst={false}
-          />
-        </Grid>
-        <Grid item xs={12} lg={6} style={{ paddingTop: '5rem' }}>
-          <AboutCard
-            image={member5}
-            name="Member5"
-            info="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec nisl eu leo feugiat commodo eget non mi."
-            imageAlt="A member of the club"
-          />
-        </Grid>
-        <Grid item xs={12} lg={6} style={{ paddingTop: '15rem' }}>
-          <AboutCard
-            image={member6}
-            name="Member6"
-            info="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec nisl eu leo feugiat commodo eget non mi."
-            imageAlt="A member of the club"
-            imageFirst={false}
-          />
-        </Grid>
+        {aboutProfiles.map((profile, index) => (
+          <Grid
+            item
+            xs={12}
+            lg={6}
+            style={{ paddingTop: index % 2 ? '15rem' : '5rem' }}
+          >
+            <AboutCard
+              key={profile.name}
+              image={profile.imageUrl}
+              name={profile.name}
+              info={profile.description}
+              imageAlt="A member of the club"
+              imageFirst={index % 2 === 0}
+            />
+          </Grid>
+        ))}
       </Grid>
     </Container>
   );
