@@ -47,7 +47,7 @@ const AboutCard = ({
         <Grid item xs={5}>
           <img src={image} alt={imageAlt} height="400px" />
         </Grid>
-        <Grid container xs={7} lg={7}>
+        <Grid container item xs={7} lg={7}>
           <Grid item>
             <Typography variant="h2">{name}</Typography>
           </Grid>
