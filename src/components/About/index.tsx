@@ -23,8 +23,14 @@ const About = () => {
   const [ref, { height }] = useMeasure<HTMLImageElement>();
   const [isHovered, setIsHovered] = useState(false);
 
-  const props = useSpring({
-    x: isHovered ? 0 : 1102,
+  const imageAnimationProps = useSpring({
+    x: isHovered ? 0 : 1160,
+    filter: isHovered ? 'blur(15px)' : 'blur(0px)',
+  });
+
+  const textAnimationProps = useSpring({
+    opacity: isHovered ? 1 : 0,
+    transform: isHovered ? 'translate3d(0%,0,0)' : 'translate3d(-30%,0,0)',
   });
 
   return (
@@ -36,15 +42,13 @@ const About = () => {
       <Grid container xs={12}>
         <Grid item xs={12} style={{ height, marginBottom: '3rem' }}>
           <div style={{ position: 'relative' }}>
-            <img
+            <animated.img
               ref={ref}
               src={team}
               width="100%"
               alt="Team"
               style={{
-                // WebkitMask: 'url(#mymask)',
-                // maskImage: 'url(#myMask)',
-                filter: 'url(#blurFilter)',
+                filter: imageAnimationProps.filter,
                 position: 'absolute',
                 top: 0,
                 left: 0,
@@ -55,16 +59,30 @@ const About = () => {
               width="100%"
               alt="Team"
               style={{
-                // WebkitMask: 'url(#mymask)',
                 clipPath: 'url(#myMask)',
-                position: 'absolute',
+                position: 'relative',
                 top: 0,
                 left: 0,
               }}
             />
+
+            <animated.div
+              style={{
+                opacity: textAnimationProps.opacity,
+                transform: textAnimationProps.transform,
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+              }}
+            >
+              <Typography variant="h2" style={{ color: 'white' }}>
+                Member1
+              </Typography>
+            </animated.div>
+
             <animated.svg
-              strokeDashoffset={props.x}
-              strokeDasharray="1102"
+              strokeDashoffset={imageAnimationProps.x}
+              strokeDasharray="1150"
               strokeLinecap="round"
               strokeLinejoin="round"
               width="100%"
@@ -74,13 +92,11 @@ const About = () => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 1200 675"
             >
-              <filter id="blurFilter">
-                <feGaussianBlur stdDeviation="5" mask="myMask" />
-              </filter>
               <defs>
                 <clipPath
                   id="myMask"
                   clipPathUnits="objectBoundingBox"
+                  // scaleX = 1/1200 and scaleY = 1/675 because viewBox="0 0 1200 675"
                   transform="scale(0.000833, 0.001481)"
                 >
                   <polygon points="471.51 207.44 485.24 187.19 494.17 183.07 502.4 179.98 509.27 171.05 506.62 155.07 509.27 140.16 513.73 133.98 526.09 132.61 535.01 137.76 538.45 148.4 538.45 159.38 534.33 166.59 531.58 173.8 533.98 179.63 542.57 179.98 548.06 186.84 561.45 205.72 569 222.2 573.46 233.53 570.37 243.14 560.76 247.94 551.49 243.48 551.49 249.32 549.77 255.15 558.36 259.27 563.16 267.17 562.48 282.96 557.67 288.79 550.8 288.79 552.52 316.25 548.06 333.76 549.09 354.7 549.09 389.71 548.06 414.43 549.09 426.78 553.21 438.8 548.06 441.2 534.33 441.2 522.49 441.2 522.49 375.98 524.03 350.58 520.94 320.03 517.16 301.84 514.42 301.49 511.67 320.03 504.46 341.31 503.09 357.79 497.6 388.34 492.45 436.74 463.96 441.2 461.56 435.02 471.51 424.38 479.4 329.64 480.78 311.79 471.85 309.39 471.85 292.57 476.66 281.93 481.81 274.72 481.81 263.39 484.21 250 490.05 248.29 492.45 235.59 483.52 245.54 477 245.54 467.05 233.18 466.36 226.32 471.51 207.44" />
