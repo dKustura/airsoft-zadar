@@ -30,6 +30,9 @@ const STROKE_COLOR = '#fff';
 const About = () => {
   const [ref, { height }] = useMeasure<HTMLImageElement>();
   const [hoveredProfileId, setHoveredProfileId] = useState<number | null>(null);
+  const [lastHoveredProfileId, setLastHoveredProfileId] = useState<
+    number | null
+  >(null);
   const classes = useStyles();
 
   const isSmallScreen = useMediaQuery((theme: Theme) =>
@@ -43,7 +46,7 @@ const About = () => {
   const strokeAnimationSprings = useSprings(
     aboutProfiles.length,
     aboutProfiles.map((profile) => ({
-      strokeDashoffset: hoveredProfileId === profile.id ? 0 : 1160,
+      strokeDashoffset: hoveredProfileId === profile.id ? 0 : 1200,
     }))
   );
 
@@ -107,8 +110,6 @@ const About = () => {
           <svg
             width="100%"
             className={classes.teamImageSvg}
-            id="Layer_2"
-            data-name="Layer 2"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 1200 675"
           >
@@ -119,11 +120,14 @@ const About = () => {
                 // scaleX = 1/1200 and scaleY = 1/675 because viewBox="0 0 1200 675"
                 transform="scale(0.000833, 0.001481)"
               >
-                <polygon
-                  points={
+                <path
+                  d={
                     aboutProfiles.find(
                       (profile) => profile.id === hoveredProfileId
-                    )?.polygonPoints
+                    )?.pathDescription ||
+                    aboutProfiles.find(
+                      (profile) => profile.id === lastHoveredProfileId
+                    )?.pathDescription
                   }
                 />
               </clipPath>
@@ -133,19 +137,21 @@ const About = () => {
               const profile = aboutProfiles[index];
               return (
                 <HashLink smooth to={`#member-${profile.id}`} key={profile.id}>
-                  <animated.polygon
+                  <animated.path
+                    id={`path-${profile.id}`}
                     strokeDashoffset={spring.strokeDashoffset}
-                    strokeDasharray="1150"
+                    strokeDasharray="1195"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     cursor="pointer"
                     onMouseEnter={() => {
                       setHoveredProfileId(profile.id);
+                      setLastHoveredProfileId(profile.id);
                     }}
                     onMouseLeave={() => {
                       setHoveredProfileId(null);
                     }}
-                    points={profile.polygonPoints}
+                    d={profile.pathDescription}
                     fill="#fff"
                     fillOpacity="0"
                     stroke={STROKE_COLOR}
