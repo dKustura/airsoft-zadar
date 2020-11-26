@@ -1,17 +1,11 @@
 import { AboutProfile } from './types';
-
-import member1 from './images/member1.jpg';
-import member2 from './images/member2.jpg';
-import member3 from './images/member3.jpg';
-import member4 from './images/member4.jpg';
-import member5 from './images/member5.jpg';
-import member6 from './images/member6.jpg';
+import { memberImages } from './images';
 
 export const aboutProfiles: AboutProfile[] = [
   {
     id: 1,
-    name: 'Member1',
-    imageUrl: member1,
+    name: 'Dino',
+    imageUrl: memberImages.dino,
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec nisl eu leo feugiat commodo eget non mi.',
     pathDescription:
@@ -19,8 +13,8 @@ export const aboutProfiles: AboutProfile[] = [
   },
   {
     id: 2,
-    name: 'Member2',
-    imageUrl: member2,
+    name: 'Ivan',
+    imageUrl: memberImages.ivan,
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec nisl eu leo feugiat commodo eget non mi.',
     pathDescription:
@@ -28,8 +22,8 @@ export const aboutProfiles: AboutProfile[] = [
   },
   {
     id: 3,
-    name: 'Member3',
-    imageUrl: member3,
+    name: 'Denis',
+    imageUrl: memberImages.denis,
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec nisl eu leo feugiat commodo eget non mi.',
     pathDescription:
@@ -37,26 +31,38 @@ export const aboutProfiles: AboutProfile[] = [
   },
   {
     id: 4,
-    name: 'Member4',
-    imageUrl: member4,
+    name: 'Toni',
+    imageUrl: memberImages.toni,
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec nisl eu leo feugiat commodo eget non mi.',
-    pathDescription: '',
+    pathDescription:
+      'M640.05,445a982.77,982.77,0,0,1-132.49-1.56C485.93,441.6,448,445,434.63,441.6c-6.52-2.91-6.76-10.84-11.42-19.05,0,0-28.28-53.88,1.61-55.44,19.4-5.8,4.15-8.47,1.56-14.05-10.71-8.06-6.5-37.2,22.79-38.83,0,0,15.46,0,24,11.25,16.67,24.87-16.68,27.29,2,23.12,15.38-3.44,49.38,12,54.07,10s23.51-10.13,23.51-10.13l3.19-14,7.33,9.72s14.66-22.15,29.32-20.4,28.53,36.17,25.18,77h-7.17s-2.87,15.3,13.86,21.35,55.14-2.55,55.14-2.55,8.45,22,6.85,26S640.05,445,640.05,445Z',
   },
   {
     id: 5,
-    name: 'Member5',
-    imageUrl: member5,
+    name: 'Leon',
+    imageUrl: memberImages.leon,
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec nisl eu leo feugiat commodo eget non mi.',
-    pathDescription: '',
+    pathDescription:
+      'M243.44,207.52c4.51,11.17.18,33.42.69,37.23S243,259.51,243,259.51c7.12,9.54.63,35.75.63,35.75,10.31,20.22-2.41,31.8-3.3,40.07,4.7,12.72-1.66,59.92-1.66,59.92s15.52,12.72-1,15.52l1.28,24.55H200.65c.16-11.34-.13-15.31,5.83-17.17,5.45-1.71,7.88-14,7.88-14-17.17-9.16-3.73-22.28-6.15-35.38-6.49-17.3-4.91-43.87-4.91-43.87s-5.86,19.46-6.11,26.2-2.54,31.17-2.67,36-6.49,11.95-6.87,16-.74,29.64-.74,29.64-46.84.39-50.27-.89c-10.82-2.67-7.13-12.72-7.13-12.72,20.61-.63,27.1-10.94,27.1-10.94,6.95-21.18,5.6-38.54,5.6-38.54l2.16-3.56c-4.45-11.71,1.14-40.33,1.14-40.33,1.1-7.78-.63-26,.13-29.13,5.72-3.82,4.71-11.58,4.71-11.58l-9.8-.13V262.31c-6.49-19.69-2.26-23.68,3.55-36.55,8.43-23.3,6.09-27.61,16.46-38.71,12-4.14,13.23-6.7,13.19-12.65-.05-9.49-6.51-17.09-6.51-17.09-2.33-5.87-3.87-14.15.34-26.84,7.35-10.12,22.95-10.18,30.61-1.66,8.7,9.68,1.75,31.42,3.42,36.69,1.29,4,12.17,1.17,14.13,5.6,3.92,8.87,8.9,4.44,11.29,13.84C249.28,193.83,243.44,207.52,243.44,207.52Z',
   },
   {
     id: 6,
-    name: 'Member6',
-    imageUrl: member6,
+    name: 'Karlo',
+    imageUrl: memberImages.karlo,
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec nisl eu leo feugiat commodo eget non mi.',
-    pathDescription: '',
+    pathDescription:
+      'M368.68,421.11c-2.07-14.92,5.4-15.49,5.62-18,.45-5.32-3.33-27.83-.3-36.37,3-8.32,5.59-34.94,5.74-48.38s-2.2-32.69,2.53-41.55S387,252,384.19,246.57s-24.86-7.82-24.86-7.82c-3.06-25.53,14.71-38.79,15-42.09,6.9-21.37,22.44-17,26.13-17.57s9.63-2.08,7.56-7.25c-5.31-16.41,0-33.42,16.31-34,16.87-.55,19.71,18.47,18.37,24.36-1.65,7.24-4.84,13-3.78,17.15,1.39,5.38,12.59,13.77,20.56,17.91,12.86,8.49,5.17,27.19,8.91,47.49,1.24,6.75-5.32,3.26-5.46,7.55s-1.73,22.54-1.73,22.54l2,7.15-4.52,3.06s5,14.33,5.7,18.91,25.11,41.79,25.11,41.79l-9,6.35-18.16-31-5-.44-4.72-7.24s1.58,28.27-1.73,44.72c3.45,33.69-5.44,56.76-2,62.93s9.42,2.72,11.8,8.42,3.05,6.63,1.33,8-35.15,1.09-35.15,1.09,1.16-17.13-1.33-29.77c-1-5,.91-10.3.41-14.42-2.73-22.26-5.84-37.27-7-49.34s-2.66-33.29-2.66-33.29-12.73,67.9-14.72,72.94c.27,10.61-2.52,22.68-7.95,39.13l-.67,13.92s-28.25,3.32-38.06-.26C351,428.07,368.68,421.11,368.68,421.11Z',
+  },
+  {
+    id: 7,
+    name: 'Antonela',
+    imageUrl: memberImages.antonela,
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec nisl eu leo feugiat commodo eget non mi.',
+    pathDescription:
+      'M636.85,213.22c17.65,1.28,18.17,19.18,18.8,28.49.69,10.25-2.3,35.58,2.74,49.32,2.61,7.09-7.23,11.72-7.23,11.72,2.61,15.33,21.12,38.61,21.12,38.61l-9.84,7.23-6.5-8.1-4.2.15c-2.6,23.57,3.18,40.49,4.63,46.28,5.79,14.17-1.45,30.8-.58,35.87s12,15.89,8.62,20.22-26.59,3.34-27.17.6c-3.18-8,0-10.25-.39-16.48-.53-8-7-11.75-8.21-17.59-3.52-16.9-3.83-37.54-6.56-44.09l-2.7-14.62-6.25-19s-5.64,15.76-6.08,28.49-7.81,38.47-9.83,46.57-3.94,14.15-4.38,17.62,1.66,4.83.94,9.6-2.11,9.83-2.11,9.83-19.21,3.1-22-1.64-.75-8.24,2.23-18.67-6.86-6.73-.74-28.68c7-25.2,4.66-66.84,1.73-67-3.6-18.68-.2-21.39,1.44-28.92,1.52-7,3.72-31.29,3.72-31.29s-24.77,7.26-27.57-14.9c3.36-24.59,24.22-33.89,41.91-42.1,14.41-12.2-3.22-3-6.87-18.58.79-15.89,10.23-16.06,10.23-16.06-.56-9.5,13-13.44,16.89-13.42,4.12,0,16.82,3,17,11.93,10.56,6.49,7,15.48,6.89,20.67-.07,4.09,3.22,6.92,3.22,6.92-4.82,2.3-8.27.62-8.27.62C633.71,211.19,636.85,213.22,636.85,213.22Z',
   },
 ];

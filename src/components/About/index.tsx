@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { HashLink } from 'react-router-hash-link';
 import { animated, useSpring, useSprings } from 'react-spring';
 import { useMeasure } from 'react-use';
 
 // Components
+import AboutCard from 'components/AboutCard';
 import { FormattedMessage } from 'react-intl';
 import {
   Container,
@@ -13,26 +14,30 @@ import {
   useMediaQuery,
 } from '@material-ui/core';
 
-import team from './images/team.jpeg';
-
 // Helpers
 import messages from './messages';
-import AboutCard from 'components/AboutCard';
-
-// Member profiles data
 import { aboutProfiles } from './data';
 import { useStyles } from './styles';
-
-// Constants
-const STROKE_WIDTH = 7;
-const STROKE_COLOR = '#fff';
+import { getRandomArrayOfBackgroundImages, team } from './images';
+import { getRandomArbitrary } from './helper';
+import { BACKGROUND_IMAGES, STROKE_COLOR, STROKE_WIDTH } from './contants';
 
 const About = () => {
-  const [ref, { height }] = useMeasure<HTMLImageElement>();
+  const [
+    ref,
+    { width: imageWidth, height: imageHeight, top: imageTop, left: imageLeft },
+  ] = useMeasure<HTMLImageElement>();
   const [hoveredProfileId, setHoveredProfileId] = useState<number | null>(null);
   const [lastHoveredProfileId, setLastHoveredProfileId] = useState<
     number | null
   >(null);
+  const [hoverTextPosition, setHoverTextPosition] = useState<{
+    left: string;
+    top: string;
+  }>();
+  const [backgroundImagesComponents, setBackgroundImagesComponents] = useState<
+    ReactNode[]
+  >([]);
   const classes = useStyles();
 
   const isSmallScreen = useMediaQuery((theme: Theme) =>
@@ -61,134 +66,195 @@ const About = () => {
     }))
   );
 
-  return (
-    <Container maxWidth="lg">
-      <Typography variant="h1" className={classes.pageTitle}>
-        <FormattedMessage {...messages.pageTitle} />
-      </Typography>
+  const backgroundImages = getRandomArrayOfBackgroundImages(
+    BACKGROUND_IMAGES.COUNT
+  );
 
-      <Grid container>
-        <Grid
-          item
-          xs={12}
-          className={classes.teamImageContainer}
-          style={{ height }}
-        >
-          <animated.img
-            ref={ref}
-            src={team}
-            width="100%"
-            alt="Team"
-            className={classes.teamImage}
-            style={imageHoverSpring}
-          />
+  const contentContainerRef = useRef<HTMLDivElement>(null);
 
-          {textAnimationSprings.map((spring, index) => {
-            const profile = aboutProfiles[index];
-            return (
-              <animated.div
-                key={profile.id}
-                className={classes.member1ImageName}
-                style={spring}
-              >
-                <Typography variant="h2" style={{ color: 'white' }}>
-                  {profile.name}
-                </Typography>
-              </animated.div>
-            );
-          })}
+  useEffect(() => {
+    const backgroundComponents = backgroundImages.map(
+      (backgroundImage, index) => {
+        const maxHeight = contentContainerRef.current?.offsetHeight;
 
-          <animated.img
-            src={team}
-            width="100%"
-            alt="Team"
+        const randomScale = getRandomArbitrary(
+          BACKGROUND_IMAGES.MIN_SCALE,
+          BACKGROUND_IMAGES.MAX_SCALE
+        );
+        const randomRotate = getRandomArbitrary(
+          BACKGROUND_IMAGES.MIN_ROTATION_DEG,
+          BACKGROUND_IMAGES.MAX_ROTATION_DEG
+        );
+        const randomX = getRandomArbitrary(
+          BACKGROUND_IMAGES.MIN_X_PERCENTAGE,
+          BACKGROUND_IMAGES.MAX_X_PERCENTAGE
+        );
+        const randomY = getRandomArbitrary(0, maxHeight || 0);
+        return (
+          <img
+            key={`${backgroundImage}-${index}`}
+            src={backgroundImage}
             style={{
-              clipPath: 'url(#mask)',
+              position: 'absolute',
+              width: 100,
+              transform: `translate(${randomX}vw, ${randomY}px) scale(${randomScale}) rotate(${randomRotate}deg)`,
+              zIndex: -1,
             }}
           />
+        );
+      }
+    );
+    setBackgroundImagesComponents(backgroundComponents);
+  }, []);
 
-          <svg
-            width="100%"
-            className={classes.teamImageSvg}
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1200 675"
-          >
-            <defs>
-              <clipPath
-                id="mask"
-                clipPathUnits="objectBoundingBox"
-                // scaleX = 1/1200 and scaleY = 1/675 because viewBox="0 0 1200 675"
-                transform="scale(0.000833, 0.001481)"
-              >
-                <path
-                  d={
-                    aboutProfiles.find(
-                      (profile) => profile.id === hoveredProfileId
-                    )?.pathDescription ||
-                    aboutProfiles.find(
-                      (profile) => profile.id === lastHoveredProfileId
-                    )?.pathDescription
-                  }
-                />
-              </clipPath>
-            </defs>
+  return (
+    <div>
+      {backgroundImagesComponents}
+      <Container maxWidth="lg" ref={contentContainerRef}>
+        <Typography variant="h1" className={classes.pageTitle}>
+          <FormattedMessage {...messages.pageTitle} />
+        </Typography>
 
-            {strokeAnimationSprings.map((spring, index) => {
-              const profile = aboutProfiles[index];
-              return (
-                <HashLink smooth to={`#member-${profile.id}`} key={profile.id}>
-                  <animated.path
-                    id={`path-${profile.id}`}
-                    strokeDashoffset={spring.strokeDashoffset}
-                    strokeDasharray="1195"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    cursor="pointer"
-                    onMouseEnter={() => {
-                      setHoveredProfileId(profile.id);
-                      setLastHoveredProfileId(profile.id);
-                    }}
-                    onMouseLeave={() => {
-                      setHoveredProfileId(null);
-                    }}
-                    d={profile.pathDescription}
-                    fill="#fff"
-                    fillOpacity="0"
-                    stroke={STROKE_COLOR}
-                    strokeMiterlimit="10"
-                    strokeWidth={STROKE_WIDTH}
-                  />
-                </HashLink>
-              );
-            })}
-          </svg>
-        </Grid>
-      </Grid>
-
-      <Grid container>
-        {aboutProfiles.map((profile, index) => (
+        <Grid container>
           <Grid
-            key={profile.id}
-            id={`member-${profile.id}`}
             item
             xs={12}
-            lg={6}
-            style={{
-              paddingTop: index % 2 && !isSmallScreen ? '15rem' : '5rem',
-            }}
+            className={classes.teamImageContainer}
+            style={{ height: imageHeight }}
           >
-            <AboutCard
-              key={profile.id}
-              image={profile.imageUrl}
-              name={profile.name}
-              info={profile.description}
-              imageAlt="A member of the club"
-              imageFirst={index % 2 === 0}
+            <animated.img
+              ref={ref}
+              src={team}
+              width="100%"
+              alt="Team"
+              className={classes.teamImage}
+              style={imageHoverSpring}
             />
+
+            {textAnimationSprings.map((spring, index) => {
+              const profile = aboutProfiles[index];
+              return (
+                <animated.div
+                  key={profile.id}
+                  className={classes.memberName}
+                  style={{ ...spring, ...hoverTextPosition }}
+                >
+                  <Typography variant="h2" style={{ color: 'white' }}>
+                    {profile.name}
+                  </Typography>
+                </animated.div>
+              );
+            })}
+
+            <animated.img
+              src={team}
+              width="100%"
+              alt="Team"
+              style={{
+                clipPath: 'url(#mask)',
+              }}
+            />
+
+            <svg
+              width="100%"
+              className={classes.teamImageSvg}
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 1200 675"
+            >
+              <defs>
+                <clipPath
+                  id="mask"
+                  clipPathUnits="objectBoundingBox"
+                  // scaleX = 1/1200 and scaleY = 1/675 because viewBox="0 0 1200 675"
+                  transform="scale(0.000833, 0.001481)"
+                >
+                  <path
+                    d={
+                      aboutProfiles.find(
+                        (profile) => profile.id === hoveredProfileId
+                      )?.pathDescription ||
+                      aboutProfiles.find(
+                        (profile) => profile.id === lastHoveredProfileId
+                      )?.pathDescription
+                    }
+                  />
+                </clipPath>
+              </defs>
+
+              {strokeAnimationSprings.map((spring, index) => {
+                const profile = aboutProfiles[index];
+                return (
+                  <HashLink
+                    smooth
+                    to={`#member-${profile.id}`}
+                    key={profile.id}
+                  >
+                    <animated.path
+                      id={`path-${profile.id}`}
+                      strokeDashoffset={spring.strokeDashoffset}
+                      strokeDasharray="1195"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      cursor="pointer"
+                      onMouseEnter={(event) => {
+                        const box = event.currentTarget.getBBox();
+                        const left = `${
+                          ((box.x - imageLeft) * 100) / imageWidth - 10
+                        }%`;
+                        const top = `${
+                          ((box.y - imageTop) * 100) / imageHeight + 10
+                        }%`;
+
+                        console.log('box.y', box.y);
+
+                        console.log('imageTop', imageTop);
+
+                        setHoverTextPosition({ left, top });
+                        setHoveredProfileId(profile.id);
+                        setLastHoveredProfileId(profile.id);
+                      }}
+                      onMouseLeave={() => {
+                        setHoveredProfileId(null);
+                      }}
+                      d={profile.pathDescription}
+                      fill="#fff"
+                      fillOpacity="0"
+                      stroke={STROKE_COLOR}
+                      strokeMiterlimit="10"
+                      strokeWidth={STROKE_WIDTH}
+                    />
+                  </HashLink>
+                );
+              })}
+            </svg>
           </Grid>
-        ))}
-      </Grid>
-    </Container>
+        </Grid>
+
+        <Grid container>
+          {aboutProfiles.map((profile, index) => (
+            <Grid
+              key={profile.id}
+              id={`member-${profile.id}`}
+              item
+              xs={12}
+              lg={6}
+              style={{
+                paddingTop: index % 2 && !isSmallScreen ? '15rem' : '5rem',
+              }}
+            >
+              <AboutCard
+                key={profile.id}
+                image={profile.imageUrl}
+                name={profile.name}
+                info={profile.description}
+                imageAlt="A member of the club"
+                imageFirst={index % 2 === 0}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+    </div>
   );
 };
 

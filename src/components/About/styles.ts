@@ -18,10 +18,8 @@ export const useStyles = makeStyles((theme: Theme) =>
       top: 0,
       left: 0,
     },
-    member1ImageName: {
+    memberName: {
       position: 'absolute',
-      top: '50%',
-      left: '50%',
     },
   })
 );
