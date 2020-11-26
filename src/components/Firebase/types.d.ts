@@ -1,10 +1,15 @@
 import { Node } from 'slate';
 
+export interface Identifiable {
+  readonly id: string;
+}
 export interface Post {
   readonly title: string;
   readonly content: Node[];
   readonly thumbnailUrl?: string;
 }
+
+export interface PostWithId extends Post, Identifiable {}
 
 export interface PostCreateRequest {
   readonly title: string;

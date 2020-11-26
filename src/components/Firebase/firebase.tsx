@@ -16,6 +16,7 @@ import {
   PostCreateRequest,
   PostDeleteRequest,
   PostUpdateRequest,
+  PostWithId,
   RoleAddRequest,
   RoleRemoveRequest,
 } from './types';
@@ -140,9 +141,9 @@ class Firebase {
 
   getAllPosts = () =>
     all(this.posts).then((snapshot) => {
-      const dataArray: any[] = [];
+      const dataArray: PostWithId[] = [];
       snapshot.forEach((doc) => {
-        const data = {
+        const data: PostWithId = {
           id: doc.ref.id,
           ...doc.data,
         };

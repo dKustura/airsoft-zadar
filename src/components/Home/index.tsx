@@ -12,7 +12,11 @@ import BackgroundWall from './backgroundWall';
 import BackgroundWaves from './backgroundWaves';
 import BackgroundSun from './backgroundSun';
 import BackgroundLogo from './backgroundLogo';
+
 import './index.scss';
+
+// Helpers
+import { PostWithId } from 'components/Firebase/types';
 
 interface Props {}
 
@@ -24,7 +28,7 @@ const Home: React.FC<Props> = () => {
   const [isWavesAnimationFinished, setIsWavesAnimationFinished] = useState(
     false
   );
-  const [posts, setPosts] = useState<any[]>([]);
+  const [posts, setPosts] = useState<PostWithId[]>([]);
 
   const firebase = useFirebase();
 
