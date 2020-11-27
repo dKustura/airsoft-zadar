@@ -1,4 +1,11 @@
-import React, { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { HashLink } from 'react-router-hash-link';
 import { animated, useSpring, useSprings } from 'react-spring';
 import { useMeasure } from 'react-use';
@@ -19,7 +26,11 @@ import messages from './messages';
 import { aboutProfiles } from './data';
 import { useStyles } from './styles';
 import { getRandomArrayOfBackgroundImages, team } from './images';
-import { getRandomArbitrary } from './helper';
+import {
+  calculateTranslationCoords,
+  getRandomArbitrary,
+  getRandomBackgroundImageTransform,
+} from './helper';
 import { BACKGROUND_IMAGES, STROKE_COLOR, STROKE_WIDTH } from './contants';
 
 const About = () => {
@@ -66,11 +77,26 @@ const About = () => {
     }))
   );
 
-  const backgroundImages = getRandomArrayOfBackgroundImages(
-    BACKGROUND_IMAGES.COUNT
+  const backgroundImages = useMemo(
+    () => getRandomArrayOfBackgroundImages(BACKGROUND_IMAGES.COUNT),
+    []
   );
 
   const contentContainerRef = useRef<HTMLDivElement>(null);
+
+  const [{ xy: mouseCoords }, set] = useSpring(() => ({
+    xy: [0, 0],
+    config: { mass: 10, tension: 550, friction: 140 },
+  }));
+
+  const onMouseMove = useCallback(
+    ({
+      clientX: x,
+      clientY: y,
+    }: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
+      set({ xy: calculateTranslationCoords(x, y) }),
+    [set]
+  );
 
   useEffect(() => {
     const backgroundComponents = backgroundImages.map(
@@ -91,13 +117,20 @@ const About = () => {
         );
         const randomY = getRandomArbitrary(0, maxHeight || 0);
         return (
-          <img
+          <animated.img
             key={`${backgroundImage}-${index}`}
             src={backgroundImage}
             style={{
               position: 'absolute',
               width: 100,
-              transform: `translate(${randomX}vw, ${randomY}px) scale(${randomScale}) rotate(${randomRotate}deg)`,
+              transform: mouseCoords.interpolate(
+                getRandomBackgroundImageTransform(
+                  randomX,
+                  randomY,
+                  randomScale,
+                  randomRotate
+                ) as any
+              ),
               zIndex: -1,
             }}
           />
@@ -105,10 +138,10 @@ const About = () => {
       }
     );
     setBackgroundImagesComponents(backgroundComponents);
-  }, []);
+  }, [backgroundImages, mouseCoords]);
 
   return (
-    <div>
+    <div onMouseMove={onMouseMove}>
       {backgroundImagesComponents}
       <Container maxWidth="lg" ref={contentContainerRef}>
         <Typography variant="h1" className={classes.pageTitle}>
@@ -204,10 +237,6 @@ const About = () => {
                         const top = `${
                           ((box.y - imageTop) * 100) / imageHeight + 10
                         }%`;
-
-                        console.log('box.y', box.y);
-
-                        console.log('imageTop', imageTop);
 
                         setHoverTextPosition({ left, top });
                         setHoveredProfileId(profile.id);
