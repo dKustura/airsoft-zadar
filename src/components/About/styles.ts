@@ -18,13 +18,26 @@ export const useStyles = makeStyles((theme: Theme) =>
       top: 0,
       left: 0,
     },
-    memberName: {
+    memberNameContainer: {
       position: 'absolute',
+    },
+    memberName: {
+      color: '#fff',
+    },
+    profileLeft: {
+      paddingTop: '15rem',
+    },
+    profileRight: {
+      paddingTop: '5rem',
     },
     backgroundParallax: {
       position: 'absolute',
       transformOrigin: '0 0',
       transform: 'translateZ(-2px) scale(2)',
+    },
+    maskImage: {
+      clipPath: 'url(#mask)',
+      width: '100%',
     },
   })
 );

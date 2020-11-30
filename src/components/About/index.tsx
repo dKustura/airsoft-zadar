@@ -21,11 +21,13 @@ import {
   useMediaQuery,
 } from '@material-ui/core';
 
+// Static data
+import { aboutProfiles } from './data';
+import { getRandomArrayOfBackgroundImages, team } from './images';
+
 // Helpers
 import messages from './messages';
-import { aboutProfiles } from './data';
 import { useStyles } from './styles';
-import { getRandomArrayOfBackgroundImages, team } from './images';
 import {
   calculateTranslationCoords,
   getBackgroundImageRotateTransform,
@@ -116,7 +118,7 @@ const About = () => {
             src={backgroundImage}
             style={{
               position: 'absolute',
-              width: 100,
+              width: BACKGROUND_IMAGES.MAX_SIZE,
               filter: `blur(${blurValue}px)`,
               opacity: scaleTransformValue,
               transform: mouseCoords.interpolate(
@@ -169,24 +171,17 @@ const About = () => {
               return (
                 <animated.div
                   key={profile.id}
-                  className={classes.memberName}
+                  className={classes.memberNameContainer}
                   style={{ ...spring, ...hoverTextPosition }}
                 >
-                  <Typography variant="h2" style={{ color: 'white' }}>
+                  <Typography variant="h2" className={classes.memberName}>
                     {profile.name}
                   </Typography>
                 </animated.div>
               );
             })}
 
-            <animated.img
-              src={team}
-              width="100%"
-              alt="Team"
-              style={{
-                clipPath: 'url(#mask)',
-              }}
-            />
+            <animated.img src={team} alt="Team" className={classes.maskImage} />
 
             <svg
               width="100%"
@@ -267,9 +262,11 @@ const About = () => {
               item
               xs={12}
               lg={6}
-              style={{
-                paddingTop: index % 2 && !isSmallScreen ? '15rem' : '5rem',
-              }}
+              className={
+                index % 2 && !isSmallScreen
+                  ? classes.profileLeft
+                  : classes.profileRight
+              }
             >
               <AboutCard
                 key={profile.id}
