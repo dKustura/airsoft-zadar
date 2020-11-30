@@ -44,10 +44,12 @@ const AboutCard = ({
   return (
     <animated.div style={props}>
       <Grid ref={ref} container direction={direction}>
-        <Grid item xs={5}>
-          <img src={image} alt={imageAlt} height="400px" />
+        <Grid container item xs={12} sm={5} md={6} justify="center">
+          <Grid item>
+            <img src={image} alt={imageAlt} height="400px" />
+          </Grid>
         </Grid>
-        <Grid container item xs={7} lg={7}>
+        <Grid container item xs={12} sm={7} md={6} justify="center">
           <Grid item>
             <Typography variant="h2">{name}</Typography>
           </Grid>

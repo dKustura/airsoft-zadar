@@ -28,16 +28,16 @@ import { useStyles } from './styles';
 import { getRandomArrayOfBackgroundImages, team } from './images';
 import {
   calculateTranslationCoords,
-  getRandomArbitrary,
+  getBackgroundImageRotateTransform,
+  getBackgroundImageScaleTransform,
+  getBackgroundImageXPosition,
+  getBackgroundImageYPosition,
   getRandomBackgroundImageTransform,
 } from './helper';
 import { BACKGROUND_IMAGES, STROKE_COLOR, STROKE_WIDTH } from './contants';
 
 const About = () => {
-  const [
-    ref,
-    { width: imageWidth, height: imageHeight, top: imageTop, left: imageLeft },
-  ] = useMeasure<HTMLImageElement>();
+  const [ref, { height: imageHeight }] = useMeasure<HTMLImageElement>();
   const [hoveredProfileId, setHoveredProfileId] = useState<number | null>(null);
   const [lastHoveredProfileId, setLastHoveredProfileId] = useState<
     number | null
@@ -83,6 +83,7 @@ const About = () => {
   );
 
   const contentContainerRef = useRef<HTMLDivElement>(null);
+  const imageContainerRef = useRef<HTMLDivElement>(null);
 
   const [{ xy: mouseCoords }, set] = useSpring(() => ({
     xy: [0, 0],
@@ -101,21 +102,14 @@ const About = () => {
   useEffect(() => {
     const backgroundComponents = backgroundImages.map(
       (backgroundImage, index) => {
-        const maxHeight = contentContainerRef.current?.offsetHeight;
+        const containerHeight = contentContainerRef.current?.offsetHeight || 0;
 
-        const randomScale = getRandomArbitrary(
-          BACKGROUND_IMAGES.MIN_SCALE,
-          BACKGROUND_IMAGES.MAX_SCALE
-        );
-        const randomRotate = getRandomArbitrary(
-          BACKGROUND_IMAGES.MIN_ROTATION_DEG,
-          BACKGROUND_IMAGES.MAX_ROTATION_DEG
-        );
-        const randomX = getRandomArbitrary(
-          BACKGROUND_IMAGES.MIN_X_PERCENTAGE,
-          BACKGROUND_IMAGES.MAX_X_PERCENTAGE
-        );
-        const randomY = getRandomArbitrary(0, maxHeight || 0);
+        const scaleTransformValue = getBackgroundImageScaleTransform();
+        const rotateTransformValue = getBackgroundImageRotateTransform();
+        const randomX = getBackgroundImageXPosition();
+        const randomY = getBackgroundImageYPosition(containerHeight);
+        const blurValue = 1 / scaleTransformValue - 0.5;
+
         return (
           <animated.img
             key={`${backgroundImage}-${index}`}
@@ -123,12 +117,14 @@ const About = () => {
             style={{
               position: 'absolute',
               width: 100,
+              filter: `blur(${blurValue}px)`,
+              opacity: scaleTransformValue,
               transform: mouseCoords.interpolate(
                 getRandomBackgroundImageTransform(
                   randomX,
                   randomY,
-                  randomScale,
-                  randomRotate
+                  scaleTransformValue,
+                  rotateTransformValue
                 ) as any
               ),
               zIndex: -1,
@@ -141,8 +137,10 @@ const About = () => {
   }, [backgroundImages, mouseCoords]);
 
   return (
-    <div onMouseMove={onMouseMove}>
-      {backgroundImagesComponents}
+    <Grid container onMouseMove={onMouseMove}>
+      <div className={classes.backgroundParallax}>
+        {backgroundImagesComponents}
+      </div>
       <Container maxWidth="lg" ref={contentContainerRef}>
         <Typography variant="h1" className={classes.pageTitle}>
           <FormattedMessage {...messages.pageTitle} />
@@ -155,14 +153,16 @@ const About = () => {
             className={classes.teamImageContainer}
             style={{ height: imageHeight }}
           >
-            <animated.img
-              ref={ref}
-              src={team}
-              width="100%"
-              alt="Team"
-              className={classes.teamImage}
-              style={imageHoverSpring}
-            />
+            <div ref={imageContainerRef}>
+              <animated.img
+                ref={ref}
+                src={team}
+                width="100%"
+                alt="Team"
+                className={classes.teamImage}
+                style={imageHoverSpring}
+              />
+            </div>
 
             {textAnimationSprings.map((spring, index) => {
               const profile = aboutProfiles[index];
@@ -230,13 +230,13 @@ const About = () => {
                       strokeLinejoin="round"
                       cursor="pointer"
                       onMouseEnter={(event) => {
-                        const box = event.currentTarget.getBBox();
-                        const left = `${
-                          ((box.x - imageLeft) * 100) / imageWidth - 10
-                        }%`;
+                        const pathBox = event.currentTarget.getBoundingClientRect();
+                        const imageBox = imageContainerRef.current?.getBoundingClientRect();
+
+                        const left = `${pathBox.x - (imageBox?.x || 0)}px`;
                         const top = `${
-                          ((box.y - imageTop) * 100) / imageHeight + 10
-                        }%`;
+                          pathBox.y + pathBox.height - (imageBox?.y || 0)
+                        }px`;
 
                         setHoverTextPosition({ left, top });
                         setHoveredProfileId(profile.id);
@@ -283,7 +283,7 @@ const About = () => {
           ))}
         </Grid>
       </Container>
-    </div>
+    </Grid>
   );
 };
 

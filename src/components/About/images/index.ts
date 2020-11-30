@@ -16,6 +16,7 @@ import horse from './background/horse.svg';
 import pistol from './background/pistol.svg';
 import rifle from './background/rifle.svg';
 import shield from './background/shield.svg';
+import logo from './background/logo.svg';
 
 export const memberImages = {
   dino: member1,
@@ -35,6 +36,7 @@ export const backgroundImages: '*.svg'[] = [
   pistol,
   rifle,
   shield,
+  logo,
 ];
 
 export const getRandomBackgroundImage = () => {

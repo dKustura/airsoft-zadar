@@ -21,5 +21,10 @@ export const useStyles = makeStyles((theme: Theme) =>
     memberName: {
       position: 'absolute',
     },
+    backgroundParallax: {
+      position: 'absolute',
+      transformOrigin: '0 0',
+      transform: 'translateZ(-2px) scale(2)',
+    },
   })
 );

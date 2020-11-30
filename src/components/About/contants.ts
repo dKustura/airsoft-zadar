@@ -1,8 +1,8 @@
 export const STROKE_WIDTH = 7;
 export const STROKE_COLOR = '#fff';
 export const BACKGROUND_IMAGES = {
-  COUNT: 12,
-  MIN_SCALE: 0.5,
+  COUNT: 15,
+  MIN_SCALE: 0.2,
   MAX_SCALE: 1,
   MIN_ROTATION_DEG: 0,
   MAX_ROTATION_DEG: 360,

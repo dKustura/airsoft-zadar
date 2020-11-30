@@ -83,7 +83,9 @@ const App: React.FC<Props> = ({ authUser }) => {
 
       <div
         className={classnames({
-          'parallax-wrapper': location.pathname === Routes.HOME,
+          'parallax-wrapper':
+            location.pathname === Routes.HOME ||
+            location.pathname === Routes.ABOUT,
         })}
       >
         {isSmallScreen ? <BurgerMenu /> : <Header />}

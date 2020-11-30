@@ -1,3 +1,5 @@
+import { BACKGROUND_IMAGES } from './contants';
+
 export const getRandomArbitrary = (min: number, max: number) =>
   Math.random() * (max - min) + min;
 
@@ -49,3 +51,19 @@ export const calculateTranslationCoords = (x: number, y: number) => [
   x - window.innerWidth / 2,
   y - window.innerHeight / 2,
 ];
+
+export const getBackgroundImageScaleTransform = () =>
+  getRandomArbitrary(BACKGROUND_IMAGES.MIN_SCALE, BACKGROUND_IMAGES.MAX_SCALE);
+
+export const getBackgroundImageRotateTransform = () =>
+  getRandomArbitrary(
+    BACKGROUND_IMAGES.MIN_ROTATION_DEG,
+    BACKGROUND_IMAGES.MAX_ROTATION_DEG
+  );
+export const getBackgroundImageXPosition = () =>
+  getRandomArbitrary(
+    BACKGROUND_IMAGES.MIN_X_PERCENTAGE,
+    BACKGROUND_IMAGES.MAX_X_PERCENTAGE
+  );
+export const getBackgroundImageYPosition = (containerHeight: number) =>
+  getRandomArbitrary(0, containerHeight * 0.6);
