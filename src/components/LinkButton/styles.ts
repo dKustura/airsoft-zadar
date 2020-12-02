@@ -11,7 +11,8 @@ export const useStyles = makeStyles((theme: Theme) =>
       cursor: 'pointer',
       zIndex: 700,
       color: theme.palette.text.primary,
-      padding: `0px ${theme.spacing(1)}px`,
+      margin: `0px ${theme.spacing(1)}px`,
+      borderBottom: `3px solid ${theme.palette.link.main}`,
 
       '&::after': {
         position: 'absolute',
@@ -19,7 +20,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         content: '""',
         width: 0,
         bottom: 0,
-        background: theme.palette.text.primary,
+        background: theme.palette.link.main,
         height: '100%',
         left: '-10%',
         transform: 'skewX(20deg)',

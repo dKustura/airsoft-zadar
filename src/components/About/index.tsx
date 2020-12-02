@@ -12,6 +12,7 @@ import { useMeasure } from 'react-use';
 
 // Components
 import AboutCard from 'components/AboutCard';
+import LinkButton from 'components/LinkButton';
 import { FormattedMessage } from 'react-intl';
 import {
   Container,
@@ -28,6 +29,7 @@ import { getRandomArrayOfBackgroundImages, team } from './images';
 // Helpers
 import messages from './messages';
 import { useStyles } from './styles';
+import { Routes } from 'helpers/constants';
 import {
   calculateTranslationCoords,
   getBackgroundImageRotateTransform,
@@ -140,13 +142,36 @@ const About = () => {
 
   return (
     <Grid container onMouseMove={onMouseMove}>
-      <div className={classes.backgroundParallax}>
-        {backgroundImagesComponents}
-      </div>
       <Container maxWidth="lg" ref={contentContainerRef}>
-        <Typography variant="h1" className={classes.pageTitle}>
-          <FormattedMessage {...messages.pageTitle} />
-        </Typography>
+        <Grid item>
+          <Typography variant="h1" className={classes.pageTitle}>
+            <FormattedMessage {...messages.pageTitle} />
+          </Typography>
+        </Grid>
+
+        <Grid container justify="center">
+          <Grid item xs={12} className={classes.mainDescription}>
+            <Typography variant="h5" component="p" display="inline">
+              Airsoft Klub Zadar is a recreational non-profit organization
+              started by a group of friends from Zadar, Croatia who enjoy
+              playing airsoft. We also like going for hikes, camping, cycling,
+              and many more activities. The best way to learn who we are is by
+              reading our
+              <div style={{ display: 'inline-block', verticalAlign: 'bottom' }}>
+                <LinkButton variant="h5" to={Routes.HOME}>
+                  stories.
+                </LinkButton>
+              </div>
+            </Typography>
+          </Grid>
+          <Grid item xs={12} className={classes.meetMembers}>
+            <Typography variant="h4">Meet our members!</Typography>
+          </Grid>
+        </Grid>
+
+        <div className={classes.backgroundParallax}>
+          {backgroundImagesComponents}
+        </div>
 
         <Grid container>
           <Grid

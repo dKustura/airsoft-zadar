@@ -49,6 +49,7 @@ declare module '@material-ui/core/styles/createPalette' {
     };
     postCard: PaletteColor;
     postCardBorder: PaletteColor;
+    link: PaletteColor;
   }
   // allow configuration using `createMuiTheme`
   interface PaletteOptions {
@@ -57,6 +58,7 @@ declare module '@material-ui/core/styles/createPalette' {
     };
     postCard?: PaletteColorOptions;
     postCardBorder?: PaletteColorOptions;
+    link?: PaletteColorOptions;
   }
 }
 
@@ -82,6 +84,9 @@ const lightTheme = responsiveFontSizes(
       },
       postCardBorder: {
         main: colors.black,
+      },
+      link: {
+        main: colors.yaleBlue,
       },
       ...commonPalette,
     },
@@ -124,6 +129,9 @@ const darkTheme = responsiveFontSizes(
       },
       postCardBorder: {
         main: colors.white,
+      },
+      link: {
+        main: colors.logoYellow,
       },
       ...commonPalette,
     },
