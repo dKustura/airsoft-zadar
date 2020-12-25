@@ -5,10 +5,10 @@ import { useLocation } from 'react-router-dom';
 import { FormattedMessage, MessageDescriptor, useIntl } from 'react-intl';
 import classnames from 'classnames';
 import './index.scss';
+import { useLocale } from 'components/Locale';
 
 // Actions
 import { toggleTheme } from 'actions/theme';
-import { setLocale } from 'actions/locale';
 
 // Components
 import { Grid, Button, Tooltip, Zoom, IconButton } from '@material-ui/core';
@@ -25,7 +25,6 @@ import {
   selectThemeMode,
   selectAuthUser,
   selectUserDisplayName,
-  selectLocale,
 } from './selectors';
 
 // Helpers
@@ -46,14 +45,13 @@ type Props = OwnProps &
 const BurgerMenu: React.FC<Props> = ({
   authUser,
   displayName,
-  locale,
   theme,
   toggleTheme,
-  setLocale,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const intl = useIntl();
   const classes = useStyles();
+  const [locale, setLocale] = useLocale();
 
   const toggleOpen = () => setIsOpen(!isOpen);
 
@@ -178,10 +176,9 @@ const mapStateToProps = (state: RootState) => {
     theme: selectThemeMode(state),
     authUser: selectAuthUser(state),
     displayName: selectUserDisplayName(state),
-    locale: selectLocale(state),
   };
 };
 
-const mapDispatchToProps = { toggleTheme, setLocale };
+const mapDispatchToProps = { toggleTheme };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BurgerMenu);

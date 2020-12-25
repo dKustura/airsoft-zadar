@@ -8,6 +8,7 @@ import store from './store';
 
 import { HashRouter } from 'react-router-dom';
 import { FirebaseInstance, FirebaseProvider } from 'components/Firebase';
+import { LocaleProvider } from 'components/Locale';
 
 const ROOT_COMPONENT = 'root';
 const firebase = FirebaseInstance;
@@ -16,7 +17,9 @@ ReactDOM.render(
   <Provider store={store}>
     <HashRouter>
       <FirebaseProvider value={firebase}>
-        <App />
+        <LocaleProvider>
+          <App />
+        </LocaleProvider>
       </FirebaseProvider>
     </HashRouter>
   </Provider>,

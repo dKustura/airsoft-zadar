@@ -1,4 +1,4 @@
-import { BACKGROUND_IMAGES } from './contants';
+import { BACKGROUND_IMAGES } from './constants';
 
 export const getRandomArbitrary = (min: number, max: number) =>
   Math.random() * (max - min) + min;

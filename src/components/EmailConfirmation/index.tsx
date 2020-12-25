@@ -14,10 +14,11 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import { useFirebase } from 'components/Firebase';
+import { useLocale } from 'components/Locale';
 
 // Helpers
 import messages from './messages';
-import { authUserSelector, localeSelector } from './selectors';
+import { authUserSelector } from './selectors';
 import { Routes } from 'helpers/constants';
 import { useStyles } from './styles';
 
@@ -30,7 +31,7 @@ const EmailConfirmation: React.FC<Props> = ({ isConfirmed, isLoading }) => {
   const firebase = useFirebase();
   const history = useHistory();
   const authUser = useSelector(authUserSelector);
-  const locale = useSelector(localeSelector);
+  const [locale] = useLocale();
   const classes = useStyles();
   const isEmailConfirmed = isConfirmed || authUser?.emailVerified;
 

@@ -8,6 +8,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 
 // Componenets
 import { getTheme } from 'components/Theme';
+import { useLocale } from 'components/Locale';
 import App from './App';
 
 // i18n
@@ -17,13 +18,14 @@ import translations from 'translations/index.json';
 import { RootState } from 'types';
 
 // Helpers
-import { selectThemeMode, selectLocale } from './selectors';
+import { selectThemeMode } from './selectors';
 
 interface OwnProps {}
 
 type Props = OwnProps & ReturnType<typeof mapStateToProps>;
 
-const AppWrapper: React.FC<Props> = ({ theme, locale }: Props) => {
+const AppWrapper: React.FC<Props> = ({ theme }: Props) => {
+  const [locale] = useLocale();
   const messages = (translations as any)[locale];
 
   return (
@@ -38,7 +40,6 @@ const AppWrapper: React.FC<Props> = ({ theme, locale }: Props) => {
 const mapStateToProps = (state: RootState) => {
   return {
     theme: selectThemeMode(state),
-    locale: selectLocale(state),
   };
 };
 

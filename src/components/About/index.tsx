@@ -38,7 +38,7 @@ import {
   getBackgroundImageYPosition,
   getRandomBackgroundImageTransform,
 } from './helper';
-import { BACKGROUND_IMAGES, STROKE_COLOR, STROKE_WIDTH } from './contants';
+import { BACKGROUND_IMAGES, STROKE_COLOR, STROKE_WIDTH } from './constants';
 
 const About = () => {
   const [ref, { height: imageHeight }] = useMeasure<HTMLImageElement>();

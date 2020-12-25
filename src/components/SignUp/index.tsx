@@ -4,6 +4,7 @@ import { Formik, Form } from 'formik';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+import { useLocale } from 'components/Locale';
 import { useFirebase } from 'components/Firebase';
 import { useSnackbar } from 'notistack';
 
@@ -32,7 +33,7 @@ import { useStyles } from './styles';
 import { INITIAL_SIGNUP_FORM_VALUES } from './constants';
 import { successNotification, errorNotification } from 'helpers/snackbar';
 import { MaterialRouterLink } from 'helpers';
-import { selectAuthUser, selectLocale } from './selectors';
+import { selectAuthUser } from './selectors';
 import { Routes } from 'helpers/constants';
 
 // Types
@@ -43,9 +44,10 @@ import { RootState } from 'types';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
-const SignUp: React.FC<Props> = ({ setAuthUser, authUser, locale }: Props) => {
+const SignUp: React.FC<Props> = ({ setAuthUser, authUser }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const [locale] = useLocale();
   const intl = useIntl();
   const firebase = useFirebase();
   const { enqueueSnackbar } = useSnackbar();
@@ -240,7 +242,6 @@ const SignUp: React.FC<Props> = ({ setAuthUser, authUser, locale }: Props) => {
 const mapStateToProps = (state: RootState) => {
   return {
     authUser: selectAuthUser(state),
-    locale: selectLocale(state),
   };
 };
 

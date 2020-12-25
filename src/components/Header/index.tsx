@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage, useIntl, MessageDescriptor } from 'react-intl';
+import { useLocale } from 'components/Locale';
 
 // Actions
 import { toggleTheme } from 'actions/theme';
-import { setLocale } from 'actions/locale';
 
 // Components
 import {
@@ -34,7 +34,6 @@ import {
   selectThemeMode,
   selectAuthUser,
   selectUserDisplayName,
-  selectLocale,
 } from './selectors';
 
 // Types
@@ -53,12 +52,11 @@ const Header: React.FC<Props> = ({
   theme,
   authUser,
   displayName,
-  locale,
   toggleTheme,
-  setLocale,
 }) => {
   const intl = useIntl();
   const classes = useStyles();
+  const [locale, setLocale] = useLocale();
 
   return (
     <div className={classes.headerContainer}>
@@ -172,10 +170,9 @@ const mapStateToProps = (state: RootState) => {
     theme: selectThemeMode(state),
     authUser: selectAuthUser(state),
     displayName: selectUserDisplayName(state),
-    locale: selectLocale(state),
   };
 };
 
-const mapDispatchToProps = { toggleTheme, setLocale };
+const mapDispatchToProps = { toggleTheme };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

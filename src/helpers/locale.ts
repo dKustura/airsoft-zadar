@@ -1,13 +1,15 @@
+import { Locale } from 'components/Locale';
+
 export const countryLanguageCodeMap: {
-  [countryCode: string]: string;
+  [countryCode: string]: Locale;
 } = {
-  gb: 'en',
+  gb: Locale.english,
 };
 
 export const languageCountryCodeMap: {
   [languageCode: string]: string;
 } = {
-  en: 'gb',
+  [Locale.english]: 'gb',
 };
 
 export const getLanguageCodeForCountry = (countryCode: string) => {
@@ -15,7 +17,7 @@ export const getLanguageCodeForCountry = (countryCode: string) => {
   return languageCode || countryCode;
 };
 
-export const getCountryCodeForLanguage = (languageCode: string) => {
-  const countryCode = languageCountryCodeMap[languageCode];
-  return countryCode || languageCode;
+export const getCountryCodeForLanguage = (locale: Locale) => {
+  const countryCode = languageCountryCodeMap[locale];
+  return countryCode || locale;
 };

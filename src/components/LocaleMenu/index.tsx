@@ -14,10 +14,11 @@ import {
   getCountryCodeForLanguage,
 } from 'helpers/locale';
 import messages from './messages';
+import { Locale } from 'components/Locale';
 
 interface Props {
-  readonly languageCode: string;
-  readonly onChange: (languageCode: string) => void;
+  readonly languageCode: Locale;
+  readonly onChange: (languageCode: Locale) => void;
 }
 
 const LocaleMenu: React.FC<Props> = ({ languageCode, onChange }) => {
