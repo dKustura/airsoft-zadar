@@ -7,13 +7,14 @@ export interface Post {
   readonly title: string;
   readonly content: Node[];
   readonly thumbnailUrl?: string;
+  readonly lastModifiedAt?: Date;
 }
 
 export interface PostWithId extends Post, Identifiable {}
 
 export interface PostCreateRequest {
   readonly title: string;
-  readonly content: any;
+  readonly content: any[];
   readonly thumbnailUrl?: string | null;
 }
 

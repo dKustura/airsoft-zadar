@@ -3,13 +3,13 @@ import { Locale } from 'components/Locale';
 export const countryLanguageCodeMap: {
   [countryCode: string]: Locale;
 } = {
-  gb: Locale.english,
+  us: Locale.english,
 };
 
 export const languageCountryCodeMap: {
   [languageCode: string]: string;
 } = {
-  [Locale.english]: 'gb',
+  [Locale.english]: 'us',
 };
 
 export const getLanguageCodeForCountry = (countryCode: string) => {

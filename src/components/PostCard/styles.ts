@@ -4,28 +4,38 @@ export const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
     card: {
       position: 'relative',
+      filter:
+        'drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.12)) drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.24))',
+      transition: 'filter 0.2s ease-in-out',
+
+      '&:hover': {
+        filter:
+          'drop-shadow(0 14px 28px rgba(0,0,0,0.22)) drop-shadow(0 10px 10px rgba(0,0,0,0.20))',
+      },
     },
     thumbnailImage: {
       width: '24rem',
       height: '13.5rem',
-      borderRadius: theme.shape.borderRadius * 0,
       border: `5px solid ${theme.palette.postCard.main}`,
       transition: 'all 0.2s ease-in-out 0s',
-      // borderBottom: `5px solid ${theme.palette.postCardBorder.main}`,
     },
     titleContainer: {
       minHeight: '20rem',
       color: theme.palette.text.primary,
       bottom: 0,
       right: 0,
-      clipPath: `inset(2rem 0 0 2rem round ${theme.shape.borderRadius}px)`,
+      clipPath: `inset(2rem 0 0 2rem round 0px)`,
       backgroundColor: theme.palette.postCard.main,
       height: '100%',
-      // border: `5px solid ${theme.palette.primary.main}`,
-      // borderRadius: theme.shape.borderRadius,
       textAlign: 'right',
       paddingLeft: '2rem',
       transition: 'background-color 0.2s ease-in-out 0s',
+    },
+    metadataContainer: {
+      padding: '3rem 1rem 0rem 1rem',
+    },
+    title: {
+      padding: '0rem 1rem 1rem 1rem',
     },
     thumbnailContainer: {
       position: 'absolute',

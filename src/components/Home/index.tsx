@@ -102,8 +102,8 @@ const Home: React.FC<Props> = () => {
               id={post.id}
               thumbnail={post.thumbnailUrl}
               title={post.title}
-              content=""
-              dateCreated={new Date()}
+              content={post.content}
+              lastModifiedAt={post.lastModifiedAt}
             />
           </Grid>
         ))}

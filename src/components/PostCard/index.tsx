@@ -1,22 +1,31 @@
 import * as React from 'react';
+import { useMemo } from 'react';
+import { DateTime } from 'luxon';
+import { Node } from 'slate';
+import readingTime from 'reading-time';
 
 // Components
-import { Typography, Grid, Link } from '@material-ui/core';
+import {
+  Typography,
+  Grid,
+  Link,
+  useMediaQuery,
+  Theme,
+} from '@material-ui/core';
+import { useLocale } from 'components/Locale';
 
 // Helpers
 import { Routes } from 'helpers/constants';
-
-// Helpers
 import { useStyles } from './styles';
-import './index.scss';
 import { MaterialRouterLink } from 'helpers';
+import { getAllNodesText } from 'helpers/editor';
 
 interface Props {
   readonly id: string;
   readonly thumbnail?: string;
   readonly title: string;
-  readonly content: string;
-  readonly dateCreated: Date;
+  readonly content: Node[];
+  readonly lastModifiedAt?: Date;
 }
 
 const PostCard: React.FC<Props> = ({
@@ -24,33 +33,63 @@ const PostCard: React.FC<Props> = ({
   thumbnail,
   title,
   content,
-  dateCreated,
+  lastModifiedAt,
 }) => {
   const classes = useStyles();
+  const [locale] = useLocale();
+
+  const isSmallScreen = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down('xs')
+  );
+
+  const date = useMemo(
+    () =>
+      lastModifiedAt &&
+      DateTime.fromJSDate(lastModifiedAt).setLocale(locale).toLocaleString(),
+    [lastModifiedAt, locale]
+  );
+
+  const contentText = useMemo(() => getAllNodesText(content), [content]);
+  const readingDuration = useMemo(() => readingTime(contentText), [
+    contentText,
+  ]);
 
   return (
     <Link
-      className="postLink"
       underline="none"
       component={MaterialRouterLink}
       to={`${Routes.POST}/${id}`}
     >
       <Grid container className={classes.card}>
-        <Grid
-          container
-          justify="flex-end"
-          alignItems="flex-end"
-          className={classes.titleContainer}
-        >
-          <Grid item style={{ width: '24rem', height: '13.5rem' }}></Grid>
-          <Grid item style={{ padding: '0rem 1rem 1rem 1rem' }}>
-            <Typography className="postTitle" variant="h4">
-              {title}
-            </Typography>
+        <Grid container>
+          <Grid
+            container
+            justify={isSmallScreen ? 'flex-end' : 'space-between'}
+            alignItems="flex-end"
+            direction="column"
+            className={classes.titleContainer}
+          >
+            <Grid
+              container
+              direction={isSmallScreen ? 'row' : 'column'}
+              justify="space-between"
+              className={classes.metadataContainer}
+              spacing={2}
+            >
+              <Grid item>
+                <Typography variant="body2">{date}</Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant="body2">{readingDuration.text}</Typography>
+              </Grid>
+            </Grid>
+            <Grid item className={classes.title}>
+              <Typography variant="h4">{title}</Typography>
+            </Grid>
           </Grid>
         </Grid>
         {thumbnail && (
-          <div className={classes.thumbnailContainer}>
+          <div className={`${classes.thumbnailContainer} thumbnailContainer`}>
             <img
               src={thumbnail}
               alt="thumbnail"
