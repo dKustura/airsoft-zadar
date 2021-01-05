@@ -8,5 +8,8 @@ export const useStyles = makeStyles((theme: Theme) =>
     titleTypography: {
       hyphens: 'auto',
     },
+    readingTime: {
+      padding: theme.spacing(2),
+    },
   })
 );

@@ -21,6 +21,10 @@ const commonTheme: ThemeOptions = {
       fontFamily: ['DM Mono', 'Roboto Mono', 'monospace'].join(','),
       fontSize: '1rem',
     },
+    subtitle1: {
+      fontFamily: ['DM Mono', 'Roboto Mono', 'monospace'].join(','),
+      fontSize: '0.9rem',
+    },
   },
   shape: {
     borderRadius: 15,

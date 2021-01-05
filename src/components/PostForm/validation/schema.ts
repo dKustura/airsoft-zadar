@@ -8,7 +8,7 @@ import {
   MAX_CONTENT_LENGTH,
   INVALID_CONTENT_MESSAGE,
 } from './constants';
-import { getNodesLength } from './helpers';
+import { getNodesLength } from 'helpers/editor';
 
 export const postSchema = yup.object({
   title: yup

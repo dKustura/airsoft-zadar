@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useMemo } from 'react';
 import { DateTime } from 'luxon';
 import { Node } from 'slate';
-import readingTime from 'reading-time';
 
 // Components
 import {
@@ -13,12 +12,12 @@ import {
   Theme,
 } from '@material-ui/core';
 import { useLocale } from 'components/Locale';
+import ReadingTime from 'components/ReadingTime';
 
 // Helpers
 import { Routes } from 'helpers/constants';
 import { useStyles } from './styles';
 import { MaterialRouterLink } from 'helpers';
-import { getAllNodesText } from 'helpers/editor';
 
 interface Props {
   readonly id: string;
@@ -49,11 +48,6 @@ const PostCard: React.FC<Props> = ({
     [lastModifiedAt, locale]
   );
 
-  const contentText = useMemo(() => getAllNodesText(content), [content]);
-  const readingDuration = useMemo(() => readingTime(contentText), [
-    contentText,
-  ]);
-
   return (
     <Link
       underline="none"
@@ -74,13 +68,20 @@ const PostCard: React.FC<Props> = ({
               direction={isSmallScreen ? 'row' : 'column'}
               justify="space-between"
               className={classes.metadataContainer}
-              spacing={2}
+              spacing={1}
             >
               <Grid item>
-                <Typography variant="body2">{date}</Typography>
+                <Typography variant="subtitle1">{date}</Typography>
               </Grid>
               <Grid item>
-                <Typography variant="body2">{readingDuration.text}</Typography>
+                <Grid
+                  container
+                  justify="flex-end"
+                  alignItems="center"
+                  spacing={2}
+                >
+                  <ReadingTime content={content} />
+                </Grid>
               </Grid>
             </Grid>
             <Grid item className={classes.title}>

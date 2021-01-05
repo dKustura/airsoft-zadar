@@ -3,6 +3,7 @@ import * as React from 'react';
 // Components
 import { Grid, Typography } from '@material-ui/core';
 import CustomEditor from 'components/CustomEditor';
+import ReadingTime from 'components/ReadingTime';
 
 // Helpers
 import { useStyles } from './styles';
@@ -21,6 +22,14 @@ const PostRead: React.FC<Props> = ({ title, content }) => {
         <Typography className={classes.titleTypography} variant="h1">
           {title}
         </Typography>
+      </Grid>
+      <Grid
+        container
+        justify="flex-end"
+        spacing={2}
+        className={classes.readingTime}
+      >
+        <ReadingTime content={content} />
       </Grid>
       <Grid item xs={12}>
         <CustomEditor readOnly value={content} name="post" />
