@@ -1,40 +1,17 @@
 import * as React from 'react';
-import { useSlate } from 'slate-react';
-
-// Components
-import { Tooltip, Zoom, IconProps } from '@material-ui/core';
-import ToolbarToggleButton from './ToolbarToggleButton';
+import GenericToggleButton, { BasicProps } from './GenericToggleButton';
 
 // Helpers
-import { toggleMark, isMarkActive, MarkFormat } from './helpers';
+import { isMarkActive, MarkFormat, toggleMark } from './helpers';
 
-interface Props {
-  readonly format: MarkFormat;
-  readonly Icon: React.ComponentType<IconProps>;
-  readonly tooltip?: string;
-}
-
-const MarkToggleButton: React.FC<Props> = ({
-  format,
-  Icon,
-  tooltip,
-  ...other
-}) => {
-  const editor = useSlate();
-  const isActive = isMarkActive(editor, format);
-
+const BlockToggleButton = (props: BasicProps<MarkFormat>) => {
   return (
-    <Tooltip TransitionComponent={Zoom} placement="top" title={tooltip}>
-      <ToolbarToggleButton
-        {...other}
-        value="format"
-        selected={isActive}
-        onChange={() => toggleMark(editor, format)}
-      >
-        <Icon />
-      </ToolbarToggleButton>
-    </Tooltip>
+    <GenericToggleButton<MarkFormat>
+      {...props}
+      isActive={isMarkActive}
+      toggle={toggleMark}
+    />
   );
 };
 
-export default MarkToggleButton;
+export default BlockToggleButton;
