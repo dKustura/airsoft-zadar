@@ -152,20 +152,18 @@ const About = () => {
         <Grid container justify="center">
           <Grid item xs={12} className={classes.mainDescription}>
             <Typography variant="h5" component="p" display="inline">
-              Airsoft Klub Zadar is a recreational non-profit organization
-              started by a group of friends from Zadar, Croatia who enjoy
-              playing airsoft. We also like going for hikes, camping, cycling,
-              and many more activities. The best way to learn who we are is by
-              reading our
+              <FormattedMessage {...messages.aboutClub} />
               <div style={{ display: 'inline-block', verticalAlign: 'bottom' }}>
                 <LinkButton variant="h5" to={Routes.HOME}>
-                  stories.
+                  <FormattedMessage {...messages.stories} />
                 </LinkButton>
               </div>
             </Typography>
           </Grid>
           <Grid item xs={12} className={classes.meetMembers}>
-            <Typography variant="h4">Meet our members!</Typography>
+            <Typography variant="h4">
+              <FormattedMessage {...messages.meetOutMembers} />
+            </Typography>
           </Grid>
         </Grid>
 
