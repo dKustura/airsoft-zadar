@@ -3,7 +3,6 @@ import { createStyles, Theme, makeStyles } from '@material-ui/core';
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     pageTitle: {
-      padding: '0 3rem',
       position: 'relative',
       zIndex: 10,
     },

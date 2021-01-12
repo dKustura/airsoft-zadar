@@ -8,21 +8,39 @@ import { useStyles } from './styles';
 
 interface Props {
   readonly to: string;
+  readonly isExternal?: boolean;
   readonly variant: Variant;
 }
 
-const LinkButton: React.FC<Props> = ({ to, variant, children }) => {
+const LinkButton: React.FC<Props> = ({
+  to,
+  isExternal = true,
+  variant,
+  children,
+}) => {
   const classes = useStyles();
 
-  return (
-    <Link to={to} className={classes.link}>
-      <div className={classes.button}>
-        <Typography color="inherit" variant={variant}>
-          {children}
-        </Typography>
-      </div>
-    </Link>
+  const childComponent = (
+    <div className={classes.button}>
+      <Typography color="inherit" variant={variant}>
+        {children}
+      </Typography>
+    </div>
   );
+
+  if (isExternal) {
+    return (
+      <a href={to} className={classes.link}>
+        {childComponent}
+      </a>
+    );
+  } else {
+    return (
+      <Link to={to} className={classes.link}>
+        {childComponent}
+      </Link>
+    );
+  }
 };
 
 export default LinkButton;

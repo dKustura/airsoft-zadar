@@ -46,6 +46,14 @@ const commonPalette = {
   },
 };
 
+const commonOverrides = {
+  MuiSvgIcon: {
+    fontSizeLarge: {
+      fontSize: '3rem',
+    },
+  },
+};
+
 declare module '@material-ui/core/styles/createPalette' {
   interface Palette {
     icon: {
@@ -95,6 +103,7 @@ const lightTheme = responsiveFontSizes(
       ...commonPalette,
     },
     overrides: {
+      ...commonOverrides,
       MuiOutlinedInput: {
         notchedOutline: {
           borderColor: colors.yaleBlue,
@@ -140,6 +149,7 @@ const darkTheme = responsiveFontSizes(
       ...commonPalette,
     },
     overrides: {
+      ...commonOverrides,
       MuiOutlinedInput: {
         notchedOutline: {
           borderColor: colors.skyBlue,

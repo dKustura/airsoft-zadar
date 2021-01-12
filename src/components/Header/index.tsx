@@ -77,6 +77,11 @@ const Header: React.FC<Props> = ({
                   <FormattedMessage {...messages.aboutLink} />
                 </UnderlinedLink>
               </Grid>
+              <Grid item>
+                <UnderlinedLink to={Routes.CONTACT}>
+                  <FormattedMessage {...messages.contactLink} />
+                </UnderlinedLink>
+              </Grid>
               {/* <AuthorizationCheck
                 userRoles={authUser?.roles}
                 authorizedRoles={[UserRole.Admin]}

@@ -146,6 +146,11 @@ const BurgerMenu: React.FC<Props> = ({
             <FormattedMessage {...messages.aboutLink} />
           </UnderlinedLink>
         </Grid>
+        <Grid item>
+          <UnderlinedLink to={Routes.CONTACT} variant="h4">
+            <FormattedMessage {...messages.contactLink} />
+          </UnderlinedLink>
+        </Grid>
         {/* <AuthorizationCheck
           userRoles={authUser?.roles}
           authorizedRoles={[UserRole.Admin]}

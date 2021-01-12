@@ -18,6 +18,7 @@ import AddAdmin from 'components/AddAdmin';
 import EmailAction from 'components/EmailAction';
 import PostRoute from 'components/PostRoute';
 import About from 'components/About';
+import Contact from 'components/Contact';
 
 // Other Componenets
 import { IconButton, useMediaQuery, Theme } from '@material-ui/core';
@@ -99,6 +100,7 @@ const App: React.FC<Props> = ({ authUser }) => {
           {!authUser && <Redirect from={Routes.POST_NEW} to={Routes.HOME} />}
 
           <Route path={Routes.ABOUT} component={About} />
+          <Route path={Routes.CONTACT} component={Contact} />
           <Route path={Routes.POST} component={PostRoute} />
           <Route path={Routes.ADD_ADMIN} component={AddAdmin} />
           <Route path={Routes.SIGN_UP} component={SignUp} />
