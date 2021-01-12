@@ -33,7 +33,7 @@ Some of the currently implemented and planned features are:
 - Blog post editor
 - Blog post (Member view)
 - Blog post (Guest view)
-- About us 🚧
+- About us
 - Contacts 🚧
 - Admin panel 🚧
 
