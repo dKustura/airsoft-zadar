@@ -35,6 +35,8 @@ Some of the currently implemented and planned features are:
 - Blog post (Guest view)
 - About us
 - Contacts 🚧
+- Cookie policy 🚧
+- Google analytics 🚧
 - Admin panel 🚧
 
 ## Guest view
