@@ -53,6 +53,8 @@ export const useStyles = makeStyles((theme: Theme) => {
       borderRadius: 0,
       color: successContrastColor,
       margin: theme.spacing(2),
+      marginLeft: 0,
+      marginRight: theme.spacing(5),
 
       '&:hover': {
         backgroundColor: theme.palette.success.dark,
@@ -70,6 +72,15 @@ export const useStyles = makeStyles((theme: Theme) => {
     },
     cookieBannerButtonContainer: {
       flex: '0 0 auto',
+    },
+    cookieBannerText: {
+      display: 'inline-block',
+      marginRight: 8,
+    },
+    learnMoreLink: {
+      display: 'inline-block',
+      verticalAlign: 'bottom',
+      marginLeft: -8,
     },
   });
 });

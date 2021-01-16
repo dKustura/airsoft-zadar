@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { FormattedMessage, MessageDescriptor, useIntl } from 'react-intl';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import CookieConsent from 'react-cookie-consent';
-import { useFirebase } from 'components/Firebase';
 import classnames from 'classnames';
 import './App.scss';
 
@@ -21,25 +21,34 @@ import EmailAction from 'components/EmailAction';
 import PostRoute from 'components/PostRoute';
 import About from 'components/About';
 import Contact from 'components/Contact';
+import CookiePolicy from 'components/CookiePolicy';
 import EmailConfirmation from 'components/EmailConfirmation';
-import BurgerMenu from 'components/BurgerMenu';
-import CookieBannerButton from './CookieBannerButton';
 
 // Other Componenets
-import { IconButton, useMediaQuery, Theme } from '@material-ui/core';
+import {
+  IconButton,
+  useMediaQuery,
+  Theme,
+  Typography,
+} from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import BurgerMenu from 'components/BurgerMenu';
+import CookieBannerButton from './CookieBannerButton';
+import LinkButton from 'components/LinkButton';
 
 // Types
 import { RootState } from 'types';
 
 // Helpers
 import { useStyles } from './styles';
+import { useFirebase } from 'components/Firebase';
 import { selectThemeMode, selectAuthUser } from './selectors';
 import {
   withAuthentication,
   WithAuthenticationProps,
 } from 'components/Session';
 import { Routes } from 'helpers/constants';
+import messages from './messages';
 
 interface OwnProps {}
 
@@ -56,6 +65,7 @@ const App: React.FC<Props> = ({ authUser }) => {
   const classes = useStyles();
   const location = useLocation();
   const firebase = useFirebase();
+  const intl = useIntl();
 
   const isSmallScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('sm')
@@ -92,12 +102,18 @@ const App: React.FC<Props> = ({ authUser }) => {
 
       <CookieConsent
         enableDeclineButton
-        buttonText="Accept"
-        declineButtonText="Decline"
+        buttonText={<FormattedMessage {...messages.acceptCookiesLabel} />}
+        declineButtonText={
+          <FormattedMessage {...messages.declineCookiesLabel} />
+        }
         onAccept={onCookiesAccept}
         ButtonComponent={CookieBannerButton}
-        ariaAcceptLabel="Accept cookies"
-        ariaDeclineLabel="Decline cookies"
+        ariaAcceptLabel={intl.formatMessage(
+          messages.acceptCookiesAria as MessageDescriptor
+        )}
+        ariaDeclineLabel={intl.formatMessage(
+          messages.declineCookiesAria as MessageDescriptor
+        )}
         containerClasses={classes.cookieBanner}
         contentClasses={classes.cookieBannerContent}
         buttonClasses={classes.cookieBannerAcceptButton}
@@ -105,9 +121,17 @@ const App: React.FC<Props> = ({ authUser }) => {
         buttonWrapperClasses={classes.cookieBannerButtonContainer}
         disableButtonStyles
         disableStyles
-        debug={true}
       >
-        This website uses cookies to enhance the user experience.
+        <Typography component="p" display="inline">
+          <div className={classes.cookieBannerText}>
+            <FormattedMessage {...messages.cookieBanner} />
+          </div>
+          <div className={classes.learnMoreLink}>
+            <LinkButton variant="body1" to={Routes.COOKIE_POLICY}>
+              <FormattedMessage {...messages.cookieBannerLearnMore} />
+            </LinkButton>
+          </div>
+        </Typography>
       </CookieConsent>
 
       <div
@@ -127,6 +151,7 @@ const App: React.FC<Props> = ({ authUser }) => {
           {!authUser && <Redirect from={Routes.ADD_ADMIN} to={Routes.HOME} />}
           {!authUser && <Redirect from={Routes.POST_NEW} to={Routes.HOME} />}
 
+          <Route path={Routes.COOKIE_POLICY} component={CookiePolicy} />
           <Route path={Routes.ABOUT} component={About} />
           <Route path={Routes.CONTACT} component={Contact} />
           <Route path={Routes.POST} component={PostRoute} />

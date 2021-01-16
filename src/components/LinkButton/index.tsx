@@ -14,7 +14,7 @@ interface Props {
 
 const LinkButton: React.FC<Props> = ({
   to,
-  isExternal = true,
+  isExternal = false,
   variant,
   children,
 }) => {

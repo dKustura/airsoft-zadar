@@ -10,4 +10,5 @@ export const Routes = {
   ADD_ADMIN: '/addAdmin',
   EMAIL_CONFIRMATION: '/confirmEmail',
   EMAIL_ACTION: '/emailAction',
+  COOKIE_POLICY: '/cookiePolicy',
 };
