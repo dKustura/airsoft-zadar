@@ -6,22 +6,70 @@ export const useStyles = makeStyles((theme: Theme) => {
   const warningColor = theme.palette.warning.main;
   const infoColor = theme.palette.info.main;
 
+  const successContrastColor = theme.palette.getContrastText(successColor);
+  const errorContrastColor = theme.palette.getContrastText(errorColor);
+  const warningContrastColor = theme.palette.getContrastText(warningColor);
+  const infoContrastColor = theme.palette.getContrastText(infoColor);
+
+  const cookieBannerColor = theme.palette.background.default;
+
   return createStyles({
     successSnackbar: {
       backgroundColor: successColor,
-      color: theme.palette.getContrastText(successColor),
+      color: successContrastColor,
     },
     errorSnackbar: {
       backgroundColor: errorColor,
-      color: theme.palette.getContrastText(errorColor),
+      color: errorContrastColor,
     },
     warningSnackbar: {
       backgroundColor: warningColor,
-      color: theme.palette.getContrastText(warningColor),
+      color: warningContrastColor,
     },
     infoSnackbar: {
       backgroundColor: infoColor,
-      color: theme.palette.getContrastText(infoColor),
+      color: infoContrastColor,
+    },
+    cookieBanner: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      flexWrap: 'wrap',
+      position: 'fixed',
+      left: 0,
+      width: '100%',
+      zIndex: 999,
+      background: cookieBannerColor,
+      color: theme.palette.getContrastText(cookieBannerColor),
+      borderTopWidth: theme.spacing(),
+      borderTopStyle: 'solid',
+      borderColor: theme.palette.getContrastText(cookieBannerColor),
+    },
+    cookieBannerContent: {
+      margin: theme.spacing(2),
+    },
+    cookieBannerAcceptButton: {
+      background: successColor,
+      borderRadius: 0,
+      color: successContrastColor,
+      margin: theme.spacing(2),
+
+      '&:hover': {
+        backgroundColor: theme.palette.success.dark,
+      },
+    },
+    cookieBannerDeclineButton: {
+      background: errorColor,
+      borderRadius: 0,
+      color: errorContrastColor,
+      margin: theme.spacing(2),
+
+      '&:hover': {
+        backgroundColor: theme.palette.error.dark,
+      },
+    },
+    cookieBannerButtonContainer: {
+      flex: '0 0 auto',
     },
   });
 });

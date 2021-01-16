@@ -31,6 +31,7 @@
     "node-sass": "^4.14.0",
     "notistack": "^0.9.16",
     "react": "^16.11.0",
+    "react-cookie-consent": "^6.2.1",
     "react-dom": "^16.11.0",
     "react-dropzone": "^10.2.2",
     "react-easy-crop": "^3.0.1",

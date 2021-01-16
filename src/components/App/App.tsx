@@ -2,6 +2,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import CookieConsent from 'react-cookie-consent';
+import { useFirebase } from 'components/Firebase';
 import classnames from 'classnames';
 import './App.scss';
 
@@ -19,6 +21,9 @@ import EmailAction from 'components/EmailAction';
 import PostRoute from 'components/PostRoute';
 import About from 'components/About';
 import Contact from 'components/Contact';
+import EmailConfirmation from 'components/EmailConfirmation';
+import BurgerMenu from 'components/BurgerMenu';
+import CookieBannerButton from './CookieBannerButton';
 
 // Other Componenets
 import { IconButton, useMediaQuery, Theme } from '@material-ui/core';
@@ -35,8 +40,6 @@ import {
   WithAuthenticationProps,
 } from 'components/Session';
 import { Routes } from 'helpers/constants';
-import EmailConfirmation from 'components/EmailConfirmation';
-import BurgerMenu from 'components/BurgerMenu';
 
 interface OwnProps {}
 
@@ -52,10 +55,15 @@ const onClickDismiss = (key: string | number | undefined) => () => {
 const App: React.FC<Props> = ({ authUser }) => {
   const classes = useStyles();
   const location = useLocation();
+  const firebase = useFirebase();
 
   const isSmallScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('sm')
   );
+
+  const onCookiesAccept = () => {
+    firebase.addAnalytics();
+  };
 
   return (
     <SnackbarProvider
@@ -81,6 +89,26 @@ const App: React.FC<Props> = ({ authUser }) => {
       <Helmet>
         <title>Airsoft Klub Zadar</title>
       </Helmet>
+
+      <CookieConsent
+        enableDeclineButton
+        buttonText="Accept"
+        declineButtonText="Decline"
+        onAccept={onCookiesAccept}
+        ButtonComponent={CookieBannerButton}
+        ariaAcceptLabel="Accept cookies"
+        ariaDeclineLabel="Decline cookies"
+        containerClasses={classes.cookieBanner}
+        contentClasses={classes.cookieBannerContent}
+        buttonClasses={classes.cookieBannerAcceptButton}
+        declineButtonClasses={classes.cookieBannerDeclineButton}
+        buttonWrapperClasses={classes.cookieBannerButtonContainer}
+        disableButtonStyles
+        disableStyles
+        debug={true}
+      >
+        This website uses cookies to enhance the user experience.
+      </CookieConsent>
 
       <div
         className={classnames({

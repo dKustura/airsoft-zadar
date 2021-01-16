@@ -52,6 +52,10 @@ class Firebase {
     this.twitterProvider = new firebase.auth.TwitterAuthProvider();
   }
 
+  addAnalytics = () => {
+    firebase.analytics();
+  };
+
   // *** Auth API ***
 
   doCreateUserWithEmailAndPassword = (email: string, password: string) =>
