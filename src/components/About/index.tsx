@@ -153,7 +153,7 @@ const About = () => {
           <Grid item xs={12} className={classes.mainDescription}>
             <Typography variant="h5" component="p" display="inline">
               <FormattedMessage {...messages.aboutClub} />
-              <div style={{ display: 'inline-block', verticalAlign: 'bottom' }}>
+              <div className={classes.storiesLink}>
                 <LinkButton variant="h5" to={Routes.HOME}>
                   <FormattedMessage {...messages.stories} />
                 </LinkButton>

@@ -50,5 +50,9 @@ export const useStyles = makeStyles((theme: Theme) =>
       clipPath: 'url(#mask)',
       width: '100%',
     },
+    storiesLink: {
+      display: 'inline-block',
+      verticalAlign: 'bottom',
+    },
   })
 );
