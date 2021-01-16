@@ -9,7 +9,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       overflow: 'hidden',
       transition: '.2s',
       cursor: 'pointer',
-      zIndex: 700,
+      zIndex: 100,
       color: theme.palette.text.primary,
       margin: `0px ${theme.spacing(1)}px`,
       borderBottom: `3px solid ${theme.palette.link.main}`,

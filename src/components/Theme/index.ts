@@ -51,6 +51,12 @@ const commonOverrides = {
     fontSizeLarge: {
       fontSize: '3rem',
     },
+    fontSizeInherit: {
+      fontSize: '2rem',
+    },
+    fontSizeSmall: {
+      fontSize: '1rem',
+    },
   },
 };
 

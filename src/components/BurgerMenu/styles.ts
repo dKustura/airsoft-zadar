@@ -23,6 +23,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     menuOptions: {
       opacity: 0,
+      width: '100%',
       visibility: 'hidden',
       transition: 'opacity .3s cubic-bezier(0.25, 0.1, 0.25, 1) .2s',
       position: 'absolute',
