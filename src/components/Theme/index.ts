@@ -17,6 +17,9 @@ const commonTheme: ThemeOptions = {
     h2: {
       fontWeight: 700,
     },
+    h4: {
+      fontWeight: 700,
+    },
     body2: {
       fontFamily: ['DM Mono', 'Roboto Mono', 'monospace'].join(','),
       fontSize: '1rem',
