@@ -8,5 +8,8 @@ export const useStyles = makeStyles((theme: Theme) =>
     contentSection: {
       paddingBottom: '3rem',
     },
+    sectionTitle: {
+      paddingBottom: '1rem',
+    },
   })
 );

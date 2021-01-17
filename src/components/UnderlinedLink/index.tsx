@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, Typography } from '@material-ui/core';
+import { Link } from '@material-ui/core';
 
 import { useStyles } from './styles';
 import { MaterialRouterLink } from 'helpers';
