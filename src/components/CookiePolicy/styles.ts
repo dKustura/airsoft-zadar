@@ -11,5 +11,8 @@ export const useStyles = makeStyles((theme: Theme) =>
     sectionTitle: {
       paddingBottom: '1rem',
     },
+    sectionTitleTypography: {
+      fontWeight: 700,
+    },
   })
 );

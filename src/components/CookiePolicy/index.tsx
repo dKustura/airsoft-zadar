@@ -45,7 +45,11 @@ const CookiePolicy = (props: Props) => {
         </Grid>
         <Grid container className={classes.contentSection}>
           <Grid item xs={12} className={classes.sectionTitle}>
-            <Typography variant="h4" component="h2">
+            <Typography
+              variant="h4"
+              component="h2"
+              className={classes.sectionTitleTypography}
+            >
               <FormattedMessage {...messages.whatAreCookies} />
             </Typography>
           </Grid>
@@ -64,7 +68,11 @@ const CookiePolicy = (props: Props) => {
         </Grid>
         <Grid container className={classes.contentSection}>
           <Grid item xs={12} className={classes.sectionTitle}>
-            <Typography variant="h4" component="h2">
+            <Typography
+              variant="h4"
+              component="h2"
+              className={classes.sectionTitleTypography}
+            >
               <FormattedMessage {...messages.whichCookiesWeUse} />
             </Typography>
           </Grid>
@@ -83,7 +91,11 @@ const CookiePolicy = (props: Props) => {
         </Grid>
         <Grid container className={classes.contentSection}>
           <Grid item xs={12} className={classes.sectionTitle}>
-            <Typography variant="h4" component="h2">
+            <Typography
+              variant="h4"
+              component="h2"
+              className={classes.sectionTitleTypography}
+            >
               <FormattedMessage {...messages.cookiesList} />
             </Typography>
           </Grid>
@@ -126,7 +138,11 @@ const CookiePolicy = (props: Props) => {
         </Grid>
         <Grid container className={classes.contentSection}>
           <Grid item xs={12} className={classes.sectionTitle}>
-            <Typography variant="h4" component="h2">
+            <Typography
+              variant="h4"
+              component="h2"
+              className={classes.sectionTitleTypography}
+            >
               <FormattedMessage {...messages.optionsRegardingCookies} />
             </Typography>
           </Grid>
@@ -171,7 +187,11 @@ const CookiePolicy = (props: Props) => {
         </Grid>
         <Grid container className={classes.contentSection}>
           <Grid item xs={12} className={classes.sectionTitle}>
-            <Typography variant="h4" component="h2">
+            <Typography
+              variant="h4"
+              component="h2"
+              className={classes.sectionTitleTypography}
+            >
               <FormattedMessage {...messages.changesToCookiePolicy} />
             </Typography>
           </Grid>
