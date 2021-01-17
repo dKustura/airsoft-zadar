@@ -15,6 +15,8 @@ export const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         backgroundSize: '100% 100%',
       },
+      textDecoration: 'none',
+      color: 'inherit',
     },
   })
 );
