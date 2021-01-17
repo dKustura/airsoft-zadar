@@ -28,14 +28,14 @@ const Contact = () => {
 
   // TODO: Fix layout for small screens
   return (
-    <Container maxWidth="lg" style={{ overflowX: 'hidden' }}>
+    <Container maxWidth="lg">
       <Grid container>
         <Grid item className={classes.phoneImage}>
           <PhoneSvg />
         </Grid>
       </Grid>
       <Grid container>
-        <Grid item xs={12}>
+        <Grid item>
           <Typography variant="h1">
             <FormattedMessage {...messages.pageTitle} />
           </Typography>

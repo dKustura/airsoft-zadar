@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { FormattedMessage, MessageDescriptor, useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import CookieConsent from 'react-cookie-consent';
@@ -48,6 +48,7 @@ import {
   WithAuthenticationProps,
 } from 'components/Session';
 import { Routes } from 'helpers/constants';
+import { formatMessage } from 'helpers/intl';
 import messages from './messages';
 
 interface OwnProps {}
@@ -97,7 +98,7 @@ const App: React.FC<Props> = ({ authUser }) => {
     >
       <CssBaseline />
       <Helmet>
-        <title>Airsoft Klub Zadar</title>
+        <title>{formatMessage(intl, messages.siteTitle)}</title>
       </Helmet>
 
       <CookieConsent
@@ -108,12 +109,8 @@ const App: React.FC<Props> = ({ authUser }) => {
         }
         onAccept={onCookiesAccept}
         ButtonComponent={CookieBannerButton}
-        ariaAcceptLabel={intl.formatMessage(
-          messages.acceptCookiesAria as MessageDescriptor
-        )}
-        ariaDeclineLabel={intl.formatMessage(
-          messages.declineCookiesAria as MessageDescriptor
-        )}
+        ariaAcceptLabel={formatMessage(intl, messages.acceptCookiesAria)}
+        ariaDeclineLabel={formatMessage(intl, messages.declineCookiesAria)}
         containerClasses={classes.cookieBanner}
         contentClasses={classes.cookieBannerContent}
         buttonClasses={classes.cookieBannerAcceptButton}

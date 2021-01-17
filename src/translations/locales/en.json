@@ -19,6 +19,7 @@
   "src.components.App.cookieBannerLearnMore": "Learn more.",
   "src.components.App.declineCookiesAria": "Decline cookies",
   "src.components.App.declineCookiesLabel": "Decline",
+  "src.components.App.siteTitle": "Airsoft Club Zadar",
   "src.components.BurgerMenu.aboutLink": "About",
   "src.components.BurgerMenu.contactLink": "Contact",
   "src.components.BurgerMenu.homeLink": "Home",
