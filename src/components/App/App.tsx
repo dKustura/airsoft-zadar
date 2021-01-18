@@ -124,11 +124,13 @@ const App = ({ authUser }: Props): JSX.Element => {
           <div className={classes.cookieBannerText}>
             <FormattedMessage {...messages.cookieBanner} />
           </div>
-          <div className={classes.learnMoreLink}>
-            <LinkButton variant="body1" to={Routes.COOKIE_POLICY}>
-              <FormattedMessage {...messages.cookieBannerLearnMore} />
-            </LinkButton>
-          </div>
+          {location.pathname !== Routes.COOKIE_POLICY && (
+            <div className={classes.learnMoreLink}>
+              <LinkButton variant="body1" to={Routes.COOKIE_POLICY}>
+                <FormattedMessage {...messages.cookieBannerLearnMore} />
+              </LinkButton>
+            </div>
+          )}
         </Typography>
       </CookieConsent>
 
