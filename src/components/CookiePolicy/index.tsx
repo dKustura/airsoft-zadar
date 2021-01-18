@@ -19,7 +19,11 @@ import {
 import messages from './messages';
 import { useStyles } from './styles';
 import UnderlinedLink from 'components/UnderlinedLink';
-import { browserCookieLinks } from './contants';
+import {
+  browserCookieLinks,
+  cookieEducationLinks,
+  gaOptOutLink,
+} from './constants';
 
 interface Props {}
 
@@ -162,6 +166,7 @@ const CookiePolicy = (props: Props) => {
                       isExternal
                       variant="body1"
                       to={intl.formatMessage(link.translation)}
+                      color="primary"
                     >
                       {link.label}
                     </UnderlinedLink>
@@ -181,6 +186,36 @@ const CookiePolicy = (props: Props) => {
                 <FormattedMessage
                   {...messages.optionsRegardingCookiesDescription3}
                 />
+                <UnderlinedLink
+                  isExternal
+                  variant="body1"
+                  to={cookieEducationLinks.allAboutCOokies.full}
+                  color="primary"
+                >
+                  {`${cookieEducationLinks.allAboutCOokies.short}`}
+                </UnderlinedLink>
+                <FormattedMessage
+                  {...messages.optionsRegardingCookiesDescriptionLinkSeparator}
+                />
+                <UnderlinedLink
+                  isExternal
+                  variant="body1"
+                  to={cookieEducationLinks.yourOnlineChoices.full}
+                  color="primary"
+                >
+                  {`${cookieEducationLinks.yourOnlineChoices.short}.`}
+                </UnderlinedLink>
+                <FormattedMessage
+                  {...messages.optionsRegardingCookiesDescription4}
+                />
+                <UnderlinedLink
+                  isExternal
+                  variant="body1"
+                  to={gaOptOutLink.full}
+                  color="primary"
+                >
+                  {` ${gaOptOutLink.short}.`}
+                </UnderlinedLink>
               </Typography>
             </Grid>
           </Grid>

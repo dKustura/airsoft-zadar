@@ -16,7 +16,6 @@ export const useStyles = makeStyles((theme: Theme) =>
         backgroundSize: '100% 100%',
       },
       textDecoration: 'none',
-      color: 'inherit',
     },
   })
 );

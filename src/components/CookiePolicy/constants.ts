@@ -1,6 +1,6 @@
 import { MessageDescriptor } from 'react-intl';
 import { browserCookieLinkMessages as messages } from './messages';
-import { BrowserCookieLink } from './types';
+import { BrowserCookieLink, LinkDisplay } from './types';
 
 export const browserCookieLinks: BrowserCookieLink[] = [
   {
@@ -24,3 +24,19 @@ export const browserCookieLinks: BrowserCookieLink[] = [
     translation: messages.safari as MessageDescriptor,
   },
 ];
+
+export const cookieEducationLinks: { [name: string]: LinkDisplay } = {
+  allAboutCOokies: {
+    full: 'https://www.allaboutcookies.org',
+    short: 'www.allaboutcookies.org',
+  },
+  yourOnlineChoices: {
+    full: 'https://www.youronlinechoices.eu',
+    short: 'www.youronlinechoices.eu',
+  },
+};
+
+export const gaOptOutLink: LinkDisplay = {
+  full: 'https://tools.google.com/dlpage/gaoptout',
+  short: 'tools.google.com/dlpage/gaoptout',
+};

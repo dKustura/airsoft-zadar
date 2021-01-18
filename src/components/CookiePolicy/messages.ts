@@ -63,11 +63,11 @@ const messages = defineMessages({
   dostupne.`,
   optionsRegardingCookiesDescription3: `Ako želite saznati više o kolačićima, uključujući i informacije
   o tome kako se kolačići postavljaju te kako možete upravljati
-  njima ili ih isključiti, posjetite web stranicu
-  www.allaboutcookies.org ili www.youronlinechoices.eu. Ako želite
+  njima ili ih isključiti, posjetite `,
+  optionsRegardingCookiesDescriptionLinkSeparator: ' ili ',
+  optionsRegardingCookiesDescription4: ` Ako želite
   onemogućiti praćenje putem servisa Google Analytics na svim web
-  smjestima, posjetite web stranicu
-  http://tools.google.com/dlpage/gaoptout.`,
+  smjestima, posjetite web stranicu `,
   changesToCookiePolicy: 'Izmjene naše politike o kolačićima',
   changesToCookiePolicyDescription: `Svaku buduću izmjenu naše politike o kolačićima objavit ćemo na
   ovoj stranici. Molimo vas da povremeno posjetite ovu stranicu
