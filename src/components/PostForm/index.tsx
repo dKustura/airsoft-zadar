@@ -44,9 +44,7 @@ import { FirebaseError } from 'firebase';
 import { PostSchemaType, RouteParams } from './types';
 import { Post, PostCreateRequest } from 'components/Firebase/types';
 
-interface Props {}
-
-const PostForm: React.FC<Props> = () => {
+const PostForm = (): JSX.Element | null => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isPreview, setIsPreview] = useState(false);
   const [isPostSaved, setIsPostSaved] = useState(false);
@@ -54,9 +52,10 @@ const PostForm: React.FC<Props> = () => {
   const [lastLocation, setLastLocation] = useState<Location | null>(null);
   const [confirmedNavigation, setConfirmedNavigation] = useState(false);
   const [thumbnail, setThumbnail] = useState<string>();
-  const [initialPostDocumentData, setInitialPostDocumentData] = useState<
-    Post
-  >();
+  const [
+    initialPostDocumentData,
+    setInitialPostDocumentData,
+  ] = useState<Post>();
   const [initialPost, setInitialPost] = useState<PostSchemaType>(
     DEFAULT_POST_FORM_VALUES
   );
@@ -172,7 +171,9 @@ const PostForm: React.FC<Props> = () => {
     }
   }, [confirmedNavigation, lastLocation, history]);
 
-  if (!id || !isLoadingEditPost) {
+  if (id && isLoadingEditPost) {
+    return null;
+  } else {
     return (
       <Formik
         initialValues={initialPost}
@@ -376,8 +377,6 @@ const PostForm: React.FC<Props> = () => {
         </Container>
       </Formik>
     );
-  } else {
-    return null;
   }
 };
 

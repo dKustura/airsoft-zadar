@@ -33,7 +33,7 @@ const defaultSelection: Range = {
   focus: { path: [0, 0], offset: 0 },
 };
 
-const HyperlinkButton: React.FC<Props> = ({ disabled, ...buttonProps }) => {
+const HyperlinkButton = ({ disabled, ...buttonProps }: Props): JSX.Element => {
   const editor = useSlate();
   const intl = useIntl();
   const classes = useStyles();

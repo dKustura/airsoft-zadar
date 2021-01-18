@@ -42,12 +42,12 @@ type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
 
-const BurgerMenu: React.FC<Props> = ({
+const BurgerMenu = ({
   authUser,
   displayName,
   theme,
   toggleTheme,
-}) => {
+}: Props): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
   const intl = useIntl();
   const classes = useStyles();

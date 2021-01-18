@@ -26,7 +26,7 @@ interface Props {
     | ((setOpen: (open: boolean) => void) => ReactNode);
 }
 
-const DropdownMenu: React.FC<Props> = ({
+const DropdownMenu = ({
   menuButton,
   children,
   placement,
@@ -34,7 +34,7 @@ const DropdownMenu: React.FC<Props> = ({
   onOpen,
   onClose,
   disabled,
-}) => {
+}: Props): JSX.Element => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
   const classes = useStyles();

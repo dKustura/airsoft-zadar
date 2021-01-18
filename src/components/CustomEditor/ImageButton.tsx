@@ -25,7 +25,7 @@ import messages from './messages';
 
 interface Props {}
 
-const ImageButton: React.FC<Props> = (props) => {
+const ImageButton = (props: Props): JSX.Element => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const editor = useSlate();
   const intl = useIntl();

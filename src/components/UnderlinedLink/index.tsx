@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { PropsWithChildren } from 'react';
 import { Link } from '@material-ui/core';
 
 import { useStyles } from './styles';
@@ -11,12 +12,12 @@ interface Props {
   readonly isExternal?: boolean;
 }
 
-const UnderlinedLink: React.FC<Props> = ({
+const UnderlinedLink = ({
   to,
   children,
   variant = 'h6',
   isExternal = false,
-}) => {
+}: PropsWithChildren<Props>): JSX.Element => {
   const classes = useStyles();
 
   if (isExternal) {

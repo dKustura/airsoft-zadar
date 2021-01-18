@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { PropsWithChildren } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -12,12 +13,12 @@ interface Props {
   readonly variant: Variant;
 }
 
-const LinkButton: React.FC<Props> = ({
+const LinkButton = ({
   to,
   isExternal = false,
   variant,
   children,
-}) => {
+}: PropsWithChildren<Props>): JSX.Element => {
   const classes = useStyles();
 
   const childComponent = (

@@ -23,7 +23,7 @@ interface Props {
   readonly typographyVariant?: Variant;
 }
 
-const UserMenu: React.FC<Props> = ({ displayName, typographyVariant }) => {
+const UserMenu = ({ displayName, typographyVariant }: Props): JSX.Element => {
   const intl = useIntl();
   const firebase = useFirebase();
   const { enqueueSnackbar } = useSnackbar();

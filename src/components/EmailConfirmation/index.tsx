@@ -27,7 +27,7 @@ interface Props {
   readonly isLoading?: boolean;
 }
 
-const EmailConfirmation: React.FC<Props> = ({ isConfirmed, isLoading }) => {
+const EmailConfirmation = ({ isConfirmed, isLoading }: Props): JSX.Element => {
   const firebase = useFirebase();
   const history = useHistory();
   const authUser = useSelector(authUserSelector);

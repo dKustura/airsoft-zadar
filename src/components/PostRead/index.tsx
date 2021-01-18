@@ -13,7 +13,7 @@ interface Props {
   readonly content: any;
 }
 
-const PostRead: React.FC<Props> = ({ title, content }) => {
+const PostRead = ({ title, content }: Props): JSX.Element => {
   const classes = useStyles();
 
   return (

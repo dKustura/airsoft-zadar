@@ -23,11 +23,11 @@ interface Props {
   readonly multiple?: boolean;
 }
 
-const Dropzone: React.FC<Props> = ({
+const Dropzone = ({
   onDropAccepted,
   onDropRejected,
   multiple,
-}) => {
+}: Props): JSX.Element => {
   const { getRootProps, getInputProps } = useDropzone({
     multiple,
     accept: 'image/*',

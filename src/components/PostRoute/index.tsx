@@ -4,9 +4,7 @@ import PostForm from 'components/PostForm';
 import PostView from 'components/PostView';
 import { Routes } from 'helpers/constants';
 
-interface Props {}
-
-const PostRoute: React.FC<Props> = () => {
+const PostRoute = (): JSX.Element => {
   const match = useRouteMatch();
 
   return (

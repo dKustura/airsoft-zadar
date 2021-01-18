@@ -4,7 +4,7 @@ interface Props {
   readonly isAnimated: boolean;
 }
 
-const BackgroundWaves: React.FC<Props> = ({ isAnimated }) => (
+const BackgroundWaves = ({ isAnimated }: Props): JSX.Element => (
   <svg
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"

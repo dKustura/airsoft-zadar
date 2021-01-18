@@ -14,7 +14,7 @@ import messages from './messages';
 
 interface Props {}
 
-const MarksRemoveButton: React.FC<Props> = ({ ...other }) => {
+const MarksRemoveButton = (props: Props) => {
   const editor = useSlate();
   const intl = useIntl();
 
@@ -29,7 +29,7 @@ const MarksRemoveButton: React.FC<Props> = ({ ...other }) => {
       title={intl.formatMessage(messages.removeFormatting as MessageDescriptor)}
     >
       <ToolbarToggleButton
-        {...other}
+        {...props}
         value="removeStyle"
         selected={false}
         onChange={removeMarks}

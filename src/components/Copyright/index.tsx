@@ -4,9 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { Typography } from '@material-ui/core';
 import messages from './messages';
 
-interface Props {}
-
-const index: React.FC<Props> = () => {
+const Copyright = (): JSX.Element => {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       <FormattedMessage {...messages.copyright} />
@@ -15,4 +13,4 @@ const index: React.FC<Props> = () => {
   );
 };
 
-export default index;
+export default Copyright;

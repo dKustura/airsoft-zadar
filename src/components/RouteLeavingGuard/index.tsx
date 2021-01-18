@@ -13,7 +13,7 @@ interface Props {
   when?: boolean | undefined;
 }
 
-const RouteLeavingGuard: React.FC<Props> = ({ when }) => {
+const RouteLeavingGuard = ({ when }: Props): JSX.Element => {
   const [modalVisible, setModalVisible] = useState(false);
   const [lastLocation, setLastLocation] = useState<Location | null>(null);
   const [confirmedNavigation, setConfirmedNavigation] = useState(false);

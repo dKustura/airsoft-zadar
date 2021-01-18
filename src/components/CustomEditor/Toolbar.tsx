@@ -26,9 +26,7 @@ import { MarkFormat, BlockFormat } from './helpers';
 import BlockToggleButton from './BlockToggleButton';
 import messages from './messages';
 
-interface Props {}
-
-const Toolbar: React.FC<Props> = () => {
+const Toolbar = (): JSX.Element => {
   const editor = useSlate();
   const intl = useIntl();
   const classes = useStyles();

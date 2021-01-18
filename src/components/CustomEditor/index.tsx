@@ -47,13 +47,13 @@ interface Props extends Omit<FieldInputProps<Node[]>, 'onChange' | 'onBlur'> {
 
 const readOnlyHandler = () => null;
 
-const CustomEditor: React.FC<Props> = ({
+const CustomEditor = ({
   value,
   onChange,
   error,
   onBlur,
   readOnly,
-}) => {
+}: Props): JSX.Element => {
   const classes = useStyles();
 
   const editor = useMemo(

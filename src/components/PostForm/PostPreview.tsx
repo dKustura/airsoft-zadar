@@ -16,7 +16,7 @@ interface Props {
   readonly onExit: () => void;
 }
 
-const PostPreview: React.FC<Props> = ({ onExit }) => {
+const PostPreview = ({ onExit }: Props): JSX.Element => {
   const classes = useStyles();
 
   return (

@@ -9,7 +9,7 @@ interface Props {
   readonly onClick: () => void;
 }
 
-const BurgerMenuIcon: React.FC<Props> = ({ isActive, onClick }) => {
+const BurgerMenuIcon = ({ isActive, onClick }: Props): JSX.Element => {
   const classes = useStyles();
 
   return (

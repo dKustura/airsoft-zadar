@@ -18,9 +18,7 @@ import './index.scss';
 // Helpers
 import { PostWithId } from 'components/Firebase/types';
 
-interface Props {}
-
-const Home: React.FC<Props> = () => {
+const Home = (): JSX.Element => {
   // TODO: Use useReducer
   const [isAnimated, setIsAnimated] = useState(false);
   const [isHovered, setIsHovered] = useState(false);

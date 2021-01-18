@@ -15,7 +15,7 @@ import messages from './messages';
 
 interface Props {}
 
-const DropdownStylingButton: React.FC<Props> = (props) => {
+const DropdownStylingButton = (props: Props): JSX.Element => {
   const editor = useSlate();
   const intl = useIntl();
   const classes = useStyles();

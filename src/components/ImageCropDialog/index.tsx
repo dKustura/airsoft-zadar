@@ -30,12 +30,12 @@ interface Props {
 const CROP_ZOOM_SPEED = 1;
 const CROP_ASPECT_RATIO = 16 / 9;
 
-const ImageCropDialog: React.FC<Props> = ({
+const ImageCropDialog = ({
   isOpen,
   src,
   handleClose,
   handleConfirm,
-}) => {
+}: Props): JSX.Element => {
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
   const [zoom, setZoom] = useState(1);

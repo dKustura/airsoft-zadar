@@ -62,7 +62,7 @@ const onClickDismiss = (key: string | number | undefined) => () => {
   notistackRef.current?.closeSnackbar(key);
 };
 
-const App: React.FC<Props> = ({ authUser }) => {
+const App = ({ authUser }: Props): JSX.Element => {
   const classes = useStyles();
   const location = useLocation();
   const firebase = useFirebase();

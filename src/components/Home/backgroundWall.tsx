@@ -13,7 +13,7 @@ interface OwnProps {
 
 type Props = OwnProps & ReturnType<typeof mapStateToProps>;
 
-const BackgroundWall: React.FC<Props> = ({ isAnimated, theme }) => {
+const BackgroundWall = ({ isAnimated, theme }: Props): JSX.Element => {
   const classes = useStyles();
   return (
     <svg

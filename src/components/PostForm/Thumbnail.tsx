@@ -29,12 +29,12 @@ interface Props extends WithStyles<typeof styles> {
   readonly shouldCloseDialogs?: boolean;
 }
 
-const Thumbnail: React.FC<Props> = ({
+const Thumbnail = ({
   src,
   onSelection,
   classes,
   shouldCloseDialogs,
-}) => {
+}: Props): JSX.Element => {
   const [isDropzoneDialogOpen, setIsDropzoneDialogOpen] = useState(false);
   const [isCropDialogOpen, setIsCropDialogOpen] = useState(false);
   const [image, setImage] = useState(src);

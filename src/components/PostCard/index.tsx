@@ -27,13 +27,13 @@ interface Props {
   readonly lastModifiedAt?: Date;
 }
 
-const PostCard: React.FC<Props> = ({
+const PostCard = ({
   id,
   thumbnail,
   title,
   content,
   lastModifiedAt,
-}) => {
+}: Props): JSX.Element => {
   const classes = useStyles();
   const [locale] = useLocale();
 

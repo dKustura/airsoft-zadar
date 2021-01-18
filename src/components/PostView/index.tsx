@@ -26,7 +26,7 @@ interface OwnProps {}
 
 type Props = OwnProps & ReturnType<typeof mapStateToProps>;
 
-const PostView: React.FC<Props> = ({ authUser }) => {
+const PostView = ({ authUser }: Props): JSX.Element | null => {
   const [post, setPost] = useState<any>();
   const { id } = useParams<RouteParams>();
   const firebase = useFirebase();
@@ -61,7 +61,9 @@ const PostView: React.FC<Props> = ({ authUser }) => {
       });
   }, [firebase, id, enqueueSnackbar, history]);
 
-  if (post) {
+  if (!post) {
+    return null;
+  } else {
     return (
       <>
         <Container component="main" maxWidth="md">
@@ -101,8 +103,6 @@ const PostView: React.FC<Props> = ({ authUser }) => {
         </Container>
       </>
     );
-  } else {
-    return null;
   }
 };
 

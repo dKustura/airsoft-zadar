@@ -48,12 +48,12 @@ type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
 
-const Header: React.FC<Props> = ({
+const Header = ({
   theme,
   authUser,
   displayName,
   toggleTheme,
-}) => {
+}: Props): JSX.Element => {
   const intl = useIntl();
   const classes = useStyles();
   const [locale, setLocale] = useLocale();

@@ -20,9 +20,7 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-interface Props {}
-
-const EmailAction: React.FC<Props> = () => {
+const EmailAction = (): JSX.Element => {
   const firebase = useFirebase();
   const query = useQuery();
   const history = useHistory();

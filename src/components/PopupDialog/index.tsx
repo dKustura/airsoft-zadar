@@ -24,7 +24,7 @@ interface Props {
   readonly handleConfirm: () => void;
 }
 
-const PopupDialog: React.FC<Props> = ({
+const PopupDialog = ({
   isOpen,
   title,
   description,
@@ -32,7 +32,7 @@ const PopupDialog: React.FC<Props> = ({
   handleConfirm,
   cancelLabel,
   confirmLabel,
-}) => {
+}: Props): JSX.Element => {
   const classes = useStyles();
 
   return (

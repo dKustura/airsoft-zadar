@@ -1,8 +1,6 @@
 import * as React from 'react';
 
-interface Props {}
-
-const Waves: React.FC<Props> = () => (
+const Waves = (): JSX.Element => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
     <path
       fill="#29ABE2"

@@ -44,7 +44,7 @@ import { RootState } from 'types';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
-const SignUp: React.FC<Props> = ({ setAuthUser, authUser }: Props) => {
+const SignUp = ({ setAuthUser, authUser }: Props): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [locale] = useLocale();

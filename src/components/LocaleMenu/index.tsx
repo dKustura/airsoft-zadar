@@ -21,7 +21,7 @@ interface Props {
   readonly onChange: (languageCode: Locale) => void;
 }
 
-const LocaleMenu: React.FC<Props> = ({ languageCode, onChange }) => {
+const LocaleMenu = ({ languageCode, onChange }: Props): JSX.Element => {
   const intl = useIntl();
   const classes = useStyles();
 

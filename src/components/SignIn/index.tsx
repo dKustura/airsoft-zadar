@@ -33,9 +33,7 @@ import { FirebaseError } from 'firebase';
 import { FormattedMessage, useIntl, MessageDescriptor } from 'react-intl';
 import messages from './messages';
 
-interface Props {}
-
-const SignIn: React.FC<Props> = () => {
+const SignIn = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const firebase = useFirebase();

@@ -30,9 +30,7 @@ import messages from './messages';
 // Types
 import { FirebaseError } from 'firebase';
 
-interface Props {}
-
-const AddAdmin: React.FC<Props> = () => {
+const AddAdmin = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const intl = useIntl();
   const firebase = useFirebase();

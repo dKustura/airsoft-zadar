@@ -24,7 +24,7 @@ interface OwnProps {}
 
 type Props = OwnProps & ReturnType<typeof mapStateToProps>;
 
-const AppWrapper: React.FC<Props> = ({ theme }: Props) => {
+const AppWrapper = ({ theme }: Props): JSX.Element => {
   const [locale] = useLocale();
   const messages = (translations as any)[locale];
 
