@@ -162,7 +162,7 @@ const SignIn = (): JSX.Element => {
               </Grid>
 
               <Grid container alignItems="center" direction="column">
-                <Grid item>
+                {/* <Grid item>
                   <Link
                     component={MaterialRouterLink}
                     to="/resetPassword"
@@ -170,7 +170,7 @@ const SignIn = (): JSX.Element => {
                   >
                     <FormattedMessage {...messages.forgotPasswordQuestion} />
                   </Link>
-                </Grid>
+                </Grid> */}
                 <Grid item>
                   <Link
                     component={MaterialRouterLink}
