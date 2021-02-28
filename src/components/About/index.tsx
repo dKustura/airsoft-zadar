@@ -151,7 +151,7 @@ const About = () => {
 
         <Grid container justify="center">
           <Grid item xs={12} className={classes.mainDescription}>
-            <Typography variant="h5" component="p" display="inline">
+            <Typography variant="h5" component="span">
               <FormattedMessage {...messages.aboutClub} />
               <div className={classes.storiesLink}>
                 <LinkButton variant="h5" to={Routes.HOME}>

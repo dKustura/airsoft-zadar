@@ -4502,10 +4502,10 @@ direction@^1.0.3:
   resolved "https://registry.yarnpkg.com/direction/-/direction-1.0.4.tgz#2b86fb686967e987088caf8b89059370d4837442"
   integrity sha512-GYqKi1aH7PJXxdhTeZBFrg8vUBeKXi+cNprXsC1kpJcbcVnV9wBsrOu1cQEdG0WeQwlfHiy3XvnKfIrJ2R0NzQ==
 
-dkustura-react-scripts@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/dkustura-react-scripts/-/dkustura-react-scripts-0.2.1.tgz#f4860874e63981c3320cbadc789749eecfc97b29"
-  integrity sha512-7wSK0Av/HUsaoZlrxb72PyN/UCMBXtA8XRRZqJJEHk/lbN5pGjqMGCJzfnTNTSFbnMww2X0eDmvSsNlx3JSyLg==
+dkustura-react-scripts@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/dkustura-react-scripts/-/dkustura-react-scripts-0.2.2.tgz#de0631cd83020f7e29bfebb1fee8a9d2e5b002c5"
+  integrity sha512-TmiIGq5g9tNze4hXErQv3fF5meltIHhOanYdSWVnbd9B8Y06i1GMFM14zKoZL1ZLlfLPLg/zwRwj5o8zmscn2w==
   dependencies:
     "@babel/core" "7.9.0"
     "@svgr/webpack" "4.3.3"

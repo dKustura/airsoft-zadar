@@ -120,7 +120,7 @@ const App = ({ authUser }: Props): JSX.Element => {
         disableStyles
         debug
       >
-        <Typography component="p" display="inline">
+        <Typography component="span">
           <div className={classes.cookieBannerText}>
             <FormattedMessage {...messages.cookieBanner} />
           </div>
