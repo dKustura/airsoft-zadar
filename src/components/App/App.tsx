@@ -118,7 +118,6 @@ const App = ({ authUser }: Props): JSX.Element => {
         buttonWrapperClasses={classes.cookieBannerButtonContainer}
         disableButtonStyles
         disableStyles
-        debug
       >
         <Typography component="span">
           <div className={classes.cookieBannerText}>
