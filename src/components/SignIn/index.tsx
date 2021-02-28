@@ -3,6 +3,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import { useFirebase } from 'components/Firebase';
 import { useSnackbar } from 'notistack';
+import { FormattedMessage, useIntl, MessageDescriptor } from 'react-intl';
 
 // Components
 import {
@@ -30,7 +31,6 @@ import { Routes } from 'helpers/constants';
 
 // Types
 import { FirebaseError } from 'firebase';
-import { FormattedMessage, useIntl, MessageDescriptor } from 'react-intl';
 import messages from './messages';
 
 const SignIn = (): JSX.Element => {

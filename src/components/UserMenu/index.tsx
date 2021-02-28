@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useHistory } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
 // Components
@@ -9,6 +10,7 @@ import DropdownMenu from 'components/DropdownMenu';
 // Helpers
 import { useStyles } from './styles';
 import { errorNotification, successNotification } from 'helpers/snackbar';
+import { Routes } from 'helpers/constants';
 
 // i18n
 import { FormattedMessage, useIntl, MessageDescriptor } from 'react-intl';
@@ -26,6 +28,7 @@ interface Props {
 const UserMenu = ({ displayName, typographyVariant }: Props): JSX.Element => {
   const intl = useIntl();
   const firebase = useFirebase();
+  const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
   const classes = useStyles();
 
@@ -61,6 +64,13 @@ const UserMenu = ({ displayName, typographyVariant }: Props): JSX.Element => {
 
   return (
     <DropdownMenu menuButton={dropdownButton}>
+      <MenuItem
+        onClick={() => {
+          history.push(Routes.CHANGE_PASSWORD);
+        }}
+      >
+        <FormattedMessage {...messages.changePasswordItem} />
+      </MenuItem>
       <MenuItem
         onClick={() =>
           firebase

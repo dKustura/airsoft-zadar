@@ -87,8 +87,12 @@ class Firebase {
     return Promise.resolve();
   };
 
-  doPasswordUpdate = (password: string) => {
-    this.auth.currentUser?.updatePassword(password);
+  doUpdatePasword = (password: string) => {
+    if (!this.auth.currentUser) {
+      throw new Error('User not authenticated.');
+    }
+
+    return this.auth.currentUser.updatePassword(password);
   };
 
   onAuthUserListener = (next: (user: User) => void, fallback: () => void) =>

@@ -23,6 +23,7 @@ import About from 'components/About';
 import Contact from 'components/Contact';
 import CookiePolicy from 'components/CookiePolicy';
 import EmailConfirmation from 'components/EmailConfirmation';
+import ChangePassword from 'components/ChangePassword';
 
 // Other Componenets
 import {
@@ -155,6 +156,7 @@ const App = ({ authUser }: Props): JSX.Element => {
           <Route path={Routes.CONTACT} component={Contact} />
           <Route path={Routes.POST} component={PostRoute} />
           <Route path={Routes.ADD_ADMIN} component={AddAdmin} />
+          <Route path={Routes.CHANGE_PASSWORD} component={ChangePassword} />
           <Route path={Routes.SIGN_UP} component={SignUp} />
           <Route path={Routes.SIGN_IN} component={SignIn} />
           <Route

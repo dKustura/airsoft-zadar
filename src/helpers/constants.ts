@@ -11,4 +11,5 @@ export const Routes = {
   EMAIL_CONFIRMATION: '/confirmEmail',
   EMAIL_ACTION: '/emailAction',
   COOKIE_POLICY: '/cookiePolicy',
+  CHANGE_PASSWORD: '/changePassword',
 };
