@@ -66,10 +66,10 @@ const UserMenu = ({ displayName, typographyVariant }: Props): JSX.Element => {
     <DropdownMenu menuButton={dropdownButton}>
       <MenuItem
         onClick={() => {
-          history.push(Routes.CHANGE_PASSWORD);
+          history.push(Routes.SETTINGS);
         }}
       >
-        <FormattedMessage {...messages.changePasswordItem} />
+        <FormattedMessage {...messages.settingsItem} />
       </MenuItem>
       <MenuItem
         onClick={() =>

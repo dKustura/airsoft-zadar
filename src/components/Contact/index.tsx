@@ -12,7 +12,7 @@ import {
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import LinkButton from 'components/LinkButton';
-import PhoneSvg from './PhoneSvg';
+// import PhoneSvg from './PhoneSvg';
 
 // Helpers
 import { useStyles } from './styles';
@@ -29,11 +29,11 @@ const Contact = () => {
   // TODO: Fix layout for small screens
   return (
     <Container maxWidth="lg">
-      <Grid container>
+      {/* <Grid container>
         <Grid item className={classes.phoneImage}>
           <PhoneSvg />
         </Grid>
-      </Grid>
+      </Grid> */}
       <Grid container>
         <Grid item>
           <Typography variant="h1">

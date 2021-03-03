@@ -68,7 +68,7 @@ const SignIn = (): JSX.Element => {
 
             firebase
               .doSignInWithEmailAndPassword(values.email, values.password)
-              .then((credentials) => {
+              .then(() => {
                 enqueueSnackbar(
                   intl.formatMessage(
                     messages.loggedInSuccessfully as MessageDescriptor
