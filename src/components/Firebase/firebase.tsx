@@ -4,7 +4,7 @@ import 'firebase/firestore';
 import 'firebase/functions';
 import 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
-import { get, all, collection } from 'typesaurus';
+import { get, collection } from 'typesaurus';
 
 import firebaseConfig from './config';
 import { functionNames } from './constants';
@@ -20,9 +20,10 @@ import {
   RoleAddRequest,
   RoleRemoveRequest,
 } from './types';
-import { createFunction } from './utils';
+import { createFunction, getAll } from './utils';
 
-firebase.initializeApp(firebaseConfig);
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+const functions = firebaseApp.functions('europe-west1');
 
 class Firebase {
   public emailAuthProvider: typeof firebase.auth.EmailAuthProvider;
@@ -40,10 +41,10 @@ class Firebase {
 
     /* Firebase APIs */
 
-    this.auth = firebase.auth();
-    this.firestore = firebase.firestore();
-    this.functions = firebase.functions();
-    this.storage = firebase.storage();
+    this.auth = firebaseApp.auth();
+    this.firestore = firebaseApp.firestore();
+    this.functions = functions;
+    this.storage = firebaseApp.storage();
 
     /* Social Sign In Method Provider */
 
@@ -141,24 +142,14 @@ class Firebase {
   // if this turns ugly, try redux-firestore with react-redux-firebase
   // Plus an additional cloud function which returns the number of unread notifications
 
-  users = () => this.firestore.collection('users');
+  // users1 = () => this.firestore.collection('users');
+  // users = collection<any>('users');
 
-  getUser = (uid: string) => this.users().doc(uid).get();
+  // getUser = (uid: string) => this.users().doc(uid).get();
 
   posts = collection<Post>('posts');
 
-  getAllPosts = () =>
-    all(this.posts).then((snapshot) => {
-      const dataArray: PostWithId[] = [];
-      snapshot.forEach((doc) => {
-        const data: PostWithId = {
-          id: doc.ref.id,
-          ...doc.data,
-        };
-        dataArray.push(data);
-      });
-      return dataArray;
-    });
+  getAllPosts = () => getAll<PostWithId>(this.posts);
 
   getPost = (uid: string) => get(this.posts, uid);
 
@@ -168,41 +159,57 @@ class Firebase {
 
   // Admin role
   doAddAdminRole = createFunction<RoleAddRequest>(
+    functions,
     functionNames.ADD_ADMIN_ROLE_FUNCTION
   );
 
   doRemoveAdminRole = createFunction<RoleAddRequest>(
+    functions,
     functionNames.REMOVE_ADMIN_ROLE_FUNCTION
   );
 
   doSetAdminRole = createFunction<AdminRoleSetRequest>(
+    functions,
     functionNames.SET_ADMIN_ROLE_FUNCTION
   );
 
   // Member role
   doAddMemberRole = createFunction<RoleAddRequest>(
+    functions,
     functionNames.ADD_MEMBER_ROLE_FUNCTION
   );
 
   doRemoveMemberRole = createFunction<RoleRemoveRequest>(
+    functions,
     functionNames.REMOVE_MEMBER_ROLE_FUNCTION
   );
 
   doSetMemberRole = createFunction<MemberRoleSetRequest>(
+    functions,
     functionNames.SET_MEMBER_ROLE_FUNCTION
+  );
+
+  ///// User Management
+
+  doGetAllUsers = createFunction<undefined>(
+    functions,
+    functionNames.GET_ALL_USERS_FUNCTION
   );
 
   //// Post Management
 
   doCreatePost = createFunction<PostCreateRequest>(
+    functions,
     functionNames.CREATE_POST_FUNCTION
   );
 
   doUpdatePost = createFunction<PostUpdateRequest>(
+    functions,
     functionNames.UPDATE_POST_FUNCTION
   );
 
   doDeletePost = createFunction<PostDeleteRequest>(
+    functions,
     functionNames.DELETE_POST_FUNCTION
   );
 
