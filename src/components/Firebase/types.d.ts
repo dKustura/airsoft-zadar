@@ -1,4 +1,5 @@
 import { Node } from 'slate';
+import { User } from 'firebase';
 
 export interface Identifiable {
   readonly id: string;
@@ -11,6 +12,18 @@ export interface Post {
 }
 
 export interface PostWithId extends Post, Identifiable {}
+
+export interface CustomClaims {
+  [key: string]: boolean;
+}
+
+export interface GetUserResult extends User {
+  readonly customClaims?: CustomClaims;
+}
+
+export interface GetUsersResult {
+  readonly users: GetUserResult[];
+}
 
 export interface PostCreateRequest {
   readonly title: string;

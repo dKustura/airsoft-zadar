@@ -21,6 +21,7 @@ import {
 } from '@material-ui/core';
 import ProfileSettings from 'components/ProfileSettings';
 import PasswordSettings from 'components/PasswordSettings';
+import AdminSettings from 'components/AdminSettings';
 
 // Helpers
 import messages from './messages';
@@ -43,6 +44,8 @@ const Settings = () => {
 
   const onPasswordSettingsClick = onSettingsMenuItemClick(subRoutes.PASSWORD);
 
+  const onAdminSettingsClick = onSettingsMenuItemClick(subRoutes.ADMIN);
+
   return (
     <Container component="div" maxWidth={isSmallScreen ? 'sm' : 'lg'}>
       <Grid container style={{ paddingTop: 64 }}>
@@ -59,6 +62,12 @@ const Settings = () => {
                   <FormattedMessage {...messages.passwordSettingsMenuItem} />
                 </Typography>
               </MenuItem>
+              <MenuItem onClick={onAdminSettingsClick}>
+                <Typography>
+                  {/* <FormattedMessage {...messages.passwordSettingsMenuItem} /> */}
+                  Admin
+                </Typography>
+              </MenuItem>
               <MenuItem>
                 <Typography style={{ color: 'red' }}>
                   <FormattedMessage {...messages.signOutMenuItem} />
@@ -72,11 +81,15 @@ const Settings = () => {
           <Grid container>
             <Switch>
               <Route
-                path={`${match.path}/password`}
+                path={`${match.path}${subRoutes.PASSWORD}`}
                 component={PasswordSettings}
               />
               <Route
-                path={[match.path, `${match.path}/profile`]}
+                path={[match.path, `${match.path}${subRoutes.ADMIN}`]}
+                component={AdminSettings}
+              />
+              <Route
+                path={[match.path, `${match.path}${subRoutes.PROFILE}`]}
                 component={ProfileSettings}
               />
               <Redirect to={Routes.HOME} />

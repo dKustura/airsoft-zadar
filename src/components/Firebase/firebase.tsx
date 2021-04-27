@@ -11,6 +11,7 @@ import { functionNames } from './constants';
 import { User } from 'types';
 import {
   AdminRoleSetRequest,
+  GetUsersResult,
   MemberRoleSetRequest,
   Post,
   PostCreateRequest,
@@ -191,7 +192,7 @@ class Firebase {
 
   ///// User Management
 
-  doGetAllUsers = createFunction<undefined>(
+  doGetAllUsers = createFunction<undefined, GetUsersResult>(
     functions,
     functionNames.GET_ALL_USERS_FUNCTION
   );
